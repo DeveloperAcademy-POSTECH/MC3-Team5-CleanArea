@@ -55,6 +55,7 @@
 		65C076A12A56F94B003E6D92 /* YeowooUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeowooUITests.swift; sourceTree = "<group>"; };
 		65C076A32A56F94B003E6D92 /* YeowooUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeowooUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		65C076B72A57107A003E6D92 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		65C076CC2A57148B003E6D92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +119,7 @@
 				65C076B12A5709F6003E6D92 /* Infos */,
 				65C076B22A5709FE003E6D92 /* Sources */,
 				65C076862A56F949003E6D92 /* YeowooApp.swift */,
+				65C076CC2A57148B003E6D92 /* Info.plist */,
 				65C0768A2A56F94B003E6D92 /* Assets.xcassets */,
 				65C0768C2A56F94B003E6D92 /* Preview Content */,
 			);
@@ -511,6 +513,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Yeowoo/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Yeowoo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -539,6 +542,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Yeowoo/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Yeowoo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
