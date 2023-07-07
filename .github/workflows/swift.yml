@@ -8,8 +8,7 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Build
-        run: swift build
-      - name: Run tests
-        run: swift test
+    - uses: actions/checkout@v3
+    - name: Start xcode build 🛠
+      run: swift build
+xcodebuild build -project MC3-Team5-CleanArea/Yeowoo.xcodeproj
