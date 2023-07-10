@@ -23,7 +23,9 @@ struct YeowooApp: App {
 	
     var body: some Scene {
         WindowGroup {
-            ContentView()
+//            ContentView()
+			TestView()
+				.environmentObject(TestViewModel())
         }
     }
 }

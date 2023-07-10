@@ -24,6 +24,11 @@
 		65C076C72A571151003E6D92 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 65C076C62A571151003E6D92 /* FirebaseFunctions */; };
 		65C076C92A571151003E6D92 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 65C076C82A571151003E6D92 /* FirebaseMessaging */; };
 		65C076CB2A571151003E6D92 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 65C076CA2A571151003E6D92 /* FirebaseStorage */; };
+		65C076FD2A5A7F1F003E6D92 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076FC2A5A7F1F003E6D92 /* FirebaseError.swift */; };
+		65C076FF2A5A7F2A003E6D92 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076FE2A5A7F2A003E6D92 /* FirebaseService.swift */; };
+		65C077042A5B915F003E6D92 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077032A5B915F003E6D92 /* Test.swift */; };
+		65C077062A5B9BC2003E6D92 /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077052A5B9BC2003E6D92 /* TestViewModel.swift */; };
+		65C077082A5B9BC9003E6D92 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077072A5B9BC9003E6D92 /* TestView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +61,11 @@
 		65C076A32A56F94B003E6D92 /* YeowooUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeowooUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		65C076B72A57107A003E6D92 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		65C076CC2A57148B003E6D92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		65C076FC2A5A7F1F003E6D92 /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
+		65C076FE2A5A7F2A003E6D92 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		65C077032A5B915F003E6D92 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
+		65C077052A5B9BC2003E6D92 /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
+		65C077072A5B9BC9003E6D92 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +191,7 @@
 		65C076B32A570A07003E6D92 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				65C077032A5B915F003E6D92 /* Test.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -188,6 +199,8 @@
 		65C076B42A570A11003E6D92 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				65C076FC2A5A7F1F003E6D92 /* FirebaseError.swift */,
+				65C076FE2A5A7F2A003E6D92 /* FirebaseService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -195,6 +208,7 @@
 		65C076B52A570A19003E6D92 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				65C077052A5B9BC2003E6D92 /* TestViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -202,6 +216,7 @@
 		65C076B62A570A23003E6D92 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				65C077072A5B9BC9003E6D92 /* TestView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -351,7 +366,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65C077082A5B9BC9003E6D92 /* TestView.swift in Sources */,
+				65C077062A5B9BC2003E6D92 /* TestViewModel.swift in Sources */,
+				65C076FD2A5A7F1F003E6D92 /* FirebaseError.swift in Sources */,
 				65C076892A56F949003E6D92 /* ContentView.swift in Sources */,
+				65C076FF2A5A7F2A003E6D92 /* FirebaseService.swift in Sources */,
+				65C077042A5B915F003E6D92 /* Test.swift in Sources */,
 				65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
