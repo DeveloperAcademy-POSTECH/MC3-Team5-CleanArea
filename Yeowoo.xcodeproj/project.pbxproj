@@ -14,7 +14,6 @@
 		65C076982A56F94B003E6D92 /* YeowooTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076972A56F94B003E6D92 /* YeowooTests.swift */; };
 		65C076A22A56F94B003E6D92 /* YeowooUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076A12A56F94B003E6D92 /* YeowooUITests.swift */; };
 		65C076A42A56F94B003E6D92 /* YeowooUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076A32A56F94B003E6D92 /* YeowooUITestsLaunchTests.swift */; };
-		65C076B82A57107A003E6D92 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65C076B72A57107A003E6D92 /* GoogleService-Info.plist */; };
 		65C076BB2A571151003E6D92 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 65C076BA2A571151003E6D92 /* FirebaseAuth */; };
 		65C076BD2A571151003E6D92 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 65C076BC2A571151003E6D92 /* FirebaseDatabase */; };
 		65C076BF2A571151003E6D92 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 65C076BE2A571151003E6D92 /* FirebaseDatabaseSwift */; };
@@ -29,6 +28,7 @@
 		65C077042A5B915F003E6D92 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077032A5B915F003E6D92 /* Test.swift */; };
 		65C077062A5B9BC2003E6D92 /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077052A5B9BC2003E6D92 /* TestViewModel.swift */; };
 		65C077082A5B9BC9003E6D92 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077072A5B9BC9003E6D92 /* TestView.swift */; };
+		65C0770D2A5BD443003E6D92 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65C0770C2A5BD443003E6D92 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,13 +59,13 @@
 		65C0769D2A56F94B003E6D92 /* YeowooUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YeowooUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C076A12A56F94B003E6D92 /* YeowooUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeowooUITests.swift; sourceTree = "<group>"; };
 		65C076A32A56F94B003E6D92 /* YeowooUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeowooUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		65C076B72A57107A003E6D92 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		65C076CC2A57148B003E6D92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		65C076FC2A5A7F1F003E6D92 /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
 		65C076FE2A5A7F2A003E6D92 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		65C077032A5B915F003E6D92 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		65C077052A5B9BC2003E6D92 /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
 		65C077072A5B9BC9003E6D92 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		65C0770C2A5BD443003E6D92 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,7 +171,7 @@
 		65C076B12A5709F6003E6D92 /* Infos */ = {
 			isa = PBXGroup;
 			children = (
-				65C076B72A57107A003E6D92 /* GoogleService-Info.plist */,
+				65C0770C2A5BD443003E6D92 /* GoogleService-Info.plist */,
 			);
 			path = Infos;
 			sourceTree = "<group>";
@@ -341,7 +341,7 @@
 			files = (
 				65C0768E2A56F94B003E6D92 /* Preview Assets.xcassets in Resources */,
 				65C0768B2A56F94B003E6D92 /* Assets.xcassets in Resources */,
-				65C076B82A57107A003E6D92 /* GoogleService-Info.plist in Resources */,
+				65C0770D2A5BD443003E6D92 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
