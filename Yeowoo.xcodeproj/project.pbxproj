@@ -29,6 +29,10 @@
 		65C077062A5B9BC2003E6D92 /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077052A5B9BC2003E6D92 /* TestViewModel.swift */; };
 		65C077082A5B9BC9003E6D92 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077072A5B9BC9003E6D92 /* TestView.swift */; };
 		65C0770D2A5BD443003E6D92 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65C0770C2A5BD443003E6D92 /* GoogleService-Info.plist */; };
+		65C0770F2A5BDACF003E6D92 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C0770E2A5BDACF003E6D92 /* User.swift */; };
+		65C077152A5BF322003E6D92 /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077142A5BF322003E6D92 /* KeyChainManager.swift */; };
+		65C077172A5BF4A7003E6D92 /* KeyChainAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077162A5BF4A7003E6D92 /* KeyChainAccount.swift */; };
+		65C077192A5BF4C7003E6D92 /* KeyChainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077182A5BF4C7003E6D92 /* KeyChainError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +70,10 @@
 		65C077052A5B9BC2003E6D92 /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
 		65C077072A5B9BC9003E6D92 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		65C0770C2A5BD443003E6D92 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		65C0770E2A5BDACF003E6D92 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		65C077142A5BF322003E6D92 /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
+		65C077162A5BF4A7003E6D92 /* KeyChainAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainAccount.swift; sourceTree = "<group>"; };
+		65C077182A5BF4C7003E6D92 /* KeyChainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				65C077032A5B915F003E6D92 /* Test.swift */,
+				65C0770E2A5BDACF003E6D92 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -199,8 +208,8 @@
 		65C076B42A570A11003E6D92 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				65C076FC2A5A7F1F003E6D92 /* FirebaseError.swift */,
-				65C076FE2A5A7F2A003E6D92 /* FirebaseService.swift */,
+				65C077132A5BF2FA003E6D92 /* Firebase */,
+				65C077122A5BF2F4003E6D92 /* KeyChain */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -219,6 +228,25 @@
 				65C077072A5B9BC9003E6D92 /* TestView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		65C077122A5BF2F4003E6D92 /* KeyChain */ = {
+			isa = PBXGroup;
+			children = (
+				65C077142A5BF322003E6D92 /* KeyChainManager.swift */,
+				65C077162A5BF4A7003E6D92 /* KeyChainAccount.swift */,
+				65C077182A5BF4C7003E6D92 /* KeyChainError.swift */,
+			);
+			path = KeyChain;
+			sourceTree = "<group>";
+		};
+		65C077132A5BF2FA003E6D92 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				65C076FE2A5A7F2A003E6D92 /* FirebaseService.swift */,
+				65C076FC2A5A7F1F003E6D92 /* FirebaseError.swift */,
+			);
+			path = Firebase;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,11 +394,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65C077192A5BF4C7003E6D92 /* KeyChainError.swift in Sources */,
 				65C077082A5B9BC9003E6D92 /* TestView.swift in Sources */,
 				65C077062A5B9BC2003E6D92 /* TestViewModel.swift in Sources */,
+				65C077172A5BF4A7003E6D92 /* KeyChainAccount.swift in Sources */,
 				65C076FD2A5A7F1F003E6D92 /* FirebaseError.swift in Sources */,
 				65C076892A56F949003E6D92 /* ContentView.swift in Sources */,
+				65C0770F2A5BDACF003E6D92 /* User.swift in Sources */,
 				65C076FF2A5A7F2A003E6D92 /* FirebaseService.swift in Sources */,
+				65C077152A5BF322003E6D92 /* KeyChainManager.swift in Sources */,
 				65C077042A5B915F003E6D92 /* Test.swift in Sources */,
 				65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */,
 			);
