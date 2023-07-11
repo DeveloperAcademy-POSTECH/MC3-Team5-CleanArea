@@ -129,6 +129,30 @@ struct FirebaseService {
 		.eraseToAnyPublisher()
 	}
 	
+	static func withdrawalUser() -> AnyPublisher<Bool, Error> {
+		Future<Bool, Error> { promise in
+			do {
+				let id = try KeyChainManager.shared.read(account: .documentId)
+				let documentRef = db.collection("User").document(id)
+				documentRef.delete { error in
+					if let error = error {
+						promise(.failure(error))
+					} else {
+						do {
+							try KeyChainManager.shared.delete(account: .documentId)
+						} catch {
+							print(KeyChainError.itemNotFound)
+						}
+						promise(.success(true))
+					}
+				}
+			} catch {
+				print(KeyChainError.itemNotFound)
+			}
+		}
+		.eraseToAnyPublisher()
+	}
+	
 	//MARK: - Test
 	
 	static func fetchTest() -> AnyPublisher<[Test], Error> {
