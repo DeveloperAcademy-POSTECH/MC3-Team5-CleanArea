@@ -6,99 +6,134 @@
 //
 
 import Combine
-import Foundation
+import UIKit
 
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseStorage
+
+enum FirebaseState {
+	case success
+	case fail
+}
 
 struct FirebaseService {
 	static let db = Firestore.firestore()
 	
 	//MARK: - User
 	
-	static func signup(user: User) -> AnyPublisher<User, Error> {
-		Future<User, Error> { promise in
-			var userData: [String: Any] = [
-				"email": user.email,
-				"password": user.password,
-				"code": user.code,
-				"isFirstLogin": user.isFirstLogin,
-				"nickname": user.nickname,
-				"profileImage": user.profileImage,
-				"progressAlbum": user.progressAlbum,
-				"finishedAlbum": user.finishedAlbum
-			]
-			
-			userData = userData.compactMapValues { $0 }
-			
-			let collectionRef = db.collection("User")
-			let documentRef = collectionRef.addDocument(data: userData) { error in
-				if let error = error {
-					promise(.failure(error))
-				}
+	/// 회원가입
+	static func signup(user: User) async throws -> FirebaseState {
+		var userData: [String: Any] = [
+			"id": user.id,
+			"email": user.email,
+			"password": user.password,
+			"code": user.code,
+			"isFirstLogin": user.isFirstLogin,
+			"nickname": user.nickname,
+			"profileImage": user.profileImage,
+			"progressAlbum": user.progressAlbum,
+			"finishedAlbum": user.finishedAlbum,
+			"notification": user.notification
+		]
+		userData = userData.compactMapValues { $0 }
+		let collectionRef = db.collection("User")
+		let documentRef = collectionRef.addDocument(data: userData) { error in
+			if let error = error {
+				print("error \(error.localizedDescription)")
+				return
 			}
-			
-			let documentID = documentRef.documentID
-			
-			do {
-				try KeyChainManager.shared.create(account: .documentId, documentId: documentID)
-			} catch {
-				print(KeyChainError.itemNotFound)
-			}
-			promise(.success(user))
 		}
-		.eraseToAnyPublisher()
+		let documentID = documentRef.documentID
+		do {
+			try KeyChainManager.shared.create(account: .documentId, documentId: documentID)
+		} catch {
+			print(KeyChainError.itemNotFound)
+			return .fail
+		}
+		return .success
 	}
 	
-	static func signin(email: String, password: String) -> AnyPublisher<Bool, Error> {
-		Future<Bool, Error> { promise in
-			db.collection("User").getDocuments { snapsot, error in
-				if let error = error {
-					promise(.failure(error))
+	/// 로그인
+	static func signin(loginId: String, password: String) async throws -> FirebaseState {
+		return try await withUnsafeThrowingContinuation { configuration in
+			db.collection("User").getDocuments {snapsot, error in
+				if error != nil {
+					configuration.resume(returning: .fail)
 					return
 				}
-				
 				guard let snapsot else {
-					promise(.failure(FirebaseError.badsnapshot))
+					print(FirebaseError.badsnapshot)
+					configuration.resume(returning: .fail)
 					return
 				}
-				
 				snapsot.documents.forEach { document in
 					let data = document.data()
-					let docEmail = data["email"] as? String ?? ""
-					if docEmail == email {
+					let getId = data["id"] as? String ?? ""
+					if loginId == getId {
 						do {
 							try KeyChainManager.shared.create(account: .documentId,
 															  documentId: document.documentID)
+							configuration.resume(returning: .success)
 						} catch {
 							print(KeyChainError.itemNotFound)
+							configuration.resume(returning: .fail)
+							return
 						}
 					}
 				}
-				promise(.success(true))
 			}
 		}
-		.eraseToAnyPublisher()
 	}
 	
-	// 추후에 update user 요소들 추가 (profileImage...)
-	static func updateNickname(updatedNickname: String) -> AnyPublisher<User, Error> {
-		Future<User, Error> { promise in
-			do {
-				let id = try KeyChainManager.shared.read(account: .documentId)
-				let documentRef = db.collection("User").document(id)
+	/// 닉네임 변경
+	static func updateNickname(updatedNickname: String) async throws -> FirebaseState {
+		do {
+			let id = try KeyChainManager.shared.read(account: .documentId)
+			let documentRef = db.collection("User").document(id)
+			return try await withUnsafeThrowingContinuation { configuration in
 				documentRef.updateData([
 					"nickname": updatedNickname
 				]) { error in
 					print(KeyChainError.itemNotFound)
+					configuration.resume(returning: .fail)
 				}
-			} catch {
-				print(KeyChainError.itemNotFound)
+				configuration.resume(returning: .success)
 			}
+		} catch {
+			print(KeyChainError.itemNotFound)
 		}
-		.eraseToAnyPublisher()
+		return .fail
 	}
 	
+	/// 프로필 이미지 변경
+	static func updateProfileImage(image: UIImage) async throws -> FirebaseState {
+		let data = image.jpegData(compressionQuality: 0.5)!
+		let storage = Storage.storage()
+		let metaData = StorageMetadata()
+		metaData.contentType = "image/png"
+		storage.reference().child("album/" + "UUID").putData(data, metadata: metaData) { (metaData, error) in
+			if let error = error {
+				print("error \(error.localizedDescription)")
+				return
+			} else {
+				storage.reference().child("album1/" + "test2").downloadURL { URL, error in
+					guard let URL else { return }
+					do {
+						let id = try KeyChainManager.shared.read(account: .documentId)
+						let path = db.collection("User").document(id)
+						path.updateData(["profileImage" : String(describing: URL)])
+					} catch {
+						print(KeyChainError.itemNotFound)
+						return
+					}
+				}
+			}
+		}
+		return .success
+	}
+	
+	/// 유저정보 불러오기
 	static func fetchUser() -> AnyPublisher<User, Error> {
 		Future<User, Error> { promise in
 			do {
@@ -129,28 +164,30 @@ struct FirebaseService {
 		.eraseToAnyPublisher()
 	}
 	
-	static func withdrawalUser() -> AnyPublisher<Bool, Error> {
-		Future<Bool, Error> { promise in
-			do {
-				let id = try KeyChainManager.shared.read(account: .documentId)
-				let documentRef = db.collection("User").document(id)
+	/// 회원탈퇴
+	static func withdrawalUser() async throws -> FirebaseState {
+		do {
+			let id = try KeyChainManager.shared.read(account: .documentId)
+			let documentRef = db.collection("User").document(id)
+			return try await withUnsafeThrowingContinuation { configuration in
 				documentRef.delete { error in
 					if let error = error {
-						promise(.failure(error))
+						configuration.resume(returning: .fail)
 					} else {
 						do {
 							try KeyChainManager.shared.delete(account: .documentId)
+							configuration.resume(returning: .success)
 						} catch {
 							print(KeyChainError.itemNotFound)
+							configuration.resume(returning: .fail)
 						}
-						promise(.success(true))
 					}
 				}
-			} catch {
-				print(KeyChainError.itemNotFound)
 			}
+		} catch {
+			print(KeyChainError.itemNotFound)
 		}
-		.eraseToAnyPublisher()
+		return .fail
 	}
 	
 	//MARK: - Test
