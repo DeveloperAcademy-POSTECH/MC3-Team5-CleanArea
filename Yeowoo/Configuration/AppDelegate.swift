@@ -42,7 +42,11 @@ extension AppDelegate: MessagingDelegate {
 	
 	// fcm 등록 토큰을 받았을 때
 	func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-		print("get Firebase FCM token \(String(describing: fcmToken))")
+		print("get fcmToken \(String(describing: fcmToken))")
+		if UserDefaultsSetting.isFirstEnter {
+			FirebaseService.updateFCMToken(fcmToken: fcmToken ?? "")
+			UserDefaultsSetting.isFirstEnter = false
+		}
 	}
 }
 

@@ -18,10 +18,11 @@ struct User: Identifiable {
 	let progressAlbum: String	// 현재 여행 중 앨범 id
 	let finishedAlbum: [String]	// 종료된 여행 앨범 id
 	let notification: [String]	// 알림
+	let fcmToken: String	// fcmToken
 	
 	init(id:String, email: String, password: String, code: String, isFirstLogin: Bool,
 		 nickname: String, profileImage: String, progressAlbum: String,
-		 finishedAlbum: [String], notification: [String]) {
+		 finishedAlbum: [String], notification: [String], fcmToken: String) {
 		self.id = id
 		self.email = email
 		self.password = password
@@ -32,6 +33,7 @@ struct User: Identifiable {
 		self.progressAlbum = progressAlbum
 		self.finishedAlbum = finishedAlbum
 		self.notification = notification
+		self.fcmToken = fcmToken
 	}
 	
 	init?(documentData: [String: Any]) {
@@ -44,7 +46,8 @@ struct User: Identifiable {
 			  let profileImage = documentData["profileImage"] as? String,
 			  let progressAlbum = documentData["progressAlbum"] as? String,
 			  let finishedAlbum = documentData["finishedAlbum"] as? [String],
-			  let notification = documentData["notification"] as? [String] else {
+			  let notification = documentData["notification"] as? [String],
+			  let fcmToken = documentData["fcmToken"] as? String else {
 			return nil
 		}
 		
@@ -57,6 +60,7 @@ struct User: Identifiable {
 				  profileImage: profileImage,
 				  progressAlbum: progressAlbum,
 				  finishedAlbum: finishedAlbum,
-				  notification: notification)
+				  notification: notification,
+				  fcmToken: fcmToken)
 	}
 }
