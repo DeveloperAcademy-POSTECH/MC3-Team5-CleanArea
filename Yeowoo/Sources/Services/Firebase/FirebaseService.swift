@@ -171,7 +171,7 @@ struct FirebaseService {
 			let documentRef = db.collection("User").document(id)
 			return try await withUnsafeThrowingContinuation { configuration in
 				documentRef.delete { error in
-					if let error = error {
+					if error != nil {
 						configuration.resume(returning: .fail)
 					} else {
 						do {
@@ -188,6 +188,166 @@ struct FirebaseService {
 			print(KeyChainError.itemNotFound)
 		}
 		return .fail
+	}
+	
+	//MARK: - Album
+	
+	/// 앨범에 이미지 올리기
+	static func uploadAlbumImage(image: UIImage, albumDocId: String) async throws -> FirebaseState {
+		let data = image.jpegData(compressionQuality: 0.5)!
+		let storage = Storage.storage()
+		let metaData = StorageMetadata()
+		metaData.contentType = "image/png"
+		return try await withUnsafeThrowingContinuation { configuration in
+			storage.reference().child("album1/" + "test4").putData(data, metadata: metaData) { ( metaData, error ) in
+				if let error = error {
+					configuration.resume(returning: .fail)
+					return
+				} else {
+					storage.reference().child("album1/" + "test4").downloadURL { URL, error in
+						guard let URL else { return }
+						let updatedData: [String: Any] = [
+							"images": FieldValue.arrayUnion([
+								["comment" : "설명 테스트2",
+								 "fileName" : "파일 이름2",
+								 "url" : String(describing: URL),
+								 "reaction" : ["bad" : 0, "like" : 0]] as [String : Any]
+							])
+						]
+						let path = db.collection("album").document(albumDocId)
+						path.updateData(updatedData)
+						configuration.resume(returning: .success)
+					}
+				}
+			}
+		}
+	}
+	
+	/// 앨범 이미지 가져오기
+	static func fetchAlbumImages(albumDocId: String) -> AnyPublisher<Bool, Error> {
+		Future<Bool, Error> { promise in
+			db.collection("album").getDocuments { snapshot, error in
+				if let error {
+					promise(.failure(error))
+					return
+				}
+				guard let snapshot else {
+					promise(.failure(FirebaseError.badsnapshot))
+					return
+				}
+				if let document = snapshot.documents.first(where: { $0.documentID == albumDocId }) {
+					let data = document.data()
+					if let images = data["images"] as? [[String: Any]] {
+						let urls = images.compactMap { $0["url"] as? String }
+					}
+					promise(.success(true))
+				} else {
+					promise(.failure(FirebaseError.badsnapshot))
+					return
+				}
+			}
+		}
+		.eraseToAnyPublisher()
+	}
+	
+	/// 앨범 이미지 변경
+	static func updateAlbumImage(image: UIImage, albumDocId: String) async throws -> FirebaseState {
+		let data = image.jpegData(compressionQuality: 0.5)!
+		let storage = Storage.storage()
+		let metaData = StorageMetadata()
+		metaData.contentType = "image/png"
+		return try await withUnsafeThrowingContinuation { configuration in
+			storage.reference().child("album1/" + "test4").delete { error in
+				if let error = error {
+					configuration.resume(returning: .fail)
+					return
+				}
+			}
+			storage.reference().child("album1/" + "test5").putData(data, metadata: metaData) { ( metaData, error ) in
+				if error != nil {
+					configuration.resume(returning: .fail)
+					return
+				} else {
+					storage.reference().child("album1/" + "test5").downloadURL { URL, error in
+						guard let URL else { return }
+						let path = db.collection("album").document(albumDocId)
+						path.getDocument { snapshot, error in
+							guard let document = snapshot, document.exists else {
+								configuration.resume(returning: .fail)
+								return
+							}
+							
+							if var images = document.data()?["images"] as? [[String: Any]] {
+								for (index, image) in images.enumerated() {
+									if let fileName = image["fileName"] as? String, fileName == "파일 이름2" {
+										images[index]["url"] = String(describing: URL)
+									}
+								}
+								
+								let updatedData: [String: Any] = [
+									"images": images
+								]
+								
+								path.updateData(updatedData) { error in
+									if let error = error {
+										configuration.resume(returning: .fail)
+									}
+									configuration.resume(returning: .success)
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	/// 앨범 이미지 삭제
+	static func deleteAlbumImage(albumDocId: String) async throws -> FirebaseState {
+		return try await withUnsafeThrowingContinuation { configuration in
+			let storage = Storage.storage()
+			storage.reference().child("album1/" + "test2").delete { error in
+				if let error = error {
+					print("Error deleting file: \(error)")
+				} else {
+					print("File deleted successfully.")
+				}
+			}
+			
+			storage.reference().child("album1/" + "test2").downloadURL { URL, error in
+				guard let URL else { return }
+				print("URL \(String(describing: URL))")
+				let path = db.collection("album").document(albumDocId)
+				path.getDocument { snapshot, error in
+					guard let document = snapshot, document.exists else {
+						configuration.resume(returning: .fail)
+						return
+					}
+					
+					if var images = document.data()?["images"] as? [[String: Any]] {
+						images.removeAll { image in
+							if let fileName = image["fileName"] as? String, fileName == "123" {
+								return true
+							}
+							return false
+						}
+						
+						let updatedData: [String: Any] = [
+							"images": images
+						]
+						
+						path.updateData(updatedData) { error in
+							if let error = error {
+								print("Error updating document: \(error)")
+							} else {
+								print("Document updated successfully.")
+							}
+							configuration.resume(returning: .success)
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	//MARK: - Test
