@@ -86,6 +86,21 @@ struct FirebaseService {
 		}
 	}
 	
+	/// user fcmToken 세팅
+	static func updateFCMToken(fcmToken: String) {
+		do {
+			let id = try KeyChainManager.shared.read(account: .documentId)
+			let documentRef = db.collection("User").document(id)
+			documentRef.updateData([
+				"fcmToken": fcmToken
+			]) { error in
+				print(KeyChainError.itemNotFound)
+			}
+		} catch {
+			print(KeyChainError.itemNotFound)
+		}
+	}
+	
 	/// 닉네임 변경
 	static func updateNickname(updatedNickname: String) async throws -> FirebaseState {
 		do {
@@ -200,7 +215,7 @@ struct FirebaseService {
 		metaData.contentType = "image/png"
 		return try await withUnsafeThrowingContinuation { configuration in
 			storage.reference().child("album1/" + "test4").putData(data, metadata: metaData) { ( metaData, error ) in
-				if let error = error {
+				if error != nil {
 					configuration.resume(returning: .fail)
 					return
 				} else {
@@ -239,6 +254,7 @@ struct FirebaseService {
 					let data = document.data()
 					if let images = data["images"] as? [[String: Any]] {
 						let urls = images.compactMap { $0["url"] as? String }
+						print("urls \(urls)")
 					}
 					promise(.success(true))
 				} else {
@@ -258,7 +274,7 @@ struct FirebaseService {
 		metaData.contentType = "image/png"
 		return try await withUnsafeThrowingContinuation { configuration in
 			storage.reference().child("album1/" + "test4").delete { error in
-				if let error = error {
+				if error != nil {
 					configuration.resume(returning: .fail)
 					return
 				}
@@ -289,7 +305,7 @@ struct FirebaseService {
 								]
 								
 								path.updateData(updatedData) { error in
-									if let error = error {
+									if error != nil {
 										configuration.resume(returning: .fail)
 									}
 									configuration.resume(returning: .success)

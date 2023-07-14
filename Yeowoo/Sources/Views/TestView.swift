@@ -18,7 +18,7 @@ struct TestView: View {
 				.foregroundColor(.accentColor)
 			Button {
 				print("fetchUser click")
-				testViewModel.fetchUser()
+//				testViewModel.fetchUser()
 			} label: {
 				Text(testViewModel.tests.first?.nickname ?? "닉네임 없음")
 			}
