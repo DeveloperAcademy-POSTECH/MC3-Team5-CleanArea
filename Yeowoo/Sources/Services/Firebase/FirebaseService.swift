@@ -214,19 +214,19 @@ struct FirebaseService {
 		let metaData = StorageMetadata()
 		metaData.contentType = "image/png"
 		return try await withUnsafeThrowingContinuation { configuration in
-			storage.reference().child("album1/" + "test4").putData(data, metadata: metaData) { ( metaData, error ) in
+			storage.reference().child("album1/" + "setindex").putData(data, metadata: metaData) { ( metaData, error ) in
 				if error != nil {
 					configuration.resume(returning: .fail)
 					return
 				} else {
-					storage.reference().child("album1/" + "test4").downloadURL { URL, error in
+					storage.reference().child("album1/" + "setindex").downloadURL { URL, error in
 						guard let URL else { return }
 						let updatedData: [String: Any] = [
 							"images": FieldValue.arrayUnion([
-								["comment" : "설명 테스트2",
-								 "fileName" : "파일 이름2",
+								["comment" : "설명 테스트 index",
+								 "fileName" : "파일 이름 index",
 								 "url" : String(describing: URL),
-								 "reaction" : ["bad" : 0, "like" : 0]] as [String : Any]
+								 "like" : 0] as [String : Any]
 							])
 						]
 						let path = db.collection("album").document(albumDocId)
@@ -239,8 +239,8 @@ struct FirebaseService {
 	}
 	
 	/// 앨범 이미지 가져오기
-	static func fetchAlbumImages(albumDocId: String) -> AnyPublisher<Bool, Error> {
-		Future<Bool, Error> { promise in
+	static func fetchAlbumImages(albumDocId: String) -> AnyPublisher<[ImagesEntity], Error> {
+		Future<[ImagesEntity], Error> { promise in
 			db.collection("album").getDocuments { snapshot, error in
 				if let error {
 					promise(.failure(error))
@@ -253,10 +253,18 @@ struct FirebaseService {
 				if let document = snapshot.documents.first(where: { $0.documentID == albumDocId }) {
 					let data = document.data()
 					if let images = data["images"] as? [[String: Any]] {
-						let urls = images.compactMap { $0["url"] as? String }
-						print("urls \(urls)")
+						let imagesEntities = images.compactMap { imageData -> ImagesEntity? in
+							guard let comment = imageData["comment"] as? String,
+								  let fileName = imageData["fileName"] as? String,
+								  let like = imageData["like"] as? Int,
+								  let url = imageData["url"] as? String else {
+								return nil
+							}
+							return ImagesEntity(comment: comment, fileName: fileName,
+												like: like, url: url)
+						}
+						promise(.success(imagesEntities))
 					}
-					promise(.success(true))
 				} else {
 					promise(.failure(FirebaseError.badsnapshot))
 					return
