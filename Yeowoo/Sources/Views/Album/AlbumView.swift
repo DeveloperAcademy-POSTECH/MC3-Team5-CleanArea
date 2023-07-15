@@ -7,11 +7,19 @@
 
 import SwiftUI
 
+enum AlbumState {
+	case user
+	case all
+}
+
 struct AlbumView: View {
 	
+	let albumDocId: String
+	
+	@State var roleState: AlbumState = .all
 	@State var toggleOn = true
+	@State var albumState: AlbumState = .all
 	@StateObject var viewModel = AlbumViewModel()
-	//	@ObservedObject var viewModel = AlbumViewModel()
 	
 	var body: some View {
 		ScrollView(showsIndicators: false) {
@@ -20,26 +28,43 @@ struct AlbumView: View {
 					HStack {
 						// ForEach(0..<viewModel.albums.users.count) 이게 아니라
 						// 이렇게 처리해야하네..
-						// 여기 들어가는 사진은 프로필사진 + 닉네임 + 역할로 가자 자기가 올린 사진을 썸네일로 하면 답없음
-						ForEach(viewModel.albums.users.indices, id: \.self) { index in
+						ForEach(viewModel.users.indices, id: \.self) { index in
 							VStack {
-								Rectangle()
-									.fill(Color.purple)
-									.cornerRadius(20)
-									.frame(width: 70, height: 84)
-									.padding(.all, 5)
-									.overlay {
-										RoundedRectangle(cornerRadius: 20)
-											.stroke(Color.green, lineWidth: 2)
-											.padding(2)
+								Button(action: {
+									// 같은 인물 클릭 시 전체로
+									if roleState == .all {
+										viewModel.fetchAlbumUserImages(
+											uploadUserId: viewModel.users[index].docId
+										)
+										roleState = .user
+									} else {
+										roleState = .all
 									}
-									.overlay {
-										// 여우 이미지
+								}) {
+									AsyncImage(url: URL(string: viewModel.users[index].profileImage)) { image in
+										image
+											.resizable()
+											.aspectRatio(contentMode: .fill)
+											.frame(width: 70, height: 84)
+											.cornerRadius(20)
+											.padding(5)
+											.overlay {
+												RoundedRectangle(cornerRadius: 20)
+													.stroke(Color.green, lineWidth: 2)
+													.padding(2)
+											}
+											.overlay {
+												// 여우 이미지
+											}
+									} placeholder: {
+										ProgressView()
+											.frame(width: 70, height: 84)
 									}
-								Text("\(viewModel.albums.users[index])")
+								}
+								Text("\(viewModel.users[index].nickname)")
 									.font(.system(size: 12))
 									.fontWeight(.bold)
-								Text("\(viewModel.albums.users[index])")
+								Text("\(viewModel.users[index].nickname)")
 									.font(.system(size: 12))
 							}
 						}
@@ -50,18 +75,31 @@ struct AlbumView: View {
 				LazyVStack(pinnedViews: [.sectionHeaders]){
 					Section {
 						VStack(spacing: 4) {
-							ForEach(viewModel.images.indices, id: \.self) { index in
+							ForEach(roleState == .all ? viewModel.images.indices : viewModel.roleImage.indices, id: \.self) { index in
 								if toggleOn {
 									if index % 3 == 1 {
-										FirstFeedLayout(entitys: viewModel.images[index])
+										if roleState == .all {
+											FirstFeedLayout(entitys: viewModel.images[index])
+										} else {
+											FirstFeedLayout(entitys: viewModel.roleImage[index])
+										}
 									} else {
-										SecondFeedLayout(entitys: viewModel.images[index])
+										if roleState == .all {
+											SecondFeedLayout(entitys: viewModel.images[index])
+										} else {
+											SecondFeedLayout(entitys: viewModel.roleImage[index])
+										}
 									}
 								} else {
-									GalleryLayout(entitys: viewModel.images[index])
+									if roleState == .all {
+										GalleryLayout(entitys: viewModel.images[index])
+									} else {
+										GalleryLayout(entitys: viewModel.roleImage[index])
+									}
 								}
 							}
 						}
+						.padding(.leading, 10)
 					} header: {
 						HStack {
 							Toggle(isOn: self.$toggleOn) {
@@ -76,13 +114,8 @@ struct AlbumView: View {
 			}
 		}
 		.onAppear {
-			viewModel.fetchAlbumImages(albumDocId: "")
+			viewModel.fetchAlbumImages(albumDocId: self.albumDocId)
+			//			viewModel.signup()
 		}
 	}
 }
-
-//struct AlbumView_Previews: PreviewProvider {
-//	static var previews: some View {
-//		AlbumView()
-//	}
-//}

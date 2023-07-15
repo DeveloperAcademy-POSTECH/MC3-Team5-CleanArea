@@ -25,16 +25,17 @@ struct FirebaseService {
 	/// 회원가입
 	static func signup(user: User) async throws -> FirebaseState {
 		var userData: [String: Any] = [
+			"docId": "",
 			"id": user.id,
 			"email": user.email,
 			"password": user.password,
-			"code": user.code,
 			"isFirstLogin": user.isFirstLogin,
 			"nickname": user.nickname,
 			"profileImage": user.profileImage,
 			"progressAlbum": user.progressAlbum,
 			"finishedAlbum": user.finishedAlbum,
-			"notification": user.notification
+			"notification": user.notification,
+			"fcmToken": user.fcmToken
 		]
 		userData = userData.compactMapValues { $0 }
 		let collectionRef = db.collection("User")
@@ -47,6 +48,7 @@ struct FirebaseService {
 		let documentID = documentRef.documentID
 		do {
 			try KeyChainManager.shared.create(account: .documentId, documentId: documentID)
+			updateDocId(docId: documentID)
 		} catch {
 			print(KeyChainError.itemNotFound)
 			return .fail
@@ -83,6 +85,16 @@ struct FirebaseService {
 					}
 				}
 			}
+		}
+	}
+	
+	/// docId 세팅
+	static func updateDocId(docId: String) {
+		let documentRef = db.collection("User").document(docId)
+		documentRef.updateData([
+			"docId": docId
+		]) { error in
+			print(KeyChainError.itemNotFound)
 		}
 	}
 	
@@ -149,10 +161,10 @@ struct FirebaseService {
 	}
 	
 	/// 유저정보 불러오기
-	static func fetchUser() -> AnyPublisher<User, Error> {
-		Future<User, Error> { promise in
-			do {
-				let documentId = try KeyChainManager.shared.read(account: .documentId)
+	static func fetchUser(userDocIds: [String] = []) -> AnyPublisher<[User], Error> {
+		Future<[User], Error> { promise in
+			var users: [User] = []
+//				let documentId = userDocIds.isEmpty ? try KeyChainManager.shared.read(account: .documentId) : userDocIds
 				db.collection("User").getDocuments { snapshot, error in
 					if let error {
 						promise(.failure(error))
@@ -162,19 +174,39 @@ struct FirebaseService {
 						promise(.failure(FirebaseError.badsnapshot))
 						return
 					}
-					if let document = snapshot.documents.first(where: { $0.documentID == documentId }) {
-						let data = document.data()
-						if let user = User(documentData: data) {
-							promise(.success(user))
+					if userDocIds.isEmpty {
+						do {
+							let documentId = try KeyChainManager.shared.read(account: .documentId)
+							if let document = snapshot.documents.first(where: { $0.documentID == documentId }) {
+								let data = document.data()
+								users.append(User(documentData: data)!)
+								promise(.success(users))
+//								if let user = User(documentData: data) {
+//									promise(.success(user))
+//								}
+							} else {
+								promise(.failure(FirebaseError.badsnapshot))
+								return
+							}
+						} catch {
+							print(KeyChainError.itemNotFound)
 						}
 					} else {
-						promise(.failure(FirebaseError.badsnapshot))
-						return
+						for id in userDocIds {
+							print("not empty \(id)")
+//							snapshot.documents["id"].data()
+							print(snapshot.documents.first!.documentID)
+							print(id)
+							if let document = snapshot.documents.first(where: { $0.documentID == id }) {
+								let data = document.data()
+								print("data \(data)")
+								users.append(User(documentData: data)!)
+							}
+						}
+						promise(.success(users))
 					}
 				}
-			} catch {
-				print(KeyChainError.itemNotFound)
-			}
+			
 		}
 		.eraseToAnyPublisher()
 	}
