@@ -16,6 +16,7 @@ struct AlbumView: View {
 	
 	let albumDocId: String
 	
+	@State var nowUserDocId: String = ""
 	@State var roleState: AlbumState = .all
 	@State var toggleOn = true
 	@State var albumState: AlbumState = .all
@@ -31,14 +32,23 @@ struct AlbumView: View {
 						ForEach(viewModel.users.indices, id: \.self) { index in
 							VStack {
 								Button(action: {
-									// 같은 인물 클릭 시 전체로
 									if roleState == .all {
 										viewModel.fetchAlbumUserImages(
 											uploadUserId: viewModel.users[index].docId
 										)
 										roleState = .user
+										self.nowUserDocId = viewModel.users[index].docId
 									} else {
-										roleState = .all
+										// 같은 인물 클릭 시 전체로
+										if nowUserDocId == viewModel.users[index].docId {
+											roleState = .all
+											self.nowUserDocId = ""
+										} else {
+											viewModel.fetchAlbumUserImages(
+												uploadUserId: viewModel.users[index].docId
+											)
+											self.nowUserDocId = viewModel.users[index].docId
+										}
 									}
 								}) {
 									AsyncImage(url: URL(string: viewModel.users[index].profileImage)) { image in

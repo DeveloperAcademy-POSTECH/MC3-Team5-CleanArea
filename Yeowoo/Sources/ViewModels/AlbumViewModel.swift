@@ -63,7 +63,7 @@ final class AlbumViewModel: ObservableObject {
 	// 역할 클릭했을 때
 	@MainActor
 	func fetchAlbumUserImages(uploadUserId: String) {
-		print("uploadUserId \(uploadUserId)")
+		roleImage.removeAll()
 		var urls: [ImagesEntity] = []
 		images.forEach { imageEntitys in
 			imageEntitys.forEach { imageEntity in
@@ -79,7 +79,6 @@ final class AlbumViewModel: ObservableObject {
 		if !urls.isEmpty {
 			roleImage.append(urls)
 		}
-		print("??? \(roleImage.count)")
 	}
 	
 	
