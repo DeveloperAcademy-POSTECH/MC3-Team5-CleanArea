@@ -9,35 +9,43 @@ import SwiftUI
 
 struct AlbumView: View {
 	
-	@State var toggleOn = false
+	@State var toggleOn = true
 	@StateObject var viewModel = AlbumViewModel()
+	//	@ObservedObject var viewModel = AlbumViewModel()
 	
 	var body: some View {
-		ScrollView {
+		ScrollView(showsIndicators: false) {
 			VStack {
-				ScrollView(.horizontal) {
+				ScrollView(.horizontal, showsIndicators: false) {
 					HStack {
-						// db에서 이 앨범에 있는 유저 수만큼
-						ForEach(0..<6) { _ in
+						// ForEach(0..<viewModel.albums.users.count) 이게 아니라
+						// 이렇게 처리해야하네..
+						// 여기 들어가는 사진은 프로필사진 + 닉네임 + 역할로 가자 자기가 올린 사진을 썸네일로 하면 답없음
+						ForEach(viewModel.albums.users.indices, id: \.self) { index in
 							VStack {
 								Rectangle()
 									.fill(Color.purple)
 									.cornerRadius(20)
+									.frame(width: 70, height: 84)
+									.padding(.all, 5)
+									.overlay {
+										RoundedRectangle(cornerRadius: 20)
+											.stroke(Color.green, lineWidth: 2)
+											.padding(2)
+									}
 									.overlay {
 										// 여우 이미지
 									}
-									.frame(width: 70, height: 84)
-								Text("건축가 여우")
+								Text("\(viewModel.albums.users[index])")
 									.font(.system(size: 12))
 									.fontWeight(.bold)
-								Text("노루궁뎅이버섯")
+								Text("\(viewModel.albums.users[index])")
 									.font(.system(size: 12))
 							}
 						}
 					}
 				}
-				.padding(.leading, 20)
-				.padding(.trailing, 20)
+				.padding(.horizontal, 20)
 				
 				LazyVStack(pinnedViews: [.sectionHeaders]){
 					Section {
@@ -68,7 +76,7 @@ struct AlbumView: View {
 			}
 		}
 		.onAppear {
-//			viewModel.fetchAlbumImages(albumDocId: "")
+			viewModel.fetchAlbumImages(albumDocId: "")
 		}
 	}
 }

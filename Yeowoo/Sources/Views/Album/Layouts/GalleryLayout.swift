@@ -12,7 +12,7 @@ struct GalleryLayout: View {
 	var entitys: [ImagesEntity]
 	
 	var body: some View {
-		ForEach(0..<entitys.count) { index in
+		ForEach(entitys.indices, id: \.self) { index in
 			AsyncImage(url: URL(string: entitys[index].url)) { image in
 				image
 					.resizable()

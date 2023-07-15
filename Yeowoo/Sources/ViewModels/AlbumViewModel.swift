@@ -12,9 +12,11 @@ import UIKit
 final class AlbumViewModel: ObservableObject {
 	
 	@Published var images: [[ImagesEntity]] = []
+	@Published var albums: Album = Album(images: [], isClosed: false, users: [])
 	
 	private var cancellables = Set<AnyCancellable>()
 	
+	// 유저별 이미지는 유저 이미지 전체를 불러와야해서.. 다시 불러와야할듯..
 	@MainActor
 	func fetchAlbumImages(albumDocId: String) {
 		FirebaseService.fetchAlbumImages(albumDocId: "T9eJMPQEGQClFHEahX6r")
@@ -26,9 +28,9 @@ final class AlbumViewModel: ObservableObject {
 					return
 				}
 			} receiveValue: { images in
-				print("images \(images)")
+				self.albums = images
 				var urls: [ImagesEntity] = []
-				images.forEach { url in
+				images.images.forEach { url in
 					urls.append(url)
 					if urls.count == 5 {
 						self.images.append(urls)
