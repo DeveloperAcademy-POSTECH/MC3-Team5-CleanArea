@@ -48,15 +48,10 @@ struct GalleryLayout: View {
 						.padding(.bottom, 20)
 					}
 			} placeholder: {
-				// 로딩되기 전까지 대체할 이미지 혹은 스타일
+				ProgressView()
+					.frame(width: UIScreen.main.bounds.width, height: 390)
 			}
 		}
 	}
 	
 }
-
-//struct AlbumGalleryView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AlbumGalleryView()
-//    }
-//}

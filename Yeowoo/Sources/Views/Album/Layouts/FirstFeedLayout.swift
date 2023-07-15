@@ -23,7 +23,8 @@ struct FirstFeedLayout: View {
 					.frame(width: width / 3, height: 250)
 					.cornerRadius(4)
 			} placeholder: {
-				// 로딩되기 전까지 대체할 이미지 혹은 스타일
+				ProgressView()
+					.frame(width: width / 3, height: 250)
 			}
 			VStack(spacing: 4){
 				if entitys.count >= 2 {
@@ -34,7 +35,8 @@ struct FirstFeedLayout: View {
 							.frame(width: width / 3, height: 123)
 							.cornerRadius(4)
 					} placeholder: {
-						// 로딩되기 전까지 대체할 이미지 혹은 스타일
+						ProgressView()
+							.frame(width: width / 3, height: 123)
 					}
 				}
 				if entitys.count >= 3 {
@@ -45,7 +47,8 @@ struct FirstFeedLayout: View {
 							.frame(width: width / 3, height: 123)
 							.cornerRadius(4)
 					} placeholder: {
-						// 로딩되기 전까지 대체할 이미지 혹은 스타일
+						ProgressView()
+							.frame(width: width / 3, height: 123)
 					}
 				}
 			}
@@ -60,7 +63,8 @@ struct FirstFeedLayout: View {
 							.frame(width: width / 3, height: 123)
 							.cornerRadius(4)
 					} placeholder: {
-						// 로딩되기 전까지 대체할 이미지 혹은 스타일
+						ProgressView()
+							.frame(width: width / 3, height: 123)
 					}
 				}
 				
@@ -72,7 +76,8 @@ struct FirstFeedLayout: View {
 							.frame(width: width / 3, height: 123)
 							.cornerRadius(4)
 					} placeholder: {
-						// 로딩되기 전까지 대체할 이미지 혹은 스타일
+						ProgressView()
+							.frame(width: width / 3, height: 123)
 					}
 				}
 			}

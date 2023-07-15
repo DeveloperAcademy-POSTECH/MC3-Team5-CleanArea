@@ -21,7 +21,8 @@ struct SecondFeedLayout: View {
 						.frame(width: width / 3, height: 123)
 						.cornerRadius(4)
 				} placeholder: {
-					// 로딩되기 전까지 대체할 이미지 혹은 스타일
+					ProgressView()
+						.frame(width: width / 3, height: 123)
 				}
 				if entitys.count >= 2 {
 					AsyncImage(url: URL(string: entitys[1].url)) { image in
@@ -31,7 +32,8 @@ struct SecondFeedLayout: View {
 							.frame(width: width / 3, height: 123)
 							.cornerRadius(4)
 					} placeholder: {
-						// 로딩되기 전까지 대체할 이미지 혹은 스타일
+						ProgressView()
+							.frame(width: width / 3, height: 123)
 					}
 				}
 			}
@@ -46,7 +48,8 @@ struct SecondFeedLayout: View {
 							.frame(width: width / 3, height: 123)
 							.cornerRadius(4)
 					} placeholder: {
-						// 로딩되기 전까지 대체할 이미지 혹은 스타일
+						ProgressView()
+							.frame(width: width / 3, height: 123)
 					}
 				}
 				if entitys.count >= 4 {
@@ -57,7 +60,8 @@ struct SecondFeedLayout: View {
 							.frame(width: width / 3, height: 123)
 							.cornerRadius(4)
 					} placeholder: {
-						// 로딩되기 전까지 대체할 이미지 혹은 스타일
+						ProgressView()
+							.frame(width: width / 3, height: 123)
 					}
 				}
 			}
@@ -71,7 +75,8 @@ struct SecondFeedLayout: View {
 						.frame(width: width / 3, height: 250)
 						.cornerRadius(4)
 				} placeholder: {
-					// 로딩되기 전까지 대체할 이미지 혹은 스타일
+					ProgressView()
+						.frame(width: width / 3, height: 250)
 				}
 			}
 		}
