@@ -239,8 +239,10 @@ struct FirebaseService {
 	}
 	
 	/// 앨범 이미지 가져오기
-	static func fetchAlbumImages(albumDocId: String) -> AnyPublisher<[ImagesEntity], Error> {
-		Future<[ImagesEntity], Error> { promise in
+	// [ImagesEntity] -> Album 으로 바꾸고 ViewModel에서 받으면
+	// [[ImagesEntity]], [소속된 유저] 이렇게 만들고 VM에서 toEntity 처리 해야할 듯
+	static func fetchAlbumImages(albumDocId: String) -> AnyPublisher<Album, Error> {
+		Future<Album, Error> { promise in
 			db.collection("album").getDocuments { snapshot, error in
 				if let error {
 					promise(.failure(error))
@@ -252,18 +254,25 @@ struct FirebaseService {
 				}
 				if let document = snapshot.documents.first(where: { $0.documentID == albumDocId }) {
 					let data = document.data()
-					if let images = data["images"] as? [[String: Any]] {
-						let imagesEntities = images.compactMap { imageData -> ImagesEntity? in
-							guard let comment = imageData["comment"] as? String,
-								  let fileName = imageData["fileName"] as? String,
-								  let like = imageData["like"] as? Int,
-								  let url = imageData["url"] as? String else {
-								return nil
+					if let imagesData = data["images"] as? [[String: Any]] {
+						var images: [ImagesEntity] = []
+						let isClosed = data["isClosed"] as! Bool
+						let users: [String] = (data["users"] as? [String])!
+						for imageData in imagesData {
+							if let comment = imageData["comment"] as? String,
+							   let fileName = imageData["fileName"] as? String,
+							   let like = imageData["like"] as? Int,
+							   let url = imageData["url"] as? String,
+							   let uploadUser = imageData["uploadUser"] as? String,
+							   let roleCheck = imageData["roleCheck"] as? Bool {
+								
+								let image = ImagesEntity(comment: comment, fileName: fileName,
+														 like: like, url: url, uploadUser: uploadUser,
+														 roleCheck: roleCheck)
+								images.append(image)
 							}
-							return ImagesEntity(comment: comment, fileName: fileName,
-												like: like, url: url)
 						}
-						promise(.success(imagesEntities))
+						promise(.success(Album(images: images, isClosed: isClosed, users: users)))
 					}
 				} else {
 					promise(.failure(FirebaseError.badsnapshot))

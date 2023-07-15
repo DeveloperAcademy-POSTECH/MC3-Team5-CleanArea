@@ -18,4 +18,6 @@ struct ImagesEntity {
 	let fileName: String	// storage 파일 이름
 	let like: Int	// 좋아요 수
 	let url: String	// url
+	let uploadUser: String	// 업로드 한 유저
+	let roleCheck: Bool	// 역할 확인
 }
