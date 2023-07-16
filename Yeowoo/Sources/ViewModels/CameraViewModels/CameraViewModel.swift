@@ -17,6 +17,7 @@ struct CameraView: UIViewControllerRepresentable {
     @Binding var didPhoto: Bool
     @Binding var changeCamera: Bool
     @Binding var isFlash: Bool
+    @Binding var name: String
     @Environment(\.dismiss) private var dismiss
 
     let viewController = UIViewControllerType()
@@ -26,23 +27,23 @@ struct CameraView: UIViewControllerRepresentable {
         viewController.sourceType = .camera
         viewController.cameraCaptureMode = .photo
         viewController.showsCameraControls = false
-        
+
         return viewController
+            
     }
     
     func updateUIViewController (_ uiViewController: UIViewControllerType, context: Context) {
-        
-
         viewController.cameraDevice = changeCamera == true ? .front : .rear
-
         
+        viewController.cameraFlashMode = isFlash == true ? .on : .off
+
         viewController.cameraFlashMode = isFlash == true ? .on : .off
         
         if viewController.cameraCaptureMode != .photo {
             viewController.mediaTypes = ["public.image"]
             viewController.cameraCaptureMode = .photo
         }
-        
+
         didcap == true ? viewController.takePicture() : (didcap = false)
     }
     

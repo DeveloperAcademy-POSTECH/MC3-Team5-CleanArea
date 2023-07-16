@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Buttons: View {
+struct FeatureButton: View {
     let imageName: String
     var body: some View {
         ZStack {
@@ -25,8 +25,8 @@ struct Buttons: View {
     }
 }
 
-struct Buttons_Previews: PreviewProvider {
+struct FeatureButton_Previews: PreviewProvider {
     static var previews: some View {
-        Buttons(imageName: "bolt")
+        FeatureButton(imageName: "bolt")
     }
 }

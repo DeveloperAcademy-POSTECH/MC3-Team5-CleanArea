@@ -14,6 +14,7 @@ struct CameraButtonView: View {
     @State var didPhoto: Bool = false
     @State var changeCamera: Bool = false
     @State var isFlash: Bool = false
+    @State var name: String = "bolt.fill"
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -51,32 +52,18 @@ struct CameraButtonView: View {
                                selectedImage: $image,
                                didPhoto: $didPhoto,
                                changeCamera: $changeCamera,
-                               isFlash: $isFlash
+                               isFlash: $isFlash,
+                               name: $name
                     )
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .frame(width: UIScreen.screenWidth, height: UIScreen.screenWidth*4/3)
                     
                     Spacer()
                         .frame(height: UIScreen.getHeight(40))
-                    
-                    HStack(spacing: UIScreen.getWidth(40)) {
-                        Button(action: {
-                            isFlash.toggle()
-                        }) {
-                            Buttons(imageName: "bolt.fill")
-                        }
-                        
-                        Button(action: {
-                            didCapture = true
-                        }) {
-                            Image("CameraButton")
-                        }
-                        
-                        Button(action: {
-                            changeCamera.toggle()
-                        }) {
-                            Buttons(imageName: "arrow.triangle.2.circlepath")
-                        }
+                    ZStack {
+                        Buttons(isFlash: $isFlash,
+                                didCapture: $didCapture,
+                                changeCamera: $changeCamera)
                     }
                 }
             } else {
