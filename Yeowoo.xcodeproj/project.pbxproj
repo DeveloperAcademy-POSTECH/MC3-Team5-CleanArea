@@ -36,7 +36,6 @@
 		65C077342A5FE55B003E6D92 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077332A5FE55B003E6D92 /* AppDelegate.swift */; };
 		65C077372A5FF248003E6D92 /* UserDefaultsSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077362A5FF247003E6D92 /* UserDefaultsSetting.swift */; };
 		65C077392A5FF255003E6D92 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077382A5FF255003E6D92 /* UserDefaultsWrapper.swift */; };
-		F33453722A63EAF70031A22C /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33453712A63EAF70031A22C /* SignUpView.swift */; };
 		F37DA9A22A63C1D70020603E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37DA9A12A63C1D70020603E /* LoginView.swift */; };
 		F37DA9A42A63C2180020603E /* LoginCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37DA9A32A63C2180020603E /* LoginCoverView.swift */; };
 /* End PBXBuildFile section */
@@ -84,7 +83,6 @@
 		65C077332A5FE55B003E6D92 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65C077362A5FF247003E6D92 /* UserDefaultsSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsSetting.swift; sourceTree = "<group>"; };
 		65C077382A5FF255003E6D92 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
-		F33453712A63EAF70031A22C /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		F37DA9A12A63C1D70020603E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		F37DA9A32A63C2180020603E /* LoginCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoverView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -244,7 +242,6 @@
 				65C077072A5B9BC9003E6D92 /* TestView.swift */,
 				F37DA9A32A63C2180020603E /* LoginCoverView.swift */,
 				F37DA9A12A63C1D70020603E /* LoginView.swift */,
-				F33453712A63EAF70031A22C /* SignUpView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -434,7 +431,6 @@
 				65C076FD2A5A7F1F003E6D92 /* FirebaseError.swift in Sources */,
 				65C076892A56F949003E6D92 /* ContentView.swift in Sources */,
 				65C0770F2A5BDACF003E6D92 /* User.swift in Sources */,
-				F33453722A63EAF70031A22C /* SignUpView.swift in Sources */,
 				65C076FF2A5A7F2A003E6D92 /* FirebaseService.swift in Sources */,
 				65C077152A5BF322003E6D92 /* KeyChainManager.swift in Sources */,
 				65C077042A5B915F003E6D92 /* Test.swift in Sources */,
