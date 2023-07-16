@@ -24,6 +24,7 @@ struct GalleryLayout: View {
 							Divider().opacity(0)
 							Text("\(entitys[index].comment)")
 								.font(.system(size: 14))
+								.foregroundColor(Color.white)
 							Spacer()
 							VStack {
 								Circle()
@@ -32,6 +33,7 @@ struct GalleryLayout: View {
 									.frame(width: 48, height: 48)
 									.overlay {
 										Image(systemName: "heart.fill")
+											.foregroundColor(Color.white)
 									}
 								Rectangle()
 									.fill(Color.white)
@@ -41,6 +43,7 @@ struct GalleryLayout: View {
 									.overlay {
 										Text("\(entitys[index].like)")
 											.font(.system(size: 16, weight: .medium))
+											.foregroundColor(Color.white)
 									}
 							}
 						}
