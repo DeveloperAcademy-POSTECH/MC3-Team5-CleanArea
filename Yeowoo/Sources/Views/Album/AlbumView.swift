@@ -16,9 +16,9 @@ struct AlbumView: View {
 	
 	let albumDocId: String
 	
-	@State var nowUserDocId: String = ""
-	@State var roleState: AlbumState = .all
 	@State var toggleOn = true
+	@State var nowUser: User? // 현재 역할이 선택된 유저
+	@State var roleState: AlbumState = .all
 	@State var albumState: AlbumState = .all
 	@StateObject var viewModel = AlbumViewModel()
 	
@@ -37,17 +37,17 @@ struct AlbumView: View {
 											uploadUserId: viewModel.users[index].docId
 										)
 										roleState = .user
-										self.nowUserDocId = viewModel.users[index].docId
+										self.nowUser = viewModel.users[index]
 									} else {
 										// 같은 인물 클릭 시 전체로
-										if nowUserDocId == viewModel.users[index].docId {
+										if nowUser?.docId == viewModel.users[index].docId {
 											roleState = .all
-											self.nowUserDocId = ""
+											self.nowUser = nil
 										} else {
 											viewModel.fetchAlbumUserImages(
 												uploadUserId: viewModel.users[index].docId
 											)
-											self.nowUserDocId = viewModel.users[index].docId
+											self.nowUser = viewModel.users[index]
 										}
 									}
 								}) {
@@ -63,19 +63,60 @@ struct AlbumView: View {
 													.stroke(Color.green, lineWidth: 2)
 													.padding(2)
 											}
-											.overlay {
+											.overlay (
+												(
+													roleState == .all || nowUser?.docId != viewModel.users[index].docId ? nil :
+														Circle().frame(width: 24, height: 24)
+												)
+												,alignment: .topTrailing
+											)
+											.overlay (
 												// 여우 이미지
-											}
+												Circle().frame(width: 38, height: 38).padding(.top, 80)
+											)
+										
 									} placeholder: {
 										ProgressView()
 											.frame(width: 70, height: 84)
 									}
 								}
+								Spacer().frame(height: 15)
 								Text("\(viewModel.users[index].nickname)")
 									.font(.system(size: 12))
 									.fontWeight(.bold)
 								Text("\(viewModel.users[index].nickname)")
 									.font(.system(size: 12))
+							}
+							.overlay {
+								if roleState != .all {
+									if nowUser?.docId != viewModel.users[index].docId {
+										Rectangle()
+											.fill(Color.white)
+											.cornerRadius(20)
+											.opacity(0.7)
+											.onTapGesture {
+												// 이거 따로 빼기
+												if roleState == .all {
+													viewModel.fetchAlbumUserImages(
+														uploadUserId: viewModel.users[index].docId
+													)
+													roleState = .user
+													self.nowUser = viewModel.users[index]
+												} else {
+													// 같은 인물 클릭 시 전체로
+													if nowUser?.docId == viewModel.users[index].docId {
+														roleState = .all
+														self.nowUser = nil
+													} else {
+														viewModel.fetchAlbumUserImages(
+															uploadUserId: viewModel.users[index].docId
+														)
+														self.nowUser = viewModel.users[index]
+													}
+												}
+											}
+									}
+								}
 							}
 						}
 					}
@@ -113,7 +154,7 @@ struct AlbumView: View {
 					} header: {
 						HStack {
 							Toggle(isOn: self.$toggleOn) {
-								Text("All")
+								Text((roleState == .all ? "All" : self.nowUser?.nickname)!)
 							}
 							.padding(.horizontal)
 						}
