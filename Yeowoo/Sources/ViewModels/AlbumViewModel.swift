@@ -11,6 +11,7 @@ import UIKit
 
 final class AlbumViewModel: ObservableObject {
 	
+	@Published var fetchState = false
 	@Published var roleImage: [[ImagesEntity]] = []
 	@Published var users: [User] = []
 	@Published var images: [[ImagesEntity]] = []
@@ -40,6 +41,7 @@ final class AlbumViewModel: ObservableObject {
 					}
 				}
 				self.images.append(urls)
+				self.fetchState = true
 			}
 			.store(in: &cancellables)
 	}
