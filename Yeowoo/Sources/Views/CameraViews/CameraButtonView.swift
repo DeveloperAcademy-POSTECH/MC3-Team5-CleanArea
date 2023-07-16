@@ -63,7 +63,7 @@ struct CameraButtonView: View {
                         Button(action: {
                             isFlash.toggle()
                         }) {
-                            isFlash == true ? Buttons(imageName: "bolt.fill") : Buttons(imageName: "bolt.slash.fill")
+                            Buttons(imageName: "bolt.fill")
                         }
                         
                         Button(action: {
@@ -79,6 +79,8 @@ struct CameraButtonView: View {
                         }
                     }
                 }
+            } else {
+                EditView(showModal: $showModal, image: $image, didPhoto: $didPhoto)
             }
         }
     }

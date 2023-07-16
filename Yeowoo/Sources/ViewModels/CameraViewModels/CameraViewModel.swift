@@ -32,7 +32,9 @@ struct CameraView: UIViewControllerRepresentable {
     
     func updateUIViewController (_ uiViewController: UIViewControllerType, context: Context) {
         
+
         viewController.cameraDevice = changeCamera == true ? .front : .rear
+
         
         viewController.cameraFlashMode = isFlash == true ? .on : .off
         

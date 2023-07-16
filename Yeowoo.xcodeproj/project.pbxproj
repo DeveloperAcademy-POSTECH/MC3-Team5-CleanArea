@@ -12,6 +12,10 @@
 		1049B7FB2A63FA670021F674 /* CameraButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1049B7FA2A63FA670021F674 /* CameraButtonView.swift */; };
 		10CB96D42A63FDF000C08DBC /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D32A63FDF000C08DBC /* Buttons.swift */; };
 		10CB96D62A63FF7800C08DBC /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */; };
+		10CB96D82A64028C00C08DBC /* WriteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D72A64028C00C08DBC /* WriteTextView.swift */; };
+		10CB96DA2A6403D600C08DBC /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D92A6403D600C08DBC /* EditView.swift */; };
+		10CB96DC2A64042A00C08DBC /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96DB2A64042A00C08DBC /* RoleView.swift */; };
+		10CB96DE2A64044000C08DBC /* RoleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96DD2A64044000C08DBC /* RoleButton.swift */; };
 		65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076862A56F949003E6D92 /* YeowooApp.swift */; };
 		65C076892A56F949003E6D92 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076882A56F949003E6D92 /* ContentView.swift */; };
 		65C0768B2A56F94B003E6D92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C0768A2A56F94B003E6D92 /* Assets.xcassets */; };
@@ -66,6 +70,10 @@
 		1049B7FA2A63FA670021F674 /* CameraButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraButtonView.swift; sourceTree = "<group>"; };
 		10CB96D32A63FDF000C08DBC /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
+		10CB96D72A64028C00C08DBC /* WriteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTextView.swift; sourceTree = "<group>"; };
+		10CB96D92A6403D600C08DBC /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		10CB96DB2A64042A00C08DBC /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
+		10CB96DD2A64044000C08DBC /* RoleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleButton.swift; sourceTree = "<group>"; };
 		65C076832A56F949003E6D92 /* Yeowoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yeowoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C076862A56F949003E6D92 /* YeowooApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeowooApp.swift; sourceTree = "<group>"; };
 		65C076882A56F949003E6D92 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -141,6 +149,9 @@
 			children = (
 				10CB96D22A63FDD500C08DBC /* Components */,
 				1049B7FA2A63FA670021F674 /* CameraButtonView.swift */,
+				10CB96D92A6403D600C08DBC /* EditView.swift */,
+				10CB96D72A64028C00C08DBC /* WriteTextView.swift */,
+				10CB96DB2A64042A00C08DBC /* RoleView.swift */,
 			);
 			path = CameraViews;
 			sourceTree = "<group>";
@@ -157,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				10CB96D32A63FDF000C08DBC /* Buttons.swift */,
+				10CB96DD2A64044000C08DBC /* RoleButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -461,6 +473,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				65C077392A5FF255003E6D92 /* UserDefaultsWrapper.swift in Sources */,
+				10CB96DE2A64044000C08DBC /* RoleButton.swift in Sources */,
+				10CB96D82A64028C00C08DBC /* WriteTextView.swift in Sources */,
 				10CB96D62A63FF7800C08DBC /* CameraViewModel.swift in Sources */,
 				65C077342A5FE55B003E6D92 /* AppDelegate.swift in Sources */,
 				65C077372A5FF248003E6D92 /* UserDefaultsSetting.swift in Sources */,
@@ -470,10 +484,12 @@
 				65C077062A5B9BC2003E6D92 /* TestViewModel.swift in Sources */,
 				1049B7F12A63F8BA0021F674 /* Font+.swift in Sources */,
 				65C077172A5BF4A7003E6D92 /* KeyChainAccount.swift in Sources */,
+				10CB96DA2A6403D600C08DBC /* EditView.swift in Sources */,
 				10CB96D42A63FDF000C08DBC /* Buttons.swift in Sources */,
 				1049B7FB2A63FA670021F674 /* CameraButtonView.swift in Sources */,
 				65C076FD2A5A7F1F003E6D92 /* FirebaseError.swift in Sources */,
 				65C076892A56F949003E6D92 /* ContentView.swift in Sources */,
+				10CB96DC2A64042A00C08DBC /* RoleView.swift in Sources */,
 				65C0770F2A5BDACF003E6D92 /* User.swift in Sources */,
 				65C076FF2A5A7F2A003E6D92 /* FirebaseService.swift in Sources */,
 				65C077152A5BF322003E6D92 /* KeyChainManager.swift in Sources */,
