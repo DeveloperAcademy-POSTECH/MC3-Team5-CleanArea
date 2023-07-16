@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1049B7F12A63F8BA0021F674 /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1049B7F02A63F8BA0021F674 /* Font+.swift */; };
 		1049B7F32A63F8FF0021F674 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1049B7F22A63F8FF0021F674 /* UIScreen+.swift */; };
+		1049B7FB2A63FA670021F674 /* CameraButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1049B7FA2A63FA670021F674 /* CameraButtonView.swift */; };
+		10CB96D42A63FDF000C08DBC /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D32A63FDF000C08DBC /* Buttons.swift */; };
 		65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076862A56F949003E6D92 /* YeowooApp.swift */; };
 		65C076892A56F949003E6D92 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076882A56F949003E6D92 /* ContentView.swift */; };
 		65C0768B2A56F94B003E6D92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C0768A2A56F94B003E6D92 /* Assets.xcassets */; };
@@ -60,6 +62,8 @@
 /* Begin PBXFileReference section */
 		1049B7F02A63F8BA0021F674 /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		1049B7F22A63F8FF0021F674 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
+		1049B7FA2A63FA670021F674 /* CameraButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraButtonView.swift; sourceTree = "<group>"; };
+		10CB96D32A63FDF000C08DBC /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		65C076832A56F949003E6D92 /* Yeowoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yeowoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C076862A56F949003E6D92 /* YeowooApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeowooApp.swift; sourceTree = "<group>"; };
 		65C076882A56F949003E6D92 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -128,6 +132,30 @@
 				1049B7F22A63F8FF0021F674 /* UIScreen+.swift */,
 			);
 			path = Global;
+			sourceTree = "<group>";
+		};
+		1049B7F82A63FA240021F674 /* CameraViews */ = {
+			isa = PBXGroup;
+			children = (
+				10CB96D22A63FDD500C08DBC /* Components */,
+				1049B7FA2A63FA670021F674 /* CameraButtonView.swift */,
+			);
+			path = CameraViews;
+			sourceTree = "<group>";
+		};
+		1049B7F92A63FA470021F674 /* CameraViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CameraViewModels;
+			sourceTree = "<group>";
+		};
+		10CB96D22A63FDD500C08DBC /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				10CB96D32A63FDF000C08DBC /* Buttons.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		65C0767A2A56F949003E6D92 = {
@@ -241,6 +269,7 @@
 		65C076B52A570A19003E6D92 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				1049B7F92A63FA470021F674 /* CameraViewModels */,
 				65C077052A5B9BC2003E6D92 /* TestViewModel.swift */,
 			);
 			path = ViewModels;
@@ -249,6 +278,7 @@
 		65C076B62A570A23003E6D92 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1049B7F82A63FA240021F674 /* CameraViews */,
 				65C077072A5B9BC9003E6D92 /* TestView.swift */,
 			);
 			path = Views;
@@ -436,6 +466,8 @@
 				65C077062A5B9BC2003E6D92 /* TestViewModel.swift in Sources */,
 				1049B7F12A63F8BA0021F674 /* Font+.swift in Sources */,
 				65C077172A5BF4A7003E6D92 /* KeyChainAccount.swift in Sources */,
+				10CB96D42A63FDF000C08DBC /* Buttons.swift in Sources */,
+				1049B7FB2A63FA670021F674 /* CameraButtonView.swift in Sources */,
 				65C076FD2A5A7F1F003E6D92 /* FirebaseError.swift in Sources */,
 				65C076892A56F949003E6D92 /* ContentView.swift in Sources */,
 				65C0770F2A5BDACF003E6D92 /* User.swift in Sources */,
