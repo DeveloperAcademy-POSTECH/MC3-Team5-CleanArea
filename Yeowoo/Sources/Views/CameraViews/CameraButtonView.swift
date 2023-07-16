@@ -47,7 +47,12 @@ struct CameraButtonView: View {
                     Spacer()
                         .frame(height: UIScreen.getHeight(29))
                     
-                    Rectangle()
+                    CameraView(didcap: $didCapture,
+                               selectedImage: $image,
+                               didPhoto: $didPhoto,
+                               changeCamera: $changeCamera,
+                               isFlash: $isFlash
+                    )
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .frame(width: UIScreen.screenWidth, height: UIScreen.screenWidth*4/3)
                     
