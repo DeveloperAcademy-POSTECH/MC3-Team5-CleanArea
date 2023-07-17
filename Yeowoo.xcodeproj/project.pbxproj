@@ -14,6 +14,10 @@
 		1064751A2A65331D0092FE5B /* NoAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475192A65331D0092FE5B /* NoAlbumView.swift */; };
 		1064751C2A6534FC0092FE5B /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064751B2A6534FC0092FE5B /* MainViewModel.swift */; };
 		1064751F2A65362D0092FE5B /* NewAlbumButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064751E2A65362D0092FE5B /* NewAlbumButton.swift */; };
+		106475212A6536D70092FE5B /* AlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475202A6536D70092FE5B /* AlbumView.swift */; };
+		106475242A6537FD0092FE5B /* TravelLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475232A6537FD0092FE5B /* TravelLabel.swift */; };
+		106475262A6539E40092FE5B /* PlusPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475252A6539E40092FE5B /* PlusPerson.swift */; };
+		106475282A653A1D0092FE5B /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475272A653A1D0092FE5B /* Person.swift */; };
 		10CB96D42A63FDF000C08DBC /* FeatureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D32A63FDF000C08DBC /* FeatureButton.swift */; };
 		10CB96D62A63FF7800C08DBC /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */; };
 		10CB96D82A64028C00C08DBC /* WriteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D72A64028C00C08DBC /* WriteTextView.swift */; };
@@ -77,6 +81,10 @@
 		106475192A65331D0092FE5B /* NoAlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAlbumView.swift; sourceTree = "<group>"; };
 		1064751B2A6534FC0092FE5B /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		1064751E2A65362D0092FE5B /* NewAlbumButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlbumButton.swift; sourceTree = "<group>"; };
+		106475202A6536D70092FE5B /* AlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumView.swift; sourceTree = "<group>"; };
+		106475232A6537FD0092FE5B /* TravelLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelLabel.swift; sourceTree = "<group>"; };
+		106475252A6539E40092FE5B /* PlusPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusPerson.swift; sourceTree = "<group>"; };
+		106475272A653A1D0092FE5B /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		10CB96D32A63FDF000C08DBC /* FeatureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureButton.swift; sourceTree = "<group>"; };
 		10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		10CB96D72A64028C00C08DBC /* WriteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTextView.swift; sourceTree = "<group>"; };
@@ -178,9 +186,11 @@
 		106475162A6529AE0092FE5B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				106475222A6537CF0092FE5B /* Components */,
 				106475172A6529E40092FE5B /* MainView.swift */,
 				106475192A65331D0092FE5B /* NoAlbumView.swift */,
 				1064751E2A65362D0092FE5B /* NewAlbumButton.swift */,
+				106475202A6536D70092FE5B /* AlbumView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -191,6 +201,16 @@
 				1064751B2A6534FC0092FE5B /* MainViewModel.swift */,
 			);
 			path = MainViewModels;
+			sourceTree = "<group>";
+		};
+		106475222A6537CF0092FE5B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				106475232A6537FD0092FE5B /* TravelLabel.swift */,
+				106475252A6539E40092FE5B /* PlusPerson.swift */,
+				106475272A653A1D0092FE5B /* Person.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		10CB96D22A63FDD500C08DBC /* Components */ = {
@@ -503,7 +523,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				106475242A6537FD0092FE5B /* TravelLabel.swift in Sources */,
 				65C077392A5FF255003E6D92 /* UserDefaultsWrapper.swift in Sources */,
+				106475262A6539E40092FE5B /* PlusPerson.swift in Sources */,
 				10CB96DE2A64044000C08DBC /* RoleButton.swift in Sources */,
 				1064751F2A65362D0092FE5B /* NewAlbumButton.swift in Sources */,
 				10CB96D82A64028C00C08DBC /* WriteTextView.swift in Sources */,
@@ -513,6 +535,7 @@
 				1049B7F32A63F8FF0021F674 /* UIScreen+.swift in Sources */,
 				65C077192A5BF4C7003E6D92 /* KeyChainError.swift in Sources */,
 				65C077082A5B9BC9003E6D92 /* TestView.swift in Sources */,
+				106475212A6536D70092FE5B /* AlbumView.swift in Sources */,
 				65C077062A5B9BC2003E6D92 /* TestViewModel.swift in Sources */,
 				1049B7F12A63F8BA0021F674 /* Font+.swift in Sources */,
 				65C077172A5BF4A7003E6D92 /* KeyChainAccount.swift in Sources */,
@@ -530,6 +553,7 @@
 				65C076FF2A5A7F2A003E6D92 /* FirebaseService.swift in Sources */,
 				65C077152A5BF322003E6D92 /* KeyChainManager.swift in Sources */,
 				65C077042A5B915F003E6D92 /* Test.swift in Sources */,
+				106475282A653A1D0092FE5B /* Person.swift in Sources */,
 				65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

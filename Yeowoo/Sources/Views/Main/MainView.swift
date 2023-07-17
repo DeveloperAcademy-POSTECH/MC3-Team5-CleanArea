@@ -69,7 +69,7 @@ struct MainView: View {
                             CameraButtonView()
                                 .padding(.trailing, UIScreen.getWidth(20))
                         } else {
-                            
+                            NewAlbumButton()
                         }
                     }
                 }
