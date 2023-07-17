@@ -10,7 +10,8 @@ import SwiftUI
 struct AlbumView: View {
     @State var arr: [Color]
     @State var personCount = 0
-    var traveling: Bool
+    @State var traveling: Int = 0
+    @State var days: Int = 0
     var travelName: String
     var startDay: String
     var endDay: String
@@ -27,7 +28,13 @@ struct AlbumView: View {
                     .cornerRadius(20, corners: [.topLeft, .topRight])
                 
                 VStack(alignment: .leading, spacing: 0) {
-                    traveling == true ? TravelLabel(travelText: "여행중").padding(.top, UIScreen.getHeight(10)) : TravelLabel(travelText: "여행전").padding(.top, UIScreen.getHeight(10))
+                    
+                    if traveling == 1 {
+                        TravelLabel(travelText: "여행중")
+                            .padding(.top, UIScreen.getHeight(10))
+                    } else if traveling == 0 {
+                        TravelLabel(travelText: "D - \(days)").padding(.top, UIScreen.getHeight(10))
+                    }
                     
                     Spacer()
                     
@@ -67,16 +74,28 @@ struct AlbumView: View {
                         }
                         PlusPerson(plusCount: arr.count-3)
                     }
-                    traveling == true ?
-                    Text("\(arr.count)명 여행 중")
-                        .foregroundColor(Color(uiColor: .systemGray))
-                        .padding(.leading, 20) :
-                    Text("\(arr.count)명 여행 완료")
-                        .foregroundColor(Color(uiColor: .systemGray))
-                        .padding(.leading, 20)
+                    if traveling == 1 {
+                        Text("\(arr.count)명 여행 중")
+                            .foregroundColor(Color(uiColor: .systemGray))
+                            .padding(.leading, 20)
+                    } else if traveling == 2 {
+                        Text("\(arr.count)명 여행 완료")
+                            .foregroundColor(Color(uiColor: .systemGray))
+                            .padding(.leading, 20)
+                    } else {
+                        Text("\(arr.count)명 여행 전")
+                            .foregroundColor(Color(uiColor: .systemGray))
+                            .padding(.leading, 20)
+                    }
                     Spacer()
                 }
                 .frame(maxWidth: UIScreen.getWidth(330))
+            }
+        }
+        .onAppear {
+            traveling = compareDate(startDay, endDay)
+            if traveling == 0 {
+                days = D_Day(startDay)
             }
         }
     }
@@ -84,7 +103,7 @@ struct AlbumView: View {
 
 struct AlbumView_Previews: PreviewProvider {
     static var previews: some View {
-        AlbumView(arr: [.blue, .black, .brown, .pink], traveling: true, travelName: "일본 여행", startDay: "2023. 01. 05", endDay: "2023. 01. 20")
+        AlbumView(arr: [.blue, .black, .brown, .pink], travelName: "일본 여행", startDay: "2023. 07. 15", endDay: "2023. 07. 16")
     }
 }
 

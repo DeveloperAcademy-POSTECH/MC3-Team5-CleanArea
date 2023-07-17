@@ -18,6 +18,8 @@
 		106475242A6537FD0092FE5B /* TravelLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475232A6537FD0092FE5B /* TravelLabel.swift */; };
 		106475262A6539E40092FE5B /* PlusPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475252A6539E40092FE5B /* PlusPerson.swift */; };
 		106475282A653A1D0092FE5B /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475272A653A1D0092FE5B /* Person.swift */; };
+		1064752A2A65691E0092FE5B /* TapePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475292A65691E0092FE5B /* TapePicture.swift */; };
+		1064752C2A656A170092FE5B /* DoneTravelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064752B2A656A170092FE5B /* DoneTravelView.swift */; };
 		10CB96D42A63FDF000C08DBC /* FeatureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D32A63FDF000C08DBC /* FeatureButton.swift */; };
 		10CB96D62A63FF7800C08DBC /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */; };
 		10CB96D82A64028C00C08DBC /* WriteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D72A64028C00C08DBC /* WriteTextView.swift */; };
@@ -85,6 +87,8 @@
 		106475232A6537FD0092FE5B /* TravelLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelLabel.swift; sourceTree = "<group>"; };
 		106475252A6539E40092FE5B /* PlusPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusPerson.swift; sourceTree = "<group>"; };
 		106475272A653A1D0092FE5B /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		106475292A65691E0092FE5B /* TapePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapePicture.swift; sourceTree = "<group>"; };
+		1064752B2A656A170092FE5B /* DoneTravelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTravelView.swift; sourceTree = "<group>"; };
 		10CB96D32A63FDF000C08DBC /* FeatureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureButton.swift; sourceTree = "<group>"; };
 		10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		10CB96D72A64028C00C08DBC /* WriteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTextView.swift; sourceTree = "<group>"; };
@@ -191,6 +195,7 @@
 				106475192A65331D0092FE5B /* NoAlbumView.swift */,
 				1064751E2A65362D0092FE5B /* NewAlbumButton.swift */,
 				106475202A6536D70092FE5B /* AlbumView.swift */,
+				1064752B2A656A170092FE5B /* DoneTravelView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -209,6 +214,7 @@
 				106475232A6537FD0092FE5B /* TravelLabel.swift */,
 				106475252A6539E40092FE5B /* PlusPerson.swift */,
 				106475272A653A1D0092FE5B /* Person.swift */,
+				106475292A65691E0092FE5B /* TapePicture.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -528,6 +534,7 @@
 				106475262A6539E40092FE5B /* PlusPerson.swift in Sources */,
 				10CB96DE2A64044000C08DBC /* RoleButton.swift in Sources */,
 				1064751F2A65362D0092FE5B /* NewAlbumButton.swift in Sources */,
+				1064752A2A65691E0092FE5B /* TapePicture.swift in Sources */,
 				10CB96D82A64028C00C08DBC /* WriteTextView.swift in Sources */,
 				10CB96D62A63FF7800C08DBC /* CameraViewModel.swift in Sources */,
 				65C077342A5FE55B003E6D92 /* AppDelegate.swift in Sources */,
@@ -552,6 +559,7 @@
 				65C0770F2A5BDACF003E6D92 /* User.swift in Sources */,
 				65C076FF2A5A7F2A003E6D92 /* FirebaseService.swift in Sources */,
 				65C077152A5BF322003E6D92 /* KeyChainManager.swift in Sources */,
+				1064752C2A656A170092FE5B /* DoneTravelView.swift in Sources */,
 				65C077042A5B915F003E6D92 /* Test.swift in Sources */,
 				106475282A653A1D0092FE5B /* Person.swift in Sources */,
 				65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */,
