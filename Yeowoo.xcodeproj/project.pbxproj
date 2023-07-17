@@ -20,6 +20,7 @@
 		106475282A653A1D0092FE5B /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475272A653A1D0092FE5B /* Person.swift */; };
 		1064752A2A65691E0092FE5B /* TapePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475292A65691E0092FE5B /* TapePicture.swift */; };
 		1064752C2A656A170092FE5B /* DoneTravelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064752B2A656A170092FE5B /* DoneTravelView.swift */; };
+		1064752E2A656BB20092FE5B /* RecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064752D2A656BB20092FE5B /* RecommendView.swift */; };
 		10CB96D42A63FDF000C08DBC /* FeatureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D32A63FDF000C08DBC /* FeatureButton.swift */; };
 		10CB96D62A63FF7800C08DBC /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */; };
 		10CB96D82A64028C00C08DBC /* WriteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D72A64028C00C08DBC /* WriteTextView.swift */; };
@@ -89,6 +90,7 @@
 		106475272A653A1D0092FE5B /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		106475292A65691E0092FE5B /* TapePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapePicture.swift; sourceTree = "<group>"; };
 		1064752B2A656A170092FE5B /* DoneTravelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTravelView.swift; sourceTree = "<group>"; };
+		1064752D2A656BB20092FE5B /* RecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendView.swift; sourceTree = "<group>"; };
 		10CB96D32A63FDF000C08DBC /* FeatureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureButton.swift; sourceTree = "<group>"; };
 		10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		10CB96D72A64028C00C08DBC /* WriteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTextView.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				1064751E2A65362D0092FE5B /* NewAlbumButton.swift */,
 				106475202A6536D70092FE5B /* AlbumView.swift */,
 				1064752B2A656A170092FE5B /* DoneTravelView.swift */,
+				1064752D2A656BB20092FE5B /* RecommendView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				65C077042A5B915F003E6D92 /* Test.swift in Sources */,
 				106475282A653A1D0092FE5B /* Person.swift in Sources */,
 				65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */,
+				1064752E2A656BB20092FE5B /* RecommendView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
