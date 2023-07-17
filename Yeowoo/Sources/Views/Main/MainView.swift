@@ -10,7 +10,7 @@ import SwiftUI
 struct MainView: View {
     @State var traveling = 0
     @State var hasAlarm = false
-    @State var hasAlbum = true
+    @State var hasAlbum = false
     @State var today: String = ""
     
     var body: some View {
@@ -130,6 +130,7 @@ struct MainView: View {
         .onAppear {
             traveling = hasTraveling()
             getCurrentDateTime(&today)
+            hasAlbum = hasEmpty()
         }
     }
 }

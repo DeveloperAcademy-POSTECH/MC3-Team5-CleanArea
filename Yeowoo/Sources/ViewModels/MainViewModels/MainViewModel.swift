@@ -15,7 +15,7 @@ struct Dummy: Identifiable, Hashable {
     var withPerson: [Color]
 }
 
-let dummyData = [Dummy(albumName: "일본 여행", startDay: "2023.02.11", endDay: "2023.02.15", withPerson: [.purple, .pink]),
+var dummyData = [Dummy(albumName: "일본 여행", startDay: "2023.02.11", endDay: "2023.02.15", withPerson: [.purple, .pink]),
                  Dummy(albumName: "경주 여행", startDay: "2023.03.30", endDay: "2023.07.16", withPerson: [.purple, .blue, .brown, .cyan, .green]),
                  Dummy(albumName: "서울 여행", startDay: "2023.07.18", endDay: "2023.07.20", withPerson: [.purple]),
 //                 Dummy(albumName: "서울 여행", startDay: "2023.07.13", endDay: "2023.07.14", withPerson: [.purple]),
@@ -23,15 +23,17 @@ let dummyData = [Dummy(albumName: "일본 여행", startDay: "2023.02.11", endDa
 //                 Dummy(albumName: "서울 여행", startDay: "2023.07.13", endDay: "2023.07.18", withPerson: [.purple])
 ]
 
+//var dummyData: [Dummy] = []
+
 let Colors: [Color] = [.brown, .black, .pink, .teal, .yellow, .cyan, .primary]
 
 func hasTraveling() -> Int {
+    if !dummyData.isEmpty {
+        let day = compareDate(dummyData[dummyData.count-1].startDay, dummyData[dummyData.count-1].endDay)
+        return day
+    }
     
-    let day = compareDate(dummyData[dummyData.count-1].startDay, dummyData[dummyData.count-1].endDay)
-    
-    
-    
-    return day
+    return 0
 }
 
 func getCurrentDateTime(_ str: inout String) {
@@ -122,4 +124,10 @@ func randomPicture(_ album: [Color] , _ pic: inout [Color]){
         pic[k] = three[k]
         print(pic[k])
     }
+}
+
+func hasEmpty() -> Bool {
+    let value = !dummyData.isEmpty
+    
+    return value
 }
