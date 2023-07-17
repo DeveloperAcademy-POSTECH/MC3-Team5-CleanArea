@@ -39,7 +39,6 @@ struct EditView: View {
                     }
                     Button("삭제", role: .destructive) {
                         didPhoto = false
-                        showModal = false
                         image = UIImage()
                     }
                 } message: {
