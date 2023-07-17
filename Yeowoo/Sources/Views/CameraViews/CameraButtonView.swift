@@ -19,6 +19,7 @@ struct CameraButtonView: View {
     
     var body: some View {
         Button(action: {
+            UIView.setAnimationsEnabled(false)
             showModal = true
         }) {
             Image(systemName: "camera.circle.fill")
@@ -69,6 +70,9 @@ struct CameraButtonView: View {
             } else {
                 EditView(showModal: $showModal, image: $image, didPhoto: $didPhoto)
             }
+        }
+        .onAppear{
+            UIView.setAnimationsEnabled(true)
         }
     }
 }
