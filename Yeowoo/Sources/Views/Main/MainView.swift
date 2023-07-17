@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct MainView: View {
-    @State var hasAlarm = false
     @State var traveling = 0
+    @State var hasAlarm = false
     @State var hasAlbum = true
     @State var today: String = ""
     
@@ -17,30 +17,40 @@ struct MainView: View {
         VStack {
             Image("YeowooNavigation")
             Spacer()
-                .frame(height: UIScreen.getHeight(84))
+                .frame(height: UIScreen.getHeight(hasAlbum == true ? 35 : 84))
             
             ZStack {
                 if hasAlbum {
                     ScrollView(.vertical, showsIndicators: true, content: {
                         VStack {
                             if !(traveling == 2) {
-                                Spacer()
-                                    .frame(height: UIScreen.getHeight(41))
+                                if traveling == 1{
+                                    RecommendView()
+                                    Spacer()
+                                        .frame(height: UIScreen.getHeight(41))
+                                } else {
+                                    BeforeTravelView()
+                                }
                                 
                                 HStack {
                                     Spacer()
                                         .frame(width: UIScreen.getWidth(20))
-                                    
-                                    Text("지금 쌓고 있는 추억")
-                                        .font(.custom18bold())
-                                    
-                                    Spacer()
+                                    if traveling == 1{
+                                        Text("지금 쌓고 있는 추억")
+                                            .font(.custom18bold())
+                                        Spacer()
+                                    }
                                 }
                                 
                                 AlbumView(arr: dummyData[dummyData.count-1].withPerson,
                                           travelName: dummyData[dummyData.count-1].albumName,
                                           startDay: dummyData[dummyData.count-1].startDay,
                                           endDay: dummyData[dummyData.count-1].endDay)
+                                
+                                Spacer()
+                                    .frame(height: UIScreen.getHeight(45))
+                            } else if dummyData[dummyData.count-1].endDay == today {
+                                DoneTravelView(albumName: dummyData[dummyData.count-1].albumName)
                                 
                                 Spacer()
                                     .frame(height: UIScreen.getHeight(45))
@@ -55,7 +65,8 @@ struct MainView: View {
                                 
                                 Spacer()
                             }
-                            ForEach(dummyData[0..<dummyData.count-1].reversed(), id: \.self) { data in
+                            ForEach(dummyData[0..<(traveling == 2 ? dummyData.count : dummyData.count-1)].reversed(),
+                                    id: \.self) { data in
                                 AlbumView(arr: data.withPerson, travelName: data.albumName, startDay: data.startDay, endDay: data.endDay)
                                     .padding(.bottom, UIScreen.getHeight(10))
                             }
@@ -105,7 +116,7 @@ struct MainView: View {
                         
                         Spacer()
                         
-                        if traveling == 1 {
+                        if traveling == 0 || traveling == 1 {
                             CameraButtonView()
                                 .padding(.trailing, UIScreen.getWidth(20))
                         } else {

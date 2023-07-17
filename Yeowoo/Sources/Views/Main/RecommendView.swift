@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct RecommendView: View {
-    var Date: Int = 3
+    @State var date: Int = 0
     var body: some View {
         VStack {
             HStack {
                 VStack(alignment: .leading, spacing: 3) {
                     Text("노루궁뎅이님")
                     Text("여행 ") +
-                    Text("\(Date)일차").foregroundColor(Color("ButtonColor")) +
+                    Text("\(date)일차").foregroundColor(Color("ButtonColor")) +
                     Text("인 오늘")
                     Text("친구들과 단체사진 어떠세요?")
                 }
@@ -41,6 +41,9 @@ struct RecommendView: View {
             RoundedRectangle(cornerRadius: 10)
                 .foregroundColor(Color(uiColor: .secondarySystemBackground))
                 .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(154))
+        }
+        .onAppear {
+            date = travelingDate(dummyData[dummyData.count-1].startDay)
         }
     }
 
