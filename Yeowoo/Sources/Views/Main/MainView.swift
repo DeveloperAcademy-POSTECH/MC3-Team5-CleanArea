@@ -116,7 +116,7 @@ struct MainView: View {
                         
                         Spacer()
                         
-                        if traveling == 0 || traveling == 1 {
+                        if (traveling == 0 || traveling == 1) && hasAlbum {
                             CameraButtonView()
                                 .padding(.trailing, UIScreen.getWidth(20))
                         } else {
