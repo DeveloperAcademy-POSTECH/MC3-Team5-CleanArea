@@ -36,6 +36,32 @@
 		65C077342A5FE55B003E6D92 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077332A5FE55B003E6D92 /* AppDelegate.swift */; };
 		65C077372A5FF248003E6D92 /* UserDefaultsSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077362A5FF247003E6D92 /* UserDefaultsSetting.swift */; };
 		65C077392A5FF255003E6D92 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077382A5FF255003E6D92 /* UserDefaultsWrapper.swift */; };
+		D5A77DDF2A66AA1D000D8F4E /* TextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DDE2A66AA1D000D8F4E /* TextFieldModifier.swift */; };
+		D5A77DE12A66AA2D000D8F4E /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DE02A66AA2D000D8F4E /* Font.swift */; };
+		D5A77DE32A66AA45000D8F4E /* CardViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DE22A66AA45000D8F4E /* CardViewModifier.swift */; };
+		D5A77DE52A66AA6C000D8F4E /* EditProfileRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DE42A66AA6C000D8F4E /* EditProfileRowView.swift */; };
+		D5A77DE72A66AA7E000D8F4E /* FoxCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DE62A66AA7E000D8F4E /* FoxCardView.swift */; };
+		D5A77DE92A66AA93000D8F4E /* BackToolBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DE82A66AA93000D8F4E /* BackToolBarModifier.swift */; };
+		D5A77DED2A66AAC0000D8F4E /* GrayTitleMakingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DEC2A66AAC0000D8F4E /* GrayTitleMakingView.swift */; };
+		D5A77DEF2A66AAD4000D8F4E /* FindFriendContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DEE2A66AAD4000D8F4E /* FindFriendContents.swift */; };
+		D5A77DF12A66AAEB000D8F4E /* ColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DF02A66AAEB000D8F4E /* ColorModel.swift */; };
+		D5A77DF32A66AAFD000D8F4E /* ScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DF22A66AAFD000D8F4E /* ScreenModel.swift */; };
+		D5A77DF62A66AB26000D8F4E /* SubUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DF52A66AB26000D8F4E /* SubUser.swift */; };
+		D5A77DF82A66AB39000D8F4E /* Fox.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DF72A66AB39000D8F4E /* Fox.swift */; };
+		D5A77DFA2A66AB47000D8F4E /* Travel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DF92A66AB47000D8F4E /* Travel.swift */; };
+		D5A77E012A66AC6B000D8F4E /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E002A66AC6B000D8F4E /* SettingView.swift */; };
+		D5A77E032A66ACE7000D8F4E /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E022A66ACE7000D8F4E /* ProfileSettingView.swift */; };
+		D5A77E052A66ACFD000D8F4E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E042A66ACFD000D8F4E /* MainView.swift */; };
+		D5A77E092A66AD1D000D8F4E /* RoleSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E082A66AD1D000D8F4E /* RoleSelectView.swift */; };
+		D5A77E0B2A66AD2D000D8F4E /* RoleChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E0A2A66AD2D000D8F4E /* RoleChangeView.swift */; };
+		D5A77E0D2A66AD40000D8F4E /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E0C2A66AD40000D8F4E /* NotificationView.swift */; };
+		D5A77E0F2A66AD86000D8F4E /* NoticardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E0E2A66AD86000D8F4E /* NoticardView.swift */; };
+		D5A77E112A66AD97000D8F4E /* EmptyNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E102A66AD97000D8F4E /* EmptyNotificationView.swift */; };
+		D5A77E132A66ADA9000D8F4E /* NewAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E122A66ADA9000D8F4E /* NewAlbumView.swift */; };
+		D5A77E152A66ADBD000D8F4E /* AlbumRoleSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E142A66ADBD000D8F4E /* AlbumRoleSelectView.swift */; };
+		D5A77E172A66ADCD000D8F4E /* FindFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E162A66ADCD000D8F4E /* FindFriendView.swift */; };
+		D5A77E192A66B696000D8F4E /* InvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E182A66B696000D8F4E /* InvitationView.swift */; };
+		D5A77E1B2A66B6ED000D8F4E /* NotiCardContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E1A2A66B6ED000D8F4E /* NotiCardContentsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +107,32 @@
 		65C077332A5FE55B003E6D92 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65C077362A5FF247003E6D92 /* UserDefaultsSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsSetting.swift; sourceTree = "<group>"; };
 		65C077382A5FF255003E6D92 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
+		D5A77DDE2A66AA1D000D8F4E /* TextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldModifier.swift; sourceTree = "<group>"; };
+		D5A77DE02A66AA2D000D8F4E /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		D5A77DE22A66AA45000D8F4E /* CardViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModifier.swift; sourceTree = "<group>"; };
+		D5A77DE42A66AA6C000D8F4E /* EditProfileRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileRowView.swift; sourceTree = "<group>"; };
+		D5A77DE62A66AA7E000D8F4E /* FoxCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoxCardView.swift; sourceTree = "<group>"; };
+		D5A77DE82A66AA93000D8F4E /* BackToolBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackToolBarModifier.swift; sourceTree = "<group>"; };
+		D5A77DEC2A66AAC0000D8F4E /* GrayTitleMakingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayTitleMakingView.swift; sourceTree = "<group>"; };
+		D5A77DEE2A66AAD4000D8F4E /* FindFriendContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindFriendContents.swift; sourceTree = "<group>"; };
+		D5A77DF02A66AAEB000D8F4E /* ColorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorModel.swift; sourceTree = "<group>"; };
+		D5A77DF22A66AAFD000D8F4E /* ScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenModel.swift; sourceTree = "<group>"; };
+		D5A77DF52A66AB26000D8F4E /* SubUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubUser.swift; sourceTree = "<group>"; };
+		D5A77DF72A66AB39000D8F4E /* Fox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fox.swift; sourceTree = "<group>"; };
+		D5A77DF92A66AB47000D8F4E /* Travel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Travel.swift; sourceTree = "<group>"; };
+		D5A77E002A66AC6B000D8F4E /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		D5A77E022A66ACE7000D8F4E /* ProfileSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingView.swift; sourceTree = "<group>"; };
+		D5A77E042A66ACFD000D8F4E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		D5A77E082A66AD1D000D8F4E /* RoleSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleSelectView.swift; sourceTree = "<group>"; };
+		D5A77E0A2A66AD2D000D8F4E /* RoleChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleChangeView.swift; sourceTree = "<group>"; };
+		D5A77E0C2A66AD40000D8F4E /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		D5A77E0E2A66AD86000D8F4E /* NoticardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticardView.swift; sourceTree = "<group>"; };
+		D5A77E102A66AD97000D8F4E /* EmptyNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyNotificationView.swift; sourceTree = "<group>"; };
+		D5A77E122A66ADA9000D8F4E /* NewAlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlbumView.swift; sourceTree = "<group>"; };
+		D5A77E142A66ADBD000D8F4E /* AlbumRoleSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumRoleSelectView.swift; sourceTree = "<group>"; };
+		D5A77E162A66ADCD000D8F4E /* FindFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindFriendView.swift; sourceTree = "<group>"; };
+		D5A77E182A66B696000D8F4E /* InvitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationView.swift; sourceTree = "<group>"; };
+		D5A77E1A2A66B6ED000D8F4E /* NotiCardContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiCardContentsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +192,7 @@
 		65C076852A56F949003E6D92 /* Yeowoo */ = {
 			isa = PBXGroup;
 			children = (
+				D5A77DDA2A66A991000D8F4E /* CaesarComponents */,
 				65C077322A5FBF17003E6D92 /* Yeowoo.entitlements */,
 				65C076B02A5709D8003E6D92 /* Configuration */,
 				65C076B12A5709F6003E6D92 /* Infos */,
@@ -266,6 +319,111 @@
 				65C077382A5FF255003E6D92 /* UserDefaultsWrapper.swift */,
 			);
 			path = UserDefaults;
+			sourceTree = "<group>";
+		};
+		D5A77DDA2A66A991000D8F4E /* CaesarComponents */ = {
+			isa = PBXGroup;
+			children = (
+				D5A77DDD2A66AA01000D8F4E /* View */,
+				D5A77DDC2A66A9F2000D8F4E /* Model */,
+				D5A77DDB2A66A9EA000D8F4E /* Component */,
+			);
+			path = CaesarComponents;
+			sourceTree = "<group>";
+		};
+		D5A77DDB2A66A9EA000D8F4E /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				D5A77DDE2A66AA1D000D8F4E /* TextFieldModifier.swift */,
+				D5A77DE22A66AA45000D8F4E /* CardViewModifier.swift */,
+				D5A77DE42A66AA6C000D8F4E /* EditProfileRowView.swift */,
+				D5A77DE62A66AA7E000D8F4E /* FoxCardView.swift */,
+				D5A77DE82A66AA93000D8F4E /* BackToolBarModifier.swift */,
+				D5A77DEC2A66AAC0000D8F4E /* GrayTitleMakingView.swift */,
+				D5A77DEE2A66AAD4000D8F4E /* FindFriendContents.swift */,
+				D5A77E1A2A66B6ED000D8F4E /* NotiCardContentsView.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		D5A77DDC2A66A9F2000D8F4E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D5A77DF42A66AB0E000D8F4E /* MockupDataModel */,
+				D5A77DF02A66AAEB000D8F4E /* ColorModel.swift */,
+				D5A77DF22A66AAFD000D8F4E /* ScreenModel.swift */,
+				D5A77DE02A66AA2D000D8F4E /* Font.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D5A77DDD2A66AA01000D8F4E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D5A77DFE2A66AC3E000D8F4E /* Root */,
+				D5A77DFF2A66AC50000D8F4E /* PersonalSetting */,
+				D5A77DFD2A66AC38000D8F4E /* Role */,
+				D5A77DFC2A66AC2F000D8F4E /* Notification */,
+				D5A77DFB2A66AC22000D8F4E /* NewAlbum */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D5A77DF42A66AB0E000D8F4E /* MockupDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				D5A77DF52A66AB26000D8F4E /* SubUser.swift */,
+				D5A77DF72A66AB39000D8F4E /* Fox.swift */,
+				D5A77DF92A66AB47000D8F4E /* Travel.swift */,
+			);
+			path = MockupDataModel;
+			sourceTree = "<group>";
+		};
+		D5A77DFB2A66AC22000D8F4E /* NewAlbum */ = {
+			isa = PBXGroup;
+			children = (
+				D5A77E122A66ADA9000D8F4E /* NewAlbumView.swift */,
+				D5A77E142A66ADBD000D8F4E /* AlbumRoleSelectView.swift */,
+				D5A77E162A66ADCD000D8F4E /* FindFriendView.swift */,
+			);
+			path = NewAlbum;
+			sourceTree = "<group>";
+		};
+		D5A77DFC2A66AC2F000D8F4E /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				D5A77E0C2A66AD40000D8F4E /* NotificationView.swift */,
+				D5A77E0E2A66AD86000D8F4E /* NoticardView.swift */,
+				D5A77E102A66AD97000D8F4E /* EmptyNotificationView.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		D5A77DFD2A66AC38000D8F4E /* Role */ = {
+			isa = PBXGroup;
+			children = (
+				D5A77E182A66B696000D8F4E /* InvitationView.swift */,
+				D5A77E082A66AD1D000D8F4E /* RoleSelectView.swift */,
+				D5A77E0A2A66AD2D000D8F4E /* RoleChangeView.swift */,
+			);
+			path = Role;
+			sourceTree = "<group>";
+		};
+		D5A77DFE2A66AC3E000D8F4E /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				D5A77E042A66ACFD000D8F4E /* MainView.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		D5A77DFF2A66AC50000D8F4E /* PersonalSetting */ = {
+			isa = PBXGroup;
+			children = (
+				D5A77E002A66AC6B000D8F4E /* SettingView.swift */,
+				D5A77E022A66ACE7000D8F4E /* ProfileSettingView.swift */,
+			);
+			path = PersonalSetting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -413,20 +571,46 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5A77DF62A66AB26000D8F4E /* SubUser.swift in Sources */,
+				D5A77E112A66AD97000D8F4E /* EmptyNotificationView.swift in Sources */,
 				65C077392A5FF255003E6D92 /* UserDefaultsWrapper.swift in Sources */,
+				D5A77E012A66AC6B000D8F4E /* SettingView.swift in Sources */,
 				65C077342A5FE55B003E6D92 /* AppDelegate.swift in Sources */,
 				65C077372A5FF248003E6D92 /* UserDefaultsSetting.swift in Sources */,
 				65C077192A5BF4C7003E6D92 /* KeyChainError.swift in Sources */,
 				65C077082A5B9BC9003E6D92 /* TestView.swift in Sources */,
+				D5A77DE52A66AA6C000D8F4E /* EditProfileRowView.swift in Sources */,
+				D5A77DF32A66AAFD000D8F4E /* ScreenModel.swift in Sources */,
+				D5A77E1B2A66B6ED000D8F4E /* NotiCardContentsView.swift in Sources */,
+				D5A77E0D2A66AD40000D8F4E /* NotificationView.swift in Sources */,
+				D5A77E032A66ACE7000D8F4E /* ProfileSettingView.swift in Sources */,
 				65C077062A5B9BC2003E6D92 /* TestViewModel.swift in Sources */,
+				D5A77DDF2A66AA1D000D8F4E /* TextFieldModifier.swift in Sources */,
+				D5A77DF82A66AB39000D8F4E /* Fox.swift in Sources */,
+				D5A77E092A66AD1D000D8F4E /* RoleSelectView.swift in Sources */,
+				D5A77E0F2A66AD86000D8F4E /* NoticardView.swift in Sources */,
+				D5A77DED2A66AAC0000D8F4E /* GrayTitleMakingView.swift in Sources */,
+				D5A77E152A66ADBD000D8F4E /* AlbumRoleSelectView.swift in Sources */,
 				65C077172A5BF4A7003E6D92 /* KeyChainAccount.swift in Sources */,
+				D5A77DF12A66AAEB000D8F4E /* ColorModel.swift in Sources */,
 				65C076FD2A5A7F1F003E6D92 /* FirebaseError.swift in Sources */,
 				65C076892A56F949003E6D92 /* ContentView.swift in Sources */,
 				65C0770F2A5BDACF003E6D92 /* User.swift in Sources */,
 				65C076FF2A5A7F2A003E6D92 /* FirebaseService.swift in Sources */,
+				D5A77DE32A66AA45000D8F4E /* CardViewModifier.swift in Sources */,
+				D5A77DE12A66AA2D000D8F4E /* Font.swift in Sources */,
+				D5A77DFA2A66AB47000D8F4E /* Travel.swift in Sources */,
 				65C077152A5BF322003E6D92 /* KeyChainManager.swift in Sources */,
 				65C077042A5B915F003E6D92 /* Test.swift in Sources */,
+				D5A77E132A66ADA9000D8F4E /* NewAlbumView.swift in Sources */,
 				65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */,
+				D5A77DE72A66AA7E000D8F4E /* FoxCardView.swift in Sources */,
+				D5A77E172A66ADCD000D8F4E /* FindFriendView.swift in Sources */,
+				D5A77E0B2A66AD2D000D8F4E /* RoleChangeView.swift in Sources */,
+				D5A77E052A66ACFD000D8F4E /* MainView.swift in Sources */,
+				D5A77DE92A66AA93000D8F4E /* BackToolBarModifier.swift in Sources */,
+				D5A77DEF2A66AAD4000D8F4E /* FindFriendContents.swift in Sources */,
+				D5A77E192A66B696000D8F4E /* InvitationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
