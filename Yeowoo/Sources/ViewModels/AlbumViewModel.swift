@@ -84,6 +84,11 @@ final class AlbumViewModel: ObservableObject {
 		}
 	}
 	
+	// 좋아요 눌렀을 때
+	func actionLike(toggleChk: Bool, fileName: String) async throws {
+		toggleChk ? try await FirebaseService.removeUserFromLikeUsers(albumDocId: "T9eJMPQEGQClFHEahX6r", paramFileName: "123") : try await FirebaseService.updateLikeUsers(albumDocId: "T9eJMPQEGQClFHEahX6r", paramFileName: "123")
+		
+	}
 	
 	
 	//	func upload() async throws {
