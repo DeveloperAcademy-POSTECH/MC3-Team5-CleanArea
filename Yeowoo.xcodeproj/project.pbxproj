@@ -39,6 +39,7 @@
 		65C0774D2A612C92003E6D92 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C0774C2A612C92003E6D92 /* Album.swift */; };
 		65C0774F2A612EF5003E6D92 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C0774E2A612EF5003E6D92 /* AlbumViewModel.swift */; };
 		65C077512A616874003E6D92 /* GalleryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077502A616874003E6D92 /* GalleryLayout.swift */; };
+		65C077532A640CF9003E6D92 /* AlbumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077522A640CF9003E6D92 /* AlbumDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		65C0774C2A612C92003E6D92 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		65C0774E2A612EF5003E6D92 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
 		65C077502A616874003E6D92 /* GalleryLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryLayout.swift; sourceTree = "<group>"; };
+		65C077522A640CF9003E6D92 /* AlbumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,6 +281,7 @@
 			children = (
 				65C0773F2A611C31003E6D92 /* Layouts */,
 				65C0773D2A611763003E6D92 /* AlbumView.swift */,
+				65C077522A640CF9003E6D92 /* AlbumDetailView.swift */,
 			);
 			path = Album;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 				65C077512A616874003E6D92 /* GalleryLayout.swift in Sources */,
 				65C0773E2A611763003E6D92 /* AlbumView.swift in Sources */,
 				65C076892A56F949003E6D92 /* ContentView.swift in Sources */,
+				65C077532A640CF9003E6D92 /* AlbumDetailView.swift in Sources */,
 				65C0770F2A5BDACF003E6D92 /* User.swift in Sources */,
 				65C076FF2A5A7F2A003E6D92 /* FirebaseService.swift in Sources */,
 				65C077152A5BF322003E6D92 /* KeyChainManager.swift in Sources */,

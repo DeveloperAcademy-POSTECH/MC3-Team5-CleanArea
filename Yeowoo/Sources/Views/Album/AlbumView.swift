@@ -141,22 +141,28 @@ struct AlbumView: View {
 										if toggleOn {
 											if index % 3 == 1 {
 												if roleState == .all {
-													FirstFeedLayout(entitys: viewModel.images[index])
+													FirstFeedLayout(entitys: viewModel.images[index],
+																	user: viewModel.users)
 												} else {
-													FirstFeedLayout(entitys: viewModel.roleImage[index])
+													FirstFeedLayout(entitys: viewModel.roleImage[index],
+																	user: viewModel.users)
 												}
 											} else {
 												if roleState == .all {
-													SecondFeedLayout(entitys: viewModel.images[index])
+													SecondFeedLayout(entitys: viewModel.images[index],
+																	 user: viewModel.users)
 												} else {
-													SecondFeedLayout(entitys: viewModel.roleImage[index])
+													SecondFeedLayout(entitys: viewModel.roleImage[index],
+																	 user: viewModel.users)
 												}
 											}
 										} else {
 											if roleState == .all {
-												GalleryLayout(entitys: viewModel.images[index])
+												GalleryLayout(entitys: viewModel.images[index],
+															  user: viewModel.users)
 											} else {
-												GalleryLayout(entitys: viewModel.roleImage[index])
+												GalleryLayout(entitys: viewModel.roleImage[index],
+															  user: viewModel.users)
 											}
 										}
 									}
@@ -183,5 +189,5 @@ struct AlbumView: View {
 					viewModel.fetchAlbumImages(albumDocId: self.albumDocId)
 				}
 		}
-	}	
+	}
 }

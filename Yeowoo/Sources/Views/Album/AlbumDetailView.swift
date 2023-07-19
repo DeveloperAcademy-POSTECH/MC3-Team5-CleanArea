@@ -24,7 +24,7 @@ struct AlbumDetailView: View {
 					ProgressView()
 						.frame(width: 32, height: 32)
 				}
-				Text(entitys.uploadUser)
+				Text(user.nickname)
 				Spacer()
 			}
 			.padding(.horizontal, 20)
