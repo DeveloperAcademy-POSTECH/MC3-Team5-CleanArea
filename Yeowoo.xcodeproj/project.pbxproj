@@ -7,6 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1049B7F12A63F8BA0021F674 /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1049B7F02A63F8BA0021F674 /* Font+.swift */; };
+		1049B7F32A63F8FF0021F674 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1049B7F22A63F8FF0021F674 /* UIScreen+.swift */; };
+		1049B7FB2A63FA670021F674 /* CameraButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1049B7FA2A63FA670021F674 /* CameraButtonView.swift */; };
+		106475182A6529E40092FE5B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475172A6529E40092FE5B /* MainView.swift */; };
+		1064751A2A65331D0092FE5B /* NoAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475192A65331D0092FE5B /* NoAlbumView.swift */; };
+		1064751C2A6534FC0092FE5B /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064751B2A6534FC0092FE5B /* MainViewModel.swift */; };
+		1064751F2A65362D0092FE5B /* NewAlbumButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064751E2A65362D0092FE5B /* NewAlbumButton.swift */; };
+		106475212A6536D70092FE5B /* AlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475202A6536D70092FE5B /* AlbumView.swift */; };
+		106475242A6537FD0092FE5B /* TravelLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475232A6537FD0092FE5B /* TravelLabel.swift */; };
+		106475262A6539E40092FE5B /* PlusPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475252A6539E40092FE5B /* PlusPerson.swift */; };
+		106475282A653A1D0092FE5B /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475272A653A1D0092FE5B /* Person.swift */; };
+		1064752A2A65691E0092FE5B /* TapePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475292A65691E0092FE5B /* TapePicture.swift */; };
+		1064752C2A656A170092FE5B /* DoneTravelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064752B2A656A170092FE5B /* DoneTravelView.swift */; };
+		1064752E2A656BB20092FE5B /* RecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064752D2A656BB20092FE5B /* RecommendView.swift */; };
+		106475302A656DFB0092FE5B /* BeforeTravelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064752F2A656DFB0092FE5B /* BeforeTravelView.swift */; };
+		10CB96D42A63FDF000C08DBC /* FeatureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D32A63FDF000C08DBC /* FeatureButton.swift */; };
+		10CB96D62A63FF7800C08DBC /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */; };
+		10CB96D82A64028C00C08DBC /* WriteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D72A64028C00C08DBC /* WriteTextView.swift */; };
+		10CB96DA2A6403D600C08DBC /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D92A6403D600C08DBC /* EditView.swift */; };
+		10CB96DC2A64042A00C08DBC /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96DB2A64042A00C08DBC /* RoleView.swift */; };
+		10CB96DE2A64044000C08DBC /* RoleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96DD2A64044000C08DBC /* RoleButton.swift */; };
+		10CC160D2A64452300B27955 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CC160C2A64452300B27955 /* Buttons.swift */; };
 		65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076862A56F949003E6D92 /* YeowooApp.swift */; };
 		65C076892A56F949003E6D92 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076882A56F949003E6D92 /* ContentView.swift */; };
 		65C0768B2A56F94B003E6D92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C0768A2A56F94B003E6D92 /* Assets.xcassets */; };
@@ -60,6 +82,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1049B7F02A63F8BA0021F674 /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
+		1049B7F22A63F8FF0021F674 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
+		1049B7FA2A63FA670021F674 /* CameraButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraButtonView.swift; sourceTree = "<group>"; };
+		106475172A6529E40092FE5B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		106475192A65331D0092FE5B /* NoAlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAlbumView.swift; sourceTree = "<group>"; };
+		1064751B2A6534FC0092FE5B /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		1064751E2A65362D0092FE5B /* NewAlbumButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlbumButton.swift; sourceTree = "<group>"; };
+		106475202A6536D70092FE5B /* AlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumView.swift; sourceTree = "<group>"; };
+		106475232A6537FD0092FE5B /* TravelLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelLabel.swift; sourceTree = "<group>"; };
+		106475252A6539E40092FE5B /* PlusPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusPerson.swift; sourceTree = "<group>"; };
+		106475272A653A1D0092FE5B /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		106475292A65691E0092FE5B /* TapePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapePicture.swift; sourceTree = "<group>"; };
+		1064752B2A656A170092FE5B /* DoneTravelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTravelView.swift; sourceTree = "<group>"; };
+		1064752D2A656BB20092FE5B /* RecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendView.swift; sourceTree = "<group>"; };
+		1064752F2A656DFB0092FE5B /* BeforeTravelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeforeTravelView.swift; sourceTree = "<group>"; };
+		10CB96D32A63FDF000C08DBC /* FeatureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureButton.swift; sourceTree = "<group>"; };
+		10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
+		10CB96D72A64028C00C08DBC /* WriteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTextView.swift; sourceTree = "<group>"; };
+		10CB96D92A6403D600C08DBC /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		10CB96DB2A64042A00C08DBC /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
+		10CB96DD2A64044000C08DBC /* RoleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleButton.swift; sourceTree = "<group>"; };
+		10CC160C2A64452300B27955 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		65C076832A56F949003E6D92 /* Yeowoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yeowoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C076862A56F949003E6D92 /* YeowooApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeowooApp.swift; sourceTree = "<group>"; };
 		65C076882A56F949003E6D92 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -125,6 +169,79 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1049B7EF2A63F8B00021F674 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				1049B7F02A63F8BA0021F674 /* Font+.swift */,
+				1049B7F22A63F8FF0021F674 /* UIScreen+.swift */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+		1049B7F82A63FA240021F674 /* CameraViews */ = {
+			isa = PBXGroup;
+			children = (
+				10CB96D22A63FDD500C08DBC /* Components */,
+				1049B7FA2A63FA670021F674 /* CameraButtonView.swift */,
+				10CB96D92A6403D600C08DBC /* EditView.swift */,
+				10CB96D72A64028C00C08DBC /* WriteTextView.swift */,
+				10CB96DB2A64042A00C08DBC /* RoleView.swift */,
+				10CC160C2A64452300B27955 /* Buttons.swift */,
+			);
+			path = CameraViews;
+			sourceTree = "<group>";
+		};
+		1049B7F92A63FA470021F674 /* CameraViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */,
+			);
+			path = CameraViewModels;
+			sourceTree = "<group>";
+		};
+		106475162A6529AE0092FE5B /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				106475222A6537CF0092FE5B /* Components */,
+				106475172A6529E40092FE5B /* MainView.swift */,
+				106475192A65331D0092FE5B /* NoAlbumView.swift */,
+				1064751E2A65362D0092FE5B /* NewAlbumButton.swift */,
+				106475202A6536D70092FE5B /* AlbumView.swift */,
+				1064752B2A656A170092FE5B /* DoneTravelView.swift */,
+				1064752D2A656BB20092FE5B /* RecommendView.swift */,
+				1064752F2A656DFB0092FE5B /* BeforeTravelView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		1064751D2A6535070092FE5B /* MainViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				1064751B2A6534FC0092FE5B /* MainViewModel.swift */,
+			);
+			path = MainViewModels;
+			sourceTree = "<group>";
+		};
+		106475222A6537CF0092FE5B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				106475232A6537FD0092FE5B /* TravelLabel.swift */,
+				106475252A6539E40092FE5B /* PlusPerson.swift */,
+				106475272A653A1D0092FE5B /* Person.swift */,
+				106475292A65691E0092FE5B /* TapePicture.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		10CB96D22A63FDD500C08DBC /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				10CB96D32A63FDF000C08DBC /* FeatureButton.swift */,
+				10CB96DD2A64044000C08DBC /* RoleButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		65C0767A2A56F949003E6D92 = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +321,7 @@
 		65C076B22A5709FE003E6D92 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				1049B7EF2A63F8B00021F674 /* Global */,
 				65C076B32A570A07003E6D92 /* Models */,
 				65C076B42A570A11003E6D92 /* Services */,
 				65C076B52A570A19003E6D92 /* ViewModels */,
@@ -236,6 +354,9 @@
 			isa = PBXGroup;
 			children = (
 				65C0774E2A612EF5003E6D92 /* AlbumViewModel.swift */,
+				1064751D2A6535070092FE5B /* MainViewModels */,
+				1049B7F92A63FA470021F674 /* CameraViewModels */,
+				65C077052A5B9BC2003E6D92 /* TestViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -244,6 +365,9 @@
 			isa = PBXGroup;
 			children = (
 				65C0773A2A611521003E6D92 /* Album */,
+				106475162A6529AE0092FE5B /* Main */,
+				1049B7F82A63FA240021F674 /* CameraViews */,
+				65C077072A5B9BC9003E6D92 /* TestView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -441,7 +565,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				106475242A6537FD0092FE5B /* TravelLabel.swift in Sources */,
 				65C077392A5FF255003E6D92 /* UserDefaultsWrapper.swift in Sources */,
+				106475262A6539E40092FE5B /* PlusPerson.swift in Sources */,
+				10CB96DE2A64044000C08DBC /* RoleButton.swift in Sources */,
+				1064751F2A65362D0092FE5B /* NewAlbumButton.swift in Sources */,
+				1064752A2A65691E0092FE5B /* TapePicture.swift in Sources */,
+				10CB96D82A64028C00C08DBC /* WriteTextView.swift in Sources */,
+				10CB96D62A63FF7800C08DBC /* CameraViewModel.swift in Sources */,
 				65C077342A5FE55B003E6D92 /* AppDelegate.swift in Sources */,
 				65C077372A5FF248003E6D92 /* UserDefaultsSetting.swift in Sources */,
 				65C0774B2A611D46003E6D92 /* SecondFeedLayout.swift in Sources */,
@@ -449,6 +580,20 @@
 				65C077172A5BF4A7003E6D92 /* KeyChainAccount.swift in Sources */,
 				65C0774D2A612C92003E6D92 /* Album.swift in Sources */,
 				65C0774F2A612EF5003E6D92 /* AlbumViewModel.swift in Sources */,
+				1049B7F32A63F8FF0021F674 /* UIScreen+.swift in Sources */,
+				65C077192A5BF4C7003E6D92 /* KeyChainError.swift in Sources */,
+				65C077082A5B9BC9003E6D92 /* TestView.swift in Sources */,
+				106475212A6536D70092FE5B /* AlbumView.swift in Sources */,
+				65C077062A5B9BC2003E6D92 /* TestViewModel.swift in Sources */,
+				1049B7F12A63F8BA0021F674 /* Font+.swift in Sources */,
+				65C077172A5BF4A7003E6D92 /* KeyChainAccount.swift in Sources */,
+				10CC160D2A64452300B27955 /* Buttons.swift in Sources */,
+				106475182A6529E40092FE5B /* MainView.swift in Sources */,
+				1064751A2A65331D0092FE5B /* NoAlbumView.swift in Sources */,
+				10CB96DA2A6403D600C08DBC /* EditView.swift in Sources */,
+				10CB96D42A63FDF000C08DBC /* FeatureButton.swift in Sources */,
+				1064751C2A6534FC0092FE5B /* MainViewModel.swift in Sources */,
+				1049B7FB2A63FA670021F674 /* CameraButtonView.swift in Sources */,
 				65C076FD2A5A7F1F003E6D92 /* FirebaseError.swift in Sources */,
 				65C077472A611D29003E6D92 /* FirstFeedLayout.swift in Sources */,
 				65C077512A616874003E6D92 /* GalleryLayout.swift in Sources */,
@@ -458,7 +603,16 @@
 				65C0770F2A5BDACF003E6D92 /* User.swift in Sources */,
 				65C076FF2A5A7F2A003E6D92 /* FirebaseService.swift in Sources */,
 				65C077152A5BF322003E6D92 /* KeyChainManager.swift in Sources */,
+				10CB96DC2A64042A00C08DBC /* RoleView.swift in Sources */,
+				65C0770F2A5BDACF003E6D92 /* User.swift in Sources */,
+				65C076FF2A5A7F2A003E6D92 /* FirebaseService.swift in Sources */,
+				65C077152A5BF322003E6D92 /* KeyChainManager.swift in Sources */,
+				1064752C2A656A170092FE5B /* DoneTravelView.swift in Sources */,
+				65C077042A5B915F003E6D92 /* Test.swift in Sources */,
+				106475282A653A1D0092FE5B /* Person.swift in Sources */,
+				106475302A656DFB0092FE5B /* BeforeTravelView.swift in Sources */,
 				65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */,
+				1064752E2A656BB20092FE5B /* RecommendView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,10 +772,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Yeowoo/Preview Content\"";
-				DEVELOPMENT_TEAM = F92UQYH2RA;
+				DEVELOPMENT_TEAM = AZDJLQL538;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Yeowoo/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 사용 권한";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "앨범 사용 권한";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -633,7 +789,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ungchun.Yeowoo;
+				PRODUCT_BUNDLE_IDENTIFIER = pin.Yeowoo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -650,10 +806,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Yeowoo/Preview Content\"";
-				DEVELOPMENT_TEAM = F92UQYH2RA;
+				DEVELOPMENT_TEAM = AZDJLQL538;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Yeowoo/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 사용 권한";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "앨범 사용 권한";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -665,7 +823,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ungchun.Yeowoo;
+				PRODUCT_BUNDLE_IDENTIFIER = pin.Yeowoo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
