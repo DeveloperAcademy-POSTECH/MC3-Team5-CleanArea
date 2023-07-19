@@ -53,7 +53,7 @@ struct AlbumDetailView: View {
 									.cornerRadius(100)
 									.overlay {
 										//									Text("\(entitys[index].like)")
-										Text("\(entitys.like)")
+										Text("\(entitys.likeUsers.count)")
 											.font(.system(size: 16, weight: .medium))
 											.foregroundColor(Color.white)
 									}

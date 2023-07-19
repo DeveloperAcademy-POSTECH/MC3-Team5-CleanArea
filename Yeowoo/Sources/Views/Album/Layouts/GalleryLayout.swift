@@ -54,7 +54,7 @@ struct GalleryLayout: View {
 											.frame(width: 48, height: 24)
 											.cornerRadius(100)
 											.overlay {
-												Text("\(entitys[index].like)")
+												Text("\(entitys[index].likeUsers.count)")
 													.font(.system(size: 16, weight: .medium))
 													.foregroundColor(Color.white)
 											}

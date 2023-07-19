@@ -29,6 +29,7 @@
 		10CB96DC2A64042A00C08DBC /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96DB2A64042A00C08DBC /* RoleView.swift */; };
 		10CB96DE2A64044000C08DBC /* RoleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96DD2A64044000C08DBC /* RoleButton.swift */; };
 		10CC160D2A64452300B27955 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CC160C2A64452300B27955 /* Buttons.swift */; };
+		65264BDC2A67C7BD009963E6 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65264BDB2A67C7BD009963E6 /* String+.swift */; };
 		65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076862A56F949003E6D92 /* YeowooApp.swift */; };
 		65C076892A56F949003E6D92 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076882A56F949003E6D92 /* ContentView.swift */; };
 		65C0768B2A56F94B003E6D92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C0768A2A56F94B003E6D92 /* Assets.xcassets */; };
@@ -133,6 +134,7 @@
 		10CB96DB2A64042A00C08DBC /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
 		10CB96DD2A64044000C08DBC /* RoleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleButton.swift; sourceTree = "<group>"; };
 		10CC160C2A64452300B27955 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		65264BDB2A67C7BD009963E6 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		65C076832A56F949003E6D92 /* Yeowoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yeowoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C076862A56F949003E6D92 /* YeowooApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeowooApp.swift; sourceTree = "<group>"; };
 		65C076882A56F949003E6D92 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 			children = (
 				1049B7F02A63F8BA0021F674 /* Font+.swift */,
 				1049B7F22A63F8FF0021F674 /* UIScreen+.swift */,
+				65264BDB2A67C7BD009963E6 /* String+.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -781,6 +784,7 @@
 				65C0773E2A611763003E6D92 /* AlbumFeedView.swift in Sources */,
 				65C076892A56F949003E6D92 /* ContentView.swift in Sources */,
 				65C077532A640CF9003E6D92 /* AlbumDetailView.swift in Sources */,
+				65264BDC2A67C7BD009963E6 /* String+.swift in Sources */,
 				65C0770F2A5BDACF003E6D92 /* User.swift in Sources */,
 				65C076FF2A5A7F2A003E6D92 /* FirebaseService.swift in Sources */,
 				D5A77DE32A66AA45000D8F4E /* CardViewModifier.swift in Sources */,
