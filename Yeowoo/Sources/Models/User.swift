@@ -8,10 +8,10 @@
 import Foundation
 
 struct User: Identifiable {
+	let docId: String // docId
 	let id: String	// id
 	let email: String	// email
 	let password: String	// password
-	let code: String	// 친구 초대 code
 	let isFirstLogin: Bool	// 첫 로그인
 	let nickname: String	// 닉네임
 	let profileImage: String	// 프로필 사진 url
@@ -20,13 +20,13 @@ struct User: Identifiable {
 	let notification: [String]	// 알림
 	let fcmToken: String	// fcmToken
 	
-	init(id:String, email: String, password: String, code: String, isFirstLogin: Bool,
+	init(docId: String, id: String, email: String, password: String, isFirstLogin: Bool,
 		 nickname: String, profileImage: String, progressAlbum: String,
 		 finishedAlbum: [String], notification: [String], fcmToken: String) {
+		self.docId = docId
 		self.id = id
 		self.email = email
 		self.password = password
-		self.code = code
 		self.isFirstLogin = isFirstLogin
 		self.nickname = nickname
 		self.profileImage = profileImage
@@ -37,10 +37,10 @@ struct User: Identifiable {
 	}
 	
 	init?(documentData: [String: Any]) {
-		guard let id = documentData["id"] as? String,
+		guard let docId = documentData["docId"] as? String,
+			  let id = documentData["id"] as? String,
 			  let email = documentData["email"] as? String,
 			  let password = documentData["password"] as? String,
-			  let code = documentData["code"] as? String,
 			  let isFirstLogin = documentData["isFirstLogin"] as? Bool,
 			  let nickname = documentData["nickname"] as? String,
 			  let profileImage = documentData["profileImage"] as? String,
@@ -51,10 +51,10 @@ struct User: Identifiable {
 			return nil
 		}
 		
-		self.init(id: id,
+		self.init(docId: docId,
+				  id: id,
 				  email: email,
 				  password: password,
-				  code: code,
 				  isFirstLogin: isFirstLogin,
 				  nickname: nickname,
 				  profileImage: profileImage,
