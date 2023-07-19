@@ -15,11 +15,11 @@ struct AlbumRoleSelectView: View {
     @State private var selectedIndex: Int? = nil
     
     //그리드 아이템
-    private let gridItems: [GridItem] = [
-        .init(.flexible(), spacing: 2),
-        .init(.flexible(), spacing: 2),
-        .init(.flexible(), spacing: 2)
-    ]
+//    private let gridItems: [GridItem] = [
+//        .init(.flexible(), spacing: 2),
+//        .init(.flexible(), spacing: 2),
+//        .init(.flexible(), spacing: 2)
+//    ]
 
 
     
@@ -52,7 +52,11 @@ struct AlbumRoleSelectView: View {
                 
                 Spacer()
                 //FoxGrid 3x2
-                LazyVGrid(columns: gridItems, spacing: 30) {
+				LazyVGrid(columns: [
+					.init(.flexible(), spacing: 2),
+					.init(.flexible(), spacing: 2),
+					.init(.flexible(), spacing: 2)
+				], spacing: 30) {
                     ForEach(0..<6, id: \.self) { id in
                         FoxCardView(fox: foxs[id], isSelected: selectedIndex == id)
                             .onTapGesture {
