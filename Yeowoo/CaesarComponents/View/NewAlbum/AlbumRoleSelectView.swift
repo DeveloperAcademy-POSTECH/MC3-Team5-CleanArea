@@ -11,15 +11,15 @@ struct AlbumRoleSelectView: View {
     
     @Environment(\.dismiss) var dismiss
     @State var selectingFox = false
-    //선택된 여우 번호
+//    //선택된 여우 번호
     @State private var selectedIndex: Int? = nil
-    
-    //그리드 아이템
-    private let gridItems: [GridItem] = [
-        .init(.flexible(), spacing: 2),
-        .init(.flexible(), spacing: 2),
-        .init(.flexible(), spacing: 2)
-    ]
+//
+//    //그리드 아이템
+//    private let gridItems: [GridItem] = [
+//        .init(.flexible(), spacing: 2),
+//        .init(.flexible(), spacing: 2),
+//        .init(.flexible(), spacing: 2)
+//    ]
 
 
     
@@ -27,7 +27,7 @@ struct AlbumRoleSelectView: View {
     var body: some View {
         NavigationView {
             VStack {
-                
+
                 HStack (spacing: 0){
                     Rectangle()
                         .frame(width: (UIScreen.width - 50)/3*2, height: 3)
@@ -49,10 +49,14 @@ struct AlbumRoleSelectView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading, 20)
                 .padding(.top, 30)
-                
+
                 Spacer()
                 //FoxGrid 3x2
-                LazyVGrid(columns: gridItems, spacing: 30) {
+                LazyVGrid(columns: [
+                    .init(.flexible(), spacing: 2),
+                    .init(.flexible(), spacing: 2),
+                    .init(.flexible(), spacing: 2)
+                ], spacing: 30) {
                     ForEach(0..<6, id: \.self) { id in
                         FoxCardView(fox: foxs[id], isSelected: selectedIndex == id)
                             .onTapGesture {
@@ -61,7 +65,7 @@ struct AlbumRoleSelectView: View {
                             }
                     }
                 }
-                
+
                 Spacer()
 
                 // 버튼
@@ -70,8 +74,8 @@ struct AlbumRoleSelectView: View {
                             //선택 완료(선택된 selectedIndex 넘기기)
                         FindFriendView()
                             .navigationBarBackButtonHidden()
-                            
-                            
+
+
                         } label: {
                             Rectangle()
                                 .frame(width: UIScreen.main.bounds.width - 30, height: 54)
@@ -80,7 +84,7 @@ struct AlbumRoleSelectView: View {
                                 .overlay(Text("선택완료").font(.system(size: 18, weight: .bold, design: .default)).foregroundColor(Color.white))
                                 .padding(.bottom, 20)
                         }
-                    
+
                 } else {
                         Rectangle()
                             .frame(width: UIScreen.main.bounds.width - 30, height: 54)

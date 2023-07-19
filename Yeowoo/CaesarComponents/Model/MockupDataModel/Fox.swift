@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Fox{
+struct Fox: Identifiable{
+    let id = UUID()
     let foxName: String
     var description: String
     var foxImage: String

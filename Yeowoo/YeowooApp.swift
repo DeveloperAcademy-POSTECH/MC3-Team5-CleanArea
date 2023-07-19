@@ -16,7 +16,7 @@ struct YeowooApp: App {
         WindowGroup {
 //            ContentView()
 			MainView()
-				.environmentObject(TestViewModel())
+//				.environmentObject(TestViewModel())
         }
     }
 }

@@ -17,11 +17,14 @@ struct SubUser: Identifiable {
 }
 
 let users = [
-        SubUser(username: "시저", nickname: "Caesar", profileImageUrl: "Caesar" ),
-        SubUser(username: "노바", nickname: "Nova", profileImageUrl: "Nova"),
-        SubUser(username: "제이미", nickname: "Jamie", profileImageUrl: "Jamie"),
-        SubUser(username: "핀", nickname: "Pin", profileImageUrl: "Pin"),
-        SubUser(username: "지구", nickname: "Jigu", profileImageUrl: "Jigu"),
-        SubUser(username: "아지", nickname: "Azhy", profileImageUrl: "Azhy"),
-        SubUser(username: "썬데이", nickname: "Sunday", profileImageUrl: "Sunday"),
+    SubUser(username: "시저", nickname: "Caesar", profileImageUrl: "Caesar"),
+    SubUser(username: "노바", nickname: "Nova", profileImageUrl: "Nova"),
+    SubUser(username: "제이미", nickname: "Jamie", profileImageUrl: "Jamie"),
+    SubUser(username: "핀", nickname: "Pin", profileImageUrl: "Pin"),
+    SubUser(username: "지구", nickname: "Jigu", profileImageUrl: "Jigu"),
+    SubUser(username: "아지", nickname: "Azhy", profileImageUrl: "Azhy"),
+    SubUser(username: "썬데이", nickname: "Sunday", profileImageUrl: "Sunday"),
+    SubUser(username: "Sunday", nickname: "Sunday", profileImageUrl: "Sunday"),
+    SubUser(username: "Jamie", nickname: "Jamie", profileImageUrl: "Nova"),
+    SubUser(username: "Jamie", nickname: "Jamie1", profileImageUrl: "Jigu"),
 ]

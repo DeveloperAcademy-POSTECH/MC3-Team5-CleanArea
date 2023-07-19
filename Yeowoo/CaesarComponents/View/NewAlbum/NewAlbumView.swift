@@ -45,7 +45,7 @@ struct NewAlbumView: View {
                                 .frame(width: UIScreen.width - 110)
                             Button {
                                 albumName = ""
-                         } label: {
+                            } label: {
                                 Image(systemName: "xmark.circle.fill")
                                     .resizable()
                                     .frame(width: 24, height: 24)
