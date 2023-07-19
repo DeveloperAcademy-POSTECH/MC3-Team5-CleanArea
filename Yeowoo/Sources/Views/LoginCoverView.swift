@@ -27,7 +27,8 @@ struct LoginCoverView: View {
                         .background(
                             RoundedRectangle(cornerRadius: 10)
                                 .fill(Color("B1")))
-                }.navigationTitle("")
+                }
+//                .navigationTitle("")
                 
                 NavigationLink(destination: SignUpView()) {
                     Text("회원가입")
@@ -36,10 +37,12 @@ struct LoginCoverView: View {
                         .background(
                             RoundedRectangle(cornerRadius: 10)
                                 .fill(Color("G6")))
-                }.navigationTitle("")
+                }
+//                .navigationTitle("")
                 
             }
         }
+        
     }
 }
 
