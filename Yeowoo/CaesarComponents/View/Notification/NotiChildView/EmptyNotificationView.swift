@@ -13,7 +13,6 @@ struct EmptyNotificationView: View {
     @State private var deletingAlarm = false
 
     var body: some View {
-        NavigationStack{
             VStack{
                 Text("알림이 비어있어요")
                     .font(.system(size: 20, weight: .bold, design: .default))
@@ -63,8 +62,6 @@ struct EmptyNotificationView: View {
                                     secondaryButton: .cancel(Text("취소"))
                 )
             }
-        }
-        
     }
 }
 

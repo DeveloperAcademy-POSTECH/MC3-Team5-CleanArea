@@ -13,7 +13,6 @@ struct NotiCardView: View {
     let travels : [Travel]
     
     var body: some View {
-        
         VStack {
             Text(travels.first?.Date ?? "None")
                 .font(.system(size: 18, weight: .semibold, design: .default))

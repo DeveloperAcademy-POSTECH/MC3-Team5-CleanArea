@@ -24,4 +24,5 @@ let users = [
         SubUser(username: "지구", nickname: "Jigu", profileImageUrl: "Jigu"),
         SubUser(username: "아지", nickname: "Azhy", profileImageUrl: "Azhy"),
         SubUser(username: "썬데이", nickname: "Sunday", profileImageUrl: "Sunday"),
+        SubUser(username: "베리베리허클케리", nickname: "Huckleberry", profileImageUrl: "Caesar"),
 ]

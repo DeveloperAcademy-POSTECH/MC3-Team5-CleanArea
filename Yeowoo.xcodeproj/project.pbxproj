@@ -63,6 +63,8 @@
 		65C0774F2A612EF5003E6D92 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C0774E2A612EF5003E6D92 /* AlbumViewModel.swift */; };
 		65C077512A616874003E6D92 /* GalleryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077502A616874003E6D92 /* GalleryLayout.swift */; };
 		65C077532A640CF9003E6D92 /* AlbumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077522A640CF9003E6D92 /* AlbumDetailView.swift */; };
+		D575D82C2A67EE2F0036BE7D /* MultiInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D575D82B2A67EE2F0036BE7D /* MultiInvitationView.swift */; };
+		D575D82E2A67EE480036BE7D /* TwoInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D575D82D2A67EE480036BE7D /* TwoInvitationView.swift */; };
 		D5A77DDF2A66AA1D000D8F4E /* TextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DDE2A66AA1D000D8F4E /* TextFieldModifier.swift */; };
 		D5A77DE12A66AA2D000D8F4E /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DE02A66AA2D000D8F4E /* Font.swift */; };
 		D5A77DE32A66AA45000D8F4E /* CardViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DE22A66AA45000D8F4E /* CardViewModifier.swift */; };
@@ -164,6 +166,9 @@
 		65C0774E2A612EF5003E6D92 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
 		65C077502A616874003E6D92 /* GalleryLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryLayout.swift; sourceTree = "<group>"; };
 		65C077522A640CF9003E6D92 /* AlbumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailView.swift; sourceTree = "<group>"; };
+		D575D8292A67EB760036BE7D /* NotiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiView.swift; sourceTree = "<group>"; };
+		D575D82B2A67EE2F0036BE7D /* MultiInvitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MultiInvitationView.swift; path = ../../../../../../../../Documents/MultiInvitationView.swift; sourceTree = "<group>"; };
+		D575D82D2A67EE480036BE7D /* TwoInvitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TwoInvitationView.swift; path = ../../../../../../../../Documents/TwoInvitationView.swift; sourceTree = "<group>"; };
 		D5A77DDE2A66AA1D000D8F4E /* TextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldModifier.swift; sourceTree = "<group>"; };
 		D5A77DE02A66AA2D000D8F4E /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		D5A77DE22A66AA45000D8F4E /* CardViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModifier.swift; sourceTree = "<group>"; };
@@ -483,6 +488,25 @@
 			path = Layouts;
 			sourceTree = "<group>";
 		};
+		D575D8262A67EB470036BE7D /* NotiChildView */ = {
+			isa = PBXGroup;
+			children = (
+				D5A77E0E2A66AD86000D8F4E /* NoticardView.swift */,
+				D5A77E0C2A66AD40000D8F4E /* NotificationView.swift */,
+				D5A77E102A66AD97000D8F4E /* EmptyNotificationView.swift */,
+			);
+			path = NotiChildView;
+			sourceTree = "<group>";
+		};
+		D575D82A2A67EE120036BE7D /* InvitationChildView */ = {
+			isa = PBXGroup;
+			children = (
+				D575D82B2A67EE2F0036BE7D /* MultiInvitationView.swift */,
+				D575D82D2A67EE480036BE7D /* TwoInvitationView.swift */,
+			);
+			path = InvitationChildView;
+			sourceTree = "<group>";
+		};
 		D5A77DDA2A66A991000D8F4E /* CaesarComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -554,9 +578,8 @@
 		D5A77DFC2A66AC2F000D8F4E /* Notification */ = {
 			isa = PBXGroup;
 			children = (
-				D5A77E0C2A66AD40000D8F4E /* NotificationView.swift */,
-				D5A77E0E2A66AD86000D8F4E /* NoticardView.swift */,
-				D5A77E102A66AD97000D8F4E /* EmptyNotificationView.swift */,
+				D575D8262A67EB470036BE7D /* NotiChildView */,
+				D575D8292A67EB760036BE7D /* NotiView.swift */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
@@ -564,6 +587,7 @@
 		D5A77DFD2A66AC38000D8F4E /* Role */ = {
 			isa = PBXGroup;
 			children = (
+				D575D82A2A67EE120036BE7D /* InvitationChildView */,
 				D5A77E182A66B696000D8F4E /* InvitationView.swift */,
 				D5A77E082A66AD1D000D8F4E /* RoleSelectView.swift */,
 				D5A77E0A2A66AD2D000D8F4E /* RoleChangeView.swift */,
@@ -764,6 +788,7 @@
 				D5A77E152A66ADBD000D8F4E /* AlbumRoleSelectView.swift in Sources */,
 				65C077172A5BF4A7003E6D92 /* KeyChainAccount.swift in Sources */,
 				D5A77DF12A66AAEB000D8F4E /* ColorModel.swift in Sources */,
+				D575D82C2A67EE2F0036BE7D /* MultiInvitationView.swift in Sources */,
 				65C0774D2A612C92003E6D92 /* Album.swift in Sources */,
 				65C0774F2A612EF5003E6D92 /* AlbumViewModel.swift in Sources */,
 				1049B7F32A63F8FF0021F674 /* UIScreen+.swift in Sources */,
@@ -783,6 +808,7 @@
 				65C077512A616874003E6D92 /* GalleryLayout.swift in Sources */,
 				65C0773E2A611763003E6D92 /* AlbumFeedView.swift in Sources */,
 				65C076892A56F949003E6D92 /* ContentView.swift in Sources */,
+				D575D82E2A67EE480036BE7D /* TwoInvitationView.swift in Sources */,
 				65C077532A640CF9003E6D92 /* AlbumDetailView.swift in Sources */,
 				65264BDC2A67C7BD009963E6 /* String+.swift in Sources */,
 				65C0770F2A5BDACF003E6D92 /* User.swift in Sources */,
@@ -967,7 +993,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Yeowoo/Preview Content\"";
-				DEVELOPMENT_TEAM = AZDJLQL538;
+				DEVELOPMENT_TEAM = 33F2H2TBU4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Yeowoo/Info.plist;
@@ -984,7 +1010,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = pin.Yeowoo;
+				PRODUCT_BUNDLE_IDENTIFIER = Hoiseong.Chung;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1001,7 +1027,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Yeowoo/Preview Content\"";
-				DEVELOPMENT_TEAM = AZDJLQL538;
+				DEVELOPMENT_TEAM = 33F2H2TBU4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Yeowoo/Info.plist;
@@ -1018,7 +1044,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = pin.Yeowoo;
+				PRODUCT_BUNDLE_IDENTIFIER = Hoiseong.Chung;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
