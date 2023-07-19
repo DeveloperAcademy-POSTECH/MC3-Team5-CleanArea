@@ -25,16 +25,17 @@ struct FirebaseService {
 	/// 회원가입
 	static func signup(user: User) async throws -> FirebaseState {
 		var userData: [String: Any] = [
+			"docId": "",
 			"id": user.id,
 			"email": user.email,
 			"password": user.password,
-			"code": user.code,
 			"isFirstLogin": user.isFirstLogin,
 			"nickname": user.nickname,
 			"profileImage": user.profileImage,
 			"progressAlbum": user.progressAlbum,
 			"finishedAlbum": user.finishedAlbum,
-			"notification": user.notification
+			"notification": user.notification,
+			"fcmToken": user.fcmToken
 		]
 		userData = userData.compactMapValues { $0 }
 		let collectionRef = db.collection("User")
@@ -47,6 +48,7 @@ struct FirebaseService {
 		let documentID = documentRef.documentID
 		do {
 			try KeyChainManager.shared.create(account: .documentId, documentId: documentID)
+			updateDocId(docId: documentID)
 		} catch {
 			print(KeyChainError.itemNotFound)
 			return .fail
@@ -83,6 +85,16 @@ struct FirebaseService {
 					}
 				}
 			}
+		}
+	}
+	
+	/// docId 세팅
+	static func updateDocId(docId: String) {
+		let documentRef = db.collection("User").document(docId)
+		documentRef.updateData([
+			"docId": docId
+		]) { error in
+			print(KeyChainError.itemNotFound)
 		}
 	}
 	
@@ -149,10 +161,10 @@ struct FirebaseService {
 	}
 	
 	/// 유저정보 불러오기
-	static func fetchUser() -> AnyPublisher<User, Error> {
-		Future<User, Error> { promise in
-			do {
-				let documentId = try KeyChainManager.shared.read(account: .documentId)
+	static func fetchUser(userDocIds: [String] = []) -> AnyPublisher<[User], Error> {
+		Future<[User], Error> { promise in
+			var users: [User] = []
+//				let documentId = userDocIds.isEmpty ? try KeyChainManager.shared.read(account: .documentId) : userDocIds
 				db.collection("User").getDocuments { snapshot, error in
 					if let error {
 						promise(.failure(error))
@@ -162,19 +174,39 @@ struct FirebaseService {
 						promise(.failure(FirebaseError.badsnapshot))
 						return
 					}
-					if let document = snapshot.documents.first(where: { $0.documentID == documentId }) {
-						let data = document.data()
-						if let user = User(documentData: data) {
-							promise(.success(user))
+					if userDocIds.isEmpty {
+						do {
+							let documentId = try KeyChainManager.shared.read(account: .documentId)
+							if let document = snapshot.documents.first(where: { $0.documentID == documentId }) {
+								let data = document.data()
+								users.append(User(documentData: data)!)
+								promise(.success(users))
+//								if let user = User(documentData: data) {
+//									promise(.success(user))
+//								}
+							} else {
+								promise(.failure(FirebaseError.badsnapshot))
+								return
+							}
+						} catch {
+							print(KeyChainError.itemNotFound)
 						}
 					} else {
-						promise(.failure(FirebaseError.badsnapshot))
-						return
+						for id in userDocIds {
+							print("not empty \(id)")
+//							snapshot.documents["id"].data()
+							print(snapshot.documents.first!.documentID)
+							print(id)
+							if let document = snapshot.documents.first(where: { $0.documentID == id }) {
+								let data = document.data()
+								print("data \(data)")
+								users.append(User(documentData: data)!)
+							}
+						}
+						promise(.success(users))
 					}
 				}
-			} catch {
-				print(KeyChainError.itemNotFound)
-			}
+			
 		}
 		.eraseToAnyPublisher()
 	}
@@ -214,19 +246,19 @@ struct FirebaseService {
 		let metaData = StorageMetadata()
 		metaData.contentType = "image/png"
 		return try await withUnsafeThrowingContinuation { configuration in
-			storage.reference().child("album1/" + "test4").putData(data, metadata: metaData) { ( metaData, error ) in
+			storage.reference().child("album1/" + "setindex").putData(data, metadata: metaData) { ( metaData, error ) in
 				if error != nil {
 					configuration.resume(returning: .fail)
 					return
 				} else {
-					storage.reference().child("album1/" + "test4").downloadURL { URL, error in
+					storage.reference().child("album1/" + "setindex").downloadURL { URL, error in
 						guard let URL else { return }
 						let updatedData: [String: Any] = [
 							"images": FieldValue.arrayUnion([
-								["comment" : "설명 테스트2",
-								 "fileName" : "파일 이름2",
+								["comment" : "설명 테스트 index",
+								 "fileName" : "파일 이름 index",
 								 "url" : String(describing: URL),
-								 "reaction" : ["bad" : 0, "like" : 0]] as [String : Any]
+								 "like" : 0] as [String : Any]
 							])
 						]
 						let path = db.collection("album").document(albumDocId)
@@ -239,8 +271,10 @@ struct FirebaseService {
 	}
 	
 	/// 앨범 이미지 가져오기
-	static func fetchAlbumImages(albumDocId: String) -> AnyPublisher<Bool, Error> {
-		Future<Bool, Error> { promise in
+	// [ImagesEntity] -> Album 으로 바꾸고 ViewModel에서 받으면
+	// [[ImagesEntity]], [소속된 유저] 이렇게 만들고 VM에서 toEntity 처리 해야할 듯
+	static func fetchAlbumImages(albumDocId: String) -> AnyPublisher<Album, Error> {
+		Future<Album, Error> { promise in
 			db.collection("album").getDocuments { snapshot, error in
 				if let error {
 					promise(.failure(error))
@@ -252,11 +286,26 @@ struct FirebaseService {
 				}
 				if let document = snapshot.documents.first(where: { $0.documentID == albumDocId }) {
 					let data = document.data()
-					if let images = data["images"] as? [[String: Any]] {
-						let urls = images.compactMap { $0["url"] as? String }
-						print("urls \(urls)")
+					if let imagesData = data["images"] as? [[String: Any]] {
+						var images: [ImagesEntity] = []
+						let isClosed = data["isClosed"] as! Bool
+						let users: [String] = (data["users"] as? [String])!
+						for imageData in imagesData {
+							if let comment = imageData["comment"] as? String,
+							   let fileName = imageData["fileName"] as? String,
+							   let like = imageData["like"] as? Int,
+							   let url = imageData["url"] as? String,
+							   let uploadUser = imageData["uploadUser"] as? String,
+							   let roleCheck = imageData["roleCheck"] as? Bool {
+								
+								let image = ImagesEntity(comment: comment, fileName: fileName,
+														 like: like, url: url, uploadUser: uploadUser,
+														 roleCheck: roleCheck)
+								images.append(image)
+							}
+						}
+						promise(.success(Album(images: images, isClosed: isClosed, users: users)))
 					}
-					promise(.success(true))
 				} else {
 					promise(.failure(FirebaseError.badsnapshot))
 					return

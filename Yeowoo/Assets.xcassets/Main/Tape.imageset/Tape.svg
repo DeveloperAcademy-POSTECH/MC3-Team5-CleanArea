@@ -1,0 +1,21 @@
+<svg width="22" height="38" viewBox="0 0 22 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Tape">
+<g id="Tape_2" filter="url(#filter0_bd_1339_4355)">
+<rect x="3" y="1" width="16" height="32" fill="#58E4F1" fill-opacity="0.4" shape-rendering="crispEdges"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_bd_1339_4355" x="-1" y="-3" width="24" height="41" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feGaussianBlur in="BackgroundImageFix" stdDeviation="2"/>
+<feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_1339_4355"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="2"/>
+<feGaussianBlur stdDeviation="1.5"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"/>
+<feBlend mode="normal" in2="effect1_backgroundBlur_1339_4355" result="effect2_dropShadow_1339_4355"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_1339_4355" result="shape"/>
+</filter>
+</defs>
+</svg>
