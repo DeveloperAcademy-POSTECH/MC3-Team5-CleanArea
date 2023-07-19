@@ -164,48 +164,48 @@ struct FirebaseService {
 	static func fetchUser(userDocIds: [String] = []) -> AnyPublisher<[User], Error> {
 		Future<[User], Error> { promise in
 			var users: [User] = []
-//				let documentId = userDocIds.isEmpty ? try KeyChainManager.shared.read(account: .documentId) : userDocIds
-				db.collection("User").getDocuments { snapshot, error in
-					if let error {
-						promise(.failure(error))
-						return
-					}
-					guard let snapshot else {
-						promise(.failure(FirebaseError.badsnapshot))
-						return
-					}
-					if userDocIds.isEmpty {
-						do {
-							let documentId = try KeyChainManager.shared.read(account: .documentId)
-							if let document = snapshot.documents.first(where: { $0.documentID == documentId }) {
-								let data = document.data()
-								users.append(User(documentData: data)!)
-								promise(.success(users))
-//								if let user = User(documentData: data) {
-//									promise(.success(user))
-//								}
-							} else {
-								promise(.failure(FirebaseError.badsnapshot))
-								return
-							}
-						} catch {
-							print(KeyChainError.itemNotFound)
-						}
-					} else {
-						for id in userDocIds {
-							print("not empty \(id)")
-//							snapshot.documents["id"].data()
-							print(snapshot.documents.first!.documentID)
-							print(id)
-							if let document = snapshot.documents.first(where: { $0.documentID == id }) {
-								let data = document.data()
-								print("data \(data)")
-								users.append(User(documentData: data)!)
-							}
-						}
-						promise(.success(users))
-					}
+			//				let documentId = userDocIds.isEmpty ? try KeyChainManager.shared.read(account: .documentId) : userDocIds
+			db.collection("User").getDocuments { snapshot, error in
+				if let error {
+					promise(.failure(error))
+					return
 				}
+				guard let snapshot else {
+					promise(.failure(FirebaseError.badsnapshot))
+					return
+				}
+				if userDocIds.isEmpty {
+					do {
+						let documentId = try KeyChainManager.shared.read(account: .documentId)
+						if let document = snapshot.documents.first(where: { $0.documentID == documentId }) {
+							let data = document.data()
+							users.append(User(documentData: data)!)
+							promise(.success(users))
+							//								if let user = User(documentData: data) {
+							//									promise(.success(user))
+							//								}
+						} else {
+							promise(.failure(FirebaseError.badsnapshot))
+							return
+						}
+					} catch {
+						print(KeyChainError.itemNotFound)
+					}
+				} else {
+					for id in userDocIds {
+						print("not empty \(id)")
+						//							snapshot.documents["id"].data()
+						print(snapshot.documents.first!.documentID)
+						print(id)
+						if let document = snapshot.documents.first(where: { $0.documentID == id }) {
+							let data = document.data()
+							print("data \(data)")
+							users.append(User(documentData: data)!)
+						}
+					}
+					promise(.success(users))
+				}
+			}
 			
 		}
 		.eraseToAnyPublisher()
@@ -254,11 +254,15 @@ struct FirebaseService {
 					storage.reference().child("album1/" + "setindex").downloadURL { URL, error in
 						guard let URL else { return }
 						let updatedData: [String: Any] = [
+							// 수정
 							"images": FieldValue.arrayUnion([
 								["comment" : "설명 테스트 index",
 								 "fileName" : "파일 이름 index",
 								 "url" : String(describing: URL),
-								 "like" : 0] as [String : Any]
+								 "likeUsers": [],
+								 "roleCheck": false,
+								 "updateTime": "0",
+								 "uploadUser": ""] as [String : Any]
 							])
 						]
 						let path = db.collection("album").document(albumDocId)
@@ -290,21 +294,29 @@ struct FirebaseService {
 						var images: [ImagesEntity] = []
 						let isClosed = data["isClosed"] as! Bool
 						let users: [String] = (data["users"] as? [String])!
+						let albumTitle: String = data["title"] as! String
+						let albumCoverImage: String = data["coverImage"] as! String
+						let startTime: String = data["startTime"] as! String
+						let finishTime: String = data["finishTime"] as! String
 						for imageData in imagesData {
 							if let comment = imageData["comment"] as? String,
 							   let fileName = imageData["fileName"] as? String,
-							   let like = imageData["like"] as? Int,
+							   let likeUsers = imageData["likeUsers"] as? [String],
+							   let updateTime = imageData["updateTime"] as? String,
 							   let url = imageData["url"] as? String,
 							   let uploadUser = imageData["uploadUser"] as? String,
 							   let roleCheck = imageData["roleCheck"] as? Bool {
 								
 								let image = ImagesEntity(comment: comment, fileName: fileName,
-														 like: like, url: url, uploadUser: uploadUser,
-														 roleCheck: roleCheck)
+														 url: url, uploadUser: uploadUser,
+														 roleCheck: roleCheck, likeUsers: likeUsers,
+														 uploadTime: updateTime)
 								images.append(image)
 							}
 						}
-						promise(.success(Album(images: images, isClosed: isClosed, users: users)))
+						promise(.success(Album(albumTitle: albumTitle, albumCoverImage: albumCoverImage,
+											   startTime: startTime, finishTime: finishTime,
+											   images: images, isClosed: isClosed, users: users)))
 					}
 				} else {
 					promise(.failure(FirebaseError.badsnapshot))
