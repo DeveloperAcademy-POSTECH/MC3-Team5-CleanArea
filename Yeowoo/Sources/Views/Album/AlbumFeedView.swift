@@ -12,7 +12,7 @@ enum AlbumState {
 	case all
 }
 
-struct AlbumView: View {
+struct AlbumFeedView: View {
 	
 	let albumDocId: String
 	

@@ -20,7 +20,7 @@ struct ContentView: View {
 	var body: some View {
 		NavigationView {
 			NavigationLink("테스트") {
-				AlbumView(albumDocId: "T9eJMPQEGQClFHEahX6r")
+				AlbumFeedView(albumDocId: "T9eJMPQEGQClFHEahX6r")
 					.navigationBarTitle("타이틀")
 					.navigationBarTitleDisplayMode(.inline)
 					.navigationBarItems(

@@ -17,7 +17,7 @@ struct YeowooApp: App {
 //            ContentView()
 //			TestView()
 //				.environmentObject(TestViewModel())
-            LoginCoverView()
+//            LoginCoverView()
 //            CameraButtonView()
             MainView()
         }
