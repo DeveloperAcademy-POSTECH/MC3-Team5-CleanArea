@@ -40,6 +40,7 @@ struct EditView: View {
                     Button("삭제", role: .destructive) {
                         didPhoto = false
                         image = UIImage()
+                        dismiss()
                     }
                 } message: {
                     Text("사진을 정말 삭제하시겠어요?")
@@ -109,7 +110,7 @@ struct EditView: View {
                         .foregroundColor(.white)
                 }
             }
-        }
+        }.navigationBarHidden(true)
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  AlbumView.swift
+//  AlbumLayout.swift
 //  Yeowoo
 //
 //  Created by 김용주 on 2023/07/17.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AlbumView: View {
+struct AlbumLayout: View {
     @State var arr: [Color]
     @State var personCount = 0
     @State var traveling: Int = 0
@@ -101,12 +101,6 @@ struct AlbumView: View {
     }
 }
 
-struct AlbumView_Previews: PreviewProvider {
-    static var previews: some View {
-        AlbumView(arr: [.blue, .black, .brown, .pink], travelName: "일본 여행", startDay: "2023. 07. 15", endDay: "2023. 07. 16")
-    }
-}
-
 struct CornerRadiusStyle: ViewModifier {
     var radius: CGFloat
     var corners: UIRectCorner
@@ -131,5 +125,12 @@ struct CornerRadiusStyle: ViewModifier {
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         ModifiedContent(content: self, modifier: CornerRadiusStyle(radius: radius, corners: corners))
+    }
+}
+
+
+struct AlbumView_Previews: PreviewProvider {
+    static var previews: some View {
+        AlbumLayout(arr: [.blue, .black, .brown, .pink], travelName: "일본 여행", startDay: "2023. 07. 15", endDay: "2023. 07. 16")
     }
 }

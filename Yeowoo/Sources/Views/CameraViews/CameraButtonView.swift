@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CameraButtonView: View {
+struct CameraButton: View {
     @State private var image = UIImage()
     @State private var showModal = false
     @State var didCapture: Bool = false
@@ -28,7 +28,8 @@ struct CameraButtonView: View {
                 .frame(width: UIScreen.getWidth(76))
                 .foregroundColor(Color("ButtonColor"))
         }.fullScreenCover(isPresented: $showModal) {
-            if !didPhoto {
+//            if !didPhoto {
+            NavigationView {
                 VStack {
                     HStack {
                         Button(action: {
@@ -62,14 +63,17 @@ struct CameraButtonView: View {
                     Spacer()
                         .frame(height: UIScreen.getHeight(40))
                     ZStack {
-                        Buttons(isFlash: $isFlash,
-                                didCapture: $didCapture,
-                                changeCamera: $changeCamera)
+//                        Buttons(isFlash: $isFlash,
+//                                didCapture: $didCapture,
+//                                changeCamera: $changeCamera)
+                        Buttons(isFlash: $isFlash, didCapture: $didCapture, changeCamera: $changeCamera, image: $image, showModal: $showModal, didPhoto: $didPhoto)
                     }
                 }
-            } else {
-                EditView(showModal: $showModal, image: $image, didPhoto: $didPhoto)
+                
             }
+//            else {
+//                EditView(showModal: $showModal, image: $image, didPhoto: $didPhoto)
+//            }
         }
         .onAppear{
             UIView.setAnimationsEnabled(true)
@@ -77,8 +81,8 @@ struct CameraButtonView: View {
     }
 }
 
-struct CameraButtonView_Previews: PreviewProvider {
+struct CameraButton_Previews: PreviewProvider {
     static var previews: some View {
-        CameraButtonView()
+        CameraButton()
     }
 }

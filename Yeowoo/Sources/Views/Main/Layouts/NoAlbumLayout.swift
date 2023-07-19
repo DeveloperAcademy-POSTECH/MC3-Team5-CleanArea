@@ -1,5 +1,5 @@
 //
-//  NoAlbum.swift
+//  NoAlbumLayout.swift
 //  Yeowoo
 //
 //  Created by 김용주 on 2023/07/17.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NoAlbumView: View {
+struct NoAlbumLayout: View {
     var body: some View {
         VStack(spacing: 0) {
             RoundedRectangle(cornerRadius: 10)
@@ -30,8 +30,8 @@ struct NoAlbumView: View {
     }
 }
 
-struct NoAlbumView_Previews: PreviewProvider {
+struct NoAlbumLayout_Previews: PreviewProvider {
     static var previews: some View {
-        NoAlbumView()
+        NoAlbumLayout()
     }
 }

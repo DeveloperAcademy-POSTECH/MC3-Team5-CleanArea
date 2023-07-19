@@ -11,17 +11,16 @@
 		1049B7F32A63F8FF0021F674 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1049B7F22A63F8FF0021F674 /* UIScreen+.swift */; };
 		1049B7FB2A63FA670021F674 /* CameraButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1049B7FA2A63FA670021F674 /* CameraButtonView.swift */; };
 		106475182A6529E40092FE5B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475172A6529E40092FE5B /* MainView.swift */; };
-		1064751A2A65331D0092FE5B /* NoAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475192A65331D0092FE5B /* NoAlbumView.swift */; };
+		1064751A2A65331D0092FE5B /* NoAlbumLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475192A65331D0092FE5B /* NoAlbumLayout.swift */; };
 		1064751C2A6534FC0092FE5B /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064751B2A6534FC0092FE5B /* MainViewModel.swift */; };
-		1064751F2A65362D0092FE5B /* NewAlbumButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064751E2A65362D0092FE5B /* NewAlbumButton.swift */; };
 		106475212A6536D70092FE5B /* AlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475202A6536D70092FE5B /* AlbumView.swift */; };
 		106475242A6537FD0092FE5B /* TravelLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475232A6537FD0092FE5B /* TravelLabel.swift */; };
 		106475262A6539E40092FE5B /* PlusPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475252A6539E40092FE5B /* PlusPerson.swift */; };
 		106475282A653A1D0092FE5B /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475272A653A1D0092FE5B /* Person.swift */; };
 		1064752A2A65691E0092FE5B /* TapePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475292A65691E0092FE5B /* TapePicture.swift */; };
-		1064752C2A656A170092FE5B /* DoneTravelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064752B2A656A170092FE5B /* DoneTravelView.swift */; };
-		1064752E2A656BB20092FE5B /* RecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064752D2A656BB20092FE5B /* RecommendView.swift */; };
-		106475302A656DFB0092FE5B /* BeforeTravelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064752F2A656DFB0092FE5B /* BeforeTravelView.swift */; };
+		1064752C2A656A170092FE5B /* DoneTravelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064752B2A656A170092FE5B /* DoneTravelLayout.swift */; };
+		1064752E2A656BB20092FE5B /* RecommendLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064752D2A656BB20092FE5B /* RecommendLayout.swift */; };
+		106475302A656DFB0092FE5B /* BeforeTravelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064752F2A656DFB0092FE5B /* BeforeTravelLayout.swift */; };
 		10CB96D42A63FDF000C08DBC /* FeatureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D32A63FDF000C08DBC /* FeatureButton.swift */; };
 		10CB96D62A63FF7800C08DBC /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */; };
 		10CB96D82A64028C00C08DBC /* WriteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D72A64028C00C08DBC /* WriteTextView.swift */; };
@@ -115,17 +114,16 @@
 		1049B7F22A63F8FF0021F674 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		1049B7FA2A63FA670021F674 /* CameraButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraButtonView.swift; sourceTree = "<group>"; };
 		106475172A6529E40092FE5B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		106475192A65331D0092FE5B /* NoAlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAlbumView.swift; sourceTree = "<group>"; };
+		106475192A65331D0092FE5B /* NoAlbumLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAlbumLayout.swift; sourceTree = "<group>"; };
 		1064751B2A6534FC0092FE5B /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		1064751E2A65362D0092FE5B /* NewAlbumButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlbumButton.swift; sourceTree = "<group>"; };
 		106475202A6536D70092FE5B /* AlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumView.swift; sourceTree = "<group>"; };
 		106475232A6537FD0092FE5B /* TravelLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelLabel.swift; sourceTree = "<group>"; };
 		106475252A6539E40092FE5B /* PlusPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusPerson.swift; sourceTree = "<group>"; };
 		106475272A653A1D0092FE5B /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		106475292A65691E0092FE5B /* TapePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapePicture.swift; sourceTree = "<group>"; };
-		1064752B2A656A170092FE5B /* DoneTravelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTravelView.swift; sourceTree = "<group>"; };
-		1064752D2A656BB20092FE5B /* RecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendView.swift; sourceTree = "<group>"; };
-		1064752F2A656DFB0092FE5B /* BeforeTravelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeforeTravelView.swift; sourceTree = "<group>"; };
+		1064752B2A656A170092FE5B /* DoneTravelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTravelLayout.swift; sourceTree = "<group>"; };
+		1064752D2A656BB20092FE5B /* RecommendLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendLayout.swift; sourceTree = "<group>"; };
+		1064752F2A656DFB0092FE5B /* BeforeTravelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeforeTravelLayout.swift; sourceTree = "<group>"; };
 		10CB96D32A63FDF000C08DBC /* FeatureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureButton.swift; sourceTree = "<group>"; };
 		10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		10CB96D72A64028C00C08DBC /* WriteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTextView.swift; sourceTree = "<group>"; };
@@ -257,17 +255,24 @@
 			path = CameraViewModels;
 			sourceTree = "<group>";
 		};
+		105F5DD62A67C499002E34CD /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				106475192A65331D0092FE5B /* NoAlbumLayout.swift */,
+				1064752B2A656A170092FE5B /* DoneTravelLayout.swift */,
+				1064752D2A656BB20092FE5B /* RecommendLayout.swift */,
+				1064752F2A656DFB0092FE5B /* BeforeTravelLayout.swift */,
+				106475202A6536D70092FE5B /* AlbumView.swift */,
+			);
+			path = Layouts;
+			sourceTree = "<group>";
+		};
 		106475162A6529AE0092FE5B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				105F5DD62A67C499002E34CD /* Layouts */,
 				106475222A6537CF0092FE5B /* Components */,
 				106475172A6529E40092FE5B /* MainView.swift */,
-				106475192A65331D0092FE5B /* NoAlbumView.swift */,
-				1064751E2A65362D0092FE5B /* NewAlbumButton.swift */,
-				106475202A6536D70092FE5B /* AlbumView.swift */,
-				1064752B2A656A170092FE5B /* DoneTravelView.swift */,
-				1064752D2A656BB20092FE5B /* RecommendView.swift */,
-				1064752F2A656DFB0092FE5B /* BeforeTravelView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -737,7 +742,6 @@
 				D5A77E012A66AC6B000D8F4E /* SettingView.swift in Sources */,
 				106475262A6539E40092FE5B /* PlusPerson.swift in Sources */,
 				10CB96DE2A64044000C08DBC /* RoleButton.swift in Sources */,
-				1064751F2A65362D0092FE5B /* NewAlbumButton.swift in Sources */,
 				1064752A2A65691E0092FE5B /* TapePicture.swift in Sources */,
 				10CB96D82A64028C00C08DBC /* WriteTextView.swift in Sources */,
 				10CB96D62A63FF7800C08DBC /* CameraViewModel.swift in Sources */,
@@ -770,7 +774,7 @@
 				65C077172A5BF4A7003E6D92 /* KeyChainAccount.swift in Sources */,
 				10CC160D2A64452300B27955 /* Buttons.swift in Sources */,
 				106475182A6529E40092FE5B /* MainView.swift in Sources */,
-				1064751A2A65331D0092FE5B /* NoAlbumView.swift in Sources */,
+				1064751A2A65331D0092FE5B /* NoAlbumLayout.swift in Sources */,
 				10CB96DA2A6403D600C08DBC /* EditView.swift in Sources */,
 				10CB96D42A63FDF000C08DBC /* FeatureButton.swift in Sources */,
 				1064751C2A6534FC0092FE5B /* MainViewModel.swift in Sources */,
@@ -792,9 +796,9 @@
 				65C0770F2A5BDACF003E6D92 /* User.swift in Sources */,
 				65C076FF2A5A7F2A003E6D92 /* FirebaseService.swift in Sources */,
 				65C077152A5BF322003E6D92 /* KeyChainManager.swift in Sources */,
-				1064752C2A656A170092FE5B /* DoneTravelView.swift in Sources */,
+				1064752C2A656A170092FE5B /* DoneTravelLayout.swift in Sources */,
 				106475282A653A1D0092FE5B /* Person.swift in Sources */,
-				106475302A656DFB0092FE5B /* BeforeTravelView.swift in Sources */,
+				106475302A656DFB0092FE5B /* BeforeTravelLayout.swift in Sources */,
 				65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */,
 				D5A77DE72A66AA7E000D8F4E /* FoxCardView.swift in Sources */,
 				D5A77E172A66ADCD000D8F4E /* FindFriendView.swift in Sources */,
@@ -803,7 +807,7 @@
 				D5A77DE92A66AA93000D8F4E /* BackToolBarModifier.swift in Sources */,
 				D5A77DEF2A66AAD4000D8F4E /* FindFriendContents.swift in Sources */,
 				D5A77E192A66B696000D8F4E /* InvitationView.swift in Sources */,
-				1064752E2A656BB20092FE5B /* RecommendView.swift in Sources */,
+				1064752E2A656BB20092FE5B /* RecommendLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
