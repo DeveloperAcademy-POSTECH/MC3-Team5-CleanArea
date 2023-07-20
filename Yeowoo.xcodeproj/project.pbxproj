@@ -10,6 +10,7 @@
 		1049B7F12A63F8BA0021F674 /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1049B7F02A63F8BA0021F674 /* Font+.swift */; };
 		1049B7F32A63F8FF0021F674 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1049B7F22A63F8FF0021F674 /* UIScreen+.swift */; };
 		1049B7FB2A63FA670021F674 /* CameraButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1049B7FA2A63FA670021F674 /* CameraButtonView.swift */; };
+		105F5DD92A68FFFE002E34CD /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105F5DD82A68FFFE002E34CD /* MainModel.swift */; };
 		106475182A6529E40092FE5B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475172A6529E40092FE5B /* MainView.swift */; };
 		1064751A2A65331D0092FE5B /* NoAlbumLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475192A65331D0092FE5B /* NoAlbumLayout.swift */; };
 		1064751C2A6534FC0092FE5B /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064751B2A6534FC0092FE5B /* MainViewModel.swift */; };
@@ -113,6 +114,7 @@
 		1049B7F02A63F8BA0021F674 /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		1049B7F22A63F8FF0021F674 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		1049B7FA2A63FA670021F674 /* CameraButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraButtonView.swift; sourceTree = "<group>"; };
+		105F5DD82A68FFFE002E34CD /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		106475172A6529E40092FE5B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		106475192A65331D0092FE5B /* NoAlbumLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAlbumLayout.swift; sourceTree = "<group>"; };
 		1064751B2A6534FC0092FE5B /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -247,12 +249,12 @@
 			path = CameraViews;
 			sourceTree = "<group>";
 		};
-		1049B7F92A63FA470021F674 /* CameraViewModels */ = {
+		1049B7F92A63FA470021F674 /* CameraViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */,
 			);
-			path = CameraViewModels;
+			path = CameraViewModel;
 			sourceTree = "<group>";
 		};
 		105F5DD62A67C499002E34CD /* Layouts */ = {
@@ -267,6 +269,14 @@
 			path = Layouts;
 			sourceTree = "<group>";
 		};
+		105F5DD72A68FFD4002E34CD /* MainModel */ = {
+			isa = PBXGroup;
+			children = (
+				105F5DD82A68FFFE002E34CD /* MainModel.swift */,
+			);
+			path = MainModel;
+			sourceTree = "<group>";
+		};
 		106475162A6529AE0092FE5B /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,12 +287,12 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		1064751D2A6535070092FE5B /* MainViewModels */ = {
+		1064751D2A6535070092FE5B /* MainViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				1064751B2A6534FC0092FE5B /* MainViewModel.swift */,
 			);
-			path = MainViewModels;
+			path = MainViewModel;
 			sourceTree = "<group>";
 		};
 		106475222A6537CF0092FE5B /* Components */ = {
@@ -398,6 +408,7 @@
 		65C076B32A570A07003E6D92 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				105F5DD72A68FFD4002E34CD /* MainModel */,
 				65C0770E2A5BDACF003E6D92 /* User.swift */,
 				65C0774C2A612C92003E6D92 /* Album.swift */,
 			);
@@ -418,8 +429,8 @@
 			isa = PBXGroup;
 			children = (
 				65C0774E2A612EF5003E6D92 /* AlbumViewModel.swift */,
-				1064751D2A6535070092FE5B /* MainViewModels */,
-				1049B7F92A63FA470021F674 /* CameraViewModels */,
+				1064751D2A6535070092FE5B /* MainViewModel */,
+				1049B7F92A63FA470021F674 /* CameraViewModel */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -799,6 +810,7 @@
 				1064752C2A656A170092FE5B /* DoneTravelLayout.swift in Sources */,
 				106475282A653A1D0092FE5B /* Person.swift in Sources */,
 				106475302A656DFB0092FE5B /* BeforeTravelLayout.swift in Sources */,
+				105F5DD92A68FFFE002E34CD /* MainModel.swift in Sources */,
 				65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */,
 				D5A77DE72A66AA7E000D8F4E /* FoxCardView.swift in Sources */,
 				D5A77E172A66ADCD000D8F4E /* FindFriendView.swift in Sources */,

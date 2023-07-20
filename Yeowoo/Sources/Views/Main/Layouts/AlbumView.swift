@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AlbumLayout: View {
+    @ObservedObject var mainViewModel = MainViewModel()
     @State var arr: [Color]
     @State var personCount = 0
     @State var traveling: Int = 0
@@ -93,7 +94,7 @@ struct AlbumLayout: View {
             }
         }
         .onAppear {
-            traveling = compareDate(startDay, endDay)
+            traveling = mainViewModel.compareDate(startDay, endDay)
             if traveling == 0 {
                 days = D_Day(startDay)
             }
