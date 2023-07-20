@@ -428,6 +428,17 @@ struct FirebaseService {
 		}
 	}
 	
+	// 앨범 제목 변경
+	static func updateAlbumTitle(albumDocId: String, changedTitle: String) async throws -> FirebaseState {
+		let documentRef = db.collection("album").document(albumDocId)
+		return try await withUnsafeThrowingContinuation { configuration in
+			documentRef.updateData([
+				"title": changedTitle
+			])
+			configuration.resume(returning: .success)
+		}
+	}
+	
 	// 좋아요 등록
 	static func updateLikeUsers(albumDocId: String, paramFileName: String) async throws -> FirebaseState {
 		return try await withUnsafeThrowingContinuation { configuration in
