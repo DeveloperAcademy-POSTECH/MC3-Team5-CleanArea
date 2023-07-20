@@ -95,6 +95,20 @@ struct AlbumDetailView: View {
 				Menu {
 					Button {
 						print("사진 저장")
+						guard let imageURL = URL(string: entitys.url) else {
+							print("Invalid image URL")
+							return
+						}
+						URLSession.shared.dataTask(with: imageURL) { data, response, error in
+							if let error = error {
+								print("Error downloading image: \(error.localizedDescription)")
+								return
+							}
+							
+							if let data = data, let image = UIImage(data: data) {
+								UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+							}
+						}.resume()
 					} label: {
 						Label("사진 저장", systemImage: "square.and.arrow.down")
 					}
