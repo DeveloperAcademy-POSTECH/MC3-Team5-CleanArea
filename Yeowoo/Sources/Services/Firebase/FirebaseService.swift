@@ -48,6 +48,7 @@ struct FirebaseService {
 		let documentID = documentRef.documentID
 		do {
 			try KeyChainManager.shared.create(account: .documentId, documentId: documentID)
+			UserDefaultsSetting.userDocId = documentID
 			updateDocId(docId: documentID)
 		} catch {
 			print(KeyChainError.itemNotFound)
