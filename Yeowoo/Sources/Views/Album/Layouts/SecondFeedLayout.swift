@@ -12,7 +12,7 @@ struct SecondFeedLayout: View {
 	@State private var detailIndex: Int = 0
 	@State private var isActive: Bool = false
 	
-//	@ObservedObject var viewModel = AlbumViewModel()
+	//	@ObservedObject var viewModel = AlbumViewModel()
 	
 	var entitys: [ImagesEntity]
 	var user: [User]
@@ -43,6 +43,11 @@ struct SecondFeedLayout: View {
 								.frame(width: width / 3, height: 123)
 						}
 					}
+					.overlay(
+						Image(systemName: entitys[0].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
+							.padding(6),
+						alignment: .topTrailing
+					)
 					if entitys.count >= 2 {
 						Button {
 							detailIndex = 1
@@ -58,8 +63,12 @@ struct SecondFeedLayout: View {
 								ProgressView()
 									.frame(width: width / 3, height: 123)
 							}
-							
 						}
+						.overlay(
+							Image(systemName: entitys[1].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
+								.padding(6),
+							alignment: .topTrailing
+						)
 					}
 				}
 				.frame(maxHeight: .infinity, alignment: .top)
@@ -81,6 +90,11 @@ struct SecondFeedLayout: View {
 									.frame(width: width / 3, height: 123)
 							}
 						}
+						.overlay(
+							Image(systemName: entitys[2].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
+								.padding(6),
+							alignment: .topTrailing
+						)
 					}
 					if entitys.count >= 4 {
 						Button {
@@ -98,6 +112,11 @@ struct SecondFeedLayout: View {
 									.frame(width: width / 3, height: 123)
 							}
 						}
+						.overlay(
+							Image(systemName: entitys[3].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
+								.padding(6),
+							alignment: .topTrailing
+						)
 					}
 				}
 				.frame(maxHeight: .infinity, alignment: .top)
@@ -118,6 +137,11 @@ struct SecondFeedLayout: View {
 								.frame(width: width / 3, height: 250)
 						}
 					}
+					.overlay(
+						Image(systemName: entitys[4].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
+							.padding(6),
+						alignment: .topTrailing
+					)
 				}
 			}
 			.frame(maxWidth: .infinity, alignment: .leading)

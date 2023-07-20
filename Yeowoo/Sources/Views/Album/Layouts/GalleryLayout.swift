@@ -70,6 +70,11 @@ struct GalleryLayout: View {
 							.frame(width: UIScreen.main.bounds.width, height: 390)
 					}
 				}
+				.overlay(
+					Image(systemName: entitys[index].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
+						.padding(6),
+					alignment: .topTrailing
+				)
 			}
 		}
 	}
