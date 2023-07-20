@@ -14,9 +14,7 @@ struct TapePicture: View {
         ZStack {
             VStack {
                 Spacer()
-                Button(action: {
-                    
-                }) {
+                NavigationLink(destination: EmptyView()) {
                     RoundedRectangle(cornerRadius: 10)
                         .foregroundColor(picture)
                         .frame(height: UIScreen.getHeight(140))

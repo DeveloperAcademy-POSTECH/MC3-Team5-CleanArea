@@ -1,5 +1,5 @@
 //
-//  DoneTravelView.swift
+//  DoneTravelLayout.swift
 //  Yeowoo
 //
 //  Created by 김용주 on 2023/07/17.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DoneTravelView: View {
+struct DoneTravelLayout: View {
     var albumName: String
     @State var picture: [Color] = [.pink, .blue, .purple]
     
@@ -70,7 +70,11 @@ struct DoneTravelView: View {
                 }
                 HStack(spacing: 18) {
                     ForEach(0..<3) { num in
-                        TapePicture(picture: picture[num])
+                        NavigationLink(destination: {
+                            
+                        }) {
+                            TapePicture(picture: picture[num])
+                        }
                     }
                 }
             }.frame(maxHeight: UIScreen.getHeight(160))
@@ -81,8 +85,8 @@ struct DoneTravelView: View {
     }
 }
 
-struct DoneTravelView_Previews: PreviewProvider {
+struct DoneTravelLayout_Previews: PreviewProvider {
     static var previews: some View {
-        DoneTravelView(albumName: "제주도 여행")
+        DoneTravelLayout(albumName: "제주도 여행")
     }
 }

@@ -8,43 +8,49 @@
 import SwiftUI
 
 struct RoleButton: View {
-    let image: String
     let roleTitle: String
     let roleContents: String
     let imageColor: Color
+    var isSelected: Bool
+    
     var body: some View {
-        Button(action: {
-            
-        }) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(Color(uiColor: .secondarySystemBackground))
-                    .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(70))
-
-                HStack {
-                    Spacer()
-                        .frame(width: UIScreen.getWidth(38))
-                    
-                    Image(systemName: image)
-                        .foregroundColor(imageColor)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: UIScreen.getWidth(24))
-                    
-                    Spacer()
-                        .frame(width: UIScreen.getWidth(18))
-                    
-                    VStack{
-                        Text(roleTitle)
-                            .foregroundColor(.black)
-                            .font(.custom16bold())
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            
-                        Text(roleContents)
-                            .foregroundColor(Color(uiColor: .systemGray))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    Spacer()
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .foregroundColor(Color(uiColor: .secondarySystemBackground))
+                .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(70))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(lineWidth: 1.5)
+                        .foregroundColor(isSelected ? Color("ButtonColor") : .clear)
                 }
+            
+            HStack {
+                Spacer()
+                    .frame(width: UIScreen.getWidth(38))
+                
+                Image(isSelected == true ? "CheckCircle" : "EmptyCircle")
+//                    .foregroundColor(isSelected ? Color("ButtonColor") : Color(uiColor: .secondarySystemBackground))
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: UIScreen.getWidth(24))
+                
+                Spacer()
+                    .frame(width: UIScreen.getWidth(18))
+                
+                VStack {
+                    Text(roleTitle)
+                        .foregroundColor(.black)
+                        .font(.custom16bold())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Spacer()
+                        .frame(height: UIScreen.getHeight(4))
+                    
+                    Text(roleContents)
+                        .foregroundColor(Color(uiColor: .systemGray))
+                        .font(.custom14semibold())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                Spacer()
             }
         }
     }

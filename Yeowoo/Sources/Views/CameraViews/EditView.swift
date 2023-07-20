@@ -17,6 +17,8 @@ struct EditView: View {
     @State var isWrite = false
     @State var showingAlert = false
     @State var isRole = false
+    @State var myAlbum = true
+    @State var allAlbum = false
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -40,6 +42,7 @@ struct EditView: View {
                     Button("삭제", role: .destructive) {
                         didPhoto = false
                         image = UIImage()
+                        dismiss()
                     }
                 } message: {
                     Text("사진을 정말 삭제하시겠어요?")
@@ -59,9 +62,12 @@ struct EditView: View {
                 
                 VStack {
                     Spacer()
-                    
+                        
                     Text(contentsText)
-                        .background(Color(uiColor: .systemGray6))
+                        .background(
+                            RoundedRectangle(cornerRadius: 5)
+                            .foregroundColor(Color(uiColor: .systemGray6))
+                            .opacity(0.5))
                         .foregroundColor(.white)
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, alignment: .leading)
                         .padding([.leading, .bottom], UIScreen.getWidth(20))
@@ -84,9 +90,9 @@ struct EditView: View {
                 Button(action: {
                     isRole = true
                 }) {
-                    Image("RoleButton")
+                    Image("FolderButton")
                 }.sheet(isPresented: $isRole) {
-                    RoleView()
+                    RoleView(myAlbum: $myAlbum, allAlbum: $allAlbum)
                         .presentationDetents([.height(UIScreen.getHeight(283)), .large])
                 }
             }
@@ -109,7 +115,7 @@ struct EditView: View {
                         .foregroundColor(.white)
                 }
             }
-        }
+        }.navigationBarHidden(true)
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  RecommendView.swift
+//  RecommendLayout.swift
 //  Yeowoo
 //
 //  Created by 김용주 on 2023/07/17.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RecommendView: View {
+struct RecommendLayout: View {
     @State var date: Int = 0
     var body: some View {
         VStack {
@@ -22,7 +22,7 @@ struct RecommendView: View {
                 Spacer()
                 
                 VStack {
-                    Button(action: {
+                    NavigationLink(destination: {
                         
                     }) {
                         Image("nextButton")
@@ -46,11 +46,10 @@ struct RecommendView: View {
             date = travelingDate(dummyData[dummyData.count-1].startDay)
         }
     }
-
 }
 
-struct RecommendView_Previews: PreviewProvider {
+struct RecommendLayout_Previews: PreviewProvider {
     static var previews: some View {
-        RecommendView()
+        RecommendLayout()
     }
 }

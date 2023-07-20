@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TravelLabel: View {
     var travelText: String
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)

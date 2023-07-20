@@ -1,5 +1,5 @@
 //
-//  AlbumView.swift
+//  AlbumLayout.swift
 //  Yeowoo
 //
 //  Created by 김용주 on 2023/07/17.
@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct AlbumView: View {
+struct AlbumLayout: View {
+    @ObservedObject var mainViewModel = MainViewModel()
     @State var arr: [Color]
-    @State var personCount = 0
-    @State var traveling: Int = 0
+    var personCount = 0
     @State var days: Int = 0
     var travelName: String
     var startDay: String
@@ -29,10 +29,10 @@ struct AlbumView: View {
                 
                 VStack(alignment: .leading, spacing: 0) {
                     
-                    if traveling == 1 {
+                    if mainViewModel.traveling == 1 {
                         TravelLabel(travelText: "여행중")
                             .padding(.top, UIScreen.getHeight(10))
-                    } else if traveling == 0 {
+                    } else if mainViewModel.traveling == 0 {
                         TravelLabel(travelText: "D - \(days)").padding(.top, UIScreen.getHeight(10))
                     }
                     
@@ -74,11 +74,11 @@ struct AlbumView: View {
                         }
                         PlusPerson(plusCount: arr.count-3)
                     }
-                    if traveling == 1 {
+                    if mainViewModel.traveling == 1 {
                         Text("\(arr.count)명 여행 중")
                             .foregroundColor(Color(uiColor: .systemGray))
                             .padding(.leading, 20)
-                    } else if traveling == 2 {
+                    } else if mainViewModel.traveling == 2 {
                         Text("\(arr.count)명 여행 완료")
                             .foregroundColor(Color(uiColor: .systemGray))
                             .padding(.leading, 20)
@@ -93,17 +93,11 @@ struct AlbumView: View {
             }
         }
         .onAppear {
-            traveling = compareDate(startDay, endDay)
-            if traveling == 0 {
+            mainViewModel.traveling = mainViewModel.compareDate(startDay, endDay)
+            if mainViewModel.traveling == 0 {
                 days = D_Day(startDay)
             }
         }
-    }
-}
-
-struct AlbumView_Previews: PreviewProvider {
-    static var previews: some View {
-        AlbumView(arr: [.blue, .black, .brown, .pink], travelName: "일본 여행", startDay: "2023. 07. 15", endDay: "2023. 07. 16")
     }
 }
 
@@ -131,5 +125,12 @@ struct CornerRadiusStyle: ViewModifier {
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         ModifiedContent(content: self, modifier: CornerRadiusStyle(radius: radius, corners: corners))
+    }
+}
+
+
+struct AlbumView_Previews: PreviewProvider {
+    static var previews: some View {
+        AlbumLayout(arr: [.blue, .black, .brown, .pink], travelName: "일본 여행", startDay: "2023. 07. 15", endDay: "2023. 07. 16")
     }
 }

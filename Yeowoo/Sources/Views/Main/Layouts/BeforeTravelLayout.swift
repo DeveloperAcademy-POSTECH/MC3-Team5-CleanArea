@@ -1,5 +1,5 @@
 //
-//  BeforeTravelView.swift
+//  BeforeTravelLayout.swift
 //  Yeowoo
 //
 //  Created by 김용주 on 2023/07/17.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BeforeTravelView: View {
+struct BeforeTravelLayout: View {
     @State var date: Int = 0
     
     var body: some View {
@@ -22,7 +22,7 @@ struct BeforeTravelView: View {
                 Spacer()
                 
                 VStack {
-                    Button(action: {
+                    NavigationLink(destination : {
                         
                     }) {
                         Image("nextButton")
@@ -41,8 +41,8 @@ struct BeforeTravelView: View {
     }
 }
 
-struct BeforeTravelView_Previews: PreviewProvider {
+struct BeforeTravelLayout_Previews: PreviewProvider {
     static var previews: some View {
-        BeforeTravelView()
+        BeforeTravelLayout()
     }
 }
