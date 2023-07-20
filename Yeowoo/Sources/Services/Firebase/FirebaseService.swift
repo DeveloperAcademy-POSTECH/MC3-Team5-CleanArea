@@ -596,5 +596,4 @@ struct FirebaseService {
 			}
 		}
 	}
-	
 }
