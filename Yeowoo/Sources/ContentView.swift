@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ContentView: View {
 	
@@ -85,15 +86,6 @@ struct ContentView: View {
 					)
 			}
 			.navigationTitle("")
-		}
-		.onAppear {
-//			let now = Date()
-//			let timeInterval = now.timeIntervalSince1970
-//			print("now \(now)")
-//			let dateFormatter = DateFormatter()
-//			dateFormatter.dateFormat = "hh:mm:ss a"
-//			let format = dateFormatter.string(from: Date(timeIntervalSince1970: timeInterval))
-//			print("format \(format)")
 		}
 	}
 }

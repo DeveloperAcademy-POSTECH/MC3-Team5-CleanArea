@@ -428,6 +428,100 @@ struct FirebaseService {
 		}
 	}
 	
+	// 앨범 제목 변경
+	static func updateAlbumTitle(albumDocId: String, changedTitle: String) async throws -> FirebaseState {
+		let documentRef = db.collection("album").document(albumDocId)
+		return try await withUnsafeThrowingContinuation { configuration in
+			documentRef.updateData([
+				"title": changedTitle
+			])
+			configuration.resume(returning: .success)
+		}
+	}
+	
+	// 여행 종료하기 -> 여행 컬렉션 관련
+	static func closedTravel(albumDocId: String) async throws -> FirebaseState {
+		let albumDocumentRef = db.collection("album").document(albumDocId)
+		return try await withUnsafeThrowingContinuation { configuration in
+			albumDocumentRef.updateData([
+				"isClosed": true
+			])
+			
+			albumDocumentRef.getDocument { snapshot, error in
+				guard let document = snapshot, document.exists else {
+					configuration.resume(returning: .fail)
+					return
+				}
+				
+				// 각 유저들 여행 progressAlbum "" + finishedAlbum에 추가
+				
+				(document.data()?["users"] as? [String])?.forEach { docId in
+					let userDocumentRef = db.collection("User").document(docId)
+					userDocumentRef.updateData(["progressAlbum": "1"]) { error in
+						if let error = error {
+							print("Error updating user document: \(error)")
+							configuration.resume(returning: .fail)
+							return
+						}
+						
+						// albumDocId 추가 코드
+						userDocumentRef.updateData([
+							"finishedAlbum": FieldValue.arrayUnion([albumDocId])
+						])
+					}
+				}
+			}
+			configuration.resume(returning: .success)
+		}
+	}
+	
+	// 여행 삭제하기
+	static func removeTravel(albumDocId: String) async throws -> FirebaseState {
+		do {
+			let id = try KeyChainManager.shared.read(account: .documentId)
+			let documentRef = db.collection("User").document(id)
+			return try await withUnsafeThrowingContinuation { configuration in
+				documentRef.getDocument { snapshot, error in
+					guard let document = snapshot, document.exists else {
+						configuration.resume(returning: .fail)
+						return
+					}
+					if var finishedAlbum = document.data()?["finishedAlbum"] as? [String] {
+						// Remove albumDocId from finishedAlbum if it exists
+						finishedAlbum.removeAll { $0 == albumDocId }
+						
+						// Update the finishedAlbum in the Firestore document
+						documentRef.updateData(["finishedAlbum": finishedAlbum]) { error in
+							if let error = error {
+								print("Error updating user document: \(error)")
+								configuration.resume(returning: .fail)
+							} else {
+								print("Document updated successfully.")
+								configuration.resume(returning: .success)
+							}
+						}
+					} else {
+						configuration.resume(returning: .fail)
+					}
+				}
+			}
+		} catch {
+			print(KeyChainError.itemNotFound)
+		}
+		return .fail
+	}
+	
+	// 대표 이미지 변경
+	static func updateAlbumCoverImage(albumDocId: String, url: String) async throws -> FirebaseState {
+		let documentRef = db.collection("album").document(albumDocId)
+		return try await withUnsafeThrowingContinuation { configuration in
+			documentRef.updateData([
+				"coverImage": url
+			])
+			configuration.resume(returning: .success)
+		}
+	}
+	
 	// 좋아요 등록
 	static func updateLikeUsers(albumDocId: String, paramFileName: String) async throws -> FirebaseState {
 		return try await withUnsafeThrowingContinuation { configuration in
@@ -502,5 +596,4 @@ struct FirebaseService {
 			}
 		}
 	}
-	
 }

@@ -30,6 +30,8 @@
 		10CB96DE2A64044000C08DBC /* RoleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96DD2A64044000C08DBC /* RoleButton.swift */; };
 		10CC160D2A64452300B27955 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CC160C2A64452300B27955 /* Buttons.swift */; };
 		65264BDC2A67C7BD009963E6 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65264BDB2A67C7BD009963E6 /* String+.swift */; };
+		6556C3ED2A68FEFD00B4EEE1 /* MultiInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3EC2A68FEFD00B4EEE1 /* MultiInvitationView.swift */; };
+		6556C3EF2A68FF0C00B4EEE1 /* TwoInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3EE2A68FF0C00B4EEE1 /* TwoInvitationView.swift */; };
 		65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076862A56F949003E6D92 /* YeowooApp.swift */; };
 		65C076892A56F949003E6D92 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076882A56F949003E6D92 /* ContentView.swift */; };
 		65C0768B2A56F94B003E6D92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C0768A2A56F94B003E6D92 /* Assets.xcassets */; };
@@ -63,8 +65,6 @@
 		65C0774F2A612EF5003E6D92 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C0774E2A612EF5003E6D92 /* AlbumViewModel.swift */; };
 		65C077512A616874003E6D92 /* GalleryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077502A616874003E6D92 /* GalleryLayout.swift */; };
 		65C077532A640CF9003E6D92 /* AlbumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077522A640CF9003E6D92 /* AlbumDetailView.swift */; };
-		D575D82C2A67EE2F0036BE7D /* MultiInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D575D82B2A67EE2F0036BE7D /* MultiInvitationView.swift */; };
-		D575D82E2A67EE480036BE7D /* TwoInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D575D82D2A67EE480036BE7D /* TwoInvitationView.swift */; };
 		D5A77DDF2A66AA1D000D8F4E /* TextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DDE2A66AA1D000D8F4E /* TextFieldModifier.swift */; };
 		D5A77DE12A66AA2D000D8F4E /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DE02A66AA2D000D8F4E /* Font.swift */; };
 		D5A77DE32A66AA45000D8F4E /* CardViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DE22A66AA45000D8F4E /* CardViewModifier.swift */; };
@@ -137,6 +137,8 @@
 		10CB96DD2A64044000C08DBC /* RoleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleButton.swift; sourceTree = "<group>"; };
 		10CC160C2A64452300B27955 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		65264BDB2A67C7BD009963E6 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		6556C3EC2A68FEFD00B4EEE1 /* MultiInvitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiInvitationView.swift; sourceTree = "<group>"; };
+		6556C3EE2A68FF0C00B4EEE1 /* TwoInvitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoInvitationView.swift; sourceTree = "<group>"; };
 		65C076832A56F949003E6D92 /* Yeowoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yeowoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C076862A56F949003E6D92 /* YeowooApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeowooApp.swift; sourceTree = "<group>"; };
 		65C076882A56F949003E6D92 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -167,8 +169,6 @@
 		65C077502A616874003E6D92 /* GalleryLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryLayout.swift; sourceTree = "<group>"; };
 		65C077522A640CF9003E6D92 /* AlbumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailView.swift; sourceTree = "<group>"; };
 		D575D8292A67EB760036BE7D /* NotiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiView.swift; sourceTree = "<group>"; };
-		D575D82B2A67EE2F0036BE7D /* MultiInvitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MultiInvitationView.swift; path = ../../../../../../../../Documents/MultiInvitationView.swift; sourceTree = "<group>"; };
-		D575D82D2A67EE480036BE7D /* TwoInvitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TwoInvitationView.swift; path = ../../../../../../../../Documents/TwoInvitationView.swift; sourceTree = "<group>"; };
 		D5A77DDE2A66AA1D000D8F4E /* TextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldModifier.swift; sourceTree = "<group>"; };
 		D5A77DE02A66AA2D000D8F4E /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		D5A77DE22A66AA45000D8F4E /* CardViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModifier.swift; sourceTree = "<group>"; };
@@ -306,6 +306,15 @@
 				10CB96DD2A64044000C08DBC /* RoleButton.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		6556C3EB2A68FEED00B4EEE1 /* InvitationChildView */ = {
+			isa = PBXGroup;
+			children = (
+				6556C3EC2A68FEFD00B4EEE1 /* MultiInvitationView.swift */,
+				6556C3EE2A68FF0C00B4EEE1 /* TwoInvitationView.swift */,
+			);
+			path = InvitationChildView;
 			sourceTree = "<group>";
 		};
 		65C0767A2A56F949003E6D92 = {
@@ -498,15 +507,6 @@
 			path = NotiChildView;
 			sourceTree = "<group>";
 		};
-		D575D82A2A67EE120036BE7D /* InvitationChildView */ = {
-			isa = PBXGroup;
-			children = (
-				D575D82B2A67EE2F0036BE7D /* MultiInvitationView.swift */,
-				D575D82D2A67EE480036BE7D /* TwoInvitationView.swift */,
-			);
-			path = InvitationChildView;
-			sourceTree = "<group>";
-		};
 		D5A77DDA2A66A991000D8F4E /* CaesarComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -587,7 +587,7 @@
 		D5A77DFD2A66AC38000D8F4E /* Role */ = {
 			isa = PBXGroup;
 			children = (
-				D575D82A2A67EE120036BE7D /* InvitationChildView */,
+				6556C3EB2A68FEED00B4EEE1 /* InvitationChildView */,
 				D5A77E182A66B696000D8F4E /* InvitationView.swift */,
 				D5A77E082A66AD1D000D8F4E /* RoleSelectView.swift */,
 				D5A77E0A2A66AD2D000D8F4E /* RoleChangeView.swift */,
@@ -788,7 +788,7 @@
 				D5A77E152A66ADBD000D8F4E /* AlbumRoleSelectView.swift in Sources */,
 				65C077172A5BF4A7003E6D92 /* KeyChainAccount.swift in Sources */,
 				D5A77DF12A66AAEB000D8F4E /* ColorModel.swift in Sources */,
-				D575D82C2A67EE2F0036BE7D /* MultiInvitationView.swift in Sources */,
+				6556C3ED2A68FEFD00B4EEE1 /* MultiInvitationView.swift in Sources */,
 				65C0774D2A612C92003E6D92 /* Album.swift in Sources */,
 				65C0774F2A612EF5003E6D92 /* AlbumViewModel.swift in Sources */,
 				1049B7F32A63F8FF0021F674 /* UIScreen+.swift in Sources */,
@@ -808,7 +808,7 @@
 				65C077512A616874003E6D92 /* GalleryLayout.swift in Sources */,
 				65C0773E2A611763003E6D92 /* AlbumFeedView.swift in Sources */,
 				65C076892A56F949003E6D92 /* ContentView.swift in Sources */,
-				D575D82E2A67EE480036BE7D /* TwoInvitationView.swift in Sources */,
+				6556C3EF2A68FF0C00B4EEE1 /* TwoInvitationView.swift in Sources */,
 				65C077532A640CF9003E6D92 /* AlbumDetailView.swift in Sources */,
 				65264BDC2A67C7BD009963E6 /* String+.swift in Sources */,
 				65C0770F2A5BDACF003E6D92 /* User.swift in Sources */,
