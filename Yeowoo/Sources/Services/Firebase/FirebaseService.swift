@@ -475,6 +475,42 @@ struct FirebaseService {
 		}
 	}
 	
+	// 여행 삭제하기
+	static func removeTravel(albumDocId: String) async throws -> FirebaseState {
+		do {
+			let id = try KeyChainManager.shared.read(account: .documentId)
+			let documentRef = db.collection("User").document(id)
+			return try await withUnsafeThrowingContinuation { configuration in
+				documentRef.getDocument { snapshot, error in
+					guard let document = snapshot, document.exists else {
+						configuration.resume(returning: .fail)
+						return
+					}
+					if var finishedAlbum = document.data()?["finishedAlbum"] as? [String] {
+						// Remove albumDocId from finishedAlbum if it exists
+						finishedAlbum.removeAll { $0 == albumDocId }
+						
+						// Update the finishedAlbum in the Firestore document
+						documentRef.updateData(["finishedAlbum": finishedAlbum]) { error in
+							if let error = error {
+								print("Error updating user document: \(error)")
+								configuration.resume(returning: .fail)
+							} else {
+								print("Document updated successfully.")
+								configuration.resume(returning: .success)
+							}
+						}
+					} else {
+						configuration.resume(returning: .fail)
+					}
+				}
+			}
+		} catch {
+			print(KeyChainError.itemNotFound)
+		}
+		return .fail
+	}
+	
 	// 좋아요 등록
 	static func updateLikeUsers(albumDocId: String, paramFileName: String) async throws -> FirebaseState {
 		return try await withUnsafeThrowingContinuation { configuration in
