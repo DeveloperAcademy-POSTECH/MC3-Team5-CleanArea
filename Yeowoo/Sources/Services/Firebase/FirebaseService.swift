@@ -76,6 +76,7 @@ struct FirebaseService {
 						do {
 							try KeyChainManager.shared.create(account: .documentId,
 															  documentId: document.documentID)
+							UserDefaultsSetting.userDocId = document.documentID
 							configuration.resume(returning: .success)
 						} catch {
 							print(KeyChainError.itemNotFound)
@@ -426,4 +427,80 @@ struct FirebaseService {
 			}
 		}
 	}
+	
+	// 좋아요 등록
+	static func updateLikeUsers(albumDocId: String, paramFileName: String) async throws -> FirebaseState {
+		return try await withUnsafeThrowingContinuation { configuration in
+			let path = db.collection("album").document(albumDocId)
+			path.getDocument { snapshot, error in
+				guard let document = snapshot, document.exists else {
+					configuration.resume(returning: .fail)
+					return
+				}
+				
+				if var images = document.data()?["images"] as? [[String: Any]] {
+					for index in 0..<images.count {
+						if let fileName = images[index]["fileName"] as? String, fileName == paramFileName {
+							var likeUsers = images[index]["likeUsers"] as? [String] ?? []
+							if !likeUsers.contains(UserDefaultsSetting.userDocId) {
+								likeUsers.append(UserDefaultsSetting.userDocId)
+								images[index]["likeUsers"] = likeUsers
+							}
+						}
+					}
+					let updatedData: [String: Any] = [
+						"images": images
+					]
+					
+					path.updateData(updatedData) { error in
+						if let error = error {
+							print("Error updating document: \(error)")
+						} else {
+							print("Document updated successfully.")
+						}
+						configuration.resume(returning: .success)
+					}
+				}
+			}
+		}
+	}
+	
+	// 좋아요 삭제
+	static func removeUserFromLikeUsers(albumDocId: String, paramFileName: String) async throws -> FirebaseState {
+		return try await withUnsafeThrowingContinuation { configuration in
+			let path = db.collection("album").document(albumDocId)
+			path.getDocument { snapshot, error in
+				guard let document = snapshot, document.exists else {
+					configuration.resume(returning: .fail)
+					return
+				}
+				
+				if var images = document.data()?["images"] as? [[String: Any]] {
+					for index in 0..<images.count {
+						if let fileName = images[index]["fileName"] as? String, fileName == paramFileName {
+							var likeUsers = images[index]["likeUsers"] as? [String] ?? []
+							if let userIndex = likeUsers.firstIndex(of: UserDefaultsSetting.userDocId) {
+								likeUsers.remove(at: userIndex)
+								images[index]["likeUsers"] = likeUsers
+							}
+						}
+					}
+					
+					let updatedData: [String: Any] = [
+						"images": images
+					]
+					
+					path.updateData(updatedData) { error in
+						if let error = error {
+							print("Error updating document: \(error)")
+						} else {
+							print("Document updated successfully.")
+						}
+						configuration.resume(returning: .success)
+					}
+				}
+			}
+		}
+	}
+	
 }
