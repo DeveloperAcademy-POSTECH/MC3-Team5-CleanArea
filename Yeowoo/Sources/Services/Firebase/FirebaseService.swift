@@ -511,6 +511,17 @@ struct FirebaseService {
 		return .fail
 	}
 	
+	// 대표 이미지 변경
+	static func updateAlbumCoverImage(albumDocId: String, url: String) async throws -> FirebaseState {
+		let documentRef = db.collection("album").document(albumDocId)
+		return try await withUnsafeThrowingContinuation { configuration in
+			documentRef.updateData([
+				"coverImage": url
+			])
+			configuration.resume(returning: .success)
+		}
+	}
+	
 	// 좋아요 등록
 	static func updateLikeUsers(albumDocId: String, paramFileName: String) async throws -> FirebaseState {
 		return try await withUnsafeThrowingContinuation { configuration in
