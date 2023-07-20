@@ -9,10 +9,10 @@ import SwiftUI
 
 struct CameraButton: View {
     @State private var image = UIImage()
+    @State var changeCamera: Bool = false
     @State private var showModal = false
     @State var didCapture: Bool = false
     @State var didPhoto: Bool = false
-    @State var changeCamera: Bool = false
     @State var isFlash: Bool = false
     @State var name: String = "bolt.fill"
     @Environment(\.dismiss) private var dismiss
@@ -28,7 +28,6 @@ struct CameraButton: View {
                 .frame(width: UIScreen.getWidth(76))
                 .foregroundColor(Color("ButtonColor"))
         }.fullScreenCover(isPresented: $showModal) {
-//            if !didPhoto {
             NavigationView {
                 VStack {
                     HStack {
@@ -54,26 +53,24 @@ struct CameraButton: View {
                                selectedImage: $image,
                                didPhoto: $didPhoto,
                                changeCamera: $changeCamera,
-                               isFlash: $isFlash,
-                               name: $name
-                    )
+                               isFlash: $isFlash)
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .frame(width: UIScreen.screenWidth, height: UIScreen.screenWidth*4/3)
                     
                     Spacer()
                         .frame(height: UIScreen.getHeight(40))
+                    
                     ZStack {
-//                        Buttons(isFlash: $isFlash,
-//                                didCapture: $didCapture,
-//                                changeCamera: $changeCamera)
-                        Buttons(isFlash: $isFlash, didCapture: $didCapture, changeCamera: $changeCamera, image: $image, showModal: $showModal, didPhoto: $didPhoto)
+                        Buttons(isFlash: $isFlash,
+                                didCapture: $didCapture,
+                                changeCamera: $changeCamera,
+                                image: $image,
+                                showModal: $showModal,
+                                didPhoto: $didPhoto)
                     }
                 }
                 
             }
-//            else {
-//                EditView(showModal: $showModal, image: $image, didPhoto: $didPhoto)
-//            }
         }
         .onAppear{
             UIView.setAnimationsEnabled(true)

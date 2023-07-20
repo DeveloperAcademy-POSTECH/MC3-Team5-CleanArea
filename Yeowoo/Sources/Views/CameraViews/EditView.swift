@@ -62,9 +62,12 @@ struct EditView: View {
                 
                 VStack {
                     Spacer()
-                    
+                        
                     Text(contentsText)
-                        .background(Color(uiColor: .systemGray6))
+                        .background(
+                            RoundedRectangle(cornerRadius: 5)
+                            .foregroundColor(Color(uiColor: .systemGray6))
+                            .opacity(0.5))
                         .foregroundColor(.white)
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, alignment: .leading)
                         .padding([.leading, .bottom], UIScreen.getWidth(20))
