@@ -17,6 +17,8 @@ struct EditView: View {
     @State var isWrite = false
     @State var showingAlert = false
     @State var isRole = false
+    @State var myAlbum = true
+    @State var allAlbum = false
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -85,9 +87,9 @@ struct EditView: View {
                 Button(action: {
                     isRole = true
                 }) {
-                    Image("RoleButton")
+                    Image("FolderButton")
                 }.sheet(isPresented: $isRole) {
-                    RoleView()
+                    RoleView(myAlbum: $myAlbum, allAlbum: $allAlbum)
                         .presentationDetents([.height(UIScreen.getHeight(283)), .large])
                 }
             }

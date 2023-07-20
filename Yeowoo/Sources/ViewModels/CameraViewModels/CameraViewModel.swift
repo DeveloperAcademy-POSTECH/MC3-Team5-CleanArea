@@ -72,3 +72,9 @@ extension CameraView {
         }
     }
 }
+
+
+func change(_ first: inout Bool, _ second: inout Bool) {
+    first.toggle()
+    second.toggle()
+}

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct RoleView: View {
+    @Binding var myAlbum: Bool
+    @Binding var allAlbum: Bool
+    
     var body: some View {
         VStack(spacing: 0) {
             Spacer()
@@ -19,19 +22,25 @@ struct RoleView: View {
             Spacer()
                 .frame(height: UIScreen.getHeight(24))
             
-            RoleButton(image: "checkmark.circle.fill", roleTitle: "역할 사진", roleContents: "내 역할에 해당하는 사진이에요", imageColor: Color("ButtonColor"))
+            Button(action: {
+                change(&myAlbum, &allAlbum)
+            }) {
+                RoleButton(roleTitle: "내 역할 앨범", roleContents: "내 역할 앨범과 전체 앨범에 사진이 업로드돼요", imageColor: Color("ButtonColor"), isSelected: myAlbum)
+            }
             
             Spacer()
                 .frame(height: UIScreen.getHeight(8))
-            
-            RoleButton(image: "xmark.circle.fill", roleTitle: "자유 사진", roleContents: "내 역할에 해당하지 않는 사진이에요", imageColor: .red)
-            
+            Button(action: {
+                change(&allAlbum, &myAlbum)
+            }) {
+                RoleButton(roleTitle: "전체 앨범", roleContents: "전체 앨범에만 사진이 업로드돼요", imageColor: Color("ButtonColor"), isSelected: allAlbum)
+            }
         }
     }
 }
 
 struct RoleView_Previews: PreviewProvider {
     static var previews: some View {
-        RoleView()
+        RoleView(myAlbum: .constant(true), allAlbum: .constant(false))
     }
 }
