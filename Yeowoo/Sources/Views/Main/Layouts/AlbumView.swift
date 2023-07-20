@@ -10,8 +10,7 @@ import SwiftUI
 struct AlbumLayout: View {
     @ObservedObject var mainViewModel = MainViewModel()
     @State var arr: [Color]
-    @State var personCount = 0
-    @State var traveling: Int = 0
+    var personCount = 0
     @State var days: Int = 0
     var travelName: String
     var startDay: String
@@ -30,10 +29,10 @@ struct AlbumLayout: View {
                 
                 VStack(alignment: .leading, spacing: 0) {
                     
-                    if traveling == 1 {
+                    if mainViewModel.traveling == 1 {
                         TravelLabel(travelText: "여행중")
                             .padding(.top, UIScreen.getHeight(10))
-                    } else if traveling == 0 {
+                    } else if mainViewModel.traveling == 0 {
                         TravelLabel(travelText: "D - \(days)").padding(.top, UIScreen.getHeight(10))
                     }
                     
@@ -75,11 +74,11 @@ struct AlbumLayout: View {
                         }
                         PlusPerson(plusCount: arr.count-3)
                     }
-                    if traveling == 1 {
+                    if mainViewModel.traveling == 1 {
                         Text("\(arr.count)명 여행 중")
                             .foregroundColor(Color(uiColor: .systemGray))
                             .padding(.leading, 20)
-                    } else if traveling == 2 {
+                    } else if mainViewModel.traveling == 2 {
                         Text("\(arr.count)명 여행 완료")
                             .foregroundColor(Color(uiColor: .systemGray))
                             .padding(.leading, 20)
@@ -94,8 +93,8 @@ struct AlbumLayout: View {
             }
         }
         .onAppear {
-            traveling = mainViewModel.compareDate(startDay, endDay)
-            if traveling == 0 {
+            mainViewModel.traveling = mainViewModel.compareDate(startDay, endDay)
+            if mainViewModel.traveling == 0 {
                 days = D_Day(startDay)
             }
         }

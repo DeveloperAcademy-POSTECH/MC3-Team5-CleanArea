@@ -9,12 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @ObservedObject var mainViewModel = MainViewModel()
-//    @State var traveling = 0
-//    @State var openAlarm = false
-//    @State var hasAlarm = true
-//    @State var hasAlbum = false
-//    @State var today: String = ""
-    
+
     var body: some View {
         NavigationView {
             VStack {
@@ -86,11 +81,14 @@ struct MainView: View {
                                             Spacer()
                                         }
                                     }
-                                    
-                                    AlbumLayout(arr: dummyData[dummyData.count-1].withPerson,
-                                              travelName: dummyData[dummyData.count-1].albumName,
-                                              startDay: dummyData[dummyData.count-1].startDay,
-                                              endDay: dummyData[dummyData.count-1].endDay)
+                                    NavigationLink(destination: {
+                                        EmptyView()
+                                    }) {
+                                        AlbumLayout(arr: dummyData[dummyData.count-1].withPerson,
+                                                  travelName: dummyData[dummyData.count-1].albumName,
+                                                  startDay: dummyData[dummyData.count-1].startDay,
+                                                  endDay: dummyData[dummyData.count-1].endDay)
+                                    }
                                     
                                     Spacer()
                                         .frame(height: UIScreen.getHeight(45))
@@ -112,8 +110,13 @@ struct MainView: View {
                                 }
                                 ForEach(dummyData[0..<(mainViewModel.traveling == 2 ? dummyData.count : dummyData.count-1)].reversed(),
                                         id: \.self) { data in
-                                    AlbumLayout(arr: data.withPerson, travelName: data.albumName, startDay: data.startDay, endDay: data.endDay)
-                                        .padding(.bottom, UIScreen.getHeight(10))
+                                    
+                                    NavigationLink(destination: {
+                                        EmptyView()
+                                    }) {
+                                        AlbumLayout(arr: data.withPerson, travelName: data.albumName, startDay: data.startDay, endDay: data.endDay)
+                                            .padding(.bottom, UIScreen.getHeight(10))
+                                    }
                                 }
                                 
                                 Spacer()

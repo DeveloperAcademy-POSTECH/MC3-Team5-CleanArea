@@ -22,7 +22,7 @@ struct BeforeTravelLayout: View {
                 Spacer()
                 
                 VStack {
-                    Button(action: {
+                    NavigationLink(destination : {
                         
                     }) {
                         Image("nextButton")

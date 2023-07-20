@@ -70,7 +70,11 @@ struct DoneTravelLayout: View {
                 }
                 HStack(spacing: 18) {
                     ForEach(0..<3) { num in
-                        TapePicture(picture: picture[num])
+                        NavigationLink(destination: {
+                            
+                        }) {
+                            TapePicture(picture: picture[num])
+                        }
                     }
                 }
             }.frame(maxHeight: UIScreen.getHeight(160))

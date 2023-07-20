@@ -22,7 +22,7 @@ struct RecommendLayout: View {
                 Spacer()
                 
                 VStack {
-                    Button(action: {
+                    NavigationLink(destination: {
                         
                     }) {
                         Image("nextButton")
@@ -46,7 +46,6 @@ struct RecommendLayout: View {
             date = travelingDate(dummyData[dummyData.count-1].startDay)
         }
     }
-
 }
 
 struct RecommendLayout_Previews: PreviewProvider {
