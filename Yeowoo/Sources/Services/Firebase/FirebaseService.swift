@@ -439,6 +439,42 @@ struct FirebaseService {
 		}
 	}
 	
+	// 여행 종료하기 -> 여행 컬렉션 관련
+	static func closedTravel(albumDocId: String) async throws -> FirebaseState {
+		let albumDocumentRef = db.collection("album").document(albumDocId)
+		return try await withUnsafeThrowingContinuation { configuration in
+			albumDocumentRef.updateData([
+				"isClosed": true
+			])
+			
+			albumDocumentRef.getDocument { snapshot, error in
+				guard let document = snapshot, document.exists else {
+					configuration.resume(returning: .fail)
+					return
+				}
+				
+				// 각 유저들 여행 progressAlbum "" + finishedAlbum에 추가
+				
+				(document.data()?["users"] as? [String])?.forEach { docId in
+					let userDocumentRef = db.collection("User").document(docId)
+					userDocumentRef.updateData(["progressAlbum": "1"]) { error in
+						if let error = error {
+							print("Error updating user document: \(error)")
+							configuration.resume(returning: .fail)
+							return
+						}
+						
+						// albumDocId 추가 코드
+						userDocumentRef.updateData([
+							"finishedAlbum": FieldValue.arrayUnion([albumDocId])
+						])
+					}
+				}
+			}
+			configuration.resume(returning: .success)
+		}
+	}
+	
 	// 좋아요 등록
 	static func updateLikeUsers(albumDocId: String, paramFileName: String) async throws -> FirebaseState {
 		return try await withUnsafeThrowingContinuation { configuration in
