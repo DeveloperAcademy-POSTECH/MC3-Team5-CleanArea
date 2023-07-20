@@ -10,7 +10,7 @@ import SwiftUI
 struct MainView: View {
     @State var traveling = 0
     @State var openAlarm = false
-    @State var hasAlarm = false
+    @State var hasAlarm = true
     @State var hasAlbum = false
     @State var today: String = ""
     
@@ -46,9 +46,7 @@ struct MainView: View {
                         Spacer()
                             .frame(width: UIScreen.getWidth(9))
                         
-                        Button(action: {
-                            
-                        }) {
+                        NavigationLink(destination: EmptyView()){
                             ZStack {
                                 Image("Gear")
                                     .resizable()
@@ -117,14 +115,14 @@ struct MainView: View {
                                     AlbumLayout(arr: data.withPerson, travelName: data.albumName, startDay: data.startDay, endDay: data.endDay)
                                         .padding(.bottom, UIScreen.getHeight(10))
                                 }
+                                
+                                Spacer()
+                                    .frame(height: UIScreen.getHeight(94))
                             }.frame(maxWidth: .infinity)
                         })
                     } else {
                         NoAlbumLayout()
                     }
-                    
-                    Spacer()
-                        .frame(width: UIScreen.getWidth(20))
                     
                     VStack{
                         Spacer()
