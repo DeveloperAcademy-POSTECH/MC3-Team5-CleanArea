@@ -25,9 +25,7 @@ struct AlbumRoleSelectView: View {
     
     
     var body: some View {
-        NavigationView {
             VStack {
-                
                 HStack (spacing: 0){
                     Rectangle()
                         .frame(width: (UIScreen.width - 50)/3*2, height: 3)
@@ -99,7 +97,6 @@ struct AlbumRoleSelectView: View {
             .background(Color.white)
             .modifier(BackToolBarModifier())
 
-        }
     }
 }
 

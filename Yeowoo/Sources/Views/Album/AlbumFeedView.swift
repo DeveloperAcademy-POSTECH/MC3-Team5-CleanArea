@@ -27,7 +27,7 @@ struct AlbumFeedView: View {
 			ScrollView(showsIndicators: false) {
 				VStack {
 					ScrollView(.horizontal, showsIndicators: false) {
-						HStack {
+						HStack(alignment: .top) {
 							// ForEach(0..<viewModel.albums.users.count) 이게 아니라
 							// 이렇게 처리해야하네..
 							ForEach(viewModel.users.indices, id: \.self) { index in
@@ -119,6 +119,19 @@ struct AlbumFeedView: View {
 										}
 									}
 								}
+							}
+							Button {
+								print("친구 추가 버튼 클릭")
+							} label: {
+								Rectangle()
+									.frame(width: 70, height: 84)
+									.cornerRadius(20)
+									.padding(5)
+									.overlay {
+										RoundedRectangle(cornerRadius: 20)
+											.stroke(Color.green, lineWidth: 2)
+											.padding(2)
+									}
 							}
 						}
 					}

@@ -20,7 +20,6 @@ struct NewAlbumView: View {
     
     
     var body: some View {
-        NavigationView {
             VStack {
 
                 VStack(alignment: .leading){
@@ -110,7 +109,6 @@ struct NewAlbumView: View {
             .navigationBarTitleDisplayMode(.inline)
             .background(Color.white)
             .modifier(BackToolBarModifier())
-        }
     }
 }
 

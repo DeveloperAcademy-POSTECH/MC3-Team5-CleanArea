@@ -4,11 +4,13 @@
 //
 //  Created by 정회승 on 2023/07/18.
 //
+
 import SwiftUI
 
 struct FindFriendContents: View {
     
     let user : SubUser
+    @Binding var friendToggle: Bool
     
     var body: some View {
        HStack {
@@ -34,12 +36,12 @@ struct FindFriendContents: View {
                 
                 
                 Button{
+                    friendToggle.toggle()
                     print("\(user.username) is clicked")
                 } label: {
-                    Image(systemName: "circle")
-                        .imageScale(.large)
-                        .foregroundColor(.circleGray)
-                        .padding(.trailing, 5)
+                    Image(systemName: friendToggle ? "checkmark.circle.fill" : "circle")
+                                    .imageScale(.large)
+                                    .foregroundColor(friendToggle ? .mainColor : .circleGray)
                 }
                
             }
@@ -50,8 +52,8 @@ struct FindFriendContents: View {
 }
 
 
-struct FindFriendContents_Previews: PreviewProvider {
-    static var previews: some View {
-        FindFriendContents(user: users[1])
-    }
-}
+//struct FindFriendContents_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FindFriendContents(user: users[1])
+//    }
+//}

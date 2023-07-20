@@ -15,6 +15,8 @@ struct FirstFeedLayout: View {
 	@State private var detailIndex: Int = 0
 	@State private var isActive: Bool = false
 	
+	//	@ObservedObject var viewModel = AlbumViewModel()
+	
 	var entitys: [ImagesEntity]
 	var user: [User]
 	
@@ -22,7 +24,9 @@ struct FirstFeedLayout: View {
 		NavigationLink (
 			destination:
 				AlbumDetailView(entitys: entitys[detailIndex],
-								user: self.user.first(where: {$0.docId == entitys[detailIndex].uploadUser}) ?? User(docId: "", id: "", email: "", password: "", isFirstLogin: false, nickname: "azhy", profileImage: "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/album1%2F1.jpeg?alt=media&token=eeea845a-b7e0-4d77-a2d0-c3b30ca439e9", progressAlbum: "", finishedAlbum: [], notification: [], fcmToken: ""))
+								user: self.user.first(where: {$0.docId == entitys[detailIndex].uploadUser}) ?? User(docId: "", id: "", email: "", password: "", isFirstLogin: false, nickname: "azhy", profileImage: "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/album1%2F1.jpeg?alt=media&token=eeea845a-b7e0-4d77-a2d0-c3b30ca439e9", progressAlbum: "", finishedAlbum: [], notification: [], fcmToken: ""),
+								testBool: entitys[detailIndex].likeUsers.contains(UserDefaultsSetting.userDocId),
+								testCount: entitys[detailIndex].likeUsers.count)
 			,isActive: $isActive
 		) {
 			HStack(spacing: 4) {
@@ -41,6 +45,11 @@ struct FirstFeedLayout: View {
 							.frame(width: width / 3, height: 250)
 					}
 				}
+				.overlay(
+					Image(systemName: entitys[0].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
+						.padding(6),
+					alignment: .topTrailing
+				)
 				VStack(spacing: 4) {
 					if entitys.count >= 2 {
 						Button {
@@ -58,7 +67,11 @@ struct FirstFeedLayout: View {
 									.frame(width: width / 3, height: 123)
 							}
 						}
-						
+						.overlay(
+							Image(systemName: entitys[1].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
+								.padding(6),
+							alignment: .topTrailing
+						)
 					}
 					if entitys.count >= 3 {
 						Button {
@@ -76,6 +89,11 @@ struct FirstFeedLayout: View {
 									.frame(width: width / 3, height: 123)
 							}
 						}
+						.overlay(
+							Image(systemName: entitys[2].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
+								.padding(6),
+							alignment: .topTrailing
+						)
 					}
 				}
 				.frame(maxHeight: .infinity, alignment: .top)
@@ -97,6 +115,11 @@ struct FirstFeedLayout: View {
 									.frame(width: width / 3, height: 123)
 							}
 						}
+						.overlay(
+							Image(systemName: entitys[3].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
+								.padding(6),
+							alignment: .topTrailing
+						)
 					}
 					if entitys.count >= 5 {
 						Button {
@@ -114,11 +137,17 @@ struct FirstFeedLayout: View {
 									.frame(width: width / 3, height: 123)
 							}
 						}
+						.overlay(
+							Image(systemName: entitys[4].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
+								.padding(6),
+							alignment: .topTrailing
+						)
 					}
 				}
 				.frame(maxHeight: .infinity, alignment: .top)
 			}
 			.frame(maxWidth: .infinity, alignment: .leading)
 		}
+		.navigationTitle(isActive ? "" : "타이틀")
 	}
 }

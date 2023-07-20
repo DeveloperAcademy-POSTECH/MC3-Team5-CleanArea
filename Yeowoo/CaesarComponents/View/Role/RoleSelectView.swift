@@ -20,9 +20,9 @@ struct RoleSelectView: View {
 //        .init(.flexible(), spacing: 2),
 //        .init(.flexible(), spacing: 2)
 //    ]
+
     
     var body: some View {
-        NavigationView {
             VStack {
 
                     Rectangle()
@@ -43,11 +43,11 @@ struct RoleSelectView: View {
                 
                 Spacer()
                 //FoxGrid 3x2
-				LazyVGrid(columns: [
-					.init(.flexible(), spacing: 2),
-					.init(.flexible(), spacing: 2),
-					.init(.flexible(), spacing: 2)
-				], spacing: 30) {
+                LazyVGrid(columns: [
+                    .init(.flexible(), spacing: 2),
+                    .init(.flexible(), spacing: 2),
+                    .init(.flexible(), spacing: 2)
+                ], spacing: 30) {
                     ForEach(0..<6, id: \.self) { id in
                         FoxCardView(fox: foxs[id], isSelected: selectedIndex == id)
                             .onTapGesture {
@@ -90,8 +90,6 @@ struct RoleSelectView: View {
             .navigationBarTitleDisplayMode(.inline)
             .background(Color.white)
             .modifier(BackToolBarModifier())
-
-        }
     }
 }
 

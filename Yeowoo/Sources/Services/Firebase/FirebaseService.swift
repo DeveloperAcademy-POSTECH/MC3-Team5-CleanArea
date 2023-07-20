@@ -76,6 +76,7 @@ struct FirebaseService {
 						do {
 							try KeyChainManager.shared.create(account: .documentId,
 															  documentId: document.documentID)
+							UserDefaultsSetting.userDocId = document.documentID
 							configuration.resume(returning: .success)
 						} catch {
 							print(KeyChainError.itemNotFound)
@@ -164,48 +165,48 @@ struct FirebaseService {
 	static func fetchUser(userDocIds: [String] = []) -> AnyPublisher<[User], Error> {
 		Future<[User], Error> { promise in
 			var users: [User] = []
-//				let documentId = userDocIds.isEmpty ? try KeyChainManager.shared.read(account: .documentId) : userDocIds
-				db.collection("User").getDocuments { snapshot, error in
-					if let error {
-						promise(.failure(error))
-						return
-					}
-					guard let snapshot else {
-						promise(.failure(FirebaseError.badsnapshot))
-						return
-					}
-					if userDocIds.isEmpty {
-						do {
-							let documentId = try KeyChainManager.shared.read(account: .documentId)
-							if let document = snapshot.documents.first(where: { $0.documentID == documentId }) {
-								let data = document.data()
-								users.append(User(documentData: data)!)
-								promise(.success(users))
-//								if let user = User(documentData: data) {
-//									promise(.success(user))
-//								}
-							} else {
-								promise(.failure(FirebaseError.badsnapshot))
-								return
-							}
-						} catch {
-							print(KeyChainError.itemNotFound)
-						}
-					} else {
-						for id in userDocIds {
-							print("not empty \(id)")
-//							snapshot.documents["id"].data()
-							print(snapshot.documents.first!.documentID)
-							print(id)
-							if let document = snapshot.documents.first(where: { $0.documentID == id }) {
-								let data = document.data()
-								print("data \(data)")
-								users.append(User(documentData: data)!)
-							}
-						}
-						promise(.success(users))
-					}
+			//				let documentId = userDocIds.isEmpty ? try KeyChainManager.shared.read(account: .documentId) : userDocIds
+			db.collection("User").getDocuments { snapshot, error in
+				if let error {
+					promise(.failure(error))
+					return
 				}
+				guard let snapshot else {
+					promise(.failure(FirebaseError.badsnapshot))
+					return
+				}
+				if userDocIds.isEmpty {
+					do {
+						let documentId = try KeyChainManager.shared.read(account: .documentId)
+						if let document = snapshot.documents.first(where: { $0.documentID == documentId }) {
+							let data = document.data()
+							users.append(User(documentData: data)!)
+							promise(.success(users))
+							//								if let user = User(documentData: data) {
+							//									promise(.success(user))
+							//								}
+						} else {
+							promise(.failure(FirebaseError.badsnapshot))
+							return
+						}
+					} catch {
+						print(KeyChainError.itemNotFound)
+					}
+				} else {
+					for id in userDocIds {
+						print("not empty \(id)")
+						//							snapshot.documents["id"].data()
+						print(snapshot.documents.first!.documentID)
+						print(id)
+						if let document = snapshot.documents.first(where: { $0.documentID == id }) {
+							let data = document.data()
+							print("data \(data)")
+							users.append(User(documentData: data)!)
+						}
+					}
+					promise(.success(users))
+				}
+			}
 			
 		}
 		.eraseToAnyPublisher()
@@ -254,11 +255,15 @@ struct FirebaseService {
 					storage.reference().child("album1/" + "setindex").downloadURL { URL, error in
 						guard let URL else { return }
 						let updatedData: [String: Any] = [
+							// 수정
 							"images": FieldValue.arrayUnion([
 								["comment" : "설명 테스트 index",
 								 "fileName" : "파일 이름 index",
 								 "url" : String(describing: URL),
-								 "like" : 0] as [String : Any]
+								 "likeUsers": [],
+								 "roleCheck": false,
+								 "updateTime": "0",
+								 "uploadUser": ""] as [String : Any]
 							])
 						]
 						let path = db.collection("album").document(albumDocId)
@@ -290,21 +295,29 @@ struct FirebaseService {
 						var images: [ImagesEntity] = []
 						let isClosed = data["isClosed"] as! Bool
 						let users: [String] = (data["users"] as? [String])!
+						let albumTitle: String = data["title"] as! String
+						let albumCoverImage: String = data["coverImage"] as! String
+						let startTime: String = data["startTime"] as! String
+						let finishTime: String = data["finishTime"] as! String
 						for imageData in imagesData {
 							if let comment = imageData["comment"] as? String,
 							   let fileName = imageData["fileName"] as? String,
-							   let like = imageData["like"] as? Int,
+							   let likeUsers = imageData["likeUsers"] as? [String],
+							   let updateTime = imageData["updateTime"] as? String,
 							   let url = imageData["url"] as? String,
 							   let uploadUser = imageData["uploadUser"] as? String,
 							   let roleCheck = imageData["roleCheck"] as? Bool {
 								
 								let image = ImagesEntity(comment: comment, fileName: fileName,
-														 like: like, url: url, uploadUser: uploadUser,
-														 roleCheck: roleCheck)
+														 url: url, uploadUser: uploadUser,
+														 roleCheck: roleCheck, likeUsers: likeUsers,
+														 uploadTime: updateTime)
 								images.append(image)
 							}
 						}
-						promise(.success(Album(images: images, isClosed: isClosed, users: users)))
+						promise(.success(Album(albumTitle: albumTitle, albumCoverImage: albumCoverImage,
+											   startTime: startTime, finishTime: finishTime,
+											   images: images, isClosed: isClosed, users: users)))
 					}
 				} else {
 					promise(.failure(FirebaseError.badsnapshot))
@@ -409,6 +422,175 @@ struct FirebaseService {
 							}
 							configuration.resume(returning: .success)
 						}
+					}
+				}
+			}
+		}
+	}
+	
+	// 앨범 제목 변경
+	static func updateAlbumTitle(albumDocId: String, changedTitle: String) async throws -> FirebaseState {
+		let documentRef = db.collection("album").document(albumDocId)
+		return try await withUnsafeThrowingContinuation { configuration in
+			documentRef.updateData([
+				"title": changedTitle
+			])
+			configuration.resume(returning: .success)
+		}
+	}
+	
+	// 여행 종료하기 -> 여행 컬렉션 관련
+	static func closedTravel(albumDocId: String) async throws -> FirebaseState {
+		let albumDocumentRef = db.collection("album").document(albumDocId)
+		return try await withUnsafeThrowingContinuation { configuration in
+			albumDocumentRef.updateData([
+				"isClosed": true
+			])
+			
+			albumDocumentRef.getDocument { snapshot, error in
+				guard let document = snapshot, document.exists else {
+					configuration.resume(returning: .fail)
+					return
+				}
+				
+				// 각 유저들 여행 progressAlbum "" + finishedAlbum에 추가
+				
+				(document.data()?["users"] as? [String])?.forEach { docId in
+					let userDocumentRef = db.collection("User").document(docId)
+					userDocumentRef.updateData(["progressAlbum": "1"]) { error in
+						if let error = error {
+							print("Error updating user document: \(error)")
+							configuration.resume(returning: .fail)
+							return
+						}
+						
+						// albumDocId 추가 코드
+						userDocumentRef.updateData([
+							"finishedAlbum": FieldValue.arrayUnion([albumDocId])
+						])
+					}
+				}
+			}
+			configuration.resume(returning: .success)
+		}
+	}
+	
+	// 여행 삭제하기
+	static func removeTravel(albumDocId: String) async throws -> FirebaseState {
+		do {
+			let id = try KeyChainManager.shared.read(account: .documentId)
+			let documentRef = db.collection("User").document(id)
+			return try await withUnsafeThrowingContinuation { configuration in
+				documentRef.getDocument { snapshot, error in
+					guard let document = snapshot, document.exists else {
+						configuration.resume(returning: .fail)
+						return
+					}
+					if var finishedAlbum = document.data()?["finishedAlbum"] as? [String] {
+						// Remove albumDocId from finishedAlbum if it exists
+						finishedAlbum.removeAll { $0 == albumDocId }
+						
+						// Update the finishedAlbum in the Firestore document
+						documentRef.updateData(["finishedAlbum": finishedAlbum]) { error in
+							if let error = error {
+								print("Error updating user document: \(error)")
+								configuration.resume(returning: .fail)
+							} else {
+								print("Document updated successfully.")
+								configuration.resume(returning: .success)
+							}
+						}
+					} else {
+						configuration.resume(returning: .fail)
+					}
+				}
+			}
+		} catch {
+			print(KeyChainError.itemNotFound)
+		}
+		return .fail
+	}
+	
+	// 대표 이미지 변경
+	static func updateAlbumCoverImage(albumDocId: String, url: String) async throws -> FirebaseState {
+		let documentRef = db.collection("album").document(albumDocId)
+		return try await withUnsafeThrowingContinuation { configuration in
+			documentRef.updateData([
+				"coverImage": url
+			])
+			configuration.resume(returning: .success)
+		}
+	}
+	
+	// 좋아요 등록
+	static func updateLikeUsers(albumDocId: String, paramFileName: String) async throws -> FirebaseState {
+		return try await withUnsafeThrowingContinuation { configuration in
+			let path = db.collection("album").document(albumDocId)
+			path.getDocument { snapshot, error in
+				guard let document = snapshot, document.exists else {
+					configuration.resume(returning: .fail)
+					return
+				}
+				
+				if var images = document.data()?["images"] as? [[String: Any]] {
+					for index in 0..<images.count {
+						if let fileName = images[index]["fileName"] as? String, fileName == paramFileName {
+							var likeUsers = images[index]["likeUsers"] as? [String] ?? []
+							if !likeUsers.contains(UserDefaultsSetting.userDocId) {
+								likeUsers.append(UserDefaultsSetting.userDocId)
+								images[index]["likeUsers"] = likeUsers
+							}
+						}
+					}
+					let updatedData: [String: Any] = [
+						"images": images
+					]
+					
+					path.updateData(updatedData) { error in
+						if let error = error {
+							print("Error updating document: \(error)")
+						} else {
+							print("Document updated successfully.")
+						}
+						configuration.resume(returning: .success)
+					}
+				}
+			}
+		}
+	}
+	
+	// 좋아요 삭제
+	static func removeUserFromLikeUsers(albumDocId: String, paramFileName: String) async throws -> FirebaseState {
+		return try await withUnsafeThrowingContinuation { configuration in
+			let path = db.collection("album").document(albumDocId)
+			path.getDocument { snapshot, error in
+				guard let document = snapshot, document.exists else {
+					configuration.resume(returning: .fail)
+					return
+				}
+				
+				if var images = document.data()?["images"] as? [[String: Any]] {
+					for index in 0..<images.count {
+						if let fileName = images[index]["fileName"] as? String, fileName == paramFileName {
+							var likeUsers = images[index]["likeUsers"] as? [String] ?? []
+							if let userIndex = likeUsers.firstIndex(of: UserDefaultsSetting.userDocId) {
+								likeUsers.remove(at: userIndex)
+								images[index]["likeUsers"] = likeUsers
+							}
+						}
+					}
+					
+					let updatedData: [String: Any] = [
+						"images": images
+					]
+					
+					path.updateData(updatedData) { error in
+						if let error = error {
+							print("Error updating document: \(error)")
+						} else {
+							print("Document updated successfully.")
+						}
+						configuration.resume(returning: .success)
 					}
 				}
 			}

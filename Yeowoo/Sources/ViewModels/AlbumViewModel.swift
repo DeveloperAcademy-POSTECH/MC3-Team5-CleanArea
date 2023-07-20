@@ -15,7 +15,8 @@ final class AlbumViewModel: ObservableObject {
 	@Published var roleImage: [[ImagesEntity]] = []
 	@Published var users: [User] = []
 	@Published var images: [[ImagesEntity]] = []
-	@Published var albums: Album = Album(images: [], isClosed: false, users: [])
+	@Published var albums: Album = Album(albumTitle: "", albumCoverImage: "", startTime: "",
+										 finishTime: "", images: [], isClosed: false, users: [])
 	
 	private var cancellables = Set<AnyCancellable>()
 	
@@ -83,18 +84,8 @@ final class AlbumViewModel: ObservableObject {
 		}
 	}
 	
-	
-	
-	//	func upload() async throws {
-	//		print("???")
-	//		for i in 10..<20 {
-	//			try await FirebaseService.uploadAlbumImage(image: UIImage(named: "14")!, albumDocId: "T9eJMPQEGQClFHEahX6r", index: i)
-	//		}
-	//	}
-	
-//	func signup() {
-//		FirebaseService.signup(user: User(docId: "", id: "id", email: "leedool3003", password: "1234",
-//										  isFirstLogin: true, nickname: "azhy", profileImage: "", progressAlbum: "", finishedAlbum: [], notification: [], fcmToken: ""))
-//	}
-	
+	// 좋아요 눌렀을 때
+	func actionLike(toggleChk: Bool, fileName: String) async throws {
+		toggleChk ? try await FirebaseService.removeUserFromLikeUsers(albumDocId: "T9eJMPQEGQClFHEahX6r", paramFileName: "123") : try await FirebaseService.updateLikeUsers(albumDocId: "T9eJMPQEGQClFHEahX6r", paramFileName: "123")
+	}
 }

@@ -19,7 +19,9 @@ struct GalleryLayout: View {
 		ForEach(entitys.indices, id: \.self) { index in
 			NavigationLink(destination:
 							AlbumDetailView(entitys: entitys[detailIndex],
-											user: self.user.first(where: {$0.docId == entitys[detailIndex].uploadUser}) ?? User(docId: "", id: "", email: "", password: "", isFirstLogin: false, nickname: "azhy", profileImage: "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/album1%2F1.jpeg?alt=media&token=eeea845a-b7e0-4d77-a2d0-c3b30ca439e9", progressAlbum: "", finishedAlbum: [], notification: [], fcmToken: ""))
+											user: self.user.first(where: {$0.docId == entitys[detailIndex].uploadUser}) ?? User(docId: "", id: "", email: "", password: "", isFirstLogin: false, nickname: "azhy", profileImage: "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/album1%2F1.jpeg?alt=media&token=eeea845a-b7e0-4d77-a2d0-c3b30ca439e9", progressAlbum: "", finishedAlbum: [], notification: [], fcmToken: ""),
+											testBool: entitys[detailIndex].likeUsers.contains(UserDefaultsSetting.userDocId),
+											testCount: entitys[detailIndex].likeUsers.count)
 						   ,isActive: $isActive
 			){
 				Button {
@@ -54,7 +56,7 @@ struct GalleryLayout: View {
 											.frame(width: 48, height: 24)
 											.cornerRadius(100)
 											.overlay {
-												Text("\(entitys[index].like)")
+												Text("\(entitys[index].likeUsers.count)")
 													.font(.system(size: 16, weight: .medium))
 													.foregroundColor(Color.white)
 											}
@@ -68,6 +70,11 @@ struct GalleryLayout: View {
 							.frame(width: UIScreen.main.bounds.width, height: 390)
 					}
 				}
+				.overlay(
+					Image(systemName: entitys[index].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
+						.padding(6),
+					alignment: .topTrailing
+				)
 			}
 		}
 	}
