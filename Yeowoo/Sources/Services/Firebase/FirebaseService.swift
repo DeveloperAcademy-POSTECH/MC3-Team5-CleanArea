@@ -77,6 +77,7 @@ struct FirebaseService {
 	/// 로그인
 	static func signin(loginId: String, password: String) async throws -> FirebaseState {
 		return try await withUnsafeThrowingContinuation { configuration in
+			var chk = false
 			db.collection("User").getDocuments {snapsot, error in
 				if error != nil {
 					configuration.resume(returning: .fail)
@@ -90,19 +91,23 @@ struct FirebaseService {
 				snapsot.documents.forEach { document in
 					let data = document.data()
 					let getId = data["id"] as? String ?? ""
+					let getPwd = data["password"] as? String ?? ""
 					if loginId == getId {
-						do {
-							try KeyChainManager.shared.create(account: .documentId,
-															  documentId: document.documentID)
-							UserDefaultsSetting.userDocId = document.documentID
-							configuration.resume(returning: .success)
-						} catch {
-							print(KeyChainError.itemNotFound)
-							configuration.resume(returning: .fail)
-							return
+						if password == getPwd {
+							do {
+								try KeyChainManager.shared.create(account: .documentId,
+																  documentId: document.documentID)
+								UserDefaultsSetting.userDocId = document.documentID
+								chk = true
+							} catch {
+								print(KeyChainError.itemNotFound)
+								configuration.resume(returning: .fail)
+								return
+							}
 						}
 					}
 				}
+				configuration.resume(returning: chk ? .success : .fail)
 			}
 		}
 	}

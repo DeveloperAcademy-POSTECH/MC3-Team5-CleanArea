@@ -37,4 +37,13 @@ final class AuthViewModel: ObservableObject {
 							  notification: [], fcmToken: "")
 		return try await FirebaseService.signup(user: signupUser) == .success ? true : false
 	}
+	
+	func signin(id: String, pwd: String) async throws -> Bool {
+		let chk = try await FirebaseService.signin(loginId: id, password: pwd)
+		if chk == .success {
+			return true
+		} else {
+			return false
+		}
+	}
 }
