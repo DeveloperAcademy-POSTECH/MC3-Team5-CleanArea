@@ -32,6 +32,8 @@
 		65264BDC2A67C7BD009963E6 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65264BDB2A67C7BD009963E6 /* String+.swift */; };
 		6556C3ED2A68FEFD00B4EEE1 /* MultiInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3EC2A68FEFD00B4EEE1 /* MultiInvitationView.swift */; };
 		6556C3EF2A68FF0C00B4EEE1 /* TwoInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3EE2A68FF0C00B4EEE1 /* TwoInvitationView.swift */; };
+		6556C3F52A6A509E00B4EEE1 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3F42A6A509E00B4EEE1 /* AuthViewModel.swift */; };
+		6556C3F72A6BA82B00B4EEE1 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3F62A6BA82B00B4EEE1 /* View+.swift */; };
 		65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076862A56F949003E6D92 /* YeowooApp.swift */; };
 		65C076892A56F949003E6D92 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076882A56F949003E6D92 /* ContentView.swift */; };
 		65C0768B2A56F94B003E6D92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C0768A2A56F94B003E6D92 /* Assets.xcassets */; };
@@ -139,6 +141,8 @@
 		65264BDB2A67C7BD009963E6 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		6556C3EC2A68FEFD00B4EEE1 /* MultiInvitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiInvitationView.swift; sourceTree = "<group>"; };
 		6556C3EE2A68FF0C00B4EEE1 /* TwoInvitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoInvitationView.swift; sourceTree = "<group>"; };
+		6556C3F42A6A509E00B4EEE1 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		6556C3F62A6BA82B00B4EEE1 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		65C076832A56F949003E6D92 /* Yeowoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yeowoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C076862A56F949003E6D92 /* YeowooApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeowooApp.swift; sourceTree = "<group>"; };
 		65C076882A56F949003E6D92 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -240,6 +244,7 @@
 				1049B7F02A63F8BA0021F674 /* Font+.swift */,
 				1049B7F22A63F8FF0021F674 /* UIScreen+.swift */,
 				65264BDB2A67C7BD009963E6 /* String+.swift */,
+				6556C3F62A6BA82B00B4EEE1 /* View+.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -330,6 +335,16 @@
 				6556C3EE2A68FF0C00B4EEE1 /* TwoInvitationView.swift */,
 			);
 			path = InvitationChildView;
+			sourceTree = "<group>";
+		};
+		6556C3F32A6A505D00B4EEE1 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				F37DA9A32A63C2180020603E /* LoginCoverView.swift */,
+				F37DA9A12A63C1D70020603E /* LoginView.swift */,
+				F33453732A645F8A0031A22C /* SignUpView.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		65C0767A2A56F949003E6D92 = {
@@ -448,6 +463,7 @@
 				65C0774E2A612EF5003E6D92 /* AlbumViewModel.swift */,
 				1064751D2A6535070092FE5B /* MainViewModel */,
 				1049B7F92A63FA470021F674 /* CameraViewModel */,
+				6556C3F42A6A509E00B4EEE1 /* AuthViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -455,12 +471,10 @@
 		65C076B62A570A23003E6D92 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6556C3F32A6A505D00B4EEE1 /* Auth */,
 				65C0773A2A611521003E6D92 /* Album */,
 				106475162A6529AE0092FE5B /* Main */,
 				1049B7F82A63FA240021F674 /* CameraViews */,
-				F37DA9A32A63C2180020603E /* LoginCoverView.swift */,
-				F37DA9A12A63C1D70020603E /* LoginView.swift */,
-				F33453732A645F8A0031A22C /* SignUpView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -818,6 +832,7 @@
 				10CB96D42A63FDF000C08DBC /* FeatureButton.swift in Sources */,
 				1064751C2A6534FC0092FE5B /* MainViewModel.swift in Sources */,
 				1049B7FB2A63FA670021F674 /* CameraButtonView.swift in Sources */,
+				6556C3F72A6BA82B00B4EEE1 /* View+.swift in Sources */,
 				65C076FD2A5A7F1F003E6D92 /* FirebaseError.swift in Sources */,
 				65C077472A611D29003E6D92 /* FirstFeedLayout.swift in Sources */,
 				65C077512A616874003E6D92 /* GalleryLayout.swift in Sources */,
@@ -845,6 +860,7 @@
 				D5A77DE72A66AA7E000D8F4E /* FoxCardView.swift in Sources */,
 				D5A77E172A66ADCD000D8F4E /* FindFriendView.swift in Sources */,
 				D5A77E0B2A66AD2D000D8F4E /* RoleChangeView.swift in Sources */,
+				6556C3F52A6A509E00B4EEE1 /* AuthViewModel.swift in Sources */,
 				D5A77E052A66ACFD000D8F4E /* DemoMainView.swift in Sources */,
 				D5A77DE92A66AA93000D8F4E /* BackToolBarModifier.swift in Sources */,
 				D5A77DEF2A66AAD4000D8F4E /* FindFriendContents.swift in Sources */,

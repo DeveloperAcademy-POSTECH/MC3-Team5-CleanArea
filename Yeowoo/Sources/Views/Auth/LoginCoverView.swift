@@ -45,9 +45,9 @@ struct LoginCoverView: View {
         
     }
 }
-
-struct LoginCoverView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginCoverView()
-    }
-}
+//
+//struct LoginCoverView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LoginCoverView()
+//    }
+//}
