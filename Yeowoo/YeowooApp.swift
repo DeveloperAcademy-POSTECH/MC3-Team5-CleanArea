@@ -12,14 +12,20 @@ import FirebaseCore
 struct YeowooApp: App {
 	@UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 	
-    var body: some Scene {
-        WindowGroup {
-//            ContentView()
-//			TestView()
-//				.environmentObject(TestViewModel())
-//            LoginCoverView()
-//            CameraButtonView()
-            MainView()
-        }
-    }
+	var body: some Scene {
+		WindowGroup {
+			// 자동로그인
+			//			if UserDefaultsSetting.userDocId.isEmpty {
+			//				LoginCoverView()
+			//			} else {
+			//				MainView()
+			//			}
+			
+			// Test
+			LoginCoverView()
+			// CameraButtonView()
+			// MainView()
+			// SignUpView()
+		}
+	}
 }
