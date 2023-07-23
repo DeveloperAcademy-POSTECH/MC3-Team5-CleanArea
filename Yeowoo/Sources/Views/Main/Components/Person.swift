@@ -8,22 +8,23 @@
 import SwiftUI
 
 struct Person: View {
-    var person: Color
+    var person: String
     
     var body: some View {
         ZStack {
             Circle()
                 .foregroundColor(.white)
-                .frame(width: 32)
-            Circle()
-                .foregroundColor(person)
-                .frame(width: 31)
+                .frame(width: UIScreen.getWidth(32))
+            
+            AsyncImage(url: URL(string: person)) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: UIScreen.getWidth(31))
+                    .clipShape(Circle())
+            } placeholder: {
+                ProgressView()
+            }
         }
-    }
-}
-
-struct Person_Previews: PreviewProvider {
-    static var previews: some View {
-        Person(person: .blue)
     }
 }

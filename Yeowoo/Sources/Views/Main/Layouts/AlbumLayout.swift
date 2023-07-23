@@ -9,7 +9,11 @@ import SwiftUI
 
 struct AlbumLayout: View {
     @ObservedObject var mainViewModel = MainViewModel()
-    @State var arr: [Color]
+    
+    @State var traveling: Int = 0
+    var userId: [String]
+    @State var profileImages: [String] = []
+    var coverImage: String
     var personCount = 0
     @State var days: Int = 0
     var travelName: String
@@ -20,7 +24,17 @@ struct AlbumLayout: View {
         VStack(spacing: 0) {
             ZStack {
                 ZStack {
-                    Text("사진사진사진")
+                    if coverImage != "" {
+                        AsyncImage(url: URL(string: coverImage)) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                        } placeholder: {
+                            ProgressView()
+                        }
+                    } else {
+                        Text("사진사진사진")
+                    }
                     
                     RadialGradient(colors: [Color("ButtonColor"), .clear], center: .bottomLeading, startRadius: 0, endRadius: 270)
                         .opacity(0.4)
@@ -29,10 +43,10 @@ struct AlbumLayout: View {
                 
                 VStack(alignment: .leading, spacing: 0) {
                     
-                    if mainViewModel.traveling == 1 {
+                    if traveling == 1 {
                         TravelLabel(travelText: "여행중")
                             .padding(.top, UIScreen.getHeight(10))
-                    } else if mainViewModel.traveling == 0 {
+                    } else if traveling == 0 {
                         TravelLabel(travelText: "D - \(days)").padding(.top, UIScreen.getHeight(10))
                     }
                     
@@ -64,26 +78,26 @@ struct AlbumLayout: View {
                     )
                 
                 HStack(spacing: -10) {
-                    if arr.count < 4 {
-                        ForEach(arr, id: \.self) { img in
+                    if profileImages.count < 4 {
+                        ForEach(profileImages, id: \.self) { img in
                             Person(person: img)
                         }
                     } else {
-                        ForEach(arr[0..<3], id: \.self) { img in
+                        ForEach(profileImages[0..<3], id: \.self) { img in
                             Person(person: img)
                         }
-                        PlusPerson(plusCount: arr.count-3)
+                        PlusPerson(plusCount: profileImages.count-3)
                     }
-                    if mainViewModel.traveling == 1 {
-                        Text("\(arr.count)명 여행 중")
+                    if traveling == 1 {
+                        Text("\(profileImages.count)명 여행 중")
                             .foregroundColor(Color(uiColor: .systemGray))
                             .padding(.leading, 20)
-                    } else if mainViewModel.traveling == 2 {
-                        Text("\(arr.count)명 여행 완료")
+                    } else if traveling == 2 {
+                        Text("\(profileImages.count)명 여행 완료")
                             .foregroundColor(Color(uiColor: .systemGray))
                             .padding(.leading, 20)
                     } else {
-                        Text("\(arr.count)명 여행 전")
+                        Text("\(profileImages.count)명 여행 전")
                             .foregroundColor(Color(uiColor: .systemGray))
                             .padding(.leading, 20)
                     }
@@ -93,10 +107,22 @@ struct AlbumLayout: View {
             }
         }
         .onAppear {
-            mainViewModel.traveling = mainViewModel.compareDate(startDay, endDay)
+            traveling = mainViewModel.compareDate(startDay, endDay)
+            print(traveling)
             if mainViewModel.traveling == 0 {
                 days = D_Day(startDay)
             }
+            mainViewModel.fetchUser(userDocIds: userId)
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                profileImages = []
+                for i in 0..<mainViewModel.users.count {
+                    profileImages.append(mainViewModel.users[i].profileImage)
+                }
+                
+                print(profileImages)
+            }
+            
         }
     }
 }
@@ -125,12 +151,5 @@ struct CornerRadiusStyle: ViewModifier {
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         ModifiedContent(content: self, modifier: CornerRadiusStyle(radius: radius, corners: corners))
-    }
-}
-
-
-struct AlbumView_Previews: PreviewProvider {
-    static var previews: some View {
-        AlbumLayout(arr: [.blue, .black, .brown, .pink], travelName: "일본 여행", startDay: "2023. 07. 15", endDay: "2023. 07. 16")
     }
 }
