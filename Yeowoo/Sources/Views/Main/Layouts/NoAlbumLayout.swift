@@ -18,11 +18,12 @@ struct NoAlbumLayout: View {
                 .frame(height: UIScreen.getHeight(24))
             
             Text("첫 번째 여행을 기록해보세요!")
+                .foregroundColor(Color("G1"))
                 .font(.custom20bold())
                 .padding(.bottom, UIScreen.getHeight(10))
             
             Text("새 앨범을 만들어 여행 중 추억을 남겨보세요")
-                .foregroundColor(Color(uiColor: .systemGray2))
+                .foregroundColor(Color("G3"))
                 .font(.custom14regular())
             
             Spacer()

@@ -14,19 +14,19 @@ struct FeatureButton: View {
             Circle()
                 .aspectRatio(contentMode: .fit)
                 .frame(height: UIScreen.getHeight(48))
-                .foregroundColor(Color(uiColor: .secondarySystemBackground))
+                .foregroundColor(Color("G5"))
             
             Image(systemName: imageName)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(height: UIScreen.getWidth(22))
-                .foregroundColor(.gray)
+                .foregroundColor(Color("G3"))
         }
     }
 }
 
 struct FeatureButton_Previews: PreviewProvider {
     static var previews: some View {
-        FeatureButton(imageName: "bolt")
+        FeatureButton(imageName: "bolt.slash.fill")
     }
 }

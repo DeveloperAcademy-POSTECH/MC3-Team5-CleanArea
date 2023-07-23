@@ -160,11 +160,18 @@ struct MainView: View {
                                     .padding(.trailing, UIScreen.getWidth(20))
                             } else {
                                 NavigationLink(destination: EmptyView()) {
-                                    Image(systemName: "plus.circle.fill")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: UIScreen.getWidth(76))
-                                        .foregroundColor(Color("ButtonColor"))
+                                    ZStack {
+                                        Circle()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(height: UIScreen.getHeight(76))
+                                            .foregroundColor(.white)
+                                        
+                                        Image(systemName: "plus.circle.fill")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(height: UIScreen.getHeight(76))
+                                            .foregroundColor(Color("ButtonColor"))
+                                    }
                                 }
                                 .padding(.trailing, UIScreen.getWidth(20))
                             }

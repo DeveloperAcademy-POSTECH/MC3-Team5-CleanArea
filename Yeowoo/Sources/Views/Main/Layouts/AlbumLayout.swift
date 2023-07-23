@@ -37,7 +37,7 @@ struct AlbumLayout: View {
                     }
                     
                     RadialGradient(colors: [Color("ButtonColor"), .clear], center: .bottomLeading, startRadius: 0, endRadius: 270)
-                        .opacity(0.4)
+                        .opacity(1)
                 }.frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(190))
                     .cornerRadius(20, corners: [.topLeft, .topRight])
                 
@@ -90,15 +90,15 @@ struct AlbumLayout: View {
                     }
                     if traveling == 1 {
                         Text("\(profileImages.count)명 여행 중")
-                            .foregroundColor(Color(uiColor: .systemGray))
+                            .foregroundColor(Color("G3"))
                             .padding(.leading, 20)
                     } else if traveling == 2 {
                         Text("\(profileImages.count)명 여행 완료")
-                            .foregroundColor(Color(uiColor: .systemGray))
+                            .foregroundColor(Color("G3"))
                             .padding(.leading, 20)
                     } else {
                         Text("\(profileImages.count)명 여행 전")
-                            .foregroundColor(Color(uiColor: .systemGray))
+                            .foregroundColor(Color("G3"))
                             .padding(.leading, 20)
                     }
                     Spacer()
@@ -119,8 +119,6 @@ struct AlbumLayout: View {
                 for i in 0..<mainViewModel.users.count {
                     profileImages.append(mainViewModel.users[i].profileImage)
                 }
-                
-                print(profileImages)
             }
             
         }

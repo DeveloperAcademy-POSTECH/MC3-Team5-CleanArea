@@ -25,12 +25,12 @@ struct WriteTextView: View {
             
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(Color(uiColor: .secondarySystemBackground))
+                    .foregroundColor(Color("G5"))
                     .padding([.leading, .trailing], UIScreen.getWidth(20))
                 
                 TextEditor(text: $contentsText)
                     .font(.custom18semibold())
-                    .foregroundColor(Color(uiColor: .systemGray))
+                    .foregroundColor(Color("G3"))
                     .scrollContentBackground(.hidden)
                     .padding(EdgeInsets(top: UIScreen.getHeight(12),
                                         leading: UIScreen.getWidth(32),
@@ -48,7 +48,7 @@ struct WriteTextView: View {
                             contentsText = ""
                         }) {
                             Image(systemName: "xmark.circle.fill")
-                                .foregroundColor(Color(uiColor: .systemGray))
+                                .foregroundColor(Color("G3"))
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: UIScreen.getWidth(18))
                                 .padding(.trailing, UIScreen.getWidth(32))
@@ -83,6 +83,6 @@ struct WriteTextView: View {
 
 struct WriteTextView_Previews: PreviewProvider {
     static var previews: some View {
-        WriteTextView(isWirte: .constant(true), contentsText: .constant(""))
+        WriteTextView(isWirte: .constant(true), contentsText: .constant("fdfdfd"))
     }
 }

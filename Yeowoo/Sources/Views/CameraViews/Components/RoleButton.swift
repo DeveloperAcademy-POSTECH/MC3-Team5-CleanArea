@@ -16,7 +16,7 @@ struct RoleButton: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .foregroundColor(Color(uiColor: .secondarySystemBackground))
+                .foregroundColor(Color("G6"))
                 .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(70))
                 .overlay {
                     RoundedRectangle(cornerRadius: 10)
@@ -29,7 +29,6 @@ struct RoleButton: View {
                     .frame(width: UIScreen.getWidth(38))
                 
                 Image(isSelected == true ? "CheckCircle" : "EmptyCircle")
-//                    .foregroundColor(isSelected ? Color("ButtonColor") : Color(uiColor: .secondarySystemBackground))
                     .aspectRatio(contentMode: .fit)
                     .frame(width: UIScreen.getWidth(24))
                 
@@ -38,7 +37,7 @@ struct RoleButton: View {
                 
                 VStack {
                     Text(roleTitle)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("G1"))
                         .font(.custom16bold())
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
@@ -46,7 +45,7 @@ struct RoleButton: View {
                         .frame(height: UIScreen.getHeight(4))
                     
                     Text(roleContents)
-                        .foregroundColor(Color(uiColor: .systemGray))
+                        .foregroundColor(Color("G2"))
                         .font(.custom14semibold())
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
