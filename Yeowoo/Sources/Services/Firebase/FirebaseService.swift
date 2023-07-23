@@ -217,20 +217,14 @@ struct FirebaseService {
 					}
 				} else {
 					for id in userDocIds {
-						print("not empty \(id)")
-						//							snapshot.documents["id"].data()
-						print(snapshot.documents.first!.documentID)
-						print(id)
 						if let document = snapshot.documents.first(where: { $0.documentID == id }) {
 							let data = document.data()
-							print("data \(data)")
 							users.append(User(documentData: data)!)
 						}
 					}
 					promise(.success(users))
 				}
 			}
-			
 		}
 		.eraseToAnyPublisher()
 	}
@@ -264,28 +258,30 @@ struct FirebaseService {
 	//MARK: - Album
 	
 	/// 앨범에 이미지 올리기
-	static func uploadAlbumImage(image: UIImage, albumDocId: String) async throws -> FirebaseState {
+	static func uploadAlbumImage(image: UIImage, albumDocId: String, fileName: String) async throws -> FirebaseState {
 		let data = image.jpegData(compressionQuality: 0.5)!
 		let storage = Storage.storage()
 		let metaData = StorageMetadata()
 		metaData.contentType = "image/png"
 		return try await withUnsafeThrowingContinuation { configuration in
-			storage.reference().child("album1/" + "setindex").putData(data, metadata: metaData) { ( metaData, error ) in
+			storage.reference().child("album1/" + "\(fileName)").putData(data, metadata: metaData) { ( metaData, error ) in
 				if error != nil {
 					configuration.resume(returning: .fail)
 					return
 				} else {
-					storage.reference().child("album1/" + "setindex").downloadURL { URL, error in
+					storage.reference().child("album1/" + "\(fileName)").downloadURL { URL, error in
+						let dateFormatter = DateFormatter()
+						dateFormatter.dateFormat = "yyyy.MM.dd"
 						guard let URL else { return }
 						let updatedData: [String: Any] = [
 							// 수정
 							"images": FieldValue.arrayUnion([
 								["comment" : "설명 테스트 index",
-								 "fileName" : "파일 이름 index",
+								 "fileName" : fileName,
 								 "url" : String(describing: URL),
 								 "likeUsers": [],
 								 "roleCheck": true,
-								 "updateTime": "0",
+								 "updateTime": dateFormatter.string(from: Date()),
 								 "uploadUser": ""] as [String : Any]
 							])
 						]
@@ -350,8 +346,8 @@ struct FirebaseService {
 		.eraseToAnyPublisher()
 	}
 	
-	
 	/// 앨범 이미지 변경
+	/// 당장 안씀
 	static func updateAlbumImage(image: UIImage, albumDocId: String) async throws -> FirebaseState {
 		let data = image.jpegData(compressionQuality: 0.5)!
 		let storage = Storage.storage()
@@ -404,10 +400,10 @@ struct FirebaseService {
 	}
 	
 	/// 앨범 이미지 삭제
-	static func deleteAlbumImage(albumDocId: String) async throws -> FirebaseState {
+	static func deleteAlbumImage(albumDocId: String, parmFileName: String) async throws -> FirebaseState {
 		return try await withUnsafeThrowingContinuation { configuration in
 			let storage = Storage.storage()
-			storage.reference().child("album1/" + "test2").delete { error in
+			storage.reference().child("album1/" + parmFileName).delete { error in
 				if let error = error {
 					print("Error deleting file: \(error)")
 				} else {
@@ -415,36 +411,29 @@ struct FirebaseService {
 				}
 			}
 			
-			storage.reference().child("album1/" + "test2").downloadURL { URL, error in
-				guard let URL else { return }
-				print("URL \(String(describing: URL))")
-				let path = db.collection("album").document(albumDocId)
-				path.getDocument { snapshot, error in
-					guard let document = snapshot, document.exists else {
-						configuration.resume(returning: .fail)
-						return
+			let path = db.collection("album").document(albumDocId)
+			path.getDocument { snapshot, error in
+				guard let document = snapshot, document.exists else {
+					configuration.resume(returning: .fail)
+					return
+				}
+				if var images = document.data()?["images"] as? [[String: Any]] {
+					images.removeAll { image in
+						if let fileName = image["fileName"] as? String, fileName == parmFileName {
+							return true
+						}
+						return false
 					}
-					
-					if var images = document.data()?["images"] as? [[String: Any]] {
-						images.removeAll { image in
-							if let fileName = image["fileName"] as? String, fileName == "123" {
-								return true
-							}
-							return false
+					let updatedData: [String: Any] = [
+						"images": images
+					]
+					path.updateData(updatedData) { error in
+						if let error = error {
+							print("Error updating document: \(error)")
+						} else {
+							print("Document updated successfully.")
 						}
-						
-						let updatedData: [String: Any] = [
-							"images": images
-						]
-						
-						path.updateData(updatedData) { error in
-							if let error = error {
-								print("Error updating document: \(error)")
-							} else {
-								print("Document updated successfully.")
-							}
-							configuration.resume(returning: .success)
-						}
+						configuration.resume(returning: .success)
 					}
 				}
 			}
@@ -480,7 +469,7 @@ struct FirebaseService {
 				
 				(document.data()?["users"] as? [String])?.forEach { docId in
 					let userDocumentRef = db.collection("User").document(docId)
-					userDocumentRef.updateData(["progressAlbum": "1"]) { error in
+					userDocumentRef.updateData(["progressAlbum": ""]) { error in
 						if let error = error {
 							print("Error updating user document: \(error)")
 							configuration.resume(returning: .fail)

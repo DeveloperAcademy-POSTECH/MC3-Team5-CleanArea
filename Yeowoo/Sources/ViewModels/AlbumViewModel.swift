@@ -11,6 +11,7 @@ import UIKit
 
 final class AlbumViewModel: ObservableObject {
 	
+	@Published var albumTitle = ""
 	@Published var fetchState = false
 	@Published var roleImage: [[ImagesEntity]] = []
 	@Published var users: [User] = []
@@ -31,6 +32,7 @@ final class AlbumViewModel: ObservableObject {
 					return
 				}
 			} receiveValue: { images in
+				self.images.removeAll()
 				self.albums = images
 				var urls: [ImagesEntity] = []
 				self.fetchUser(userDocIds: images.users)
@@ -41,7 +43,12 @@ final class AlbumViewModel: ObservableObject {
 						urls.removeAll()
 					}
 				}
-				self.images.append(urls)
+				self.albumTitle = self.albums.albumTitle
+				
+				if !urls.isEmpty {
+					self.images.append(urls)
+				}
+				
 				self.fetchState = true
 			}
 			.store(in: &cancellables)
@@ -93,10 +100,11 @@ final class AlbumViewModel: ObservableObject {
 												  paramFileName: "123")
 	}
 	
+	@MainActor
 	func updateAlbumTitle(albumDocId: String, title: String) async throws {
 		if try await FirebaseService.updateAlbumTitle(albumDocId: albumDocId,
 													  changedTitle: title) == .success {
-			self.albums.albumTitle = title
+			self.albumTitle = title
 		}
 	}
 	
@@ -110,5 +118,23 @@ final class AlbumViewModel: ObservableObject {
 		if try await FirebaseService.removeTravel(albumDocId: docId) == .success {
 			print("성공")
 		}
+	}
+	
+	func updateAlbumCoverImage(albumDocId: String, url: String) async throws {
+		if try await FirebaseService.updateAlbumCoverImage(albumDocId: albumDocId, url: url) == .success {
+			print("성공")
+		}
+	}
+	
+	@MainActor
+	func deleteAlbumImage(albumDocId: String, fileName: String) async throws {
+		if try await FirebaseService.deleteAlbumImage(albumDocId: albumDocId, parmFileName: fileName) == .success {
+			self.fetchAlbumImages(albumDocId: albumDocId)
+		}
+	}
+	
+	/// 태스트 이미지 업로드용
+	func testUpload() async throws {
+		try await FirebaseService.uploadAlbumImage(image: UIImage(named: "9")!, albumDocId: "T9eJMPQEGQClFHEahX6r", fileName: String(describing: UUID()))
 	}
 }

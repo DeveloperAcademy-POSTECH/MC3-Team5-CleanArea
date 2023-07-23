@@ -161,27 +161,33 @@ struct AlbumFeedView: View {
 										if toggleOn {
 											if index % 3 == 1 {
 												if roleState == .all {
-													FirstFeedLayout(entitys: viewModel.images[index],
+													FirstFeedLayout(viewModel: viewModel,
+																	entitys: viewModel.images[index],
 																	user: viewModel.users)
 												} else {
-													FirstFeedLayout(entitys: viewModel.roleImage[index],
+													FirstFeedLayout(viewModel: viewModel,
+																	entitys: viewModel.roleImage[index],
 																	user: viewModel.users)
 												}
 											} else {
 												if roleState == .all {
-													SecondFeedLayout(entitys: viewModel.images[index],
+													SecondFeedLayout(viewModel: viewModel,
+																	 entitys: viewModel.images[index],
 																	 user: viewModel.users)
 												} else {
-													SecondFeedLayout(entitys: viewModel.roleImage[index],
+													SecondFeedLayout(viewModel: viewModel,
+																	 entitys: viewModel.roleImage[index],
 																	 user: viewModel.users)
 												}
 											}
 										} else {
 											if roleState == .all {
-												GalleryLayout(entitys: viewModel.images[index],
+												GalleryLayout(viewModel: viewModel,
+															  entitys: viewModel.images[index],
 															  user: viewModel.users)
 											} else {
-												GalleryLayout(entitys: viewModel.roleImage[index],
+												GalleryLayout(viewModel: viewModel,
+															  entitys: viewModel.roleImage[index],
 															  user: viewModel.users)
 											}
 										}

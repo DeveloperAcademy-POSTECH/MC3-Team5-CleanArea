@@ -9,13 +9,32 @@ import SwiftUI
 
 struct AlbumDetailView: View {
 	
+	@Environment(\.dismiss) var dismiss
+	
+	enum AlertType: Identifiable {
+		case save, edit, remove
+		
+		var id: Int {
+			switch self {
+			case .save:
+				return 0
+			case .edit:
+				return 1
+			case .remove:
+				return 2
+			}
+		}
+	}
+	
 	var entitys: ImagesEntity
 	var user: User
 	
 	@State var testBool: Bool
 	@State var testCount: Int
 	
-	@ObservedObject var viewModel = AlbumViewModel()
+	@State private var alertType: AlertType? = nil
+	
+	@ObservedObject var viewModel: AlbumViewModel
 	
 	var body: some View {
 		VStack(alignment: .leading) {
@@ -87,7 +106,7 @@ struct AlbumDetailView: View {
 			Spacer()
 		}
 		.navigationTitle(
-			entitys.uploadTime.formatAsDateString()
+			entitys.uploadTime
 		)
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationBarItems(
@@ -95,30 +114,21 @@ struct AlbumDetailView: View {
 				Menu {
 					Button {
 						print("사진 저장")
-						guard let imageURL = URL(string: entitys.url) else {
-							print("Invalid image URL")
-							return
-						}
-						URLSession.shared.dataTask(with: imageURL) { data, response, error in
-							if let error = error {
-								print("Error downloading image: \(error.localizedDescription)")
-								return
-							}
-							
-							if let data = data, let image = UIImage(data: data) {
-								UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-							}
-						}.resume()
+						alertType = .save
 					} label: {
 						Label("사진 저장", systemImage: "square.and.arrow.down")
 					}
+					
 					Button {
 						print("대표 이미지 설정")
+						alertType = .edit
 					} label: {
 						Label("대표 이미지 설정", systemImage: "star")
 					}
+					
 					Button(role: .destructive) {
 						print("삭제")
+						alertType = .remove
 					} label: {
 						Label("삭제", systemImage: "trash")
 					}
@@ -126,6 +136,59 @@ struct AlbumDetailView: View {
 			label: {
 				Image(systemName: "ellipsis")
 			}
+				.alert(item: $alertType) { alertType in
+					switch alertType {
+					case .save:
+						return Alert(
+							title: Text("사진 저장"),
+							message: Text("갤러리에 사진을 저장했어요"),
+							dismissButton: .default(Text("확인")) {
+								guard let imageURL = URL(string: entitys.url) else {
+									print("Invalid image URL")
+									return
+								}
+								URLSession.shared.dataTask(with: imageURL) { data, response, error in
+									if let error = error {
+										print("Error downloading image: \(error.localizedDescription)")
+										return
+									}
+									
+									if let data = data, let image = UIImage(data: data) {
+										UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+									}
+								}.resume()
+							}
+						)
+					case .edit:
+						return Alert(
+							title: Text("대표 이미지 설정"),
+							message: Text("앨범 대표 이미지를 변경할까요?"),
+							primaryButton: .destructive(Text("변경")) {
+								Task {
+									try await viewModel.updateAlbumCoverImage(albumDocId: viewModel.albums.id,
+																			  url: entitys.url)
+								}
+								dismiss()
+							},
+							secondaryButton: .cancel(Text("취소")) {}
+						)
+					case .remove:
+						return Alert(
+							title: Text("사진 삭제"),
+							message: Text("사진을 삭제할까요?"),
+							primaryButton: .destructive(Text("삭제")) {
+								print("entitys.fileName \(entitys.fileName)")
+								Task {
+									try await viewModel.deleteAlbumImage(albumDocId: viewModel.albums.id,
+																		 fileName: entitys.fileName)
+								}
+								dismiss()
+							},
+							secondaryButton: .cancel(Text("취소")) {}
+						)
+					}
+				}
 		)
+		
 	}
 }

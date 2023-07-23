@@ -26,7 +26,7 @@ struct ContentView: View {
 		NavigationView {
 			NavigationLink("테스트", isActive: $isActiveAlbumFeedView) {
 				AlbumFeedView(albumDocId: "T9eJMPQEGQClFHEahX6r", viewModel: viewModel)
-					.navigationBarTitle(viewModel.albums.albumTitle)
+					.navigationBarTitle(viewModel.albumTitle)
 					.navigationBarTitleDisplayMode(.inline)
 					.navigationBarItems(
 						trailing:

@@ -12,6 +12,8 @@ struct GalleryLayout: View {
 	@State private var detailIndex: Int = 0
 	@State private var isActive: Bool = false
 	
+	@ObservedObject var viewModel: AlbumViewModel
+	
 	var entitys: [ImagesEntity]
 	var user: [User]
 	
@@ -21,7 +23,8 @@ struct GalleryLayout: View {
 							AlbumDetailView(entitys: entitys[detailIndex],
 											user: self.user.first(where: {$0.docId == entitys[detailIndex].uploadUser}) ?? User(docId: "", id: "", email: "", password: "", isFirstLogin: false, nickname: "azhy", profileImage: "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/album1%2F1.jpeg?alt=media&token=eeea845a-b7e0-4d77-a2d0-c3b30ca439e9", progressAlbum: "", finishedAlbum: [], notification: [], fcmToken: ""),
 											testBool: entitys[detailIndex].likeUsers.contains(UserDefaultsSetting.userDocId),
-											testCount: entitys[detailIndex].likeUsers.count)
+											testCount: entitys[detailIndex].likeUsers.count,
+											viewModel: self.viewModel)
 						   ,isActive: $isActive
 			){
 				Button {
