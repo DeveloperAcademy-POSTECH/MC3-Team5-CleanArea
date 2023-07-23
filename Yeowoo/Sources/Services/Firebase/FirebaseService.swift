@@ -301,55 +301,105 @@ struct FirebaseService {
 	/// 앨범 이미지 가져오기
 	// [ImagesEntity] -> Album 으로 바꾸고 ViewModel에서 받으면
 	// [[ImagesEntity]], [소속된 유저] 이렇게 만들고 VM에서 toEntity 처리 해야할 듯
-	static func fetchAlbumImages(albumDocId: String) -> AnyPublisher<Album, Error> {
-		Future<Album, Error> { promise in
-			db.collection("album").getDocuments { snapshot, error in
-				if let error {
-					promise(.failure(error))
-					return
-				}
-				guard let snapshot else {
-					promise(.failure(FirebaseError.badsnapshot))
-					return
-				}
-				if let document = snapshot.documents.first(where: { $0.documentID == albumDocId }) {
-					let data = document.data()
-					if let imagesData = data["images"] as? [[String: Any]] {
-						var images: [ImagesEntity] = []
-						let isClosed = data["isClosed"] as! Bool
-						let users: [String] = (data["users"] as? [String])!
-						let albumTitle: String = data["title"] as! String
-						let albumCoverImage: String = data["coverImage"] as! String
-						let startTime: String = data["startTime"] as! String
-						let finishTime: String = data["finishTime"] as! String
-						for imageData in imagesData {
-							if let comment = imageData["comment"] as? String,
-							   let fileName = imageData["fileName"] as? String,
-							   let likeUsers = imageData["likeUsers"] as? [String],
-							   let updateTime = imageData["updateTime"] as? String,
-							   let url = imageData["url"] as? String,
-							   let uploadUser = imageData["uploadUser"] as? String,
-							   let roleCheck = imageData["roleCheck"] as? Bool {
-								
-								let image = ImagesEntity(comment: comment, fileName: fileName,
-														 url: url, uploadUser: uploadUser,
-														 roleCheck: roleCheck, likeUsers: likeUsers,
-														 uploadTime: updateTime)
-								images.append(image)
-							}
-						}
-						promise(.success(Album(albumTitle: albumTitle, albumCoverImage: albumCoverImage,
-											   startTime: startTime, finishTime: finishTime,
-											   images: images, isClosed: isClosed, users: users)))
-					}
-				} else {
-					promise(.failure(FirebaseError.badsnapshot))
-					return
-				}
-			}
-		}
-		.eraseToAnyPublisher()
-	}
+    static func fetchAlbumImages(albumDocId: String) -> AnyPublisher<Album, Error> {
+        Future<Album, Error> { promise in
+            db.collection("album").getDocuments { snapshot, error in
+                if let error {
+                    promise(.failure(error))
+                    return
+                }
+                guard let snapshot else {
+                    promise(.failure(FirebaseError.badsnapshot))
+                    return
+                }
+                if let document = snapshot.documents.first(where: { $0.documentID == albumDocId }) {
+                    let data = document.data()
+                    if let imagesData = data["images"] as? [[String: Any]] {
+                        var images: [ImagesEntity] = []
+                        let isClosed = data["isClosed"] as! Bool
+                        let users: [String] = (data["users"] as? [String])!
+                        let albumTitle: String = data["title"] as! String
+                        let albumCoverImage: String = data["coverImage"] as! String
+                        let startDay: String = data["startDay"] as! String
+                        let endDay: String = data["endDay"] as! String
+                        for imageData in imagesData {
+                            if let comment = imageData["comment"] as? String,
+                               let fileName = imageData["fileName"] as? String,
+                               let likeUsers = imageData["likeUsers"] as? [String],
+                               let updateTime = imageData["updateTime"] as? String,
+                               let url = imageData["url"] as? String,
+                               let uploadUser = imageData["uploadUser"] as? String,
+                               let roleCheck = imageData["roleCheck"] as? Bool {
+                                
+                                let image = ImagesEntity(comment: comment, fileName: fileName,
+                                                         url: url, uploadUser: uploadUser,
+                                                         roleCheck: roleCheck, likeUsers: likeUsers,
+                                                         uploadTime: updateTime)
+                                images.append(image)
+                            }
+                        }
+                        promise(.success(Album(id: document.documentID, albumTitle: albumTitle,
+                                               albumCoverImage: albumCoverImage, startDay: startDay,
+                                               endDay: endDay, images: images, isClosed: isClosed, users: users)))
+                    }
+                } else {
+                    promise(.failure(FirebaseError.badsnapshot))
+                    return
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    /// 앨범 가져오기
+    static func fetchAlbums() -> AnyPublisher<[Album], Error> {
+        let query = db.collection("album").whereField("users", arrayContains: UserDefaultsSetting.userDocId)
+        
+        return Future<[Album], Error> { promise in
+            query.getDocuments { snapshot, error in
+                if let error = error {
+                    promise(.failure(error))
+                    return
+                }
+                
+                var albums: [Album] = []
+                
+                for document in snapshot?.documents ?? [] {
+                    let data = document.data()
+                    if let imagesData = data["images"] as? [[String: Any]] {
+                        var images: [ImagesEntity] = []
+                        let isClosed = data["isClosed"] as? Bool ?? false
+                        let users: [String] = data["users"] as? [String] ?? []
+                        let albumTitle = data["title"] as? String ?? ""
+                        let albumCoverImage = data["coverImage"] as? String ?? ""
+                        let startDay = data["startDay"] as? String ?? ""
+                        let endDay = data["endDay"] as? String ?? ""
+                        
+                        for imageData in imagesData {
+                            if let comment = imageData["comment"] as? String,
+                               let fileName = imageData["fileName"] as? String,
+                               let likeUsers = imageData["likeUsers"] as? [String],
+                               let updateTime = imageData["updateTime"] as? String,
+                               let url = imageData["url"] as? String,
+                               let uploadUser = imageData["uploadUser"] as? String,
+                               let roleCheck = imageData["roleCheck"] as? Bool {
+                                let image = ImagesEntity(comment: comment, fileName: fileName, url: url, uploadUser: uploadUser, roleCheck: roleCheck, likeUsers: likeUsers, uploadTime: updateTime)
+                                images.append(image)
+                            }
+                        }
+                        
+                        let album = Album(id: document.documentID, albumTitle: albumTitle,
+                                          albumCoverImage: albumCoverImage, startDay: startDay,
+                                          endDay: endDay, images: images, isClosed: isClosed, users: users)
+                        albums.append(album)
+                    }
+                }
+                
+                promise(.success(albums))
+            }
+        }
+        .eraseToAnyPublisher()
+    }
 	
 	/// 앨범 이미지 변경
 	static func updateAlbumImage(image: UIImage, albumDocId: String) async throws -> FirebaseState {
