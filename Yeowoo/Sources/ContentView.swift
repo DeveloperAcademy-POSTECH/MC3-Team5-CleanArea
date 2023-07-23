@@ -10,19 +10,24 @@ import UIKit
 
 struct ContentView: View {
 	
+	@ObservedObject var viewModel = AlbumViewModel()
+	@State private var isActiveAlbumFeedView = false
+	
 	init() {
 		UINavigationBar.appearance().backgroundColor = .white
 	}
 	
-	@State private var showingAlert = false
+	@State private var showingFinishAlert = false
+	@State private var showingUpdateAlert = false
 	@State private var showingSheet = false
 	@State private var name = ""
 	
 	var body: some View {
 		NavigationView {
-			NavigationLink("테스트") {
-				AlbumFeedView(albumDocId: "T9eJMPQEGQClFHEahX6r")
-					.navigationBarTitle("타이틀")
+			NavigationLink("테스트", isActive: $isActiveAlbumFeedView) {
+				AlbumFeedView(albumDocId: "T9eJMPQEGQClFHEahX6r", viewModel: viewModel)
+				//					.navigationBarTitle("타이틀")
+					.navigationBarTitle(viewModel.albums.albumTitle)
 					.navigationBarTitleDisplayMode(.inline)
 					.navigationBarItems(
 						trailing:
@@ -34,10 +39,11 @@ struct ContentView: View {
 								} label: {
 									Label("앨범 제목 수정하기", systemImage: "pencil")
 								}
+								
 								Button(role: .destructive) {
 									print("여행 종료하기")
 									// alert
-									showingAlert = true
+									showingFinishAlert = true
 								} label: {
 									Label("여행 종료하기", systemImage: "xmark.circle")
 								}
@@ -48,7 +54,10 @@ struct ContentView: View {
 							.sheet(isPresented: $showingSheet) {
 								VStack(spacing: 24) {
 									Text("앨범 제목 수정하기")
+										.font(.system(size: 18))
+										.fontWeight(.bold)
 									TextField("20자 이내로 입력해주세요", text: $name)
+										.font(.system(size: 16))
 										.padding()
 										.background(Color(uiColor: .secondarySystemBackground))
 										.cornerRadius(10)
@@ -56,36 +65,58 @@ struct ContentView: View {
 											UITextField.appearance().clearButtonMode = .whileEditing
 										}
 									Button {
-										print("완료")
+										Task {
+											try await viewModel.updateAlbumTitle(albumDocId: "T9eJMPQEGQClFHEahX6r", title: name)
+											showingUpdateAlert = true
+										}
 									} label: {
 										Rectangle()
-											.fill(Color.green)
+											.fill(Color.mainColor)
 											.frame(height: 54)
 											.cornerRadius(10)
 											.overlay {
 												Text("완료")
+													.font(.system(size: 18))
+													.fontWeight(.bold)
+													.foregroundColor(Color.white)
 											}
 									}
+									.alert(isPresented: $showingUpdateAlert) {
+										Alert(
+											title: Text("제목 수정"),
+											message: Text("앨범 제목을 수정했어요."),
+											dismissButton: .default(Text("확인")) {
+												// 여행 종료 동작
+											}
+										)
+									}
+									
 								}
 								.padding(.horizontal, 20)
 								.presentationDetents([.height(250)])
 							}
-						
-							.alert(isPresented: $showingAlert) {
-								Alert(
-									title: Text("여행 종료"),
-									message: Text("여행을 종료하면\n사진 및 영상 업로드가 불가능해요"),
-									primaryButton: .destructive(Text("종료")) {
-										// 여행 종료 동작
-									},
-									secondaryButton: .cancel(Text("취소")) {
-										// 취소 동작
-									}
-								)
-							}
 					)
+					.alert(isPresented: $showingFinishAlert) {
+						Alert(
+							title: Text("여행 종료"),
+							message: Text("여행을 종료하면\n사진 및 영상 업로드가 불가능해요"),
+							primaryButton: .destructive(Text("종료")) {
+								// 여행 종료 동작
+								print("종료")
+								self.isActiveAlbumFeedView = false
+								
+								Task {
+									try await viewModel.closedTravel(docId: "")
+								}
+							},
+							secondaryButton: .cancel(Text("취소")) {
+								// 취소 동작
+							}
+						)
+					}
 			}
 			.navigationTitle("")
 		}
+		.accentColor(Color("G4"))
 	}
 }

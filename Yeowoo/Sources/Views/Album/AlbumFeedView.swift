@@ -20,7 +20,8 @@ struct AlbumFeedView: View {
 	@State var nowUser: User? // 현재 역할이 선택된 유저
 	@State var roleState: AlbumState = .all
 	@State var albumState: AlbumState = .all
-	@StateObject var viewModel = AlbumViewModel()
+	
+	@ObservedObject var viewModel: AlbumViewModel
 	
 	var body: some View {
 		if viewModel.fetchState {
@@ -61,19 +62,20 @@ struct AlbumFeedView: View {
 												.padding(5)
 												.overlay {
 													RoundedRectangle(cornerRadius: 20)
-														.stroke(Color.green, lineWidth: 2)
+														.stroke(Color.mainColor, lineWidth: 2)
 														.padding(2)
 												}
 												.overlay (
 													(
 														roleState == .all || nowUser?.docId != viewModel.users[index].docId
-														? nil : Circle().frame(width: 24, height: 24)
+														? nil : Image("chk").frame(width: 24, height: 24)
 													)
 													,alignment: .topTrailing
 												)
 												.overlay (
-													// 여우 이미지
-													Circle().frame(width: 38, height: 38).padding(.top, 80)
+													Image("\(viewModel.albums.role[index])")
+														.frame(width: 38, height: 38)
+														.padding(.top, 80)
 												)
 											
 										} placeholder: {
@@ -123,14 +125,19 @@ struct AlbumFeedView: View {
 							Button {
 								print("친구 추가 버튼 클릭")
 							} label: {
-								Rectangle()
+								RoundedRectangle(cornerRadius: 20)
+									.fill(Color.white)
 									.frame(width: 70, height: 84)
-									.cornerRadius(20)
-									.padding(5)
-									.overlay {
+									.overlay(
 										RoundedRectangle(cornerRadius: 20)
-											.stroke(Color.green, lineWidth: 2)
-											.padding(2)
+											.stroke(Color("G5"), lineWidth: 2)
+									)
+									.padding(2)
+									.overlay {
+										Image(systemName: "plus")
+											.foregroundColor(Color("G5"))
+											.font(Font.system(size: 24, weight: .bold))
+											.frame(width: 24, height: 24)
 									}
 							}
 						}

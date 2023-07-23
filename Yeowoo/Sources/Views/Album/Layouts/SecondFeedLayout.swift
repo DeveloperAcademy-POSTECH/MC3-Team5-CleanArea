@@ -12,7 +12,7 @@ struct SecondFeedLayout: View {
 	@State private var detailIndex: Int = 0
 	@State private var isActive: Bool = false
 	
-	//	@ObservedObject var viewModel = AlbumViewModel()
+	@StateObject var viewModel = AlbumViewModel()
 	
 	var entitys: [ImagesEntity]
 	var user: [User]
@@ -146,6 +146,5 @@ struct SecondFeedLayout: View {
 			}
 			.frame(maxWidth: .infinity, alignment: .leading)
 		}
-		.navigationTitle(isActive ? "" : "타이틀")
 	}
 }

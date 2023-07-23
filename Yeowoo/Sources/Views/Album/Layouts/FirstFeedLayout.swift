@@ -15,7 +15,7 @@ struct FirstFeedLayout: View {
 	@State private var detailIndex: Int = 0
 	@State private var isActive: Bool = false
 	
-	//	@ObservedObject var viewModel = AlbumViewModel()
+	@StateObject var viewModel = AlbumViewModel()
 	
 	var entitys: [ImagesEntity]
 	var user: [User]
@@ -31,6 +31,7 @@ struct FirstFeedLayout: View {
 		) {
 			HStack(spacing: 4) {
 				Button {
+					print("???")
 					detailIndex = 0
 					isActive = true
 				} label: {
@@ -148,6 +149,5 @@ struct FirstFeedLayout: View {
 			}
 			.frame(maxWidth: .infinity, alignment: .leading)
 		}
-		.navigationTitle(isActive ? "" : "타이틀")
 	}
 }

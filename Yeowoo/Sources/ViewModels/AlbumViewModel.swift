@@ -11,12 +11,13 @@ import UIKit
 
 final class AlbumViewModel: ObservableObject {
 	
+	//	@Published var albumTitle = ""
 	@Published var fetchState = false
 	@Published var roleImage: [[ImagesEntity]] = []
 	@Published var users: [User] = []
 	@Published var images: [[ImagesEntity]] = []
-	@Published var albums: Album = Album(albumTitle: "", albumCoverImage: "", startTime: "",
-										 finishTime: "", images: [], isClosed: false, users: [])
+	@Published var albums: Album = Album(id: "", albumTitle: "", albumCoverImage: "", startDay: "",
+										 endDay: "", images: [], isClosed: false, users: [], role: [])
 	
 	private var cancellables = Set<AnyCancellable>()
 	
@@ -41,6 +42,7 @@ final class AlbumViewModel: ObservableObject {
 						urls.removeAll()
 					}
 				}
+				//				self.albumTitle = self.albums.albumTitle
 				self.images.append(urls)
 				self.fetchState = true
 			}
@@ -87,5 +89,17 @@ final class AlbumViewModel: ObservableObject {
 	// 좋아요 눌렀을 때
 	func actionLike(toggleChk: Bool, fileName: String) async throws {
 		toggleChk ? try await FirebaseService.removeUserFromLikeUsers(albumDocId: "T9eJMPQEGQClFHEahX6r", paramFileName: "123") : try await FirebaseService.updateLikeUsers(albumDocId: "T9eJMPQEGQClFHEahX6r", paramFileName: "123")
+	}
+	
+	func updateAlbumTitle(albumDocId: String, title: String) async throws {
+		if try await FirebaseService.updateAlbumTitle(albumDocId: albumDocId, changedTitle: title) == .success {
+			self.albums.albumTitle = title
+		}
+	}
+	
+	func closedTravel(docId: String) async throws {
+		if try await FirebaseService.closedTravel(albumDocId: docId) == .success {
+			print("성공")
+		}
 	}
 }
