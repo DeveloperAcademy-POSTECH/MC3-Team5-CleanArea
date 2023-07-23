@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct DoneTravelLayout: View {
+    @StateObject var mainViewModel = MainViewModel()
+    var images: [ImagesEntity]
+    var nickname: String
     var albumName: String
-    @State var picture: [Color] = [.pink, .blue, .purple]
+    @State var picture: [String] = ["", "", ""]
     
     var body: some View {
         VStack {
             HStack(spacing: UIScreen.getWidth(10)) {
                 VStack(alignment: .leading, spacing: UIScreen.getHeight(3)) {
-                    Text("노루궁뎅이님")
+                    Text("\(nickname)님")
                     Text("\(albumName)").foregroundColor(Color("ButtonColor")) +
                     Text("에서")
                     Text("즐거웠던 추억을 되돌아보세요!")
@@ -80,7 +83,7 @@ struct DoneTravelLayout: View {
             }.frame(maxHeight: UIScreen.getHeight(160))
         }
         .onAppear {
-            randomPicture(Colors, &picture)
+            randomPicture(images, &picture)
         }
     }
 }
