@@ -26,7 +26,6 @@ struct ContentView: View {
 		NavigationView {
 			NavigationLink("테스트", isActive: $isActiveAlbumFeedView) {
 				AlbumFeedView(albumDocId: "T9eJMPQEGQClFHEahX6r", viewModel: viewModel)
-				//					.navigationBarTitle("타이틀")
 					.navigationBarTitle(viewModel.albums.albumTitle)
 					.navigationBarTitleDisplayMode(.inline)
 					.navigationBarItems(
@@ -66,7 +65,8 @@ struct ContentView: View {
 										}
 									Button {
 										Task {
-											try await viewModel.updateAlbumTitle(albumDocId: "T9eJMPQEGQClFHEahX6r", title: name)
+											try await viewModel.updateAlbumTitle(albumDocId: "T9eJMPQEGQClFHEahX6r",
+																				 title: name)
 											showingUpdateAlert = true
 										}
 									} label: {
@@ -85,9 +85,7 @@ struct ContentView: View {
 										Alert(
 											title: Text("제목 수정"),
 											message: Text("앨범 제목을 수정했어요."),
-											dismissButton: .default(Text("확인")) {
-												// 여행 종료 동작
-											}
+											dismissButton: .default(Text("확인")) { }
 										)
 									}
 									
@@ -98,20 +96,17 @@ struct ContentView: View {
 					)
 					.alert(isPresented: $showingFinishAlert) {
 						Alert(
-							title: Text("여행 종료"),
-							message: Text("여행을 종료하면\n사진 및 영상 업로드가 불가능해요"),
-							primaryButton: .destructive(Text("종료")) {
-								// 여행 종료 동작
-								print("종료")
-								self.isActiveAlbumFeedView = false
-								
+							title: Text(viewModel.albums.isClosed ? "여행 삭제" : "여행 종료"),
+							message: Text(viewModel.albums.isClosed ? "현재 계정에서만 삭제되며 복구가 불가능합니다" :
+											"여행을 종료하면\n사진 및 영상 업로드가 불가능해요"),
+							primaryButton: .destructive(Text(viewModel.albums.isClosed ? "삭제" : "종료")) {
 								Task {
+									viewModel.albums.isClosed ? try await viewModel.removeTravel(docId: "") :
 									try await viewModel.closedTravel(docId: "")
 								}
+								self.isActiveAlbumFeedView = false
 							},
-							secondaryButton: .cancel(Text("취소")) {
-								// 취소 동작
-							}
+							secondaryButton: .cancel(Text("취소")) { }
 						)
 					}
 			}
