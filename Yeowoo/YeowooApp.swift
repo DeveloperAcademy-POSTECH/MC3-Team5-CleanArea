@@ -22,9 +22,9 @@ struct YeowooApp: App {
 			//			}
 			
 			// Test
-			LoginCoverView()
+//			LoginCoverView()
 			// CameraButtonView()
-			// MainView()
+			 MainView()
 			// SignUpView()
 		}
 	}
