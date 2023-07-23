@@ -87,9 +87,3 @@ struct DoneTravelLayout: View {
         }
     }
 }
-
-struct DoneTravelLayout_Previews: PreviewProvider {
-    static var previews: some View {
-        DoneTravelLayout(albumName: "제주도 여행")
-    }
-}

@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct RecommendLayout: View {
+    var startday: String
+    var nickname: String
     @State var date: Int = 0
     var body: some View {
         VStack {
             HStack {
                 VStack(alignment: .leading, spacing: 3) {
-                    Text("노루궁뎅이님")
+                    Text("\(nickname)님")
                     Text("여행 ") +
                     Text("\(date)일차").foregroundColor(Color("ButtonColor")) +
                     Text("인 오늘")
@@ -43,13 +45,7 @@ struct RecommendLayout: View {
                 .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(154))
         }
         .onAppear {
-            date = travelingDate(dummyData[dummyData.count-1].startDay)
+            date = travelingDate(startday)
         }
-    }
-}
-
-struct RecommendLayout_Previews: PreviewProvider {
-    static var previews: some View {
-        RecommendLayout()
     }
 }
