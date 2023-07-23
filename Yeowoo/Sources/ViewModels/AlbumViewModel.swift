@@ -15,8 +15,7 @@ final class AlbumViewModel: ObservableObject {
 	@Published var roleImage: [[ImagesEntity]] = []
 	@Published var users: [User] = []
 	@Published var images: [[ImagesEntity]] = []
-	@Published var albums: Album = Album(albumTitle: "", albumCoverImage: "", startTime: "",
-										 finishTime: "", images: [], isClosed: false, users: [])
+    @Published var albums: Album = Album(id: "", albumTitle: "", albumCoverImage: "", startDay: "", endDay: "", images: [], isClosed: false, users: [])
 	
 	private var cancellables = Set<AnyCancellable>()
 	
