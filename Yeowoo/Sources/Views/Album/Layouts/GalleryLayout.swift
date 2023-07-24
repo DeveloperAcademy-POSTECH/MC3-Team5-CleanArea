@@ -22,8 +22,8 @@ struct GalleryLayout: View {
 			NavigationLink(destination:
 							AlbumDetailView(entitys: entitys[detailIndex],
 											user: self.user.first(where: {$0.docId == entitys[detailIndex].uploadUser}) ?? User(docId: "", id: "", email: "", password: "", isFirstLogin: false, nickname: "azhy", profileImage: "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/album1%2F1.jpeg?alt=media&token=eeea845a-b7e0-4d77-a2d0-c3b30ca439e9", progressAlbum: "", finishedAlbum: [], notification: [], fcmToken: ""),
-											testBool: entitys[detailIndex].likeUsers.contains(UserDefaultsSetting.userDocId),
-											testCount: entitys[detailIndex].likeUsers.count,
+											tempLikeState: entitys[detailIndex].likeUsers.contains(UserDefaultsSetting.userDocId),
+											tempLikeCount: entitys[detailIndex].likeUsers.count,
 											viewModel: self.viewModel)
 						   ,isActive: $isActive
 			){
