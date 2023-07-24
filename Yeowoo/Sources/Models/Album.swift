@@ -7,16 +7,36 @@
 
 import Foundation
 
-// 전부 다 ? 붙이는게 좋음
-
-struct Album {
+struct Album: Identifiable {
+	var id: String // docId
 	var albumTitle: String // 앨범 제목
 	var albumCoverImage: String // 앨범 커버 url
-	var startTime: String // 여행 시작 시간
-	var finishTime: String // 여행 끝난 시간
+	var startDay: String // 여행 시작 시간
+	var endDay: String // 여행 끝난 시간
 	var images: [ImagesEntity]
-	var isClosed: Bool
-	var users: [String]
+	var isClosed: Bool // 종료 여부
+	var users: [String] // 소속된 유저들
+	var role: [String] // role
+	
+	init(id: String = "",
+		 albumTitle: String = "",
+		 albumCoverImage: String = "",
+		 startDay: String = "",
+		 endDay: String = "",
+		 images: [ImagesEntity] = [],
+		 isClosed: Bool = false,
+		 users: [String] = [],
+		 role: [String] = []) {
+		self.id = id
+		self.albumTitle = albumTitle
+		self.albumCoverImage = albumCoverImage
+		self.startDay = startDay
+		self.endDay = endDay
+		self.images = images
+		self.isClosed = isClosed
+		self.users = users
+		self.role = role
+	}
 }
 
 struct ImagesEntity {

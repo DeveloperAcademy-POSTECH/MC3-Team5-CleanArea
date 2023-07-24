@@ -11,15 +11,18 @@ import UIKit
 
 final class AlbumViewModel: ObservableObject {
 	
+	var likeChk = false
+	
+	@Published var albumTitle = ""
 	@Published var fetchState = false
 	@Published var roleImage: [[ImagesEntity]] = []
 	@Published var users: [User] = []
 	@Published var images: [[ImagesEntity]] = []
-	@Published var albums: Album = Album(albumTitle: "", albumCoverImage: "", startTime: "",
-										 finishTime: "", images: [], isClosed: false, users: [])
+	@Published var albums: Album = Album()
 	
 	private var cancellables = Set<AnyCancellable>()
 	
+	/// 앨범 이미지 불러오기
 	@MainActor
 	func fetchAlbumImages(albumDocId: String) {
 		FirebaseService.fetchAlbumImages(albumDocId: albumDocId)
@@ -31,6 +34,7 @@ final class AlbumViewModel: ObservableObject {
 					return
 				}
 			} receiveValue: { images in
+				self.images.removeAll()
 				self.albums = images
 				var urls: [ImagesEntity] = []
 				self.fetchUser(userDocIds: images.users)
@@ -41,12 +45,18 @@ final class AlbumViewModel: ObservableObject {
 						urls.removeAll()
 					}
 				}
-				self.images.append(urls)
+				self.albumTitle = self.albums.albumTitle
+				
+				if !urls.isEmpty {
+					self.images.append(urls)
+				}
+				
 				self.fetchState = true
 			}
 			.store(in: &cancellables)
 	}
 	
+	/// 유저 불러오기
 	@MainActor
 	func fetchUser(userDocIds: [String]) {
 		FirebaseService.fetchUser(userDocIds: userDocIds)
@@ -63,7 +73,7 @@ final class AlbumViewModel: ObservableObject {
 			.store(in: &cancellables)
 	}
 	
-	// 역할 클릭했을 때
+	/// 역할 클릭
 	@MainActor
 	func fetchAlbumUserImages(uploadUserId: String) {
 		roleImage.removeAll()
@@ -84,8 +94,54 @@ final class AlbumViewModel: ObservableObject {
 		}
 	}
 	
-	// 좋아요 눌렀을 때
-	func actionLike(toggleChk: Bool, fileName: String) async throws {
-		toggleChk ? try await FirebaseService.removeUserFromLikeUsers(albumDocId: "T9eJMPQEGQClFHEahX6r", paramFileName: "123") : try await FirebaseService.updateLikeUsers(albumDocId: "T9eJMPQEGQClFHEahX6r", paramFileName: "123")
+	/// 좋아요 클릭
+	func actionLike(toggleChk: Bool, albumDocId: String, fileName: String) async throws {
+		_ = toggleChk ?
+		try await FirebaseService.removeUserFromLikeUsers(albumDocId: albumDocId,
+														  paramFileName: fileName) :
+		try await FirebaseService.updateLikeUsers(albumDocId: albumDocId,
+												  paramFileName: fileName)
+		likeChk = true
+	}
+	
+	/// 앨범 제목 수정
+	@MainActor
+	func updateAlbumTitle(albumDocId: String, title: String) async throws {
+		if try await FirebaseService.updateAlbumTitle(albumDocId: albumDocId,
+													  changedTitle: title) == .success {
+			self.albumTitle = title
+		}
+	}
+	
+	/// 여행 종료
+	func closedTravel(docId: String) async throws {
+		if try await FirebaseService.closedTravel(albumDocId: docId) == .success { }
+	}
+	
+	/// 여행 삭제
+	func removeTravel(docId: String) async throws {
+		if try await FirebaseService.removeTravel(albumDocId: docId) == .success { }
+	}
+	
+	/// 앨범 대표 이미지 변경
+	func updateAlbumCoverImage(albumDocId: String, url: String) async throws {
+		if try await FirebaseService.updateAlbumCoverImage(albumDocId: albumDocId,
+														   url: url) == .success { }
+	}
+	
+	/// 이미지 삭제
+	@MainActor
+	func deleteAlbumImage(albumDocId: String, fileName: String) async throws {
+		if try await FirebaseService.deleteAlbumImage(albumDocId: albumDocId,
+													  parmFileName: fileName) == .success {
+			self.fetchAlbumImages(albumDocId: albumDocId)
+		}
+	}
+	
+	/// 태스트 이미지 업로드용
+	func testUpload() async throws {
+		_ = try await FirebaseService.uploadAlbumImage(image: UIImage(named: "9")!,
+													   albumDocId: "T9eJMPQEGQClFHEahX6r",
+													   fileName: String(describing: UUID()))
 	}
 }
