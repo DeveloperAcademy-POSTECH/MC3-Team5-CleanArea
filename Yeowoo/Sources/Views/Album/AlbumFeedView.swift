@@ -20,7 +20,7 @@ struct AlbumFeedView: View {
 	
 	@ObservedObject private var viewModel: AlbumViewModel
 	
-	@State private var layoutToggleState = true
+	@State private var layoutToggleState = false
 	@State private var nowSelectedUser: User? // 현재 역할이 선택된 유저
 	@State private var roleState: AlbumState = .all
 	@State private var showingFinishAlert = false
@@ -35,11 +35,12 @@ struct AlbumFeedView: View {
 	
 	var body: some View {
 		if viewModel.fetchState {
+			
+			CustomNavigationBar()
+
 			ScrollView(showsIndicators: false) {
 				VStack {
-					
-					CustomNavigationBar()
-					
+
 					ProfileCarouselView()
 					
 					Spacer()
@@ -54,6 +55,7 @@ struct AlbumFeedView: View {
 								Toggle(isOn: self.$layoutToggleState) {
 									Text((roleState == .all ? "All" : self.nowSelectedUser?.nickname)!)
 								}
+								.toggleStyle(CheckmarkToggleStyle())
 								.padding(.horizontal)
 							}
 							.frame(height: 40)
@@ -291,6 +293,16 @@ private extension AlbumFeedView {
 	@ViewBuilder
 	func setLayout(index: Int) -> some View {
 		if layoutToggleState {
+			if roleState == .all {
+				GalleryLayout(viewModel: viewModel,
+							  entitys: viewModel.images[index],
+							  user: viewModel.users)
+			} else {
+				GalleryLayout(viewModel: viewModel,
+							  entitys: viewModel.roleImage[index],
+							  user: viewModel.users)
+			}
+		} else {
 			if index % 3 == 1 {
 				if roleState == .all {
 					FirstFeedLayout(entitys: viewModel.images[index],
@@ -312,16 +324,32 @@ private extension AlbumFeedView {
 									 viewModel: viewModel)
 				}
 			}
-		} else {
-			if roleState == .all {
-				GalleryLayout(viewModel: viewModel,
-							  entitys: viewModel.images[index],
-							  user: viewModel.users)
-			} else {
-				GalleryLayout(viewModel: viewModel,
-							  entitys: viewModel.roleImage[index],
-							  user: viewModel.users)
-			}
+		}
+	}
+}
+
+struct CheckmarkToggleStyle: ToggleStyle {
+	func makeBody(configuration: Configuration) -> some View {
+		HStack {
+			configuration.label
+			Spacer()
+			Rectangle()
+				.foregroundColor(configuration.isOn ? Color.mainColor : Color("G5"))
+				.frame(width: 60, height: 32, alignment: .center)
+				.overlay(
+					Circle()
+						.foregroundColor(.white)
+						.padding(.all, 4)
+						.overlay(
+							Image(systemName: configuration.isOn ? "rectangle.grid.1x2" : "rectangle.grid.2x2")
+								.resizable()
+								.aspectRatio(contentMode: .fit)
+								.frame(width: 16, height: 16, alignment: .center)
+						)
+						.offset(x: configuration.isOn ? 14 : -14, y: 0)
+						.animation(Animation.linear(duration: 0.2), value: UUID())
+				).cornerRadius(20)
+				.onTapGesture { configuration.isOn.toggle() }
 		}
 	}
 }
