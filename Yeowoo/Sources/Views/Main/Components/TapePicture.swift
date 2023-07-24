@@ -20,7 +20,7 @@ struct TapePicture: View {
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(height: UIScreen.getHeight(140))
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .clipShape(RoundedRectangle(cornerRadius: 5))
                     } placeholder: {
                         ProgressView()
                     }

@@ -47,7 +47,8 @@ struct AlbumLayout: View {
                         TravelLabel(travelText: "여행중")
                             .padding(.top, UIScreen.getHeight(10))
                     } else if traveling == 0 {
-                        TravelLabel(travelText: "D - \(days)").padding(.top, UIScreen.getHeight(10))
+                        TravelLabel(travelText: "D-\(days)")
+                            .padding(.top, UIScreen.getHeight(10))
                     }
                     
                     Spacer()
@@ -73,8 +74,9 @@ struct AlbumLayout: View {
                     .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
                     .background(Color.gray
                         .opacity(0.05)
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
                         .shadow(color: .black, radius: 1, x: 0, y: 5)
-                        .blur(radius: 10, opaque: false)
+                        .blur(radius: 3, opaque: false)
                     )
                 
                 HStack(spacing: -10) {
@@ -110,7 +112,7 @@ struct AlbumLayout: View {
             traveling = mainViewModel.compareDate(startDay, endDay)
             print(traveling)
             if mainViewModel.traveling == 0 {
-                days = D_Day(startDay)
+                days = mainViewModel.D_Day(startDay)
             }
             mainViewModel.fetchUser(userDocIds: userId)
             

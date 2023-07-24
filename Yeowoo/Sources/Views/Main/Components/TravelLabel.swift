@@ -11,20 +11,27 @@ struct TravelLabel: View {
     var travelText: String
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .foregroundColor(Color("ButtonColor"))
-                .frame(width: UIScreen.getWidth(57), height: UIScreen.getHeight(24))
+        HStack(spacing: 0) {
+            Spacer()
+                .frame(width: UIScreen.getWidth(10), height: UIScreen.getHeight(24))
             
-            RoundedRectangle(cornerRadius: 10)
-                .foregroundColor(.white)
-                .frame(width: UIScreen.getWidth(56), height: UIScreen.getHeight(23))
+            Circle()
+                .frame(width: UIScreen.getWidth(7))
+                .foregroundColor(Color("R1"))
+            
+            Spacer()
+                .frame(width: 4)
             
             Text(travelText)
-                .foregroundColor(Color("ButtonColor"))
+                .foregroundColor(.white)
                 .font(.custom14semibold())
-        }
-
+            
+            Spacer()
+                .frame(width: UIScreen.getWidth(10))
+        }.background(Color("DarkBG")
+            .opacity(0.4)
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .frame(maxWidth: .infinity))
     }
 }
 

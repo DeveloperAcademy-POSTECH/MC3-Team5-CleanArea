@@ -36,7 +36,7 @@ struct MainView: View {
                                     Image(mainViewModel.hasAlarm == true ? "AlarmBell" : "Bell")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                        .frame(width: UIScreen.getHeight(48))
+                                        .frame(width: UIScreen.getWidth(28), height: UIScreen.getHeight(29))
                                 }
                             }
                         }
@@ -46,11 +46,11 @@ struct MainView: View {
                         
                         NavigationLink(destination: EmptyView()){
                             ZStack {
-                                Image("Gear")
+                                Image("Person")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .frame(width: UIScreen.getHeight(48))
-                            }
+                                    .frame(width: UIScreen.getWidth(24))
+                            }.frame(width: UIScreen.getWidth(27), height: UIScreen.getHeight(29))
                         }
                     }
                     
@@ -65,74 +65,80 @@ struct MainView: View {
                 ZStack {
                     if mainViewModel.hasAlbum == 2 {
                         ScrollView(.vertical, showsIndicators: true, content: {
-                            VStack {
+                            VStack(spacing: 0) {
                                 if !(mainViewModel.traveling == 2) {
                                     if mainViewModel.traveling == 1 {
                                         // 친구들과 단체 사진 어떠세요?
                                         RecommendLayout(startday: mainViewModel.albums[0].startDay,
                                                         nickname: mainViewModel.users[0].nickname)
-                                        Spacer()
-                                            .frame(height: UIScreen.getHeight(41))
                                     } else {
                                         // 여행까지 며칠 남았어요!
                                         BeforeTravelLayout(nickname: mainViewModel.users[0].nickname,
                                                            startDay: mainViewModel.albums[0].startDay)
                                     }
-                                    
-                                    HStack {
-                                        Spacer()
-                                            .frame(width: UIScreen.getWidth(20))
-                                        if mainViewModel.traveling == 1 {
-                                            Text("지금 쌓고 있는 추억")
-                                                .font(.custom18bold())
-                                            Spacer()
-                                        }
-                                    }
+
                                     NavigationLink(destination: {
                                         EmptyView()
                                     }) {
                                         // ViewModel에 userProfileImage 가져오는 메소드 추가
-                                        AlbumLayout(
-                                            userId: mainViewModel.albums[0].users,
-                                            coverImage: mainViewModel.albums[0].albumCoverImage,
-                                            travelName: mainViewModel.albums[0].albumTitle,
-                                            startDay: mainViewModel.albums[0].startDay,
-                                            endDay: mainViewModel.albums[0].endDay)
+                                        ZStack {
+                                            LinearGradient(gradient: Gradient(colors: [.clear, Color("G5")]), startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
+                                            VStack(spacing: 0) {
+                                                Spacer()
+                                                    .frame(height: UIScreen.getHeight(24))
+                                                AlbumLayout(
+                                                    userId: mainViewModel.albums[0].users,
+                                                    coverImage: mainViewModel.albums[0].albumCoverImage,
+                                                    travelName: mainViewModel.albums[0].albumTitle,
+                                                    startDay: mainViewModel.albums[0].startDay,
+                                                    endDay: mainViewModel.albums[0].endDay)
+                                                Spacer()
+                                                    .frame(height: UIScreen.getHeight(24))
+                                            }
+                                        }
                                     }
                                     
                                     Spacer()
-                                        .frame(height: UIScreen.getHeight(45))
+                                        .frame(height: UIScreen.getHeight(24))
                                 } else if mainViewModel.albums[0].endDay == mainViewModel.today {
-                                    DoneTravelLayout(images: mainViewModel.albums[0].images,
-                                                     nickname: mainViewModel.users[0].nickname,
-                                                     albumName: mainViewModel.albums[0].albumTitle)
+                                    
+                                    ZStack {
+                                        LinearGradient(gradient: Gradient(colors: [.clear, Color("G5")]), startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
+                                        
+                                        DoneTravelLayout(images: mainViewModel.albums[0].images,
+                                                         nickname: mainViewModel.users[0].nickname,
+                                                         albumName: mainViewModel.albums[0].albumTitle)
+                                    }
                                     
                                     Spacer()
-                                        .frame(height: UIScreen.getHeight(45))
+                                        .frame(height: UIScreen.getHeight(24))
+                                }
+                                VStack {
+                                    HStack {
+                                        Spacer()
+                                            .frame(width: UIScreen.getWidth(20))
+                                        
+                                        Text("우리가 함께한 추억들")
+                                            .font(.custom18bold())
+                                        
+                                        Spacer()
+                                    }
+                                    Spacer()
+                                        .frame(height: UIScreen.getHeight(24))
                                 }
                                 
-                                HStack {
-                                    Spacer()
-                                        .frame(width: UIScreen.getWidth(20))
-                                    
-                                    Text("우리가 함께한 추억들")
-                                        .font(.custom18bold())
-                                    
-                                    Spacer()
-                                }
                                 ForEach(mainViewModel.albums[((mainViewModel.traveling == 1 || mainViewModel.traveling == 0) ? 1 : 0)..<mainViewModel.albums.count], id: \.self){ data in
                                     
                                     NavigationLink(destination: {
                                         EmptyView()
                                     }) {
                                         AlbumLayout(
-//                                            arr: data.users,
                                             userId: data.users,
                                             coverImage: data.albumCoverImage,
                                             travelName: data.albumTitle,
                                             startDay: data.startDay,
                                             endDay: data.endDay)
-                                            .padding(.bottom, UIScreen.getHeight(10))
+                                            .padding(.bottom, UIScreen.getHeight(24))
                                     }
                                 }
                                 

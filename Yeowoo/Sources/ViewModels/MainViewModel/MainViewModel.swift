@@ -236,72 +236,72 @@ final class MainViewModel: ObservableObject {
 
         print(albums.isEmpty)
     }
-}
-
-
-func travelingDate(_ start: String) -> Int {
-    let formatter = DateFormatter()
-    formatter.locale = Locale(identifier: "ko_kr")
-    formatter.timeZone = TimeZone(abbreviation: "KST")
-    formatter.dateStyle = .medium
-    formatter.dateFormat = "yyyy.MM.dd"
     
-    let startDay = formatter.date(from: start)!
-    let day = Int(ceil(Date().timeIntervalSince(startDay) / 86400))
-    
-    return day
-}
-
-func D_Day(_ start: String) -> Int {
-    
-    let formatter = DateFormatter()
-    formatter.locale = Locale(identifier: "ko_kr")
-    formatter.timeZone = TimeZone(abbreviation: "KST")
-    formatter.dateStyle = .medium
-    formatter.dateFormat = "yyyy.MM.dd"
-    
-    let startDay = formatter.date(from: start)!
-    print(startDay)
-    print(Date())
-//    let current = Date()
-    
-    let day = Int(ceil(startDay.timeIntervalSinceNow / 86400))
-    
-    return day
-}
-
-func randomPicture(_ album: [ImagesEntity] , _ pic: inout [String]){
-    var three: [String] = ["", "", ""]
-    var images: [String] = []
-    var one: String
-    var isHave = false
-    
-    for insert in 0..<album.count {
-        images.append(album[insert].url)
-    }
-    
-    for i in 0..<3{
-        one = images.randomElement()!
+    func travelingDate(_ start: String) -> Int {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_kr")
+        formatter.timeZone = TimeZone(abbreviation: "KST")
+        formatter.dateStyle = .medium
+        formatter.dateFormat = "yyyy.MM.dd"
         
-        while true {
-            for j in 0..<i {
-                if three[j] == one {
-                    one = images.randomElement()!
-                    isHave = true
+        let startDay = formatter.date(from: start)!
+        let day = Int(ceil(Date().timeIntervalSince(startDay) / 86400))
+        
+        return day
+    }
+
+    func D_Day(_ start: String) -> Int {
+        
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_kr")
+        formatter.timeZone = TimeZone(abbreviation: "KST")
+        formatter.dateStyle = .medium
+        formatter.dateFormat = "yyyy.MM.dd"
+        
+        let startDay = formatter.date(from: start)!
+        print(startDay)
+        print(Date())
+    //    let current = Date()
+        
+        let day = Int(ceil(startDay.timeIntervalSinceNow / 86400))
+        
+        return day
+    }
+
+    func randomPicture(_ album: [ImagesEntity] , _ pic: inout [String]){
+        var three: [String] = ["", "", ""]
+        var images: [String] = []
+        var one: String
+        var isHave = false
+        
+        for insert in 0..<album.count {
+            images.append(album[insert].url)
+        }
+        
+        for i in 0..<3{
+            one = images.randomElement()!
+            
+            while true {
+                for j in 0..<i {
+                    if three[j] == one {
+                        one = images.randomElement()!
+                        isHave = true
+                        break
+                    }
+                }
+                if isHave {
+                    isHave = false
+                    continue
+                } else {
                     break
                 }
             }
-            if isHave {
-                isHave = false
-                continue
-            } else {
-                break
-            }
+            three[i] = one
         }
-        three[i] = one
+        for k in 0..<3 {
+            pic[k] = three[k]
+            print(pic[k])
+        }
     }
-    for k in 0..<3 {
-        pic[k] = three[k]
-        print(pic[k])
-    }
+
 }

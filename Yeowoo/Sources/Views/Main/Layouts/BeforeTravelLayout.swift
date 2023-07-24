@@ -39,7 +39,7 @@ struct BeforeTravelLayout: View {
             .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(68))
         }
         .onAppear {
-            date = D_Day(startDay)
+            date = mainViewModel.D_Day(startDay)
         }
     }
 }

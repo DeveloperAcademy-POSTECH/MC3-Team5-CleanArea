@@ -81,9 +81,12 @@ struct DoneTravelLayout: View {
                     }
                 }
             }.frame(maxHeight: UIScreen.getHeight(160))
+            
+            Spacer()
+                .frame(height: UIScreen.getHeight(24))
         }
         .onAppear {
-            randomPicture(images, &picture)
+            mainViewModel.randomPicture(images, &picture)
         }
     }
 }
