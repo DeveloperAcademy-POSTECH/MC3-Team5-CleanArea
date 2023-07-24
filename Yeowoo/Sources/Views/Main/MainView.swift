@@ -69,11 +69,13 @@ struct MainView: View {
                                 if !(mainViewModel.traveling == 2) {
                                     if mainViewModel.traveling == 1 {
                                         // 친구들과 단체 사진 어떠세요?
-                                        RecommendLayout(startday: mainViewModel.albums[0].startDay,
+                                        RecommendLayout(role: $mainViewModel.role,
+                                                        startday: mainViewModel.albums[0].startDay,
                                                         nickname: mainViewModel.users[0].nickname)
                                     } else {
                                         // 여행까지 며칠 남았어요!
-                                        BeforeTravelLayout(nickname: mainViewModel.users[0].nickname,
+                                        BeforeTravelLayout(role: $mainViewModel.role,
+                                                           nickname: mainViewModel.users[0].nickname,
                                                            startDay: mainViewModel.albums[0].startDay)
                                     }
 
@@ -189,6 +191,9 @@ struct MainView: View {
             UserDefaultsSetting.userDocId = "Mt5DPoKI4Im0vZfq9vOl"
             mainViewModel.fetchAlbums()
             mainViewModel.fetchUser(userDocIds: ["Mt5DPoKI4Im0vZfq9vOl"])
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
+                mainViewModel.searchRole("Mt5DPoKI4Im0vZfq9vOl")
+            }
         }
     }
 }

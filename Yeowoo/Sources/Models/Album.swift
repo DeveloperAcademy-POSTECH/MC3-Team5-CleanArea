@@ -18,6 +18,7 @@ struct Album: Identifiable, Hashable {
     var images: [ImagesEntity]
     var isClosed: Bool
     var users: [String]
+    var role: [String]
 }
 
 struct ImagesEntity: Hashable {

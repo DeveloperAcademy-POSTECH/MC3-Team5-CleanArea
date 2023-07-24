@@ -322,6 +322,7 @@ struct FirebaseService {
                         let albumCoverImage: String = data["coverImage"] as! String
                         let startDay: String = data["startDay"] as! String
                         let endDay: String = data["endDay"] as! String
+                        let role: [String] = data["role"] as! [String]
                         for imageData in imagesData {
                             if let comment = imageData["comment"] as? String,
                                let fileName = imageData["fileName"] as? String,
@@ -340,7 +341,7 @@ struct FirebaseService {
                         }
                         promise(.success(Album(id: document.documentID, albumTitle: albumTitle,
                                                albumCoverImage: albumCoverImage, startDay: startDay,
-                                               endDay: endDay, images: images, isClosed: isClosed, users: users)))
+                                               endDay: endDay, images: images, isClosed: isClosed, users: users, role: role)))
                     }
                 } else {
                     promise(.failure(FirebaseError.badsnapshot))
@@ -374,6 +375,7 @@ struct FirebaseService {
                         let albumCoverImage = data["coverImage"] as? String ?? ""
                         let startDay = data["startDay"] as? String ?? ""
                         let endDay = data["endDay"] as? String ?? ""
+                        let role = data["role"] as? [String] ?? []
                         
                         for imageData in imagesData {
                             if let comment = imageData["comment"] as? String,
@@ -390,7 +392,7 @@ struct FirebaseService {
                         
                         let album = Album(id: document.documentID, albumTitle: albumTitle,
                                           albumCoverImage: albumCoverImage, startDay: startDay,
-                                          endDay: endDay, images: images, isClosed: isClosed, users: users)
+                                          endDay: endDay, images: images, isClosed: isClosed, users: users, role: role)
                         albums.append(album)
                     }
                 }

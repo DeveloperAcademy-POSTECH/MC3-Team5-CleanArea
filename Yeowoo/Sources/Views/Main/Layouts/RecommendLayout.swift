@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RecommendLayout: View {
     @StateObject var mainViewModel = MainViewModel()
+    @Binding var role: String
     var startday: String
     var nickname: String
     @State var date: Int = 0
@@ -49,7 +50,7 @@ struct RecommendLayout: View {
                                 Spacer()
                                     .frame(width: UIScreen.getWidth(10))
                                 
-                                Image(systemName: "pencil.circle.fill")
+                                Image(role)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: UIScreen.getWidth(22.5), height: UIScreen.getHeight(20))
