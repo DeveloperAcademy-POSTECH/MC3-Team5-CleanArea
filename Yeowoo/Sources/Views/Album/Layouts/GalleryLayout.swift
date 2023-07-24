@@ -36,7 +36,7 @@ struct GalleryLayout: View {
 							.resizable()
 							.aspectRatio(contentMode: .fill)
 							.frame(width: UIScreen.main.bounds.width, height: 390)
-							.cornerRadius(4)
+							.cornerRadius(0)
 							.overlay {
 								HStack(alignment: .bottom) {
 									Divider().opacity(0)
@@ -76,6 +76,7 @@ struct GalleryLayout: View {
 				}
 			}
 		}
-		.navigationTitle(isActive ? "" : viewModel.albumTitle)
+		.navigationBarTitle("")
+		.navigationBarHidden(true)
 	}
 }

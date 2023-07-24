@@ -8,7 +8,8 @@
 import SwiftUI
 import UIKit
 
-var width = UIScreen.main.bounds.width - 30
+var width = UIScreen.main.bounds.width
+var feedSpacing = 2.0
 
 struct FirstFeedLayout: View {
 	
@@ -36,7 +37,7 @@ struct FirstFeedLayout: View {
 								viewModel: self.viewModel)
 			,isActive: $isActive
 		) {
-			HStack(spacing: 4) {
+			HStack(spacing: feedSpacing) {
 				Button {
 					detailIndex = 0
 					isActive = true
@@ -46,7 +47,7 @@ struct FirstFeedLayout: View {
 							.resizable()
 							.aspectRatio(contentMode: .fill)
 							.frame(width: width / 3, height: 250)
-							.cornerRadius(4)
+							.cornerRadius(0)
 					} placeholder: {
 						ProgressView()
 							.frame(width: width / 3, height: 250)
@@ -60,7 +61,7 @@ struct FirstFeedLayout: View {
 					alignment: .topTrailing
 				)
 				
-				VStack(spacing: 4) {
+				VStack(spacing: feedSpacing) {
 					if entitys.count >= 2 {
 						Button {
 							detailIndex = 1
@@ -71,7 +72,7 @@ struct FirstFeedLayout: View {
 									.resizable()
 									.aspectRatio(contentMode: .fill)
 									.frame(width: width / 3, height: 123)
-									.cornerRadius(4)
+									.cornerRadius(0)
 							} placeholder: {
 								ProgressView()
 									.frame(width: width / 3, height: 123)
@@ -95,7 +96,7 @@ struct FirstFeedLayout: View {
 									.resizable()
 									.aspectRatio(contentMode: .fill)
 									.frame(width: width / 3, height: 123)
-									.cornerRadius(4)
+									.cornerRadius(0)
 							} placeholder: {
 								ProgressView()
 									.frame(width: width / 3, height: 123)
@@ -112,7 +113,7 @@ struct FirstFeedLayout: View {
 				}
 				.frame(maxHeight: .infinity, alignment: .top)
 				
-				VStack(spacing: 4) {
+				VStack(spacing: feedSpacing) {
 					if entitys.count >= 4 {
 						Button {
 							detailIndex = 3
@@ -123,7 +124,7 @@ struct FirstFeedLayout: View {
 									.resizable()
 									.aspectRatio(contentMode: .fill)
 									.frame(width: width / 3, height: 123)
-									.cornerRadius(4)
+									.cornerRadius(0)
 							} placeholder: {
 								ProgressView()
 									.frame(width: width / 3, height: 123)
@@ -147,7 +148,7 @@ struct FirstFeedLayout: View {
 									.resizable()
 									.aspectRatio(contentMode: .fill)
 									.frame(width: width / 3, height: 123)
-									.cornerRadius(4)
+									.cornerRadius(0)
 							} placeholder: {
 								ProgressView()
 									.frame(width: width / 3, height: 123)
@@ -166,6 +167,5 @@ struct FirstFeedLayout: View {
 			}
 			.frame(maxWidth: .infinity, alignment: .leading)
 		}
-		.navigationTitle(isActive ? "" : viewModel.albumTitle)
 	}
 }

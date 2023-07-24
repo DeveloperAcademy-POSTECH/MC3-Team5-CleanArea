@@ -14,6 +14,8 @@ enum AlbumState {
 
 struct AlbumFeedView: View {
 	
+	@Environment(\.dismiss) var dismiss
+	
 	private let albumDocId: String
 	
 	@ObservedObject private var viewModel: AlbumViewModel
@@ -21,6 +23,10 @@ struct AlbumFeedView: View {
 	@State private var layoutToggleState = true
 	@State private var nowSelectedUser: User? // 현재 역할이 선택된 유저
 	@State private var roleState: AlbumState = .all
+	@State private var showingFinishAlert = false
+	@State private var showingUpdateAlert = false
+	@State private var showingEditSheet = false
+	@State private var changedAlbumTitle = ""
 	
 	init(albumDocId: String, viewModel: AlbumViewModel) {
 		self.albumDocId = albumDocId
@@ -31,7 +37,15 @@ struct AlbumFeedView: View {
 		if viewModel.fetchState {
 			ScrollView(showsIndicators: false) {
 				VStack {
+					
+					CustomNavigationBar()
+					
 					ProfileCarouselView()
+					
+					Spacer()
+						.frame(height: 24)
+					Divider()
+					
 					LazyVStack(pinnedViews: [.sectionHeaders]){
 						Section {
 							ImageView()
@@ -58,6 +72,98 @@ struct AlbumFeedView: View {
 }
 
 private extension AlbumFeedView {
+	
+	@ViewBuilder
+	func CustomNavigationBar() -> some View {
+		HStack {
+			Image(systemName: "chevron.backward")
+				.foregroundColor(Color("G4"))
+				.onTapGesture {
+					dismiss()
+				}
+			Spacer()
+			Text("\(viewModel.albumTitle)")
+				.font(.system(size: 18))
+				.fontWeight(.semibold)
+			Spacer()
+			Menu {
+				Button {
+					showingEditSheet = true
+				} label: {
+					Label("앨범 제목 수정하기", systemImage: "pencil")
+				}
+				Button(role: .destructive) {
+					showingFinishAlert = true
+				} label: {
+					Label("여행 종료하기", systemImage: "xmark.circle")
+				}
+			}
+		label: {
+			Image(systemName: "ellipsis")
+				.foregroundColor(Color("G4"))
+				.rotationEffect(Angle(degrees: 90))
+		}
+		.sheet(isPresented: $showingEditSheet) {
+			VStack(spacing: 24) {
+				Text("앨범 제목 수정하기")
+					.font(.system(size: 18))
+					.fontWeight(.bold)
+				TextField("20자 이내로 입력해주세요", text: $changedAlbumTitle)
+					.font(.system(size: 16))
+					.padding()
+					.background(Color(uiColor: .secondarySystemBackground))
+					.cornerRadius(10)
+					.onAppear {
+						UITextField.appearance().clearButtonMode = .whileEditing
+					}
+				Button {
+					Task {
+						try await viewModel.updateAlbumTitle(albumDocId: "T9eJMPQEGQClFHEahX6r",
+															 title: changedAlbumTitle)
+						showingUpdateAlert = true
+					}
+				} label: {
+					Rectangle()
+						.fill(Color.mainColor)
+						.frame(height: 54)
+						.cornerRadius(10)
+						.overlay {
+							Text("완료")
+								.font(.system(size: 18))
+								.fontWeight(.bold)
+								.foregroundColor(Color.white)
+						}
+				}
+				.alert(isPresented: $showingUpdateAlert) {
+					Alert(
+						title: Text("제목 수정"),
+						message: Text("앨범 제목을 수정했어요."),
+						dismissButton: .default(Text("확인")) { }
+					)
+				}
+				
+			}
+			.padding(.horizontal, 20)
+			.presentationDetents([.height(250)])
+		}
+		.alert(isPresented: $showingFinishAlert) {
+			Alert(
+				title: Text(viewModel.albums.isClosed ? "여행 삭제" : "여행 종료"),
+				message: Text(viewModel.albums.isClosed ? "현재 계정에서만 삭제되며 복구가 불가능합니다" :
+								"여행을 종료하면\n사진 및 영상 업로드가 불가능해요"),
+				primaryButton: .destructive(Text(viewModel.albums.isClosed ? "삭제" : "종료")) {
+					Task {
+						viewModel.albums.isClosed ? try await viewModel.removeTravel(docId: "") :
+						try await viewModel.closedTravel(docId: "")
+					}
+				},
+				secondaryButton: .cancel(Text("취소")) { }
+			)
+		}
+		}
+		.frame(height: 48)
+		.padding(.horizontal, 20)
+	}
 	
 	@ViewBuilder
 	func ProfileCarouselView() -> some View {
@@ -174,12 +280,11 @@ private extension AlbumFeedView {
 			Text("앨범이 비어있어요")
 				.padding(.top, UIScreen.main.bounds.height / 3.5)
 		} else {
-			VStack(spacing: 4) {
+			VStack(spacing: layoutToggleState ? 0 : 2) {
 				ForEach(roleState == .all ? viewModel.images.indices : viewModel.roleImage.indices, id: \.self) { index in
 					setLayout(index: index)
 				}
 			}
-			.padding(.leading, 10)
 		}
 	}
 	

@@ -33,8 +33,8 @@ struct SecondFeedLayout: View {
 								viewModel: self.viewModel)
 			,isActive: $isActive
 		) {
-			HStack(spacing: 4) {
-				VStack(spacing: 4){
+			HStack(spacing: feedSpacing) {
+				VStack(spacing: feedSpacing){
 					Button {
 						detailIndex = 0
 						isActive = true
@@ -44,7 +44,7 @@ struct SecondFeedLayout: View {
 								.resizable()
 								.aspectRatio(contentMode: .fill)
 								.frame(width: width / 3, height: 123)
-								.cornerRadius(4)
+								.cornerRadius(0)
 						} placeholder: {
 							ProgressView()
 								.frame(width: width / 3, height: 123)
@@ -67,7 +67,7 @@ struct SecondFeedLayout: View {
 									.resizable()
 									.aspectRatio(contentMode: .fill)
 									.frame(width: width / 3, height: 123)
-									.cornerRadius(4)
+									.cornerRadius(0)
 							} placeholder: {
 								ProgressView()
 									.frame(width: width / 3, height: 123)
@@ -84,7 +84,7 @@ struct SecondFeedLayout: View {
 				}
 				.frame(maxHeight: .infinity, alignment: .top)
 				
-				VStack(spacing: 4) {
+				VStack(spacing: feedSpacing) {
 					if entitys.count >= 3 {
 						Button {
 							detailIndex = 2
@@ -95,7 +95,7 @@ struct SecondFeedLayout: View {
 									.resizable()
 									.aspectRatio(contentMode: .fill)
 									.frame(width: width / 3, height: 123)
-									.cornerRadius(4)
+									.cornerRadius(0)
 							} placeholder: {
 								ProgressView()
 									.frame(width: width / 3, height: 123)
@@ -119,7 +119,7 @@ struct SecondFeedLayout: View {
 									.resizable()
 									.aspectRatio(contentMode: .fill)
 									.frame(width: width / 3, height: 123)
-									.cornerRadius(4)
+									.cornerRadius(0)
 							} placeholder: {
 								ProgressView()
 									.frame(width: width / 3, height: 123)
@@ -145,7 +145,7 @@ struct SecondFeedLayout: View {
 								.resizable()
 								.aspectRatio(contentMode: .fill)
 								.frame(width: width / 3, height: 250)
-								.cornerRadius(4)
+								.cornerRadius(0)
 						} placeholder: {
 							ProgressView()
 								.frame(width: width / 3, height: 250)
@@ -162,6 +162,5 @@ struct SecondFeedLayout: View {
 			}
 			.frame(maxWidth: .infinity, alignment: .leading)
 		}
-		.navigationTitle(isActive ? "" : viewModel.albumTitle)
 	}
 }
