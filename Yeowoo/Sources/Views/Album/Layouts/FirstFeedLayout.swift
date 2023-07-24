@@ -12,21 +12,28 @@ var width = UIScreen.main.bounds.width - 30
 
 struct FirstFeedLayout: View {
 	
+	private var entitys: [ImagesEntity]
+	private var user: [User]
+	
+	@ObservedObject private var viewModel: AlbumViewModel
+	
 	@State private var detailIndex: Int = 0
 	@State private var isActive: Bool = false
 	
-	@ObservedObject var viewModel: AlbumViewModel
-	
-	var entitys: [ImagesEntity]
-	var user: [User]
+	init(entitys: [ImagesEntity], user: [User], viewModel: AlbumViewModel) {
+		self.entitys = entitys
+		self.user = user
+		self.viewModel = viewModel
+	}
 	
 	var body: some View {
 		NavigationLink (
 			destination:
 				AlbumDetailView(entitys: entitys[detailIndex],
-								user: self.user.first(where: {$0.docId == entitys[detailIndex].uploadUser}) ?? User(docId: "", id: "", email: "", password: "", isFirstLogin: false, nickname: "azhy", profileImage: "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/album1%2F1.jpeg?alt=media&token=eeea845a-b7e0-4d77-a2d0-c3b30ca439e9", progressAlbum: "", finishedAlbum: [], notification: [], fcmToken: ""),
+								user: self.user.first(where: {$0.docId == entitys[detailIndex].uploadUser}) ?? User(),
 								tempLikeState: entitys[detailIndex].likeUsers.contains(UserDefaultsSetting.userDocId),
-								tempLikeCount: entitys[detailIndex].likeUsers.count, viewModel: self.viewModel)
+								tempLikeCount: entitys[detailIndex].likeUsers.count,
+								viewModel: self.viewModel)
 			,isActive: $isActive
 		) {
 			HStack(spacing: 4) {
@@ -46,11 +53,13 @@ struct FirstFeedLayout: View {
 					}
 				}
 				.overlay(
-					Image(systemName: entitys[0].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
-						.foregroundColor(.white)
-						.padding(6),
+					Image(systemName: entitys[0].likeUsers.contains(UserDefaultsSetting.userDocId)
+						  ? "heart.fill" : "")
+					.foregroundColor(.white)
+					.padding(6),
 					alignment: .topTrailing
 				)
+				
 				VStack(spacing: 4) {
 					if entitys.count >= 2 {
 						Button {
@@ -69,9 +78,10 @@ struct FirstFeedLayout: View {
 							}
 						}
 						.overlay(
-							Image(systemName: entitys[1].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
-								.foregroundColor(.white)
-								.padding(6),
+							Image(systemName: entitys[1].likeUsers.contains(UserDefaultsSetting.userDocId)
+								  ? "heart.fill" : "")
+							.foregroundColor(.white)
+							.padding(6),
 							alignment: .topTrailing
 						)
 					}
@@ -92,9 +102,10 @@ struct FirstFeedLayout: View {
 							}
 						}
 						.overlay(
-							Image(systemName: entitys[2].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
-								.foregroundColor(.white)
-								.padding(6),
+							Image(systemName: entitys[2].likeUsers.contains(UserDefaultsSetting.userDocId)
+								  ? "heart.fill" : "")
+							.foregroundColor(.white)
+							.padding(6),
 							alignment: .topTrailing
 						)
 					}
@@ -119,9 +130,10 @@ struct FirstFeedLayout: View {
 							}
 						}
 						.overlay(
-							Image(systemName: entitys[3].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
-								.foregroundColor(.white)
-								.padding(6),
+							Image(systemName: entitys[3].likeUsers.contains(UserDefaultsSetting.userDocId)
+								  ? "heart.fill" : "")
+							.foregroundColor(.white)
+							.padding(6),
 							alignment: .topTrailing
 						)
 					}
@@ -142,9 +154,10 @@ struct FirstFeedLayout: View {
 							}
 						}
 						.overlay(
-							Image(systemName: entitys[4].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
-								.foregroundColor(.white)
-								.padding(6),
+							Image(systemName: entitys[4].likeUsers.contains(UserDefaultsSetting.userDocId)
+								  ? "heart.fill" : "")
+							.foregroundColor(.white)
+							.padding(6),
 							alignment: .topTrailing
 						)
 					}

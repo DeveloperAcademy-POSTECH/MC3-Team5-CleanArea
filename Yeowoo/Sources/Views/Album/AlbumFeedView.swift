@@ -188,23 +188,23 @@ private extension AlbumFeedView {
 		if layoutToggleState {
 			if index % 3 == 1 {
 				if roleState == .all {
-					FirstFeedLayout(viewModel: viewModel,
-									entitys: viewModel.images[index],
-									user: viewModel.users)
+					FirstFeedLayout(entitys: viewModel.images[index],
+									user: viewModel.users,
+									viewModel: viewModel)
 				} else {
-					FirstFeedLayout(viewModel: viewModel,
-									entitys: viewModel.roleImage[index],
-									user: viewModel.users)
+					FirstFeedLayout(entitys: viewModel.roleImage[index],
+									user: viewModel.users,
+									viewModel: viewModel)
 				}
 			} else {
 				if roleState == .all {
-					SecondFeedLayout(viewModel: viewModel,
-									 entitys: viewModel.images[index],
-									 user: viewModel.users)
+					SecondFeedLayout(entitys: viewModel.images[index],
+									 user: viewModel.users,
+									 viewModel: viewModel)
 				} else {
-					SecondFeedLayout(viewModel: viewModel,
-									 entitys: viewModel.roleImage[index],
-									 user: viewModel.users)
+					SecondFeedLayout(entitys: viewModel.roleImage[index],
+									 user: viewModel.users,
+									 viewModel: viewModel)
 				}
 			}
 		} else {
