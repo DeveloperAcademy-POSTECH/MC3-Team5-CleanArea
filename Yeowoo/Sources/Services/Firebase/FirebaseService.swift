@@ -184,11 +184,10 @@ struct FirebaseService {
 		return .success
 	}
 	
-	/// 유저정보 불러오기
+	/// 유저 정보 불러오기
 	static func fetchUser(userDocIds: [String] = []) -> AnyPublisher<[User], Error> {
 		Future<[User], Error> { promise in
 			var users: [User] = []
-			//				let documentId = userDocIds.isEmpty ? try KeyChainManager.shared.read(account: .documentId) : userDocIds
 			db.collection("User").getDocuments { snapshot, error in
 				if let error {
 					promise(.failure(error))
@@ -229,7 +228,7 @@ struct FirebaseService {
 		.eraseToAnyPublisher()
 	}
 	
-	/// 회원탈퇴
+	/// 회원 탈퇴
 	static func withdrawalUser() async throws -> FirebaseState {
 		do {
 			let id = try KeyChainManager.shared.read(account: .documentId)
@@ -257,7 +256,7 @@ struct FirebaseService {
 	
 	//MARK: - Album
 	
-	/// 앨범에 이미지 올리기
+	/// 이미지 올리기
 	static func uploadAlbumImage(image: UIImage, albumDocId: String, fileName: String) async throws -> FirebaseState {
 		let data = image.jpegData(compressionQuality: 0.5)!
 		let storage = Storage.storage()
@@ -294,7 +293,7 @@ struct FirebaseService {
 		}
 	}
 	
-	/// 앨범 이미지 가져오기
+	/// 앨범 이미지 불러오기
 	static func fetchAlbumImages(albumDocId: String) -> AnyPublisher<Album, Error> {
 		Future<Album, Error> { promise in
 			db.collection("album").getDocuments { snapshot, error in
@@ -346,8 +345,7 @@ struct FirebaseService {
 		.eraseToAnyPublisher()
 	}
 	
-	/// 앨범 이미지 변경
-	/// 당장 안씀
+	/// 이미지 수정
 	static func updateAlbumImage(image: UIImage, albumDocId: String) async throws -> FirebaseState {
 		let data = image.jpegData(compressionQuality: 0.5)!
 		let storage = Storage.storage()
@@ -399,7 +397,7 @@ struct FirebaseService {
 		}
 	}
 	
-	/// 앨범 이미지 삭제
+	/// 이미지 삭제
 	static func deleteAlbumImage(albumDocId: String, parmFileName: String) async throws -> FirebaseState {
 		return try await withUnsafeThrowingContinuation { configuration in
 			let storage = Storage.storage()
@@ -440,7 +438,7 @@ struct FirebaseService {
 		}
 	}
 	
-	// 앨범 제목 변경
+	/// 앨범 제목 수정하기
 	static func updateAlbumTitle(albumDocId: String, changedTitle: String) async throws -> FirebaseState {
 		let documentRef = db.collection("album").document(albumDocId)
 		return try await withUnsafeThrowingContinuation { configuration in
@@ -451,7 +449,7 @@ struct FirebaseService {
 		}
 	}
 	
-	// 여행 종료하기 -> 여행 컬렉션 관련
+	/// 여행 종료
 	static func closedTravel(albumDocId: String) async throws -> FirebaseState {
 		let albumDocumentRef = db.collection("album").document(albumDocId)
 		return try await withUnsafeThrowingContinuation { configuration in
@@ -465,8 +463,6 @@ struct FirebaseService {
 					return
 				}
 				
-				// 각 유저들 여행 progressAlbum "" + finishedAlbum에 추가
-				
 				(document.data()?["users"] as? [String])?.forEach { docId in
 					let userDocumentRef = db.collection("User").document(docId)
 					userDocumentRef.updateData(["progressAlbum": ""]) { error in
@@ -476,7 +472,6 @@ struct FirebaseService {
 							return
 						}
 						
-						// albumDocId 추가 코드
 						userDocumentRef.updateData([
 							"finishedAlbum": FieldValue.arrayUnion([albumDocId])
 						])
@@ -487,7 +482,7 @@ struct FirebaseService {
 		}
 	}
 	
-	// 여행 삭제하기
+	/// 여행 삭제
 	static func removeTravel(albumDocId: String) async throws -> FirebaseState {
 		do {
 			let id = try KeyChainManager.shared.read(account: .documentId)
@@ -499,10 +494,7 @@ struct FirebaseService {
 						return
 					}
 					if var finishedAlbum = document.data()?["finishedAlbum"] as? [String] {
-						// Remove albumDocId from finishedAlbum if it exists
 						finishedAlbum.removeAll { $0 == albumDocId }
-						
-						// Update the finishedAlbum in the Firestore document
 						documentRef.updateData(["finishedAlbum": finishedAlbum]) { error in
 							if let error = error {
 								print("Error updating user document: \(error)")
@@ -523,7 +515,7 @@ struct FirebaseService {
 		return .fail
 	}
 	
-	// 대표 이미지 변경
+	/// 앨범 대표 이미지 수정
 	static func updateAlbumCoverImage(albumDocId: String, url: String) async throws -> FirebaseState {
 		let documentRef = db.collection("album").document(albumDocId)
 		return try await withUnsafeThrowingContinuation { configuration in
@@ -534,7 +526,7 @@ struct FirebaseService {
 		}
 	}
 	
-	// 좋아요 등록
+	/// 좋아요 등록
 	static func updateLikeUsers(albumDocId: String, paramFileName: String) async throws -> FirebaseState {
 		return try await withUnsafeThrowingContinuation { configuration in
 			let path = db.collection("album").document(albumDocId)
@@ -571,7 +563,7 @@ struct FirebaseService {
 		}
 	}
 	
-	// 좋아요 삭제
+	/// 좋아요 삭제
 	static func removeUserFromLikeUsers(albumDocId: String, paramFileName: String) async throws -> FirebaseState {
 		return try await withUnsafeThrowingContinuation { configuration in
 			let path = db.collection("album").document(albumDocId)
