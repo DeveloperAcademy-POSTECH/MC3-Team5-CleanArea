@@ -158,7 +158,6 @@ struct MainView: View {
                         Spacer()
                         
                         HStack {
-                            
                             Spacer()
                             
                             if (mainViewModel.traveling == 0 || mainViewModel.traveling == 1) && mainViewModel.hasAlbum == 2 {
@@ -169,14 +168,14 @@ struct MainView: View {
                                     ZStack {
                                         Circle()
                                             .aspectRatio(contentMode: .fit)
-                                            .frame(height: UIScreen.getHeight(76))
-                                            .foregroundColor(.white)
+                                            .frame(height: UIScreen.getHeight(64))
+                                            .foregroundColor(Color("B1"))
                                         
-                                        Image(systemName: "plus.circle.fill")
+                                        Image(systemName: "plus")
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
-                                            .frame(height: UIScreen.getHeight(76))
-                                            .foregroundColor(Color("ButtonColor"))
+                                            .frame(height: UIScreen.getHeight(24))
+                                            .foregroundColor(.white)
                                     }
                                 }
                                 .padding(.trailing, UIScreen.getWidth(20))

@@ -25,14 +25,14 @@ struct CameraButton: View {
             ZStack {
                 Circle()
                     .aspectRatio(contentMode: .fit)
-                    .frame(height: UIScreen.getHeight(76))
-                    .foregroundColor(.white)
+                    .frame(height: UIScreen.getHeight(64))
+                    .foregroundColor(Color("B1"))
                 
-                Image(systemName: "camera.circle.fill")
+                Image(systemName: "camera.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(height: UIScreen.getHeight(76))
-                    .foregroundColor(Color("ButtonColor"))
+                    .frame(height: UIScreen.getHeight(24))
+                    .foregroundColor(.white)
             }
         }.fullScreenCover(isPresented: $showModal) {
             NavigationView {
