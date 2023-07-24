@@ -80,7 +80,7 @@ struct MainView: View {
                                     }
 
                                     NavigationLink(destination: {
-                                        EmptyView()
+                                        AlbumFeedView(albumDocId: mainViewModel.albums[0].id)
                                     }) {
                                         // ViewModel에 userProfileImage 가져오는 메소드 추가
                                         ZStack {
@@ -132,7 +132,7 @@ struct MainView: View {
                                 ForEach(mainViewModel.albums[((mainViewModel.traveling == 1 || mainViewModel.traveling == 0) ? 1 : 0)..<mainViewModel.albums.count], id: \.self){ data in
                                     
                                     NavigationLink(destination: {
-                                        EmptyView()
+                                        AlbumFeedView(albumDocId: data.id)
                                     }) {
                                         AlbumLayout(
                                             userId: data.users,
