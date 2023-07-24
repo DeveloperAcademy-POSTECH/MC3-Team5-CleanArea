@@ -68,9 +68,10 @@ struct AlbumDetailView: View {
 									.frame(width: 48, height: 48)
 									.overlay {
 										Button {
-											print("action")
 											Task {
-												try await viewModel.actionLike(toggleChk: testBool, fileName: entitys.fileName)
+												try await viewModel.actionLike(toggleChk: testBool,
+																			   albumDocId: viewModel.albums.id,
+																			   fileName: entitys.fileName)
 												testCount = testBool ? testCount - 1 : testCount + 1
 												testBool.toggle()
 											}
@@ -152,7 +153,6 @@ struct AlbumDetailView: View {
 										print("Error downloading image: \(error.localizedDescription)")
 										return
 									}
-									
 									if let data = data, let image = UIImage(data: data) {
 										UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
 									}
@@ -189,6 +189,12 @@ struct AlbumDetailView: View {
 					}
 				}
 		)
-		
+		.onDisappear {
+			if viewModel.likeChk {
+				Task {
+					viewModel.fetchAlbumImages(albumDocId: viewModel.albums.id)
+				}
+			}
+		}
 	}
 }

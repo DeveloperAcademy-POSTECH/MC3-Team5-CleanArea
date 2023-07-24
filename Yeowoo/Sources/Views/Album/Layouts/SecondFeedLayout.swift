@@ -46,6 +46,7 @@ struct SecondFeedLayout: View {
 					}
 					.overlay(
 						Image(systemName: entitys[0].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
+							.foregroundColor(.white)
 							.padding(6),
 						alignment: .topTrailing
 					)
@@ -67,6 +68,7 @@ struct SecondFeedLayout: View {
 						}
 						.overlay(
 							Image(systemName: entitys[1].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
+								.foregroundColor(.white)
 								.padding(6),
 							alignment: .topTrailing
 						)
@@ -93,6 +95,7 @@ struct SecondFeedLayout: View {
 						}
 						.overlay(
 							Image(systemName: entitys[2].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
+								.foregroundColor(.white)
 								.padding(6),
 							alignment: .topTrailing
 						)
@@ -115,6 +118,7 @@ struct SecondFeedLayout: View {
 						}
 						.overlay(
 							Image(systemName: entitys[3].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
+								.foregroundColor(.white)
 								.padding(6),
 							alignment: .topTrailing
 						)
@@ -140,6 +144,7 @@ struct SecondFeedLayout: View {
 					}
 					.overlay(
 						Image(systemName: entitys[4].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
+							.foregroundColor(.white)
 							.padding(6),
 						alignment: .topTrailing
 					)

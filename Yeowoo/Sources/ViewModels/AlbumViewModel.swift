@@ -11,6 +11,8 @@ import UIKit
 
 final class AlbumViewModel: ObservableObject {
 	
+	var likeChk = false
+	
 	@Published var albumTitle = ""
 	@Published var fetchState = false
 	@Published var roleImage: [[ImagesEntity]] = []
@@ -92,12 +94,16 @@ final class AlbumViewModel: ObservableObject {
 	}
 	
 	// 좋아요 눌렀을 때
-	func actionLike(toggleChk: Bool, fileName: String) async throws {
-		toggleChk ?
-		try await FirebaseService.removeUserFromLikeUsers(albumDocId: "T9eJMPQEGQClFHEahX6r",
-														  paramFileName: "123") :
-		try await FirebaseService.updateLikeUsers(albumDocId: "T9eJMPQEGQClFHEahX6r",
-												  paramFileName: "123")
+	func actionLike(toggleChk: Bool, albumDocId: String, fileName: String) async throws {
+		_ = toggleChk ?
+		try await FirebaseService.removeUserFromLikeUsers(albumDocId: albumDocId,
+														  paramFileName: fileName) :
+		try await FirebaseService.updateLikeUsers(albumDocId: albumDocId,
+												  paramFileName: fileName)
+		
+		likeChk = true
+		
+//		await fetchAlbumImages(albumDocId: albumDocId)
 	}
 	
 	@MainActor
@@ -135,6 +141,6 @@ final class AlbumViewModel: ObservableObject {
 	
 	/// 태스트 이미지 업로드용
 	func testUpload() async throws {
-		try await FirebaseService.uploadAlbumImage(image: UIImage(named: "9")!, albumDocId: "T9eJMPQEGQClFHEahX6r", fileName: String(describing: UUID()))
+		_ = try await FirebaseService.uploadAlbumImage(image: UIImage(named: "9")!, albumDocId: "T9eJMPQEGQClFHEahX6r", fileName: String(describing: UUID()))
 	}
 }

@@ -51,7 +51,8 @@ struct GalleryLayout: View {
 											.frame(width: 48, height: 48)
 											.overlay {
 												Image(systemName: "heart.fill")
-													.foregroundColor(Color.white)
+													.foregroundColor(entitys[index].likeUsers.contains(UserDefaultsSetting.userDocId)
+																	 ? Color.red : Color.white)
 											}
 										Rectangle()
 											.fill(Color.white)
@@ -73,12 +74,8 @@ struct GalleryLayout: View {
 							.frame(width: UIScreen.main.bounds.width, height: 390)
 					}
 				}
-				.overlay(
-					Image(systemName: entitys[index].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
-						.padding(6),
-					alignment: .topTrailing
-				)
 			}
 		}
+		.navigationTitle(isActive ? "" : viewModel.albumTitle)
 	}
 }
