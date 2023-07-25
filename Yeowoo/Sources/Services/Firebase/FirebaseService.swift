@@ -364,6 +364,57 @@ struct FirebaseService {
 		.eraseToAnyPublisher()
 	}
 	
+    /// 앨범 가져오기
+    static func fetchAlbums() -> AnyPublisher<[Album], Error> {
+        let query = db.collection("album").whereField("users", arrayContains: UserDefaultsSetting.userDocId)
+        
+        return Future<[Album], Error> { promise in
+            query.getDocuments { snapshot, error in
+                if let error = error {
+                    promise(.failure(error))
+                    return
+                }
+                
+                var albums: [Album] = []
+                
+                for document in snapshot?.documents ?? [] {
+                    let data = document.data()
+                    if let imagesData = data["images"] as? [[String: Any]] {
+                        var images: [ImagesEntity] = []
+                        let isClosed = data["isClosed"] as? Bool ?? false
+                        let users: [String] = data["users"] as? [String] ?? []
+                        let albumTitle = data["title"] as? String ?? ""
+                        let albumCoverImage = data["coverImage"] as? String ?? ""
+                        let startDay = data["startDay"] as? String ?? ""
+                        let endDay = data["endDay"] as? String ?? ""
+                        let role = data["role"] as? [String] ?? []
+                        
+                        for imageData in imagesData {
+                            if let comment = imageData["comment"] as? String,
+                               let fileName = imageData["fileName"] as? String,
+                               let likeUsers = imageData["likeUsers"] as? [String],
+                               let updateTime = imageData["updateTime"] as? String,
+                               let url = imageData["url"] as? String,
+                               let uploadUser = imageData["uploadUser"] as? String,
+                               let roleCheck = imageData["roleCheck"] as? Bool {
+                                let image = ImagesEntity(comment: comment, fileName: fileName, url: url, uploadUser: uploadUser, roleCheck: roleCheck, likeUsers: likeUsers, uploadTime: updateTime)
+                                images.append(image)
+                            }
+                        }
+                        
+                        let album = Album(id: document.documentID, albumTitle: albumTitle,
+                                          albumCoverImage: albumCoverImage, startDay: startDay,
+                                          endDay: endDay, images: images, isClosed: isClosed, users: users, role: role)
+                        albums.append(album)
+                    }
+                }
+                
+                promise(.success(albums))
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
 	/// 이미지 수정
 	static func updateAlbumImage(image: UIImage, albumDocId: String) async throws -> FirebaseState {
 		let data = image.jpegData(compressionQuality: 0.5)!

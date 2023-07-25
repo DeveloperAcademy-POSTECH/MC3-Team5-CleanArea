@@ -8,16 +8,22 @@
 import SwiftUI
 
 struct TapePicture: View {
-    var picture: Color
+    var picture: String
     
     var body: some View {
         ZStack {
             VStack {
                 Spacer()
                 NavigationLink(destination: EmptyView()) {
-                    RoundedRectangle(cornerRadius: 10)
-                        .foregroundColor(picture)
-                        .frame(height: UIScreen.getHeight(140))
+                    AsyncImage(url: URL(string: picture)) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(height: UIScreen.getHeight(140))
+                            .clipShape(RoundedRectangle(cornerRadius: 5))
+                    } placeholder: {
+                        ProgressView()
+                    }
                 }
             }
             
@@ -32,8 +38,3 @@ struct TapePicture: View {
     }
 }
 
-struct TapePicture_Previews: PreviewProvider {
-    static var previews: some View {
-        TapePicture(picture: .pink)
-    }
-}

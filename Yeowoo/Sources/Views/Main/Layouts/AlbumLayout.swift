@@ -9,9 +9,12 @@ import SwiftUI
 
 struct AlbumLayout: View {
     @ObservedObject var mainViewModel = MainViewModel()
-    @State var arr: [Color]
-    var personCount = 0
     @State var days: Int = 0
+    @State var traveling: Int = 0
+    @State var profileImages: [String] = []
+    var personCount = 0
+    var userId: [String]
+    var coverImage: String
     var travelName: String
     var startDay: String
     var endDay: String
@@ -19,21 +22,34 @@ struct AlbumLayout: View {
     var body: some View {
         VStack(spacing: 0) {
             ZStack {
+                // AlbumCover
                 ZStack {
-                    Text("사진사진사진")
+                    if coverImage != "" {
+                        AsyncImage(url: URL(string: coverImage)) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                        } placeholder: {
+                            ProgressView()
+                        }
+                    } else {
+                        Text("사진사진사진")
+                    }
                     
                     RadialGradient(colors: [Color("ButtonColor"), .clear], center: .bottomLeading, startRadius: 0, endRadius: 270)
-                        .opacity(0.4)
+                        .opacity(1)
                 }.frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(190))
                     .cornerRadius(20, corners: [.topLeft, .topRight])
                 
+                // 여행중 or D-Day
                 VStack(alignment: .leading, spacing: 0) {
                     
-                    if mainViewModel.traveling == 1 {
+                    if traveling == 1 {
                         TravelLabel(travelText: "여행중")
                             .padding(.top, UIScreen.getHeight(10))
-                    } else if mainViewModel.traveling == 0 {
-                        TravelLabel(travelText: "D - \(days)").padding(.top, UIScreen.getHeight(10))
+                    } else if traveling == 0 {
+                        TravelLabel(travelText: "D-\(days)")
+                            .padding(.top, UIScreen.getHeight(10))
                     }
                     
                     Spacer()
@@ -59,32 +75,34 @@ struct AlbumLayout: View {
                     .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
                     .background(Color.gray
                         .opacity(0.05)
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
                         .shadow(color: .black, radius: 1, x: 0, y: 5)
-                        .blur(radius: 10, opaque: false)
+                        .blur(radius: 3, opaque: false)
                     )
                 
+                // 같이 여행중인 인원 Circle
                 HStack(spacing: -10) {
-                    if arr.count < 4 {
-                        ForEach(arr, id: \.self) { img in
+                    if profileImages.count < 4 {
+                        ForEach(profileImages, id: \.self) { img in
                             Person(person: img)
                         }
                     } else {
-                        ForEach(arr[0..<3], id: \.self) { img in
+                        ForEach(profileImages[0..<3], id: \.self) { img in
                             Person(person: img)
                         }
-                        PlusPerson(plusCount: arr.count-3)
+                        PlusPerson(plusCount: profileImages.count-3)
                     }
-                    if mainViewModel.traveling == 1 {
-                        Text("\(arr.count)명 여행 중")
-                            .foregroundColor(Color(uiColor: .systemGray))
+                    if traveling == 1 {
+                        Text("\(profileImages.count)명 여행 중")
+                            .foregroundColor(Color("G3"))
                             .padding(.leading, 20)
-                    } else if mainViewModel.traveling == 2 {
-                        Text("\(arr.count)명 여행 완료")
-                            .foregroundColor(Color(uiColor: .systemGray))
+                    } else if traveling == 2 {
+                        Text("\(profileImages.count)명 여행 완료")
+                            .foregroundColor(Color("G3"))
                             .padding(.leading, 20)
                     } else {
-                        Text("\(arr.count)명 여행 전")
-                            .foregroundColor(Color(uiColor: .systemGray))
+                        Text("\(profileImages.count)명 여행 전")
+                            .foregroundColor(Color("G3"))
                             .padding(.leading, 20)
                     }
                     Spacer()
@@ -93,14 +111,30 @@ struct AlbumLayout: View {
             }
         }
         .onAppear {
-            mainViewModel.traveling = mainViewModel.compareDate(startDay, endDay)
+            // 여행중인가
+            traveling = mainViewModel.compareDate(startDay, endDay)
+            
+            // 여행 전이면 D-Day 출력
             if mainViewModel.traveling == 0 {
-                days = D_Day(startDay)
+                days = mainViewModel.D_Day(startDay)
             }
+            
+            // 유저 패치
+            mainViewModel.fetchUser(userDocIds: userId)
+            
+            // 유저 패치 이후 프로필 사진 가져오기 ( 딜레이 1초 )
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                profileImages = []
+                for i in 0..<mainViewModel.users.count {
+                    profileImages.append(mainViewModel.users[i].profileImage)
+                }
+            }
+            
         }
     }
 }
 
+// rectangle의 각 모서리마다 round 설정
 struct CornerRadiusStyle: ViewModifier {
     var radius: CGFloat
     var corners: UIRectCorner
@@ -125,12 +159,5 @@ struct CornerRadiusStyle: ViewModifier {
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         ModifiedContent(content: self, modifier: CornerRadiusStyle(radius: radius, corners: corners))
-    }
-}
-
-
-struct AlbumView_Previews: PreviewProvider {
-    static var previews: some View {
-        AlbumLayout(arr: [.blue, .black, .brown, .pink], travelName: "일본 여행", startDay: "2023. 07. 15", endDay: "2023. 07. 16")
     }
 }

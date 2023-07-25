@@ -22,11 +22,18 @@ struct CameraButton: View {
             UIView.setAnimationsEnabled(false)
             showModal = true
         }) {
-            Image(systemName: "camera.circle.fill")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: UIScreen.getWidth(76))
-                .foregroundColor(Color("ButtonColor"))
+            ZStack {
+                Circle()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: UIScreen.getHeight(64))
+                    .foregroundColor(Color("B1"))
+                
+                Image(systemName: "camera.fill")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: UIScreen.getHeight(24))
+                    .foregroundColor(.white)
+            }
         }.fullScreenCover(isPresented: $showModal) {
             NavigationView {
                 VStack {
@@ -38,7 +45,7 @@ struct CameraButton: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: UIScreen.getWidth(16), height: UIScreen.getHeight(22))
-                                .foregroundColor(.gray)
+                                .foregroundColor(Color("G4"))
                                 .padding(.leading, UIScreen.getWidth(20))
                         }
                         .frame(width: UIScreen.getHeight(44), height: UIScreen.getHeight(44))

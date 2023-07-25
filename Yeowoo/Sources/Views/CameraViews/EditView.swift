@@ -31,7 +31,7 @@ struct EditView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: UIScreen.getWidth(16), height: UIScreen.getHeight(22))
-                        .foregroundColor(.gray)
+                        .foregroundColor(Color("G4"))
                         .padding(.leading, UIScreen.getWidth(20))
                 }
                 .frame(width: UIScreen.getHeight(44), height: UIScreen.getHeight(44))

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Album: Identifiable {
+struct Album: Identifiable, Hashable {
 	var id: String // docId
 	var albumTitle: String // 앨범 제목
 	var albumCoverImage: String // 앨범 커버 url
@@ -39,12 +39,13 @@ struct Album: Identifiable {
 	}
 }
 
-struct ImagesEntity {
-	let comment: String	// 설명
-	let fileName: String	// storage 파일 이름
-	let url: String	// url
-	let uploadUser: String	// 업로드 한 유저
-	let roleCheck: Bool	// 역할 확인
-	let likeUsers: [String] // 좋아요 한 유저들
-	let uploadTime: String // 올린 시간 (수정한 시간)
+struct ImagesEntity: Hashable {
+    let comment: String    // 설명
+    let fileName: String    // storage 파일 이름
+    let url: String    // url
+    let uploadUser: String    // 업로드 한 유저
+    let roleCheck: Bool    // 역할 확인
+    let likeUsers: [String] // 좋아요 한 유저들
+    let uploadTime: String // 올린 시간 (수정한 시간)
 }
+

@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct MainView: View {
+    
     @ObservedObject var mainViewModel = MainViewModel()
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -23,6 +24,7 @@ struct MainView: View {
                     
                     Spacer()
                     
+                    // Alarm, Setting 버튼
                     HStack {
                         NavigationLink(destination: EmptyView(),
                                        isActive: $mainViewModel.openAlarm) {
@@ -34,7 +36,7 @@ struct MainView: View {
                                     Image(mainViewModel.hasAlarm == true ? "AlarmBell" : "Bell")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                        .frame(width: UIScreen.getHeight(48))
+                                        .frame(width: UIScreen.getWidth(28), height: UIScreen.getHeight(29))
                                 }
                             }
                         }
@@ -44,11 +46,11 @@ struct MainView: View {
                         
                         NavigationLink(destination: EmptyView()){
                             ZStack {
-                                Image("Gear")
+                                Image("Person")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .frame(width: UIScreen.getHeight(48))
-                            }
+                                    .frame(width: UIScreen.getWidth(24))
+                            }.frame(width: UIScreen.getWidth(27), height: UIScreen.getHeight(29))
                         }
                     }
                     
@@ -57,65 +59,88 @@ struct MainView: View {
                 }
                 .frame(height: UIScreen.getHeight(48))
                 Spacer()
-                    .frame(height: UIScreen.getHeight(mainViewModel.hasAlbum == true ? 35 : 84))
+                    .frame(height: UIScreen.getHeight(mainViewModel.hasAlbum == 2 ? 35 : 84))
                 
+                // 메인
                 ZStack {
-                    if mainViewModel.hasAlbum {
+                    if mainViewModel.hasAlbum == 2 {
                         ScrollView(.vertical, showsIndicators: true, content: {
-                            VStack {
+                            VStack(spacing: 0) {
                                 if !(mainViewModel.traveling == 2) {
-                                    if mainViewModel.traveling == 1{
-                                        RecommendLayout()
-                                        Spacer()
-                                            .frame(height: UIScreen.getHeight(41))
+                                    if mainViewModel.traveling == 1 {
+                                        // 친구들과 단체 사진 어떠세요?
+                                        RecommendLayout(role: $mainViewModel.role,
+                                                        startday: mainViewModel.albums[0].startDay,
+                                                        nickname: mainViewModel.users[0].nickname)
                                     } else {
-                                        BeforeTravelLayout()
+                                        // 여행까지 며칠 남았어요!
+                                        BeforeTravelLayout(role: $mainViewModel.role,
+                                                           nickname: mainViewModel.users[0].nickname,
+                                                           startDay: mainViewModel.albums[0].startDay)
+                                    }
+
+                                    NavigationLink(destination: {
+                                        AlbumFeedView(albumDocId: mainViewModel.albums[0].id, viewModel: AlbumViewModel())
+                                    }) {
+                                        // ViewModel에 userProfileImage 가져오는 메소드 추가
+                                        ZStack {
+                                            LinearGradient(gradient: Gradient(colors: [.clear, Color("G5")]), startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
+                                            VStack(spacing: 0) {
+                                                Spacer()
+                                                    .frame(height: UIScreen.getHeight(24))
+                                                AlbumLayout(
+                                                    userId: mainViewModel.albums[0].users,
+                                                    coverImage: mainViewModel.albums[0].albumCoverImage,
+                                                    travelName: mainViewModel.albums[0].albumTitle,
+                                                    startDay: mainViewModel.albums[0].startDay,
+                                                    endDay: mainViewModel.albums[0].endDay)
+                                                Spacer()
+                                                    .frame(height: UIScreen.getHeight(24))
+                                            }
+                                        }
                                     }
                                     
+                                    Spacer()
+                                        .frame(height: UIScreen.getHeight(24))
+                                } else if mainViewModel.albums[0].endDay == mainViewModel.today {
+                                    
+                                    ZStack {
+                                        LinearGradient(gradient: Gradient(colors: [.clear, Color("G5")]), startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
+                                        
+                                        DoneTravelLayout(images: mainViewModel.albums[0].images,
+                                                         nickname: mainViewModel.users[0].nickname,
+                                                         albumName: mainViewModel.albums[0].albumTitle)
+                                    }
+                                    
+                                    Spacer()
+                                        .frame(height: UIScreen.getHeight(24))
+                                }
+                                VStack {
                                     HStack {
                                         Spacer()
                                             .frame(width: UIScreen.getWidth(20))
-                                        if mainViewModel.traveling == 1{
-                                            Text("지금 쌓고 있는 추억")
-                                                .font(.custom18bold())
-                                            Spacer()
-                                        }
+                                        
+                                        Text("우리가 함께한 추억들")
+                                            .font(.custom18bold())
+                                        
+                                        Spacer()
                                     }
-                                    NavigationLink(destination: {
-                                        EmptyView()
-                                    }) {
-                                        AlbumLayout(arr: dummyData[dummyData.count-1].withPerson,
-                                                  travelName: dummyData[dummyData.count-1].albumName,
-                                                  startDay: dummyData[dummyData.count-1].startDay,
-                                                  endDay: dummyData[dummyData.count-1].endDay)
-                                    }
-                                    
                                     Spacer()
-                                        .frame(height: UIScreen.getHeight(45))
-                                } else if dummyData[dummyData.count-1].endDay == mainViewModel.today {
-                                    DoneTravelLayout(albumName: dummyData[dummyData.count-1].albumName)
-                                    
-                                    Spacer()
-                                        .frame(height: UIScreen.getHeight(45))
+                                        .frame(height: UIScreen.getHeight(24))
                                 }
                                 
-                                HStack {
-                                    Spacer()
-                                        .frame(width: UIScreen.getWidth(20))
-                                    
-                                    Text("우리가 함께한 추억들")
-                                        .font(.custom18bold())
-                                    
-                                    Spacer()
-                                }
-                                ForEach(dummyData[0..<(mainViewModel.traveling == 2 ? dummyData.count : dummyData.count-1)].reversed(),
-                                        id: \.self) { data in
+                                ForEach(mainViewModel.albums[((mainViewModel.traveling == 1 || mainViewModel.traveling == 0) ? 1 : 0)..<mainViewModel.albums.count], id: \.self){ data in
                                     
                                     NavigationLink(destination: {
-                                        EmptyView()
+                                        AlbumFeedView(albumDocId: data.id, viewModel: AlbumViewModel())
                                     }) {
-                                        AlbumLayout(arr: data.withPerson, travelName: data.albumName, startDay: data.startDay, endDay: data.endDay)
-                                            .padding(.bottom, UIScreen.getHeight(10))
+                                        AlbumLayout(
+                                            userId: data.users,
+                                            coverImage: data.albumCoverImage,
+                                            travelName: data.albumTitle,
+                                            startDay: data.startDay,
+                                            endDay: data.endDay)
+                                            .padding(.bottom, UIScreen.getHeight(24))
                                     }
                                 }
                                 
@@ -123,27 +148,41 @@ struct MainView: View {
                                     .frame(height: UIScreen.getHeight(94))
                             }.frame(maxWidth: .infinity)
                         })
+                    } else if mainViewModel.hasAlbum == 1 {
+                        
+                        // albums ==> albums.count == 0
+                        VStack {
+                            Spacer()
+                                .frame(height: UIScreen.getHeight(45))
+                            NoAlbumLayout()
+                        }
                     } else {
-                        NoAlbumLayout()
+                        ProgressView()
                     }
                     
                     VStack{
                         Spacer()
                         
                         HStack {
-                            
                             Spacer()
                             
-                            if (mainViewModel.traveling == 0 || mainViewModel.traveling == 1) && mainViewModel.hasAlbum {
+                            if (mainViewModel.traveling == 0 || mainViewModel.traveling == 1) && mainViewModel.hasAlbum == 2 {
                                 CameraButton()
                                     .padding(.trailing, UIScreen.getWidth(20))
                             } else {
                                 NavigationLink(destination: EmptyView()) {
-                                    Image(systemName: "plus.circle.fill")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: UIScreen.getWidth(76))
-                                        .foregroundColor(Color("ButtonColor"))
+                                    ZStack {
+                                        Circle()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(height: UIScreen.getHeight(64))
+                                            .foregroundColor(Color("B1"))
+                                        
+                                        Image(systemName: "plus")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(height: UIScreen.getHeight(24))
+                                            .foregroundColor(.white)
+                                    }
                                 }
                                 .padding(.trailing, UIScreen.getWidth(20))
                             }
@@ -153,16 +192,12 @@ struct MainView: View {
             }
         }
         .onAppear {
-            mainViewModel.hasTraveling()
-            mainViewModel.getCurrentDateTime()
-            mainViewModel.hasEmpty()
+            UserDefaultsSetting.userDocId = "Mt5DPoKI4Im0vZfq9vOl"
+            mainViewModel.fetchAlbums()
+            mainViewModel.fetchUser(userDocIds: ["Mt5DPoKI4Im0vZfq9vOl"])
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
+                mainViewModel.searchRole("Mt5DPoKI4Im0vZfq9vOl")
+            }
         }
     }
 }
-
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainView()
-    }
-}
-

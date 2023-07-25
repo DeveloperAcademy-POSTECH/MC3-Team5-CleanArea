@@ -22,16 +22,16 @@ struct YeowooApp: App {
 			//			}
 			
 			// Test
-//			LoginCoverView()
+			LoginCoverView()
 			// CameraButtonView()
-			// MainView()
+//			 MainView()
 			// SignUpView()
 //			NewAlbumView()
 			
-			let appState = AppState()
-			
-			DemoMainView()
-				.environmentObject(appState)
+//			let appState = AppState()
+//
+//			DemoMainView()
+//				.environmentObject(appState)
 			
 //			MainView()
 			
