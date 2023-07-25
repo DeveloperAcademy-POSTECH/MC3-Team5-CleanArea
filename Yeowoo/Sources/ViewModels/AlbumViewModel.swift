@@ -144,4 +144,18 @@ final class AlbumViewModel: ObservableObject {
 													   albumDocId: "T9eJMPQEGQClFHEahX6r",
 													   fileName: String(describing: UUID()))
 	}
+	
+	/// sort
+	func imageSort(state: Bool) {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "yyyy.MM.dd HH:mm:ss"
+		
+		images = images.map { $0.sorted { (img1, img2) -> Bool in
+			if let date1 = formatter.date(from: img1.uploadTime),
+			   let date2 = formatter.date(from: img2.uploadTime) {
+				return state ? date1 > date2 : date1 < date2
+			}
+			return false
+		}}
+	}
 }

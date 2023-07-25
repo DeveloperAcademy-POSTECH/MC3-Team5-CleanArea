@@ -20,13 +20,16 @@ struct AlbumFeedView: View {
 	
 	@ObservedObject private var viewModel: AlbumViewModel
 	
-	@State private var layoutToggleState = false
+	@State private var layoutToggleState = true
 	@State private var nowSelectedUser: User? // 현재 역할이 선택된 유저
 	@State private var roleState: AlbumState = .all
 	@State private var showingFinishAlert = false
 	@State private var showingUpdateAlert = false
 	@State private var showingEditSheet = false
 	@State private var changedAlbumTitle = ""
+	
+	// sort 임시 토글
+	@State private var testSortToggle = true
 	
 	init(albumDocId: String, viewModel: AlbumViewModel) {
 		self.albumDocId = albumDocId
@@ -37,15 +40,21 @@ struct AlbumFeedView: View {
 		if viewModel.fetchState {
 			
 			CustomNavigationBar()
-
+			
 			ScrollView(showsIndicators: false) {
 				VStack {
-
+					
 					ProfileCarouselView()
 					
 					Spacer()
 						.frame(height: 24)
 					Divider()
+					
+					// sort 임시 토글
+					Toggle(isOn: self.$testSortToggle) { }
+						.onChange(of: testSortToggle) { newValue in
+							viewModel.imageSort(state: newValue)
+						}
 					
 					LazyVStack(pinnedViews: [.sectionHeaders]){
 						Section {
@@ -64,8 +73,8 @@ struct AlbumFeedView: View {
 					}
 				}
 			}
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
+			.navigationBarTitle("")
+			.navigationBarHidden(true)
 		} else {
 			ProgressView()
 				.onAppear {

@@ -10,6 +10,7 @@ import SwiftUI
 struct MainView: View {
 	
 	@ObservedObject var mainViewModel = MainViewModel()
+	@ObservedObject var albumViewModel = AlbumViewModel()
 	
 	var body: some View {
 		NavigationView {
@@ -83,7 +84,7 @@ struct MainView: View {
 									}
 									
 									NavigationLink(destination: {
-										AlbumFeedView(albumDocId: mainViewModel.albums[0].id, viewModel: AlbumViewModel())
+										AlbumFeedView(albumDocId: mainViewModel.albums[0].id, viewModel: albumViewModel)
 									}) {
 										// ViewModel에 userProfileImage 가져오는 메소드 추가
 										ZStack {
@@ -135,7 +136,7 @@ struct MainView: View {
 								ForEach(mainViewModel.albums[((mainViewModel.traveling == 1 || mainViewModel.traveling == 0) ? 1 : 0)..<mainViewModel.albums.count], id: \.self){ data in
 									
 									NavigationLink(destination: {
-										AlbumFeedView(albumDocId: data.id, viewModel: AlbumViewModel())
+										AlbumFeedView(albumDocId: data.id, viewModel: albumViewModel)
 									}) {
 										AlbumLayout(
 											userId: data.users,

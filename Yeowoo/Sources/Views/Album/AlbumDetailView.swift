@@ -74,7 +74,7 @@ private extension AlbumDetailView {
 					dismiss()
 				}
 			Spacer()
-			Text("\(entitys.uploadTime)")
+			Text(getFormattedDateString(entitys.uploadTime))
 				.font(.system(size: 18))
 				.fontWeight(.semibold)
 			Spacer()
@@ -236,5 +236,11 @@ private extension AlbumDetailView {
 			.foregroundColor(Color.black)
 			.padding(.horizontal, 20)
 		Spacer()
+	}
+	
+	func getFormattedDateString(_ dateString: String) -> String {
+		let startIndex = dateString.startIndex
+		let endIndex = dateString.index(startIndex, offsetBy: 10)
+		return String(dateString[startIndex..<endIndex])
 	}
 }
