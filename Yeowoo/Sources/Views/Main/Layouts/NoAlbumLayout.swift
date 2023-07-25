@@ -10,9 +10,10 @@ import SwiftUI
 struct NoAlbumLayout: View {
     var body: some View {
         VStack(spacing: 0) {
-            RoundedRectangle(cornerRadius: 10)
-                .foregroundColor(Color(uiColor: .secondarySystemBackground))
-                .frame(width: UIScreen.getWidth(350), height: UIScreen.getWidth(350))
+            Image("EmptyFox")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: UIScreen.getWidth(247), height: UIScreen.getWidth(290))
             
             Spacer()
                 .frame(height: UIScreen.getHeight(24))

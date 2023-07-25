@@ -151,7 +151,11 @@ struct MainView: View {
                     } else if mainViewModel.hasAlbum == 1 {
                         
                         // albums ==> albums.count == 0
-                        NoAlbumLayout()
+                        VStack {
+                            Spacer()
+                                .frame(height: UIScreen.getHeight(45))
+                            NoAlbumLayout()
+                        }
                     } else {
                         ProgressView()
                     }

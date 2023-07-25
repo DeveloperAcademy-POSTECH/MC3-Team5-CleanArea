@@ -53,7 +53,10 @@ struct RecommendLayout: View {
                                 Image(role)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .frame(width: UIScreen.getWidth(22.5), height: UIScreen.getHeight(20))
+                                    .frame(width: UIScreen.getWidth(22.5), height: UIScreen.getHeight(25))
+                                
+                                Spacer()
+                                    .frame(width: UIScreen.getWidth(6))
                                 
                                 Text("내 역할")
                                     .font(.custom14semibold())
