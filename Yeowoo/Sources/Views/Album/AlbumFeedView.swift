@@ -64,6 +64,8 @@ struct AlbumFeedView: View {
 					}
 				}
 			}
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
 		} else {
 			ProgressView()
 				.onAppear {

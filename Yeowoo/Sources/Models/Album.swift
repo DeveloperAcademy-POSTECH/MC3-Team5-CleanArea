@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Album: Identifiable {
+struct Album: Identifiable, Hashable {
 	var id: String // docId
 	var albumTitle: String // 앨범 제목
 	var albumCoverImage: String // 앨범 커버 url
