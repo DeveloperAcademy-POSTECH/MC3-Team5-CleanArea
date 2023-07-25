@@ -13,12 +13,13 @@ struct EditView: View {
     @Binding var showModal: Bool
     @Binding var image: UIImage
     @Binding var didPhoto: Bool
-    @State var contentsText = "100자 이내로 작성해주세요"
+    @State var contentsText = ""
     @State var isWrite = false
     @State var showingAlert = false
     @State var isRole = false
     @State var myAlbum = true
     @State var allAlbum = false
+    let baseText = "사진에 대한 설명을 작성해주세요. (선택)"
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -50,7 +51,6 @@ struct EditView: View {
                 
                 Spacer()
             }
-            
             Spacer()
                 .frame(height: UIScreen.getHeight(29))
             
@@ -59,62 +59,34 @@ struct EditView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
-                
-                VStack {
-                    Spacer()
-                        
-                    Text(contentsText)
-                        .background(
-                            RoundedRectangle(cornerRadius: 5)
-                            .foregroundColor(Color(uiColor: .systemGray6))
-                            .opacity(0.5))
-                        .foregroundColor(.white)
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, alignment: .leading)
-                        .padding([.leading, .bottom], UIScreen.getWidth(20))
-                }
+
             }.frame(width: UIScreen.screenWidth, height: UIScreen.screenWidth*4/3)
             
             Spacer()
                 .frame(height: UIScreen.getHeight(12))
             
-            HStack {
-                Button(action: {
-                    isWrite = true
-                }) {
-                    Image("WriteButton")
-                }.sheet(isPresented: $isWrite) {
-                    WriteTextView(isWirte: $isWrite, contentsText: $contentsText)
-                        .presentationDetents([.height(UIScreen.getHeight(338)), .large])
-                }
-                
-                Button(action: {
-                    isRole = true
-                }) {
-                    Image("FolderButton")
-                }.sheet(isPresented: $isRole) {
-                    RoleView(myAlbum: $myAlbum, allAlbum: $allAlbum)
-                        .presentationDetents([.height(UIScreen.getHeight(283)), .large])
-                }
-            }
-            
             Spacer()
             
             Button(action: {
-                didPhoto = false
-                showModal = false
-                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                isWrite.toggle()
             }) {
                 ZStack {
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: 100)
                         .foregroundColor(Color("ButtonColor"))
                         .frame(height: UIScreen.getHeight(54))
                         .padding([.leading, .trailing], UIScreen.getWidth(20))
                     
-                    Text("업로드하기")
+                    Text("다음 \(Image(systemName: "chevron.right"))")
                         .font(.custom18semibold())
                         .foregroundColor(.white)
                 }
+            }.sheet(isPresented: $isWrite) {
+                WriteTextView(showModal: $showModal, contentsText: $contentsText, image: $image, didPhoto: $didPhoto)
+                    .presentationDetents([.height(UIScreen.getHeight(338)), .large])
             }
+            
+            Spacer()
+                .frame(height: UIScreen.getHeight(56))
         }.navigationBarHidden(true)
     }
 }

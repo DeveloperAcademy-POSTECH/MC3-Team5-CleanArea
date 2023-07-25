@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct WriteTextView: View {
-    @Binding var isWirte: Bool
+    @Binding var showModal: Bool
     @Binding var contentsText: String
+    @Binding var image: UIImage
+    @Binding var didPhoto: Bool
+    let backText: String = "사진에 대한 설명을 작성해주세요. (선택)"
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -28,43 +31,63 @@ struct WriteTextView: View {
                     .foregroundColor(Color("G5"))
                     .padding([.leading, .trailing], UIScreen.getWidth(20))
                 
-                TextEditor(text: $contentsText)
-                    .font(.custom18semibold())
-                    .foregroundColor(Color("G3"))
-                    .scrollContentBackground(.hidden)
-                    .padding(EdgeInsets(top: UIScreen.getHeight(12),
-                                        leading: UIScreen.getWidth(32),
-                                        bottom: UIScreen.getHeight(12),
-                                        trailing: UIScreen.getWidth(50))
-                    )
-                    .lineSpacing(5)
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                
-                HStack {
-                    Spacer()
+                ZStack {
+                    TextEditor(text: $contentsText)
+                        .font(.custom18semibold())
+                        .foregroundColor(Color("G3"))
+                        .scrollContentBackground(.hidden)
+                        .padding(EdgeInsets(top: UIScreen.getHeight(12),
+                                            leading: UIScreen.getWidth(32),
+                                            bottom: UIScreen.getHeight(12),
+                                            trailing: UIScreen.getWidth(50))
+                        )
+                        .lineSpacing(5)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                     
-                    VStack {
-                        Button(action: {
-                            contentsText = ""
-                        }) {
-                            Image(systemName: "xmark.circle.fill")
-                                .foregroundColor(Color("G3"))
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: UIScreen.getWidth(18))
-                                .padding(.trailing, UIScreen.getWidth(32))
+                    if contentsText.isEmpty {
+                        VStack {
+                            HStack {
+                                Text(backText)
+                                    .font(.custom18semibold())
+                                    .foregroundColor(Color("G3"))
+                                    .padding(EdgeInsets(top: UIScreen.getHeight(23), leading: UIScreen.getWidth(40), bottom: UIScreen.getHeight(12), trailing: UIScreen.getWidth(32)))
+                                
+                                Spacer()
+                            }
+                            
+                            Spacer()
                         }
-                        .padding(.top, UIScreen.getHeight(22))
-                        
-                        Spacer()
                     }
                 }
+                
+//                HStack {
+//                    Spacer()
+//
+//                    VStack {
+//                        Button(action: {
+//                            contentsText = ""
+//                        }) {
+//                            Image(systemName: "xmark.circle.fill")
+//                                .foregroundColor(Color("G3"))
+//                                .aspectRatio(contentMode: .fit)
+//                                .frame(width: UIScreen.getWidth(18))
+//                                .padding(.trailing, UIScreen.getWidth(32))
+//                        }
+//                        .padding(.top, UIScreen.getHeight(22))
+//
+//                        Spacer()
+//                    }
+//                }
             }
             
             Spacer()
                 .frame(height: UIScreen.getWidth(12))
             
             Button(action: {
-                isWirte = false
+                didPhoto = false
+                showModal = false
+                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+//                isWirte = false
             }) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
@@ -72,7 +95,7 @@ struct WriteTextView: View {
                         .frame(height: UIScreen.getHeight(54))
                         .padding([.leading, .trailing], UIScreen.getWidth(20))
                     
-                    Text("완료")
+                    Text("업로드하기")
                         .font(.custom18semibold())
                         .foregroundColor(.white)
                 }
@@ -80,9 +103,9 @@ struct WriteTextView: View {
         }
     }
 }
-
-struct WriteTextView_Previews: PreviewProvider {
-    static var previews: some View {
-        WriteTextView(isWirte: .constant(true), contentsText: .constant("fdfdfd"))
-    }
-}
+//
+//struct WriteTextView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        WriteTextView(isWirte: .constant(true), contentsText: .constant(""))
+//    }
+//}
