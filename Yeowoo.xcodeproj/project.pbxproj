@@ -36,6 +36,7 @@
 		6556C3F72A6BA82B00B4EEE1 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3F62A6BA82B00B4EEE1 /* View+.swift */; };
 		6556C3FB2A6E68C400B4EEE1 /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3FA2A6E68C400B4EEE1 /* UINavigationController+.swift */; };
 		6556C3FE2A6EB92600B4EEE1 /* FindFriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3FD2A6EB92600B4EEE1 /* FindFriendViewModel.swift */; };
+		6556C4002A700E0600B4EEE1 /* CacheAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3FF2A700E0600B4EEE1 /* CacheAsyncImage.swift */; };
 		65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076862A56F949003E6D92 /* YeowooApp.swift */; };
 		65C076892A56F949003E6D92 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076882A56F949003E6D92 /* ContentView.swift */; };
 		65C0768B2A56F94B003E6D92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C0768A2A56F94B003E6D92 /* Assets.xcassets */; };
@@ -147,6 +148,7 @@
 		6556C3F62A6BA82B00B4EEE1 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		6556C3FA2A6E68C400B4EEE1 /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
 		6556C3FD2A6EB92600B4EEE1 /* FindFriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindFriendViewModel.swift; sourceTree = "<group>"; };
+		6556C3FF2A700E0600B4EEE1 /* CacheAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheAsyncImage.swift; sourceTree = "<group>"; };
 		65C076832A56F949003E6D92 /* Yeowoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yeowoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C076862A56F949003E6D92 /* YeowooApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeowooApp.swift; sourceTree = "<group>"; };
 		65C076882A56F949003E6D92 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				65264BDB2A67C7BD009963E6 /* String+.swift */,
 				6556C3F62A6BA82B00B4EEE1 /* View+.swift */,
 				6556C3FA2A6E68C400B4EEE1 /* UINavigationController+.swift */,
+				6556C3FF2A700E0600B4EEE1 /* CacheAsyncImage.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -840,6 +843,7 @@
 				106475212A6536D70092FE5B /* AlbumLayout.swift in Sources */,
 				1049B7F12A63F8BA0021F674 /* Font+.swift in Sources */,
 				65C077172A5BF4A7003E6D92 /* KeyChainAccount.swift in Sources */,
+				6556C4002A700E0600B4EEE1 /* CacheAsyncImage.swift in Sources */,
 				10CC160D2A64452300B27955 /* Buttons.swift in Sources */,
 				106475182A6529E40092FE5B /* MainView.swift in Sources */,
 				1064751A2A65331D0092FE5B /* NoAlbumLayout.swift in Sources */,

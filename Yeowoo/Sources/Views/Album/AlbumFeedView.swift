@@ -187,34 +187,37 @@ private extension AlbumFeedView {
 						Button(action: {
 							profileRoleChanged(index: index)
 						}) {
-							AsyncImage(url: URL(string: viewModel.users[index].profileImage)) { image in
-								image
-									.resizable()
-									.aspectRatio(contentMode: .fill)
-									.frame(width: 70, height: 84)
-									.cornerRadius(20)
-									.padding(5)
-									.overlay {
-										RoundedRectangle(cornerRadius: 20)
-											.stroke(Color.mainColor, lineWidth: 2)
-											.padding(2)
-									}
-									.overlay (
-										(
-											roleState == .all || nowSelectedUser?.docId != viewModel.users[index].docId
-											? nil : Image("chk").frame(width: 24, height: 24)
+							CacheAsyncImage(url: URL(string: viewModel.users[index].profileImage)!) { phase in
+								switch phase {
+								case .success(let image):
+									image
+										.resizable()
+										.aspectRatio(contentMode: .fill)
+										.frame(width: 70, height: 84)
+										.cornerRadius(20)
+										.padding(5)
+										.overlay {
+											RoundedRectangle(cornerRadius: 20)
+												.stroke(Color.mainColor, lineWidth: 2)
+												.padding(2)
+										}
+										.overlay (
+											(
+												roleState == .all || nowSelectedUser?.docId != viewModel.users[index].docId
+												? nil : Image("chk").frame(width: 24, height: 24)
+											)
+											,alignment: .topTrailing
 										)
-										,alignment: .topTrailing
-									)
-									.overlay (
-										Image("\(viewModel.albums.role[index])")
-											.frame(width: 38, height: 38)
-											.padding(.top, 80)
-									)
-								
-							} placeholder: {
-								ProgressView()
-									.frame(width: 70, height: 84)
+										.overlay (
+											Image("\(viewModel.albums.role[index])")
+												.frame(width: 38, height: 38)
+												.padding(.top, 80)
+										)
+									
+								default:
+									ProgressView()
+										.frame(width: 70, height: 84)
+								}
 							}
 						}
 						Spacer().frame(height: 15)
