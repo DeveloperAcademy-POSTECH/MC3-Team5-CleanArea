@@ -35,6 +35,7 @@
 		6556C3F52A6A509E00B4EEE1 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3F42A6A509E00B4EEE1 /* AuthViewModel.swift */; };
 		6556C3F72A6BA82B00B4EEE1 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3F62A6BA82B00B4EEE1 /* View+.swift */; };
 		6556C3FB2A6E68C400B4EEE1 /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3FA2A6E68C400B4EEE1 /* UINavigationController+.swift */; };
+		6556C3FE2A6EB92600B4EEE1 /* FindFriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3FD2A6EB92600B4EEE1 /* FindFriendViewModel.swift */; };
 		65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076862A56F949003E6D92 /* YeowooApp.swift */; };
 		65C076892A56F949003E6D92 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076882A56F949003E6D92 /* ContentView.swift */; };
 		65C0768B2A56F94B003E6D92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C0768A2A56F94B003E6D92 /* Assets.xcassets */; };
@@ -145,6 +146,7 @@
 		6556C3F42A6A509E00B4EEE1 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		6556C3F62A6BA82B00B4EEE1 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		6556C3FA2A6E68C400B4EEE1 /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
+		6556C3FD2A6EB92600B4EEE1 /* FindFriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindFriendViewModel.swift; sourceTree = "<group>"; };
 		65C076832A56F949003E6D92 /* Yeowoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yeowoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C076862A56F949003E6D92 /* YeowooApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeowooApp.swift; sourceTree = "<group>"; };
 		65C076882A56F949003E6D92 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -350,6 +352,14 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		6556C3FC2A6EB91500B4EEE1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6556C3FD2A6EB92600B4EEE1 /* FindFriendViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		65C0767A2A56F949003E6D92 = {
 			isa = PBXGroup;
 			children = (
@@ -543,6 +553,7 @@
 		D5A77DDA2A66A991000D8F4E /* CaesarComponents */ = {
 			isa = PBXGroup;
 			children = (
+				6556C3FC2A6EB91500B4EEE1 /* ViewModel */,
 				D5A77DDD2A66AA01000D8F4E /* View */,
 				D5A77DDC2A66A9F2000D8F4E /* Model */,
 				D5A77DDB2A66A9EA000D8F4E /* Component */,
@@ -839,6 +850,7 @@
 				6556C3F72A6BA82B00B4EEE1 /* View+.swift in Sources */,
 				65C076FD2A5A7F1F003E6D92 /* FirebaseError.swift in Sources */,
 				65C077472A611D29003E6D92 /* FirstFeedLayout.swift in Sources */,
+				6556C3FE2A6EB92600B4EEE1 /* FindFriendViewModel.swift in Sources */,
 				65C077512A616874003E6D92 /* GalleryLayout.swift in Sources */,
 				65C0773E2A611763003E6D92 /* AlbumFeedView.swift in Sources */,
 				65C076892A56F949003E6D92 /* ContentView.swift in Sources */,
@@ -1029,7 +1041,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Yeowoo/Preview Content\"";
-				DEVELOPMENT_TEAM = 33F2H2TBU4;
+				DEVELOPMENT_TEAM = F92UQYH2RA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Yeowoo/Info.plist;
@@ -1046,7 +1058,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Hoiseong.Chung;
+				PRODUCT_BUNDLE_IDENTIFIER = azhy.Hoiseong.Chung;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1063,7 +1075,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Yeowoo/Preview Content\"";
-				DEVELOPMENT_TEAM = 33F2H2TBU4;
+				DEVELOPMENT_TEAM = F92UQYH2RA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Yeowoo/Info.plist;
@@ -1080,7 +1092,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Hoiseong.Chung;
+				PRODUCT_BUNDLE_IDENTIFIER = azhy.Hoiseong.Chung;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

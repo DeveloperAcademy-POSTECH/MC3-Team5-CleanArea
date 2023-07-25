@@ -254,6 +254,25 @@ struct FirebaseService {
 		return .fail
 	}
 	
+	/// 아이디로 유저 찾기
+	static func searchUser(userId: String) async throws -> User {
+		return try await withUnsafeThrowingContinuation { configuration in
+			db.collection("User").getDocuments { snapshot, error in
+				guard let snapshot else {
+					configuration.resume(throwing: FirebaseError.badsnapshot)
+					return
+				}
+				if let document = snapshot.documents.first(where: { $0.data()["id"] as! String == userId }) {
+					let data = document.data()
+					let user = User(documentData: data)!
+					configuration.resume(returning: user)
+				} else {
+					configuration.resume(throwing: FirebaseError.badsnapshot)
+				}
+			}
+		}
+	}
+	
 	//MARK: - Album
 	
 	/// 이미지 올리기
@@ -447,6 +466,28 @@ struct FirebaseService {
 			])
 			configuration.resume(returning: .success)
 		}
+	}
+	
+	/// 여행 생성
+	static func createTravel(album: Album) async throws -> FirebaseState {
+		var albumData: [String: Any] = [
+			"title": album.albumTitle,
+			"coverImage": album.albumCoverImage,
+			"startDay": album.startDay,
+			"endDay": "",
+			"images": [],
+			"isClosed": false,
+			"users": album.users,
+			"role": album.role
+		]
+		let collectionRef = db.collection("album")
+		let documentRef = collectionRef.addDocument(data: albumData) { error in
+			if let error = error {
+				print("error \(error.localizedDescription)")
+				return
+			}
+		}
+		return .success
 	}
 	
 	/// 여행 종료
