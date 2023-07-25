@@ -15,27 +15,27 @@ struct YeowooApp: App {
 	var body: some Scene {
 		WindowGroup {
 			// 자동로그인
-			//			if UserDefaultsSetting.userDocId.isEmpty {
-			//				LoginCoverView()
-			//			} else {
-			//				MainView()
-			//			}
+			if UserDefaultsSetting.userDocId.isEmpty {
+				LoginCoverView()
+			} else {
+				MainView()
+			}
 			
 			// Test
-			LoginCoverView()
+			//			LoginCoverView()
 			// CameraButtonView()
-//			 MainView()
+			//			 MainView()
 			// SignUpView()
-//			NewAlbumView()
+			//			NewAlbumView()
 			
-//			let appState = AppState()
-//
-//			DemoMainView()
-//				.environmentObject(appState)
+			//			let appState = AppState()
+			//
+			//			DemoMainView()
+			//				.environmentObject(appState)
 			
-//			MainView()
+			//			MainView()
 			
-//			ContentView()
+			//			ContentView()
 		}
 	}
 }

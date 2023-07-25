@@ -30,11 +30,11 @@ struct SignUpView: View {
 	@State var showAlert: Bool = false
 	
 	var body: some View {
-		VStack {
+		ScrollView(showsIndicators: false) {
 			Spacer()
 				.frame(height: 35)
-			
 			//아이디
+			
 			VStack(alignment: .leading){
 				//아이디
 				Text("아이디")
@@ -86,6 +86,7 @@ struct SignUpView: View {
 				Spacer()
 					.frame(height: 30)
 			}
+			
 			
 			//비밀번호
 			VStack(alignment: .leading){
@@ -239,18 +240,20 @@ struct SignUpView: View {
 								 dismissButton: .default(Text("확인")))
 				}
 			}
-		}.navigationTitle("회원가입")
-			.navigationBarBackButtonHidden(true)
-			.navigationBarItems(leading: Button(action:{
-				self.presentationMode.wrappedValue.dismiss()
-			}) {
-				HStack{
-					Image(systemName: "chevron.left")
-						.foregroundColor(.gray)
-				}
-			})
-			.onTapGesture {
-				self.endTextEditing()
+		}
+//		.disabled(true)
+		.navigationTitle("회원가입")
+		.navigationBarBackButtonHidden(true)
+		.navigationBarItems(leading: Button(action:{
+			self.presentationMode.wrappedValue.dismiss()
+		}) {
+			HStack{
+				Image(systemName: "chevron.left")
+					.foregroundColor(.gray)
 			}
+		})
+		.onTapGesture {
+			self.endTextEditing()
+		}
 	}
 }
