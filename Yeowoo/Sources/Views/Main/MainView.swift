@@ -24,7 +24,7 @@ struct MainView: View {
                     
                     Spacer()
                     
-                    // Alarn, Setting 버튼
+                    // Alarm, Setting 버튼
                     HStack {
                         NavigationLink(destination: EmptyView(),
                                        isActive: $mainViewModel.openAlarm) {

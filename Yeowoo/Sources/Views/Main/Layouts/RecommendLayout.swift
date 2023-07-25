@@ -14,7 +14,6 @@ struct RecommendLayout: View {
     var nickname: String
     @State var date: Int = 0
     var body: some View {
-        //        VStack {
         ZStack {
             HStack {
                 VStack(alignment: .leading, spacing: 3) {
@@ -78,11 +77,3 @@ struct RecommendLayout: View {
         }
     }
 }
-//
-//            Spacer()
-//                .frame(height: UIScreen.getHeight(24))
-//
-//            RoundedRectangle(cornerRadius: 10)
-//                .foregroundColor(Color(uiColor: .secondarySystemBackground))
-//                .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(154))
-//        }

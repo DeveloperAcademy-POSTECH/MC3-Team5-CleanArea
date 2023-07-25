@@ -9,13 +9,12 @@ import SwiftUI
 
 struct AlbumLayout: View {
     @ObservedObject var mainViewModel = MainViewModel()
-    
-    @State var traveling: Int = 0
-    var userId: [String]
-    @State var profileImages: [String] = []
-    var coverImage: String
-    var personCount = 0
     @State var days: Int = 0
+    @State var traveling: Int = 0
+    @State var profileImages: [String] = []
+    var personCount = 0
+    var userId: [String]
+    var coverImage: String
     var travelName: String
     var startDay: String
     var endDay: String
@@ -23,6 +22,7 @@ struct AlbumLayout: View {
     var body: some View {
         VStack(spacing: 0) {
             ZStack {
+                // AlbumCover
                 ZStack {
                     if coverImage != "" {
                         AsyncImage(url: URL(string: coverImage)) { image in
@@ -41,6 +41,7 @@ struct AlbumLayout: View {
                 }.frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(190))
                     .cornerRadius(20, corners: [.topLeft, .topRight])
                 
+                // 여행중 or D-Day
                 VStack(alignment: .leading, spacing: 0) {
                     
                     if traveling == 1 {
@@ -79,6 +80,7 @@ struct AlbumLayout: View {
                         .blur(radius: 3, opaque: false)
                     )
                 
+                // 같이 여행중인 인원 Circle
                 HStack(spacing: -10) {
                     if profileImages.count < 4 {
                         ForEach(profileImages, id: \.self) { img in
@@ -109,13 +111,18 @@ struct AlbumLayout: View {
             }
         }
         .onAppear {
+            // 여행중인가
             traveling = mainViewModel.compareDate(startDay, endDay)
-            print(traveling)
+            
+            // 여행 전이면 D-Day 출력
             if mainViewModel.traveling == 0 {
                 days = mainViewModel.D_Day(startDay)
             }
+            
+            // 유저 패치
             mainViewModel.fetchUser(userDocIds: userId)
             
+            // 유저 패치 이후 프로필 사진 가져오기 ( 딜레이 1초 )
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
                 profileImages = []
                 for i in 0..<mainViewModel.users.count {
@@ -127,6 +134,7 @@ struct AlbumLayout: View {
     }
 }
 
+// rectangle의 각 모서리마다 round 설정
 struct CornerRadiusStyle: ViewModifier {
     var radius: CGFloat
     var corners: UIRectCorner

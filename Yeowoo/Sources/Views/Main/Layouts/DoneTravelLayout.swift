@@ -23,7 +23,6 @@ struct DoneTravelLayout: View {
                     Text("에서")
                     Text("즐거웠던 추억을 되돌아보세요!")
                 }
-                
                 Spacer()
             }
             .font(.custom24bold())
@@ -34,6 +33,7 @@ struct DoneTravelLayout: View {
                     ZStack {
                         Spacer()
                             .frame(height: UIScreen.getHeight(20))
+                        
                         Image("Line")
                         
                         HStack {

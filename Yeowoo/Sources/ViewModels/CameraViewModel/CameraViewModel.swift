@@ -21,6 +21,7 @@ struct CameraView: UIViewControllerRepresentable {
 
     let viewController = UIViewControllerType()
     
+    // 카메라 설정
     func makeUIViewController(context: Context) -> UIViewControllerType {
         viewController.delegate = context.coordinator
         viewController.sourceType = .camera
@@ -31,6 +32,7 @@ struct CameraView: UIViewControllerRepresentable {
             
     }
     
+    // 값이 바뀌었을 때
     func updateUIViewController (_ uiViewController: UIViewControllerType, context: Context) {
         viewController.cameraDevice = changeCamera == true ? .front : .rear
         
@@ -59,8 +61,8 @@ extension CameraView {
             self.parent = parent
         }
         
+        // updateUIViewController의 작업이 끝났을 때 실행
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 parent.selectedImage = image
                 parent.didPhoto = true

@@ -12,7 +12,6 @@ final class MainViewModel: ObservableObject {
     @Published var notStartAlbums: [Album] = []
     @Published var progressAlbums: [Album] = []
     @Published var finishAlbums: [Album] = []
-    
     @Published var albums: [Album] = []
     @Published var users: [User] = []
     @Published var traveling = 0
@@ -24,6 +23,7 @@ final class MainViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     
+    // 앨범 정보 불러오기
     @MainActor
     func fetchAlbums() {
         FirebaseService.fetchAlbums()
@@ -55,6 +55,7 @@ final class MainViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    // 유저 정보 불러오기
     @MainActor
     func fetchUser(userDocIds: [String]) {
         FirebaseService.fetchUser(userDocIds: userDocIds)
@@ -71,6 +72,7 @@ final class MainViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    // 여행 중인지 확인
     @MainActor
     func hasTraveling() {
         if !albums.isEmpty {
@@ -79,6 +81,7 @@ final class MainViewModel: ObservableObject {
         }
     }
     
+    // 오늘 날짜 기준으로 여행 여부 확인
     @MainActor
     func compareDate(_ start: String, _ end: String) -> Int {
         let formatter = DateFormatter()
@@ -104,6 +107,7 @@ final class MainViewModel: ObservableObject {
         return 2
     }
     
+    // 오늘 날짜 확인
     func getCurrentDateTime() {
         let formatter = DateFormatter() //객체 생성
         formatter.locale = Locale(identifier: "ko_kr")
@@ -114,6 +118,7 @@ final class MainViewModel: ObservableObject {
         
     }
     
+    // 앨범이 비어있는지 확인
     @MainActor
     func isEmpty() {
         hasAlbum = albums.isEmpty == true ? 1 : 2
@@ -121,6 +126,7 @@ final class MainViewModel: ObservableObject {
         print(albums.isEmpty)
     }
     
+    // 여행 시작일로부터 몇일 지났는지
     func travelingDate(_ start: String) -> Int {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_kr")
@@ -134,6 +140,7 @@ final class MainViewModel: ObservableObject {
         return day
     }
 
+    // 여행일까지 앞으로 남은 기간
     func D_Day(_ start: String) -> Int {
         
         let formatter = DateFormatter()
@@ -145,13 +152,13 @@ final class MainViewModel: ObservableObject {
         let startDay = formatter.date(from: start)!
         print(startDay)
         print(Date())
-    //    let current = Date()
         
         let day = Int(ceil(startDay.timeIntervalSinceNow / 86400))
         
         return day
     }
 
+    // 여행 끝난 당일 3개의 랜덤 이미지 선택
     func randomPicture(_ album: [ImagesEntity] , _ pic: inout [String]){
         var three: [String] = ["", "", ""]
         var images: [String] = []
@@ -188,6 +195,7 @@ final class MainViewModel: ObservableObject {
         }
     }
     
+    // 진행중인 여행에서의 내 역할 가져오기
     func searchRole(_ userId: String) {
         role = albums[0].role[albums[0].users.firstIndex(of: userId) ?? 1]
         
