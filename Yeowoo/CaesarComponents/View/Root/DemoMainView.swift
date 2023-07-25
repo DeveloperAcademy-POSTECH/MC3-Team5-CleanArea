@@ -7,7 +7,15 @@
 
 import SwiftUI
 
+// 메인뷰에 세팅
+class AppState: ObservableObject {
+	@Published var moveToRootView: Bool = false
+}
+
 struct DemoMainView: View {
+	@EnvironmentObject var appState: AppState
+	@State var isViewActive: Bool = false
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -74,26 +82,29 @@ struct DemoMainView: View {
                     
                     Spacer()
                     
-                    NavigationLink{
-                        NewAlbumView()
-                            .navigationBarBackButtonHidden()
-                    } label: {
-                        Image(systemName: "plus.circle.fill")
-                            .resizable()
-                            .frame(width: 76, height: 76)
-                            .foregroundColor(.mainColor)
-                            .padding(.trailing, 20)
-                    }
+					Button {
+						isViewActive = true
+					} label: {
+						Image(systemName: "plus.circle.fill")
+							.resizable()
+							.frame(width: 76, height: 76)
+							.foregroundColor(.mainColor)
+							.padding(.trailing, 20)
+					}
+					.navigationDestination(isPresented: $isViewActive, destination: {
+						NewAlbumView().navigationBarBackButtonHidden()
+					})
+					.onReceive(self.appState.$moveToRootView) { moveToDashboard in
+						if moveToDashboard {
+							print("move pop")
+							self.isViewActive = false
+							self.appState.moveToRootView = false
+						}
+					}
                 }
             }
-            
-            
+			.navigationBarTitle("", displayMode: .automatic)
+			.navigationBarHidden(true)
         }
     }
 }
-
-//struct MainView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MainView()
-//    }
-//}
