@@ -24,9 +24,7 @@ struct FoxCardView: View {
                             .stroke(lineWidth: 1.5)
                             .foregroundColor(isSelected ? .mainColor : .clear)
                     }
-                
-                    
-                
+
                 VStack {
                     Image(fox.foxImage)
                         .resizable()
@@ -37,19 +35,10 @@ struct FoxCardView: View {
                 }
             }
             
-            
             Text(fox.description)
                 .font(.system(size: 12, weight: .medium, design: .default))
                 .multilineTextAlignment(.center)
                 .foregroundColor(.alarmGray)
-            
-            
         }
-    }
-}
-
-struct FoxCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        FoxCardView(fox: foxs[0], isSelected: false)
     }
 }

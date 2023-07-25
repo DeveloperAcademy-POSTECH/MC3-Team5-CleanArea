@@ -9,25 +9,31 @@ import SwiftUI
 
 struct FindFriendContents: View {
     
-    let user : SubUser
+    let user : User
+//	let user : SubUser
     @Binding var friendToggle: Bool
     
     var body: some View {
        HStack {
-            Image(user.profileImageUrl)
-                .resizable()
-                .scaledToFill()
-                .frame(width: 48, height: 48)
-                .clipShape(Circle())
-                .padding(.leading, 3 )
+		   AsyncImage(url: URL(string: user.profileImage)) { image in
+			   image
+				   .resizable()
+				   .scaledToFill()
+				   .frame(width: 48, height: 48)
+				   .clipShape(Circle())
+				   .padding(.leading, 3 )
+		   } placeholder: {
+			   ProgressView()
+				   .frame(width: 48, height: 48)
+		   }
             
             HStack{
                 VStack(alignment: .leading){
-                    Text(user.username)
+					Text(user.id)
                         .font((.system(size: 15, weight: .regular, design: .default)))
                         .foregroundColor(.black)
                         
-                    Text(user.nickname)
+					Text(user.nickname)
                         .font((.system(size: 12, weight: .semibold, design: .default)))
                         .foregroundColor(.gray)
                 }
@@ -37,7 +43,7 @@ struct FindFriendContents: View {
                 
                 Button{
                     friendToggle.toggle()
-                    print("\(user.username) is clicked")
+//                    print("\(user.username) is clicked")
                 } label: {
                     Image(systemName: friendToggle ? "checkmark.circle.fill" : "circle")
                                     .imageScale(.large)

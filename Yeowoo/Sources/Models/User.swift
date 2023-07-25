@@ -20,9 +20,17 @@ struct User: Identifiable {
 	let notification: [String]	// 알림
 	let fcmToken: String	// fcmToken
 	
-	init(docId: String, id: String, email: String, password: String, isFirstLogin: Bool,
-		 nickname: String, profileImage: String, progressAlbum: String,
-		 finishedAlbum: [String], notification: [String], fcmToken: String) {
+	init(docId: String = "",
+		 id: String = "",
+		 email: String = "",
+		 password: String = "",
+		 isFirstLogin: Bool = false,
+		 nickname: String = "",
+		 profileImage: String = "",
+		 progressAlbum: String = "",
+		 finishedAlbum: [String] = [],
+		 notification: [String] = [],
+		 fcmToken: String = "") {
 		self.docId = docId
 		self.id = id
 		self.email = email

@@ -9,25 +9,32 @@ import SwiftUI
 
 struct SecondFeedLayout: View {
 	
+	private var entitys: [ImagesEntity]
+	private var user: [User]
+	
+	@ObservedObject private var viewModel: AlbumViewModel
+	
 	@State private var detailIndex: Int = 0
 	@State private var isActive: Bool = false
 	
-	//	@ObservedObject var viewModel = AlbumViewModel()
-	
-	var entitys: [ImagesEntity]
-	var user: [User]
+	init(entitys: [ImagesEntity], user: [User], viewModel: AlbumViewModel) {
+		self.entitys = entitys
+		self.user = user
+		self.viewModel = viewModel
+	}
 	
 	var body: some View {
 		NavigationLink (
 			destination:
 				AlbumDetailView(entitys: entitys[detailIndex],
-								user: self.user.first(where: {$0.docId == entitys[detailIndex].uploadUser}) ?? User(docId: "", id: "", email: "", password: "", isFirstLogin: false, nickname: "azhy", profileImage: "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/album1%2F1.jpeg?alt=media&token=eeea845a-b7e0-4d77-a2d0-c3b30ca439e9", progressAlbum: "", finishedAlbum: [], notification: [], fcmToken: ""),
-								testBool: entitys[detailIndex].likeUsers.contains(UserDefaultsSetting.userDocId),
-								testCount: entitys[detailIndex].likeUsers.count)
+								user: self.user.first(where: {$0.docId == entitys[detailIndex].uploadUser}) ?? User(),
+								tempLikeState: entitys[detailIndex].likeUsers.contains(UserDefaultsSetting.userDocId),
+								tempLikeCount: entitys[detailIndex].likeUsers.count,
+								viewModel: self.viewModel)
 			,isActive: $isActive
 		) {
-			HStack(spacing: 4) {
-				VStack(spacing: 4){
+			HStack(spacing: feedSpacing) {
+				VStack(spacing: feedSpacing){
 					Button {
 						detailIndex = 0
 						isActive = true
@@ -37,15 +44,17 @@ struct SecondFeedLayout: View {
 								.resizable()
 								.aspectRatio(contentMode: .fill)
 								.frame(width: width / 3, height: 123)
-								.cornerRadius(4)
+								.cornerRadius(0)
 						} placeholder: {
 							ProgressView()
 								.frame(width: width / 3, height: 123)
 						}
 					}
 					.overlay(
-						Image(systemName: entitys[0].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
-							.padding(6),
+						Image(systemName: entitys[0].likeUsers.contains(UserDefaultsSetting.userDocId)
+							  ? "heart.fill" : "")
+						.foregroundColor(.white)
+						.padding(6),
 						alignment: .topTrailing
 					)
 					if entitys.count >= 2 {
@@ -58,22 +67,24 @@ struct SecondFeedLayout: View {
 									.resizable()
 									.aspectRatio(contentMode: .fill)
 									.frame(width: width / 3, height: 123)
-									.cornerRadius(4)
+									.cornerRadius(0)
 							} placeholder: {
 								ProgressView()
 									.frame(width: width / 3, height: 123)
 							}
 						}
 						.overlay(
-							Image(systemName: entitys[1].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
-								.padding(6),
+							Image(systemName: entitys[1].likeUsers.contains(UserDefaultsSetting.userDocId)
+								  ? "heart.fill" : "")
+							.foregroundColor(.white)
+							.padding(6),
 							alignment: .topTrailing
 						)
 					}
 				}
 				.frame(maxHeight: .infinity, alignment: .top)
 				
-				VStack(spacing: 4) {
+				VStack(spacing: feedSpacing) {
 					if entitys.count >= 3 {
 						Button {
 							detailIndex = 2
@@ -84,15 +95,17 @@ struct SecondFeedLayout: View {
 									.resizable()
 									.aspectRatio(contentMode: .fill)
 									.frame(width: width / 3, height: 123)
-									.cornerRadius(4)
+									.cornerRadius(0)
 							} placeholder: {
 								ProgressView()
 									.frame(width: width / 3, height: 123)
 							}
 						}
 						.overlay(
-							Image(systemName: entitys[2].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
-								.padding(6),
+							Image(systemName: entitys[2].likeUsers.contains(UserDefaultsSetting.userDocId)
+								  ? "heart.fill" : "")
+							.foregroundColor(.white)
+							.padding(6),
 							alignment: .topTrailing
 						)
 					}
@@ -106,46 +119,48 @@ struct SecondFeedLayout: View {
 									.resizable()
 									.aspectRatio(contentMode: .fill)
 									.frame(width: width / 3, height: 123)
-									.cornerRadius(4)
+									.cornerRadius(0)
 							} placeholder: {
 								ProgressView()
 									.frame(width: width / 3, height: 123)
 							}
 						}
 						.overlay(
-							Image(systemName: entitys[3].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
-								.padding(6),
+							Image(systemName: entitys[3].likeUsers.contains(UserDefaultsSetting.userDocId)
+								  ? "heart.fill" : "")
+							.foregroundColor(.white)
+							.padding(6),
 							alignment: .topTrailing
 						)
 					}
 				}
 				.frame(maxHeight: .infinity, alignment: .top)
-				
 				if entitys.count >= 5 {
 					Button {
 						detailIndex = 4
 						isActive = true
 					} label: {
-						AsyncImage(url: URL(string: entitys[3].url)) { image in
+						AsyncImage(url: URL(string: entitys[4].url)) { image in
 							image
 								.resizable()
 								.aspectRatio(contentMode: .fill)
 								.frame(width: width / 3, height: 250)
-								.cornerRadius(4)
+								.cornerRadius(0)
 						} placeholder: {
 							ProgressView()
 								.frame(width: width / 3, height: 250)
 						}
 					}
 					.overlay(
-						Image(systemName: entitys[4].likeUsers.contains(UserDefaultsSetting.userDocId) ? "heart.fill" : "")
-							.padding(6),
+						Image(systemName: entitys[4].likeUsers.contains(UserDefaultsSetting.userDocId)
+							  ? "heart.fill" : "")
+						.foregroundColor(.white)
+						.padding(6),
 						alignment: .topTrailing
 					)
 				}
 			}
 			.frame(maxWidth: .infinity, alignment: .leading)
 		}
-		.navigationTitle(isActive ? "" : "타이틀")
 	}
 }

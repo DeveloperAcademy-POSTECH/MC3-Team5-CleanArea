@@ -201,7 +201,6 @@ struct SignUpView: View {
 			Spacer()
 			//회원가입 버튼
 			Button {
-				print("signup")
 				Task {
 					if try await self.viewModel.signup(id: self.ID, pwd: self.password,
 													   nickname: self.nickname) {

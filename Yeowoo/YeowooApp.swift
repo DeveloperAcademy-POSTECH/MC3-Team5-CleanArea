@@ -26,6 +26,16 @@ struct YeowooApp: App {
 			// CameraButtonView()
 			 MainView()
 			// SignUpView()
+//			NewAlbumView()
+			
+			let appState = AppState()
+			
+			DemoMainView()
+				.environmentObject(appState)
+			
+//			MainView()
+			
+//			ContentView()
 		}
 	}
 }
