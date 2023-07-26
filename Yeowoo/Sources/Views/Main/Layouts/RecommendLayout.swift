@@ -33,7 +33,8 @@ struct RecommendLayout: View {
                 
                 VStack {
                     NavigationLink(destination: {
-                        
+                        RoleChangeView()
+                            .navigationBarBackButtonHidden()
                     }) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 100)

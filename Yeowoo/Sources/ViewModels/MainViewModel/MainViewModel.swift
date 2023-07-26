@@ -93,18 +93,23 @@ final class MainViewModel: ObservableObject {
         print("==")
         print(start)
         let startDay = formatter.date(from: start)!
-        let endDay = formatter.date(from: end)!
         let current = Date()
         
-        if (startDay <= current) && (current <= endDay) {
-            // 여행중
-            return 1
-        } else if current < startDay {
-            // 여행전
-            return 0
-        }
         // 여행 완료
-        return 2
+        if end != "" {
+            let endDay = formatter.date(from: end)!
+            if current >= endDay {
+                return 2
+            }
+        }
+        
+        // 여행중
+        if startDay <= current {
+            return 1
+        }
+        
+        // 여행전
+        return 0
     }
     
     // 오늘 날짜 확인

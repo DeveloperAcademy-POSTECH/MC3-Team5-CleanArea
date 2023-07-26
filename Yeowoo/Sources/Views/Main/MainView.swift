@@ -27,7 +27,7 @@ struct MainView: View {
 					
 					// Alarm, Setting 버튼
 					HStack {
-						NavigationLink(destination: EmptyView(),
+                        NavigationLink(destination: NotiView().navigationBarBackButtonHidden(),
 									   isActive: $mainViewModel.openAlarm) {
 							Button(action: {
 								mainViewModel.openAlarm.toggle()
@@ -45,7 +45,8 @@ struct MainView: View {
 						Spacer()
 							.frame(width: UIScreen.getWidth(9))
 						
-						NavigationLink(destination: EmptyView()){
+						NavigationLink(destination:
+                                        SettingView().navigationBarBackButtonHidden()){
 							ZStack {
 								Image("Person")
 									.resizable()
@@ -173,7 +174,7 @@ struct MainView: View {
 								CameraButton()
 									.padding(.trailing, UIScreen.getWidth(20))
 							} else {
-								NavigationLink(destination: EmptyView()) {
+                                NavigationLink(destination: NewAlbumView().navigationBarBackButtonHidden()) {
 									ZStack {
 										Circle()
 											.aspectRatio(contentMode: .fit)
@@ -195,10 +196,13 @@ struct MainView: View {
 			}
 		}
 		.onAppear {
+            print(UserDefaultsSetting.userDocId)
             mainViewModel.fetchAlbums()
             mainViewModel.fetchUser(userDocIds: [UserDefaultsSetting.userDocId])
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
-                mainViewModel.searchRole(UserDefaultsSetting.userDocId)
+            if mainViewModel.hasAlbum == 1 {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
+                    mainViewModel.searchRole(UserDefaultsSetting.userDocId)
+                }
             }
 		}
 	}
