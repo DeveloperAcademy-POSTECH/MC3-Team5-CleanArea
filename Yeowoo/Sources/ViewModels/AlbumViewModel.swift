@@ -20,6 +20,12 @@ final class AlbumViewModel: ObservableObject {
 	@Published var images: [[ImagesEntity]] = []
 	@Published var albums: Album = Album()
 	
+	@Published var visibleImages: [[ImagesEntity]] = []
+	var tempVisibleImages: [[ImagesEntity]] = []
+	
+	@Published var visibleRoleImages: [[ImagesEntity]] = []
+	var tempVisibleRoleImages: [[ImagesEntity]] = []
+	
 	private var cancellables = Set<AnyCancellable>()
 	
 	/// 앨범 이미지 불러오기
@@ -51,9 +57,62 @@ final class AlbumViewModel: ObservableObject {
 					self.images.append(urls)
 				}
 				
+				self.visibleImages.removeAll()
+				self.visibleRoleImages.removeAll()
+				
+				self.tempVisibleImages = self.images
+				
 				self.fetchState = true
+				
+				self.nextFetchImages()
 			}
 			.store(in: &cancellables)
+	}
+	
+	@MainActor
+	func afterLikeFetch(entityIndex: Int, entity: ImagesEntity) {
+		if let index = visibleImages[entityIndex].firstIndex(where: { $0.fileName == entity.fileName }) {
+			visibleImages[entityIndex][index] = entity
+		}
+	}
+	
+	@MainActor
+	func nextFetchImages() {
+		if !tempVisibleImages.isEmpty {
+			visibleImages.append(tempVisibleImages.removeFirst())
+		}
+	}
+	
+	/// 역할 클릭
+	@MainActor
+	func fetchAlbumUserImages(uploadUserId: String) {
+		visibleRoleImages.removeAll()
+		roleImage.removeAll()
+		var urls: [ImagesEntity] = []
+		images.forEach { imageEntitys in
+			imageEntitys.forEach { imageEntity in
+				if imageEntity.uploadUser == uploadUserId && imageEntity.roleCheck {
+					urls.append(imageEntity)
+					if urls.count == 5 {
+						roleImage.append(urls)
+						urls.removeAll()
+					}
+				}
+			}
+		}
+		if !urls.isEmpty {
+			roleImage.append(urls)
+		}
+		
+		self.tempVisibleRoleImages = roleImage
+		self.nextFetchRoleImages()
+	}
+	
+	@MainActor
+	func nextFetchRoleImages() {
+		if !tempVisibleRoleImages.isEmpty {
+			visibleRoleImages.append(tempVisibleRoleImages.removeFirst())
+		}
 	}
 	
 	/// 유저 불러오기
@@ -71,27 +130,6 @@ final class AlbumViewModel: ObservableObject {
 				self.users = user
 			}
 			.store(in: &cancellables)
-	}
-	
-	/// 역할 클릭
-	@MainActor
-	func fetchAlbumUserImages(uploadUserId: String) {
-		roleImage.removeAll()
-		var urls: [ImagesEntity] = []
-		images.forEach { imageEntitys in
-			imageEntitys.forEach { imageEntity in
-				if imageEntity.uploadUser == uploadUserId && imageEntity.roleCheck {
-					urls.append(imageEntity)
-					if urls.count == 5 {
-						roleImage.append(urls)
-						urls.removeAll()
-					}
-				}
-			}
-		}
-		if !urls.isEmpty {
-			roleImage.append(urls)
-		}
 	}
 	
 	/// 좋아요 클릭
@@ -143,5 +181,27 @@ final class AlbumViewModel: ObservableObject {
 		_ = try await FirebaseService.uploadAlbumImage(image: UIImage(named: "9")!,
 													   albumDocId: "T9eJMPQEGQClFHEahX6r",
 													   fileName: String(describing: UUID()))
+	}
+	
+	/// sort
+	func imageSort(state: Bool) {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "yyyy.MM.dd HH:mm:ss"
+		
+		visibleImages = visibleImages.map { $0.sorted { (img1, img2) -> Bool in
+			if let date1 = formatter.date(from: img1.uploadTime),
+			   let date2 = formatter.date(from: img2.uploadTime) {
+				return state ? date1 > date2 : date1 < date2
+			}
+			return false
+		}}
+		
+		visibleRoleImages = visibleRoleImages.map { $0.sorted { (img1, img2) -> Bool in
+			if let date1 = formatter.date(from: img1.uploadTime),
+			   let date2 = formatter.date(from: img2.uploadTime) {
+				return state ? date1 > date2 : date1 < date2
+			}
+			return false
+		}}
 	}
 }

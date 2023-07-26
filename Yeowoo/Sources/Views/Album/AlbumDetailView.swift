@@ -22,8 +22,9 @@ struct AlbumDetailView: View {
 	
 	@Environment(\.dismiss) var dismiss
 	
-	private var entitys: ImagesEntity
+	@State private var entitys: ImagesEntity
 	private var user: User
+	private var entityIndex: Int
 	
 	@ObservedObject private var viewModel: AlbumViewModel
 	
@@ -31,9 +32,10 @@ struct AlbumDetailView: View {
 	@State private var tempLikeCount: Int
 	@State private var alertType: AlertType? = nil
 	
-	init(entitys: ImagesEntity, user: User,
+	init(entityIndex: Int, entitys: ImagesEntity, user: User,
 		 tempLikeState: Bool, tempLikeCount: Int, viewModel: AlbumViewModel) {
-		self.entitys = entitys
+		self.entityIndex = entityIndex
+		self._entitys = State(initialValue: entitys)
 		self.user = user
 		self._tempLikeState = State(initialValue: tempLikeState)
 		self._tempLikeCount = State(initialValue: tempLikeCount)
@@ -53,10 +55,20 @@ struct AlbumDetailView: View {
 		}
 		.navigationBarTitle("")
 		.navigationBarHidden(true)
+		.onAppear {
+			viewModel.likeChk = false
+		}
 		.onDisappear {
 			if viewModel.likeChk {
 				Task {
-					viewModel.fetchAlbumImages(albumDocId: viewModel.albums.id)
+					if tempLikeState {
+						entitys.likeUsers.append(UserDefaultsSetting.userDocId)
+					} else {
+						if let index = entitys.likeUsers.firstIndex(of: UserDefaultsSetting.userDocId) {
+								entitys.likeUsers.remove(at: index)
+							}
+					}
+					viewModel.afterLikeFetch(entityIndex: entityIndex, entity: entitys)
 				}
 			}
 		}
@@ -74,7 +86,7 @@ private extension AlbumDetailView {
 					dismiss()
 				}
 			Spacer()
-			Text("\(entitys.uploadTime)")
+			Text(getFormattedDateString(entitys.uploadTime))
 				.font(.system(size: 18))
 				.fontWeight(.semibold)
 			Spacer()
@@ -236,5 +248,11 @@ private extension AlbumDetailView {
 			.foregroundColor(Color.black)
 			.padding(.horizontal, 20)
 		Spacer()
+	}
+	
+	func getFormattedDateString(_ dateString: String) -> String {
+		let startIndex = dateString.startIndex
+		let endIndex = dateString.index(startIndex, offsetBy: 10)
+		return String(dateString[startIndex..<endIndex])
 	}
 }

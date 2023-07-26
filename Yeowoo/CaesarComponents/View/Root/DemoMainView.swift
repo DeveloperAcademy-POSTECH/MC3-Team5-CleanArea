@@ -8,7 +8,7 @@
 import SwiftUI
 
 // 메인뷰에 세팅
-class AppState: ObservableObject {
+final class AppState: ObservableObject {
 	@Published var moveToRootView: Bool = false
 }
 

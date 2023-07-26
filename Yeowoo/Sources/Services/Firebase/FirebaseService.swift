@@ -288,7 +288,7 @@ struct FirebaseService {
 				} else {
 					storage.reference().child("album1/" + "\(fileName)").downloadURL { URL, error in
 						let dateFormatter = DateFormatter()
-						dateFormatter.dateFormat = "yyyy.MM.dd"
+						dateFormatter.dateFormat = "yyyy.MM.dd HH:mm:ss"
 						guard let URL else { return }
 						let updatedData: [String: Any] = [
 							// 수정
