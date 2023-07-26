@@ -45,7 +45,7 @@ struct ImagesEntity: Hashable {
     let url: String    // url
     let uploadUser: String    // 업로드 한 유저
     let roleCheck: Bool    // 역할 확인
-    let likeUsers: [String] // 좋아요 한 유저들
+    var likeUsers: [String] // 좋아요 한 유저들
     let uploadTime: String // 올린 시간 (수정한 시간)
 }
 

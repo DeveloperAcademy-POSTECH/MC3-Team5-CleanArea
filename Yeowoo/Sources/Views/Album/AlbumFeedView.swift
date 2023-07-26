@@ -41,34 +41,49 @@ struct AlbumFeedView: View {
 			
 			CustomNavigationBar()
 			
-			ScrollView(showsIndicators: false) {
-				VStack {
-					
-					ProfileCarouselView()
-					
-					Spacer()
-						.frame(height: 24)
-					Divider()
-					
-					// sort 임시 토글
-					Toggle(isOn: self.$testSortToggle) { }
-						.onChange(of: testSortToggle) { newValue in
-							viewModel.imageSort(state: newValue)
-						}
-					
-					LazyVStack(pinnedViews: [.sectionHeaders]){
-						Section {
-							ImageView()
-						} header: {
-							HStack {
-								Toggle(isOn: self.$layoutToggleState) {
-									Text((roleState == .all ? "All" : self.nowSelectedUser?.nickname)!)
-								}
-								.toggleStyle(CheckmarkToggleStyle())
-								.padding(.horizontal)
+			ScrollViewReader { proxy in
+				ScrollView(showsIndicators: false) {
+					VStack {
+						
+						ProfileCarouselView()
+							.id("scroll_to_top")
+						
+						Spacer()
+							.frame(height: 24)
+						Divider()
+						
+						// sort 임시 토글
+						Toggle(isOn: self.$testSortToggle) { }
+							.onChange(of: testSortToggle) { newValue in
+								viewModel.imageSort(state: newValue)
 							}
-							.frame(height: 40)
-							.background(Color.white)
+						
+						LazyVStack(pinnedViews: [.sectionHeaders]){
+							Section {
+								ImageView()
+							} header: {
+								HStack {
+									Toggle(isOn: self.$layoutToggleState) {
+										Text((roleState == .all ? "All" : self.nowSelectedUser?.nickname)!)
+									}
+									.onChange(of: layoutToggleState, perform: { _ in
+										withAnimation(.default) {
+											proxy.scrollTo("scroll_to_top", anchor: .top)
+										}
+									})
+									.toggleStyle(CheckmarkToggleStyle())
+									.padding(.horizontal)
+								}
+								.frame(height: 40)
+								.background(Color.white)
+							}
+							if roleState == .all ? (!viewModel.tempVisibleImages.isEmpty)
+								: (!viewModel.tempVisibleRoleImages.isEmpty) {
+								ProgressView()
+									.onAppear {
+										roleState == .all ? viewModel.nextFetchImages() : viewModel.nextFetchRoleImages()
+									}
+							}
 						}
 					}
 				}
@@ -286,7 +301,7 @@ private extension AlbumFeedView {
 	
 	@ViewBuilder
 	func ImageView() -> some View {
-		if roleState == .all && (viewModel.images.isEmpty || viewModel.images[0].count == 0) {
+		if roleState == .all && (viewModel.visibleImages.isEmpty || viewModel.visibleImages[0].count == 0) {
 			VStack {
 				Text("첫 번째 사진을 올려보세요!")
 				Text("카메라로 사진을 찍어 첫 추억을 남겨보세요")
@@ -297,7 +312,8 @@ private extension AlbumFeedView {
 				.padding(.top, UIScreen.main.bounds.height / 3.5)
 		} else {
 			VStack(spacing: layoutToggleState ? 0 : 2) {
-				ForEach(roleState == .all ? viewModel.images.indices : viewModel.roleImage.indices, id: \.self) { index in
+				ForEach(roleState == .all ? viewModel.visibleImages.indices
+						: viewModel.visibleRoleImages.indices, id: \.self) { index in
 					setLayout(index: index)
 				}
 			}
@@ -309,31 +325,37 @@ private extension AlbumFeedView {
 		if layoutToggleState {
 			if roleState == .all {
 				GalleryLayout(viewModel: viewModel,
-							  entitys: viewModel.images[index],
-							  user: viewModel.users)
+							  entitys: viewModel.visibleImages[index],
+							  user: viewModel.users,
+							  entityIndex: index)
 			} else {
 				GalleryLayout(viewModel: viewModel,
-							  entitys: viewModel.roleImage[index],
-							  user: viewModel.users)
+							  entitys: viewModel.visibleRoleImages[index],
+							  user: viewModel.users,
+							  entityIndex: index)
 			}
 		} else {
 			if index % 3 == 1 {
 				if roleState == .all {
-					FirstFeedLayout(entitys: viewModel.images[index],
+					FirstFeedLayout(entityIndex: index,
+									entitys: viewModel.visibleImages[index],
 									user: viewModel.users,
 									viewModel: viewModel)
 				} else {
-					FirstFeedLayout(entitys: viewModel.roleImage[index],
+					FirstFeedLayout(entityIndex: index,
+									entitys: viewModel.visibleRoleImages[index],
 									user: viewModel.users,
 									viewModel: viewModel)
 				}
 			} else {
 				if roleState == .all {
-					SecondFeedLayout(entitys: viewModel.images[index],
+					SecondFeedLayout(entityIndex: index,
+									 entitys: viewModel.visibleImages[index],
 									 user: viewModel.users,
 									 viewModel: viewModel)
 				} else {
-					SecondFeedLayout(entitys: viewModel.roleImage[index],
+					SecondFeedLayout(entityIndex: index,
+									 entitys: viewModel.visibleRoleImages[index],
 									 user: viewModel.users,
 									 viewModel: viewModel)
 				}

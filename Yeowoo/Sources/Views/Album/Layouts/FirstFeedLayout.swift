@@ -15,13 +15,15 @@ struct FirstFeedLayout: View {
 	
 	private var entitys: [ImagesEntity]
 	private var user: [User]
+	private var entityIndex: Int
 	
 	@ObservedObject private var viewModel: AlbumViewModel
 	
 	@State private var detailIndex: Int = 0
 	@State private var isActive: Bool = false
 	
-	init(entitys: [ImagesEntity], user: [User], viewModel: AlbumViewModel) {
+	init(entityIndex: Int, entitys: [ImagesEntity], user: [User], viewModel: AlbumViewModel) {
+		self.entityIndex = entityIndex
 		self.entitys = entitys
 		self.user = user
 		self.viewModel = viewModel
@@ -30,7 +32,8 @@ struct FirstFeedLayout: View {
 	var body: some View {
 		NavigationLink (
 			destination:
-				AlbumDetailView(entitys: entitys[detailIndex],
+				AlbumDetailView(entityIndex: entityIndex,
+								entitys: entitys[detailIndex],
 								user: self.user.first(where: {$0.docId == entitys[detailIndex].uploadUser}) ?? User(),
 								tempLikeState: entitys[detailIndex].likeUsers.contains(UserDefaultsSetting.userDocId),
 								tempLikeCount: entitys[detailIndex].likeUsers.count,
