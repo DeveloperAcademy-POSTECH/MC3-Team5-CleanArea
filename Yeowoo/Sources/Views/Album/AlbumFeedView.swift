@@ -166,7 +166,9 @@ private extension AlbumFeedView {
 					Alert(
 						title: Text("제목 수정"),
 						message: Text("앨범 제목을 수정했어요."),
-						dismissButton: .default(Text("확인")) { }
+						dismissButton: .default(Text("확인")) {
+							showingEditSheet = false
+						}
 					)
 				}
 				
