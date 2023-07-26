@@ -15,13 +15,11 @@ struct YeowooApp: App {
 	var body: some Scene {
 		WindowGroup {
 			// 자동로그인
-//			if UserDefaultsSetting.userDocId.isEmpty {
-//				LoginCoverView()
-//			} else {
-//				MainView()
-//			}
-            
-            MainView()
+			if UserDefaultsSetting.userDocId.isEmpty {
+				LoginCoverView()
+			} else {
+				MainView()
+			}
 			
 			// Test
 			//			LoginCoverView()

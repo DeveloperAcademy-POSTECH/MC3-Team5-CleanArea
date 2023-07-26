@@ -195,12 +195,11 @@ struct MainView: View {
 			}
 		}
 		.onAppear {
-			UserDefaultsSetting.userDocId = "Mt5DPoKI4Im0vZfq9vOl"
-			mainViewModel.fetchAlbums()
-			mainViewModel.fetchUser(userDocIds: ["Mt5DPoKI4Im0vZfq9vOl"])
-			DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
-				mainViewModel.searchRole("Mt5DPoKI4Im0vZfq9vOl")
-			}
+            mainViewModel.fetchAlbums()
+            mainViewModel.fetchUser(userDocIds: [UserDefaultsSetting.userDocId])
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
+                mainViewModel.searchRole(UserDefaultsSetting.userDocId)
+            }
 		}
 	}
 }
