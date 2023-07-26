@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct AlbumLayout: View {
-    @ObservedObject var mainViewModel = MainViewModel()
+    
+    @ObservedObject var mainViewModel: MainViewModel
+    
     @State var days: Int = 0
     @State var traveling: Int = 0
     @State var profileImages: [String] = []
+    var coverImage: String
     var personCount = 0
     var userId: [String]
-    var coverImage: String
     var travelName: String
     var startDay: String
     var endDay: String
@@ -110,7 +112,28 @@ struct AlbumLayout: View {
                 .frame(maxWidth: UIScreen.getWidth(330))
             }
         }
-        .onAppear {
+//        .onAppear {
+//            // 여행중인가
+//            traveling = mainViewModel.compareDate(startDay, endDay)
+//
+//            // 여행 전이면 D-Day 출력
+//            if mainViewModel.traveling == 0 {
+//                days = mainViewModel.D_Day(startDay)
+//            }
+//
+//            // 유저 패치
+//            mainViewModel.fetchUser(userDocIds: userId)
+//
+//            // 유저 패치 이후 프로필 사진 가져오기 ( 딜레이 1초 )
+//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+//                profileImages = []
+//                for i in 0..<mainViewModel.users.count {
+//                    profileImages.append(mainViewModel.users[i].profileImage)
+//                }
+//            }
+//
+//        }
+        .task {
             // 여행중인가
             traveling = mainViewModel.compareDate(startDay, endDay)
             
@@ -120,7 +143,7 @@ struct AlbumLayout: View {
             }
             
             // 유저 패치
-            mainViewModel.fetchUser(userDocIds: userId)
+            await mainViewModel.fetchUser(userDocIds: userId)
             
             // 유저 패치 이후 프로필 사진 가져오기 ( 딜레이 1초 )
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
@@ -130,6 +153,7 @@ struct AlbumLayout: View {
                 }
             }
             
+            print(coverImage)
         }
     }
 }

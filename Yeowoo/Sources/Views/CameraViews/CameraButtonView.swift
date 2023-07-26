@@ -15,15 +15,12 @@ struct CameraButton: View {
     @State var didPhoto: Bool = false
     @State var isFlash: Bool = false
     @State var name: String = "bolt.fill"
-    @State var acceptCamera: Bool = false
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         Button(action: {
             UIView.setAnimationsEnabled(false)
-            if acceptCamera {
-                showModal = true
-            }
+            showModal = true
         }) {
             ZStack {
                 Circle()
@@ -84,10 +81,6 @@ struct CameraButton: View {
         }
         .onAppear{
             UIView.setAnimationsEnabled(true)
-            
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
-                acceptCamera = true
-            }
         }
     }
 }
