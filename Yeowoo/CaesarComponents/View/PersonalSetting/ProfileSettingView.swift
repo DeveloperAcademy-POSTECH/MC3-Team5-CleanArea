@@ -100,11 +100,3 @@ struct ProfileSettingView: View {
     }
 }
 
-struct ProfileSettingView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileSettingView(myImage: "Noru")
-    }
-}
-
-
-

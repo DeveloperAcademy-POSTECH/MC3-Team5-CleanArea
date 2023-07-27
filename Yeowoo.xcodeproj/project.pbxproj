@@ -37,6 +37,7 @@
 		6556C3FB2A6E68C400B4EEE1 /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3FA2A6E68C400B4EEE1 /* UINavigationController+.swift */; };
 		6556C3FE2A6EB92600B4EEE1 /* FindFriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3FD2A6EB92600B4EEE1 /* FindFriendViewModel.swift */; };
 		6556C4002A700E0600B4EEE1 /* CacheAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3FF2A700E0600B4EEE1 /* CacheAsyncImage.swift */; };
+		6556C40F2A7245DA00B4EEE1 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C40E2A7245DA00B4EEE1 /* SettingViewModel.swift */; };
 		65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076862A56F949003E6D92 /* YeowooApp.swift */; };
 		65C076892A56F949003E6D92 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076882A56F949003E6D92 /* ContentView.swift */; };
 		65C0768B2A56F94B003E6D92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C0768A2A56F94B003E6D92 /* Assets.xcassets */; };
@@ -149,6 +150,7 @@
 		6556C3FA2A6E68C400B4EEE1 /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
 		6556C3FD2A6EB92600B4EEE1 /* FindFriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindFriendViewModel.swift; sourceTree = "<group>"; };
 		6556C3FF2A700E0600B4EEE1 /* CacheAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheAsyncImage.swift; sourceTree = "<group>"; };
+		6556C40E2A7245DA00B4EEE1 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		65C076832A56F949003E6D92 /* Yeowoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yeowoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C076862A56F949003E6D92 /* YeowooApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeowooApp.swift; sourceTree = "<group>"; };
 		65C076882A56F949003E6D92 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 			isa = PBXGroup;
 			children = (
 				6556C3FD2A6EB92600B4EEE1 /* FindFriendViewModel.swift */,
+				6556C40E2A7245DA00B4EEE1 /* SettingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -853,6 +856,7 @@
 				1049B7FB2A63FA670021F674 /* CameraButtonView.swift in Sources */,
 				6556C3F72A6BA82B00B4EEE1 /* View+.swift in Sources */,
 				65C076FD2A5A7F1F003E6D92 /* FirebaseError.swift in Sources */,
+				6556C40F2A7245DA00B4EEE1 /* SettingViewModel.swift in Sources */,
 				65C077472A611D29003E6D92 /* FirstFeedLayout.swift in Sources */,
 				6556C3FE2A6EB92600B4EEE1 /* FindFriendViewModel.swift in Sources */,
 				65C077512A616874003E6D92 /* GalleryLayout.swift in Sources */,

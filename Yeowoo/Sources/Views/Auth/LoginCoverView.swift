@@ -8,14 +8,19 @@
 import SwiftUI
 
 struct LoginCoverView: View {
+	@EnvironmentObject var appState: AppState
+	@State var isViewActive: Bool = false
+	
 	var body: some View {
-		NavigationView {
+		NavigationStack {
 			ZStack {
 				VStack(alignment: .center, spacing: 0) {
 					Image("loginLogo")
 				}
 				
-				NavigationLink(destination: LoginView()) {
+				Button {
+					isViewActive = true
+				} label: {
 					Text("로그인")
 						.font(.system(size: 18))
 						.fontWeight(.semibold)
@@ -24,6 +29,15 @@ struct LoginCoverView: View {
 						.background(
 							RoundedRectangle(cornerRadius: 10)
 								.fill(Color("B1")))
+				}
+				.navigationDestination(isPresented: $isViewActive, destination: {
+					SettingView()
+				})
+				.onReceive(self.appState.$moveToRootView) { moveToDashboard in
+					if moveToDashboard {
+						self.isViewActive = false
+						self.appState.moveToRootView = false
+					}
 				}
 				.padding(.top, 320)
 				
