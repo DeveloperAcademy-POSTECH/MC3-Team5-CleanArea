@@ -691,4 +691,16 @@ struct FirebaseService {
 			}
 		}
 	}
+	
+	/// 여행참가
+	static func participateTravel(albumDocId: String, role: String) async throws -> FirebaseState {
+		let albumDocumentRef = db.collection("album").document(albumDocId)
+		return try await withUnsafeThrowingContinuation { configuration in
+			albumDocumentRef.updateData([
+				"role": FieldValue.arrayUnion(["albumDocId"]),
+				"users": FieldValue.arrayUnion(["albumDocId"])
+			])
+			configuration.resume(returning: .success)
+		}
+	}
 }
