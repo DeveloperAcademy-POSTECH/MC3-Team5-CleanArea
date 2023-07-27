@@ -10,6 +10,7 @@ import SwiftUI
 struct LoginCoverView: View {
 	@EnvironmentObject var appState: AppState
 	@State var isViewActive: Bool = false
+	@State var userInfo = User()
 	
 	var body: some View {
 		NavigationStack {
@@ -31,7 +32,7 @@ struct LoginCoverView: View {
 								.fill(Color("B1")))
 				}
 				.navigationDestination(isPresented: $isViewActive, destination: {
-					SettingView()
+					SettingView(userInfo: $userInfo)
 				})
 				.onReceive(self.appState.$moveToRootView) { moveToDashboard in
 					if moveToDashboard {

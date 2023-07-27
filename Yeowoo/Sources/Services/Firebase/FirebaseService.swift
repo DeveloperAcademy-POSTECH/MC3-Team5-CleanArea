@@ -136,6 +136,57 @@ struct FirebaseService {
 		}
 	}
 	
+	/// 프로필 변경
+	static func updateProfile(image: UIImage? = nil, nickname: String, id: String) async throws -> FirebaseState {
+		do {
+			var err = false
+			if image == nil {
+				let path = db.collection("User").document(UserDefaultsSetting.userDocId)
+				return try await withUnsafeThrowingContinuation { configuration in
+					path.updateData([
+						"nickname": nickname,
+						"id": id
+					]) { error in
+						print(KeyChainError.itemNotFound)
+						err = true
+					}
+					configuration.resume(returning: err ? .fail : .success)
+				}
+			} else {
+				let data = image!.jpegData(compressionQuality: 0.5)!
+				let storage = Storage.storage()
+				let metaData = StorageMetadata()
+				metaData.contentType = "image/png"
+				let uuid = String(describing: UUID())
+				storage.reference().child("album1/" + uuid).putData(data, metadata: metaData) { (metaData, error) in
+					if let error = error {
+						print("error \(error.localizedDescription)")
+						return
+					} else {
+						storage.reference().child("album1/" + uuid).downloadURL { URL, error in
+							guard let URL else { return }
+							do {
+								let id = try KeyChainManager.shared.read(account: .documentId)
+								let path = db.collection("User").document(UserDefaultsSetting.userDocId)
+								path.updateData([
+									"profileImage" : String(describing: URL),
+									"nickname": nickname,
+									"id": id
+								])
+							} catch {
+								print(KeyChainError.itemNotFound)
+								return
+							}
+						}
+					}
+				}
+			}
+		} catch {
+			print(KeyChainError.itemNotFound)
+		}
+		return .fail
+	}
+	
 	/// 닉네임 변경
 	static func updateNickname(updatedNickname: String) async throws -> FirebaseState {
 		do {

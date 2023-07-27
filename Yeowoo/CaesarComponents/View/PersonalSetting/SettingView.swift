@@ -12,16 +12,15 @@ struct SettingView: View {
 	
 	@ObservedObject var viewModel = SettingViewModel()
 	
+	@Binding var userInfo: User
+	
 	@Environment(\.dismiss) var dismiss
-	@State private var name = "노루궁뎅이"
-	@State private var role = "norubutt"
-	private var myImage = "Noru"
 	//사진 촬영 알림 토글
-	@State private var notiToggle = true
+	@State var notiToggle = true
 	//회원탈퇴 alert
-	@State private var deletingAccount = false
+	@State var deletingAccount = false
 	//로그아웃  action sheet
-	@State private var loggingOutSheet = false
+	@State var loggingOutSheet = false
 	
 	var body: some View {
 		//VStack 뷰
@@ -33,23 +32,30 @@ struct SettingView: View {
 				
 				NavigationLink{
 					//                        ProfileSettingView(selectedImage: $myImage)
-					ProfileSettingView(myImage: myImage)
+					ProfileSettingView(userInfo: $userInfo, viewModel: self.viewModel)
 						.navigationBarBackButtonHidden()
 				}label: {
 					HStack{
-						
-						Image(myImage)
-							.resizable()
-							.scaledToFill()
-							.frame(width: 64, height: 64)
-							.background(Color.mainColor)
-							.clipShape(Circle())
-							.padding(.horizontal, 10 )
+						CacheAsyncImage(url: URL(string: userInfo.profileImage)!) { phase in
+							switch phase {
+							case .success(let image):
+								image
+									.resizable()
+									.scaledToFill()
+									.frame(width: 64, height: 64)
+									.background(Color.mainColor)
+									.clipShape(Circle())
+									.padding(.horizontal, 10 )
+							default:
+								ProgressView()
+									.frame(width: 64, height: 64)
+							}
+						}
 						HStack{
 							VStack(alignment: .leading){
-								Text(name)
+								Text(userInfo.nickname)
 									.font(.headline)
-								Text(role)
+								Text(userInfo.id)
 									.font(.footnote)
 									.foregroundColor(.gray)
 								
