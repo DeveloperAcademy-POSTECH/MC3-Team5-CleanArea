@@ -10,7 +10,7 @@ import SwiftUI
 struct AlbumLayout: View {
     
     @ObservedObject var mainViewModel: MainViewModel
-    
+    @State var fetch: Bool = false
     @State var days: Int = 0
     @State var traveling: Int = 0
     @State var profileImages: [String] = []
@@ -135,25 +135,27 @@ struct AlbumLayout: View {
 //        }
         .task {
             // 여행중인가
-            traveling = mainViewModel.compareDate(startDay, endDay)
-            
-            // 여행 전이면 D-Day 출력
-            if mainViewModel.traveling == 0 {
-                days = mainViewModel.D_Day(startDay)
-            }
-            
-            // 유저 패치
-            await mainViewModel.fetchUser(userDocIds: userId)
-            
-            // 유저 패치 이후 프로필 사진 가져오기 ( 딜레이 1초 )
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-                profileImages = []
-                for i in 0..<mainViewModel.users.count {
-                    profileImages.append(mainViewModel.users[i].profileImage)
+            if !fetch {
+                traveling = mainViewModel.compareDate(startDay, endDay)
+                
+                // 여행 전이면 D-Day 출력
+                if mainViewModel.traveling == 0 {
+                    days = mainViewModel.D_Day(startDay)
                 }
+                
+                // 유저 패치
+                await mainViewModel.fetchUser(userDocIds: userId)
+                
+                // 유저 패치 이후 프로필 사진 가져오기 ( 딜레이 1초 )
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                    profileImages = []
+                    for i in 0..<mainViewModel.users.count {
+                        profileImages.append(mainViewModel.users[i].profileImage)
+                    }
+                }
+                
+                fetch = true
             }
-            
-            print(coverImage)
         }
     }
 }

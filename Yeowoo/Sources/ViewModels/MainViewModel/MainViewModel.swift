@@ -8,7 +8,7 @@ import Combine
 import SwiftUI
 
 final class MainViewModel: ObservableObject {
-    
+
     @Published var notStartAlbums: [Album] = []
     @Published var progressAlbums: [Album] = []
     @Published var finishAlbums: [Album] = []
@@ -21,6 +21,7 @@ final class MainViewModel: ObservableObject {
     @Published var today: String = ""
     @Published var role: String = ""
     @Published var finishedFetch: Bool = false
+    @Published var randomUser: [User] = []
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -69,6 +70,22 @@ final class MainViewModel: ObservableObject {
                 }
             } receiveValue: { user in
                 self.users = user
+            }
+            .store(in: &cancellables)
+    }
+    
+    @MainActor
+    func randomImageUsers(userDocIds: [String]) async {
+        FirebaseService.fetchUser(userDocIds: userDocIds)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    return
+                }
+            } receiveValue: { user in
+                self.randomUser = user
             }
             .store(in: &cancellables)
     }
@@ -227,5 +244,4 @@ final class MainViewModel: ObservableObject {
             }
         }
     }
-
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BeforeTravelLayout: View {
     @StateObject var mainViewModel = MainViewModel()
+    @State var fetch: Bool = false
     @Binding var role: String
     var nickname: String
     var startDay: String
@@ -67,7 +68,10 @@ struct BeforeTravelLayout: View {
             .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(68))
         }
         .onAppear {
-            date = mainViewModel.D_Day(startDay)
+            if !fetch {
+                date = mainViewModel.D_Day(startDay)
+                fetch = true
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RecommendLayout: View {
     @StateObject var mainViewModel = MainViewModel()
+    @State var fetch: Bool = false
     @Binding var role: String
     var startday: String
     var nickname: String
@@ -74,7 +75,10 @@ struct RecommendLayout: View {
             }
             .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(102))
         }.onAppear {
-            date = mainViewModel.travelingDate(startday)
+            if !fetch {
+                date = mainViewModel.travelingDate(startday)
+                fetch = true
+            }
         }
     }
 }

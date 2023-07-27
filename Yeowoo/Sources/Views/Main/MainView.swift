@@ -113,7 +113,8 @@ struct MainView: View {
                                         ZStack {
                                             LinearGradient(gradient: Gradient(colors: [.clear, Color("G5")]), startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
                                             
-                                            DoneTravelLayout(images: mainViewModel.albums[0].images,
+                                            DoneTravelLayout(userNames: mainViewModel.albums[0].users,
+                                                             images: mainViewModel.albums[0].images,
                                                              nickname: mainViewModel.users[0].nickname,
                                                              albumName: mainViewModel.albums[0].albumTitle)
                                         }
