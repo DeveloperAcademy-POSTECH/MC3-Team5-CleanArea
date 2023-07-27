@@ -15,6 +15,7 @@ final class AppState: ObservableObject {
 struct DemoMainView: View {
 	@EnvironmentObject var appState: AppState
 	@State var isViewActive: Bool = false
+	@State var userInfo = User()
 
     var body: some View {
         NavigationStack {
@@ -65,7 +66,7 @@ struct DemoMainView: View {
                                         .foregroundColor(.mainColor))
                             }
                             NavigationLink{
-                                SettingView()
+								SettingView(userInfo: $userInfo)
                                     .navigationBarBackButtonHidden()
                             } label: {
                                 Circle()
