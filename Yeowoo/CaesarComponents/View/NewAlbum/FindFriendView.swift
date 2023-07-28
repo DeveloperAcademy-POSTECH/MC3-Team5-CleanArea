@@ -73,12 +73,15 @@ struct FindFriendView: View {
 			Button{
 				selectedFriends = myFriend.indices.filter { friendToggles[$0] }.map { myFriend[$0] }
 				
+				print("@@@ \(newAlbum.users)")
+				
 				newAlbum.users.append(contentsOf: selectedFriends.map { $0.docId })
+				print("@@@ \(newAlbum.users)")
 				
 				for _ in 0..<newAlbum.users.count - 1 {
 					newAlbum.role.append("normalFox")
 				}
-				
+
 				// 여행 생성
 				Task {
 					try await viewModel.createTravel(newAlbum: newAlbum)

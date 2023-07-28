@@ -97,6 +97,7 @@ struct FirebaseService {
 								try KeyChainManager.shared.create(account: .documentId,
 																  documentId: document.documentID)
 								UserDefaultsSetting.userDocId = document.documentID
+								UserDefaultsSetting.nickname = document.data()["nickname"] as! String
 								chk = true
 							} catch {
 								print(KeyChainError.itemNotFound)
@@ -519,7 +520,7 @@ struct FirebaseService {
 	}
 	
 	/// 여행 생성
-	static func createTravel(album: Album) async throws -> FirebaseState {
+	static func createTravel(album: Album, notification: Notification) async throws -> FirebaseState {
 		var albumData: [String: Any] = [
 			"title": album.albumTitle,
 			"coverImage": album.albumCoverImage,
@@ -537,6 +538,23 @@ struct FirebaseService {
 				return
 			}
 		}
+		
+		let notificationData: [String: Any] = [
+			"albumId": notification.albumId,
+			"sendDate": notification.sendDate,
+			"sendUserNickname": notification.sendUserNickname,
+			"travelTitle": notification.travelTitle,
+			"userDocIds": notification.userDocIds
+		]
+		
+		album.users.forEach { docId in
+			let collectionUserRef = db.collection("User").document(docId)
+			
+			collectionUserRef.updateData([
+				"notification" : FieldValue.arrayUnion([notificationData])
+			])
+		}
+
 		return .success
 	}
 	
@@ -702,5 +720,44 @@ struct FirebaseService {
 			])
 			configuration.resume(returning: .success)
 		}
+	}
+	
+	//MARK: - Notification
+	
+//	static func fetchNotification() async throws -> FirebaseState {
+//
+//	}
+	
+	static func fetchNotification() -> AnyPublisher<[Notification], Error> {
+		Future<[Notification], Error> { promise in
+			var notifications: [Notification] = []
+			db.collection("User").getDocuments { snapshot, error in
+				if let error {
+					promise(.failure(error))
+					return
+				}
+				guard let snapshot else {
+					promise(.failure(FirebaseError.badsnapshot))
+					return
+				}
+				
+				do {
+//					let documentId = try KeyChainManager.shared.read(account: .documentId)
+					let documentId = "1ou1FfYndjvGv3WI5Xfq"
+					if let document = snapshot.documents.first(where: { $0.documentID == documentId }) {
+						let data = document.data()["notification"]
+						print("@@ data \(data)")
+
+//						promise(.success(users))
+					} else {
+						promise(.failure(FirebaseError.badsnapshot))
+						return
+					}
+				} catch {
+					print(KeyChainError.itemNotFound)
+				}
+			}
+		}
+		.eraseToAnyPublisher()
 	}
 }
