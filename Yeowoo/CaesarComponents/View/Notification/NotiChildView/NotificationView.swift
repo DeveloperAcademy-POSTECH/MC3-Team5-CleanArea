@@ -9,6 +9,9 @@ import SwiftUI
 import UIKit
 
 struct NotificationView: View {
+	
+	@ObservedObject var viewModel = NotificationViewModel()
+	
     @Environment(\.dismiss) var dismiss
     @State private var deletingAll = false
     @State private var deletingAlarm = false
@@ -30,6 +33,9 @@ struct NotificationView: View {
                 }
                 .padding(.top, 55)
             }
+			.onAppear {
+				viewModel.fetchNotification()
+			}
             .navigationTitle("알림")
             .navigationBarTitleDisplayMode(.inline)
             .background(Color.white)
@@ -81,11 +87,5 @@ struct NotificationView: View {
                 )
             }
             .accentColor(.black)
-    }
-}
-
-struct NotificationView_Previews: PreviewProvider {
-    static var previews: some View {
-        NotificationView()
     }
 }

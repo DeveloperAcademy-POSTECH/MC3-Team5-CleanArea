@@ -14,4 +14,7 @@ enum UserDefaultsSetting {
 	
 	@UserDefaultsWrapper(key: "userDocId", defaultValue: "")
 	static var userDocId
+	
+	@UserDefaultsWrapper(key: "nickname", defaultValue: "")
+	static var nickname
 }
