@@ -14,15 +14,7 @@ struct RoleChangeView: View {
     @State var progressBar = false
     //선택된 여우 번호
     @State private var selectedIndex: Int? = nil
-    
-    //그리드 아이템
-//    private let gridItems: [GridItem] = [
-//        .init(.flexible(), spacing: 2),
-//        .init(.flexible(), spacing: 2),
-//        .init(.flexible(), spacing: 2)
-//    ]
-
-    
+	
     var body: some View {
             VStack {
                 VStack(alignment: .leading){
@@ -60,7 +52,6 @@ struct RoleChangeView: View {
                     Button{
                             //선택 완료(선택된 selectedIndex 넘기기)
                         print("selected fox is number \(selectedIndex ?? -1)")
-                            
                             
                         } label: {
                             Rectangle()

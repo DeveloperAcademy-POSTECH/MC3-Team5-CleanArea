@@ -26,9 +26,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 		
 		Messaging.messaging().delegate = self
 		
-		// 푸시 포그라운드 설정
-		UNUserNotificationCenter.current().delegate = self
-		
 		return true
 	}
 	
@@ -43,6 +40,7 @@ extension AppDelegate: MessagingDelegate {
 	// fcm 등록 토큰을 받았을 때
 	func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
 		print("get fcmToken \(String(describing: fcmToken))")
+		// 토큰값 다르면 변경해야함
 		if UserDefaultsSetting.isFirstEnter {
 			FirebaseService.updateFCMToken(fcmToken: fcmToken ?? "")
 			UserDefaultsSetting.isFirstEnter = false

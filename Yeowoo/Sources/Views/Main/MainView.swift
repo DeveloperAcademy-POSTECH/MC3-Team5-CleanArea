@@ -10,6 +10,7 @@ import SwiftUI
 struct MainView: View {
 	
 	@ObservedObject var mainViewModel = MainViewModel()
+	@ObservedObject var albumViewModel = AlbumViewModel()
 	
 	var body: some View {
 		NavigationView {

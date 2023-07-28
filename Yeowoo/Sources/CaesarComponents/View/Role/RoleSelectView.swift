@@ -8,19 +8,16 @@
 import SwiftUI
 
 struct RoleSelectView: View {
-    
+	
+	@EnvironmentObject var appState: AppState
+	
     @Environment(\.dismiss) var dismiss
     @State var selectingFox = false
     //선택된 여우 번호
     @State private var selectedIndex: Int? = nil
-    
-    //그리드 아이템
-//    private let gridItems: [GridItem] = [
-//        .init(.flexible(), spacing: 2),
-//        .init(.flexible(), spacing: 2),
-//        .init(.flexible(), spacing: 2)
-//    ]
-
+	
+	var mockData: MockModel
+	@ObservedObject var viewModel = InvitationViewModel()
     
     var body: some View {
             VStack {
@@ -66,8 +63,16 @@ struct RoleSelectView: View {
                     Button{
                             //선택 완료(선택된 selectedIndex 넘기기)
                         print("selected fox is number \(selectedIndex ?? -1)")
-                            
-                            
+						print("selected fox \(foxs[selectedIndex ?? 0].foxImage)")
+						
+						Task {
+							try await viewModel.participateTravel(albumDocId: mockData.albumId, role: foxs[selectedIndex ?? 0].foxImage)
+						}
+						
+						// 이거하고 메인으로 가야함
+						// 추후에 메인이랑 연결해야함
+						// self.appState.moveToRootView = true
+
                         } label: {
                             Rectangle()
                                 .frame(width: UIScreen.main.bounds.width - 30, height: 54)
@@ -90,11 +95,5 @@ struct RoleSelectView: View {
             .navigationBarTitleDisplayMode(.inline)
             .background(Color.white)
             .modifier(BackToolBarModifier())
-    }
-}
-
-struct RoleSelectView_Previews: PreviewProvider {
-    static var previews: some View {
-        RoleSelectView()
     }
 }

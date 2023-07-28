@@ -8,13 +8,14 @@
 import SwiftUI
 
 // 메인뷰에 세팅
-class AppState: ObservableObject {
+final class AppState: ObservableObject {
 	@Published var moveToRootView: Bool = false
 }
 
 struct DemoMainView: View {
 	@EnvironmentObject var appState: AppState
 	@State var isViewActive: Bool = false
+	@State var userInfo = User()
 
     var body: some View {
         NavigationStack {
@@ -65,7 +66,7 @@ struct DemoMainView: View {
                                         .foregroundColor(.mainColor))
                             }
                             NavigationLink{
-                                SettingView()
+								SettingView(userInfo: $userInfo)
                                     .navigationBarBackButtonHidden()
                             } label: {
                                 Circle()

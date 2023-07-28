@@ -20,13 +20,16 @@ struct AlbumFeedView: View {
 	
 	@ObservedObject private var viewModel: AlbumViewModel
 	
-	@State private var layoutToggleState = false
+	@State private var layoutToggleState = true
 	@State private var nowSelectedUser: User? // 현재 역할이 선택된 유저
 	@State private var roleState: AlbumState = .all
 	@State private var showingFinishAlert = false
 	@State private var showingUpdateAlert = false
 	@State private var showingEditSheet = false
 	@State private var changedAlbumTitle = ""
+	
+	// sort 임시 토글
+	@State private var testSortToggle = true
 	
 	init(albumDocId: String, viewModel: AlbumViewModel) {
 		self.albumDocId = albumDocId
@@ -37,35 +40,56 @@ struct AlbumFeedView: View {
 		if viewModel.fetchState {
 			
 			CustomNavigationBar()
-
-			ScrollView(showsIndicators: false) {
-				VStack {
-
-					ProfileCarouselView()
-					
-					Spacer()
-						.frame(height: 24)
-					Divider()
-					
-					LazyVStack(pinnedViews: [.sectionHeaders]){
-						Section {
-							ImageView()
-						} header: {
-							HStack {
-								Toggle(isOn: self.$layoutToggleState) {
-									Text((roleState == .all ? "All" : self.nowSelectedUser?.nickname)!)
-								}
-								.toggleStyle(CheckmarkToggleStyle())
-								.padding(.horizontal)
+			
+			ScrollViewReader { proxy in
+				ScrollView(showsIndicators: false) {
+					VStack {
+						
+						ProfileCarouselView()
+							.id("scroll_to_top")
+						
+						Spacer()
+							.frame(height: 24)
+						Divider()
+						
+						// sort 임시 토글
+						Toggle(isOn: self.$testSortToggle) { }
+							.onChange(of: testSortToggle) { newValue in
+								viewModel.imageSort(state: newValue)
 							}
-							.frame(height: 40)
-							.background(Color.white)
+						
+						LazyVStack(pinnedViews: [.sectionHeaders]){
+							Section {
+								ImageView()
+							} header: {
+								HStack {
+									Toggle(isOn: self.$layoutToggleState) {
+										Text((roleState == .all ? "All" : self.nowSelectedUser?.nickname)!)
+									}
+									.onChange(of: layoutToggleState, perform: { _ in
+										withAnimation(.default) {
+											proxy.scrollTo("scroll_to_top", anchor: .top)
+										}
+									})
+									.toggleStyle(CheckmarkToggleStyle())
+									.padding(.horizontal)
+								}
+								.frame(height: 40)
+								.background(Color.white)
+							}
+							if roleState == .all ? (!viewModel.tempVisibleImages.isEmpty)
+								: (!viewModel.tempVisibleRoleImages.isEmpty) {
+								ProgressView()
+									.onAppear {
+										roleState == .all ? viewModel.nextFetchImages() : viewModel.nextFetchRoleImages()
+									}
+							}
 						}
 					}
 				}
 			}
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
+			.navigationBarTitle("")
+			.navigationBarHidden(true)
 		} else {
 			ProgressView()
 				.onAppear {
@@ -142,7 +166,9 @@ private extension AlbumFeedView {
 					Alert(
 						title: Text("제목 수정"),
 						message: Text("앨범 제목을 수정했어요."),
-						dismissButton: .default(Text("확인")) { }
+						dismissButton: .default(Text("확인")) {
+							showingEditSheet = false
+						}
 					)
 				}
 				
@@ -178,34 +204,37 @@ private extension AlbumFeedView {
 						Button(action: {
 							profileRoleChanged(index: index)
 						}) {
-							AsyncImage(url: URL(string: viewModel.users[index].profileImage)) { image in
-								image
-									.resizable()
-									.aspectRatio(contentMode: .fill)
-									.frame(width: 70, height: 84)
-									.cornerRadius(20)
-									.padding(5)
-									.overlay {
-										RoundedRectangle(cornerRadius: 20)
-											.stroke(Color.mainColor, lineWidth: 2)
-											.padding(2)
-									}
-									.overlay (
-										(
-											roleState == .all || nowSelectedUser?.docId != viewModel.users[index].docId
-											? nil : Image("chk").frame(width: 24, height: 24)
+							CacheAsyncImage(url: URL(string: viewModel.users[index].profileImage)!) { phase in
+								switch phase {
+								case .success(let image):
+									image
+										.resizable()
+										.aspectRatio(contentMode: .fill)
+										.frame(width: 70, height: 84)
+										.cornerRadius(20)
+										.padding(5)
+										.overlay {
+											RoundedRectangle(cornerRadius: 20)
+												.stroke(Color.mainColor, lineWidth: 2)
+												.padding(2)
+										}
+										.overlay (
+											(
+												roleState == .all || nowSelectedUser?.docId != viewModel.users[index].docId
+												? nil : Image("chk").frame(width: 24, height: 24)
+											)
+											,alignment: .topTrailing
 										)
-										,alignment: .topTrailing
-									)
-									.overlay (
-										Image("\(viewModel.albums.role[index])")
-											.frame(width: 38, height: 38)
-											.padding(.top, 80)
-									)
-								
-							} placeholder: {
-								ProgressView()
-									.frame(width: 70, height: 84)
+										.overlay (
+											Image("\(viewModel.albums.role[index])")
+												.frame(width: 38, height: 38)
+												.padding(.top, 80)
+										)
+									
+								default:
+									ProgressView()
+										.frame(width: 70, height: 84)
+								}
 							}
 						}
 						Spacer().frame(height: 15)
@@ -274,7 +303,7 @@ private extension AlbumFeedView {
 	
 	@ViewBuilder
 	func ImageView() -> some View {
-		if roleState == .all && (viewModel.images.isEmpty || viewModel.images[0].count == 0) {
+		if roleState == .all && (viewModel.visibleImages.isEmpty || viewModel.visibleImages[0].count == 0) {
 			VStack {
 				Text("첫 번째 사진을 올려보세요!")
 				Text("카메라로 사진을 찍어 첫 추억을 남겨보세요")
@@ -285,7 +314,8 @@ private extension AlbumFeedView {
 				.padding(.top, UIScreen.main.bounds.height / 3.5)
 		} else {
 			VStack(spacing: layoutToggleState ? 0 : 2) {
-				ForEach(roleState == .all ? viewModel.images.indices : viewModel.roleImage.indices, id: \.self) { index in
+				ForEach(roleState == .all ? viewModel.visibleImages.indices
+						: viewModel.visibleRoleImages.indices, id: \.self) { index in
 					setLayout(index: index)
 				}
 			}
@@ -297,31 +327,37 @@ private extension AlbumFeedView {
 		if layoutToggleState {
 			if roleState == .all {
 				GalleryLayout(viewModel: viewModel,
-							  entitys: viewModel.images[index],
-							  user: viewModel.users)
+							  entitys: viewModel.visibleImages[index],
+							  user: viewModel.users,
+							  entityIndex: index)
 			} else {
 				GalleryLayout(viewModel: viewModel,
-							  entitys: viewModel.roleImage[index],
-							  user: viewModel.users)
+							  entitys: viewModel.visibleRoleImages[index],
+							  user: viewModel.users,
+							  entityIndex: index)
 			}
 		} else {
 			if index % 3 == 1 {
 				if roleState == .all {
-					FirstFeedLayout(entitys: viewModel.images[index],
+					FirstFeedLayout(entityIndex: index,
+									entitys: viewModel.visibleImages[index],
 									user: viewModel.users,
 									viewModel: viewModel)
 				} else {
-					FirstFeedLayout(entitys: viewModel.roleImage[index],
+					FirstFeedLayout(entityIndex: index,
+									entitys: viewModel.visibleRoleImages[index],
 									user: viewModel.users,
 									viewModel: viewModel)
 				}
 			} else {
 				if roleState == .all {
-					SecondFeedLayout(entitys: viewModel.images[index],
+					SecondFeedLayout(entityIndex: index,
+									 entitys: viewModel.visibleImages[index],
 									 user: viewModel.users,
 									 viewModel: viewModel)
 				} else {
-					SecondFeedLayout(entitys: viewModel.roleImage[index],
+					SecondFeedLayout(entityIndex: index,
+									 entitys: viewModel.visibleRoleImages[index],
 									 user: viewModel.users,
 									 viewModel: viewModel)
 				}
