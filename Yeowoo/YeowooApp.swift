@@ -15,11 +15,11 @@ struct YeowooApp: App {
 	var body: some Scene {
 		WindowGroup {
 			// 자동로그인
-//			if UserDefaultsSetting.userDocId.isEmpty {
-//				LoginCoverView()
-//			} else {
-//				MainView()
-//			}
+			if UserDefaultsSetting.userDocId.isEmpty {
+				LoginCoverView()
+			} else {
+				MainView()
+			}
 			
 			// Test
 //			LoginCoverView()
@@ -31,10 +31,10 @@ struct YeowooApp: App {
 			// SignUpView()
 			//			NewAlbumView()
 			
-						let appState = AppState()
-			//
-						DemoMainView()
-							.environmentObject(appState)
+//						let appState = AppState()
+//			//
+//						DemoMainView()
+//							.environmentObject(appState)
 			
 			//			MainView()
 			

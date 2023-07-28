@@ -29,8 +29,10 @@ struct MainView: View {
                         
                         // Alarm, Setting 버튼
                         HStack {
-                            NavigationLink(destination: NotiView().navigationBarBackButtonHidden(),
-                                           isActive: $mainViewModel.openAlarm) {
+                            NavigationLink(destination:
+                                            EmptyView()
+//                                            NotiView().navigationBarBackButtonHidden()
+                                           , isActive: $mainViewModel.openAlarm) {
                                 Button(action: {
                                     mainViewModel.openAlarm.toggle()
                                     mainViewModel.hasAlarm = false
@@ -47,8 +49,7 @@ struct MainView: View {
                             Spacer()
                                 .frame(width: UIScreen.getWidth(9))
                             
-                            NavigationLink(destination:
-                                            SettingView().navigationBarBackButtonHidden()){
+                            NavigationLink(destination: EmptyView()){
                                 ZStack {
                                     Image("Person")
                                         .resizable()

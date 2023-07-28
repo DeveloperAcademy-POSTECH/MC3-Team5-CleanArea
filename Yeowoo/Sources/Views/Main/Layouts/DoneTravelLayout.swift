@@ -76,17 +76,7 @@ struct DoneTravelLayout: View {
                 }
                 HStack(spacing: 18) {
                     ForEach(0..<3) { num in
-                        NavigationLink(destination: {
-                            if fetch {
-                                AlbumDetailView(entitys: images[images.indices.filter({images[$0].url == picture[num]}).first!],
-                                                user: mainViewModel.randomUser.first(where: {$0.docId == images[images.indices.filter({images[$0].url == picture[num]}).first!].uploadUser}) ?? User(),
-                                                tempLikeState: images[images.indices.filter({images[$0].url == picture[num]}).first!].likeUsers.contains(UserDefaultsSetting.userDocId),
-                                                tempLikeCount: images[images.indices.filter({images[$0].url == picture[num]}).first!].likeUsers.count,
-                                                viewModel: AlbumViewModel())
-                            }
-                        }) {
                         TapePicture(picture: picture[num])
-                        }
                     }
                 }
             }.frame(maxHeight: UIScreen.getHeight(160))
@@ -97,11 +87,11 @@ struct DoneTravelLayout: View {
         .task {
             if !fetch {
                 mainViewModel.randomPicture(images, &picture)
-                
-                await mainViewModel.randomImageUsers(userDocIds: userNames)
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
-                    self.fetch = true
-                }
+//                
+//                await mainViewModel.randomImageUsers(userDocIds: userNames)
+//                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+//                    self.fetch = true
+//                }
             }
         }
     }
