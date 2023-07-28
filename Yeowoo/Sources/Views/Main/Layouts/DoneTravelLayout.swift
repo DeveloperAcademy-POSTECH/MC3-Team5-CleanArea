@@ -9,10 +9,13 @@ import SwiftUI
 
 struct DoneTravelLayout: View {
     @StateObject var mainViewModel = MainViewModel()
+    var userNames: [String]
     var images: [ImagesEntity]
     var nickname: String
     var albumName: String
     @State var picture: [String] = ["", "", ""]
+    @State var numbers: [Int] = []
+    @State var fetch: Bool = false
     
     var body: some View {
         VStack {
@@ -73,11 +76,7 @@ struct DoneTravelLayout: View {
                 }
                 HStack(spacing: 18) {
                     ForEach(0..<3) { num in
-                        NavigationLink(destination: {
-                            
-                        }) {
-                            TapePicture(picture: picture[num])
-                        }
+                        TapePicture(picture: picture[num])
                     }
                 }
             }.frame(maxHeight: UIScreen.getHeight(160))
@@ -85,8 +84,15 @@ struct DoneTravelLayout: View {
             Spacer()
                 .frame(height: UIScreen.getHeight(24))
         }
-        .onAppear {
-            mainViewModel.randomPicture(images, &picture)
+        .task {
+            if !fetch {
+                mainViewModel.randomPicture(images, &picture)
+//                
+//                await mainViewModel.randomImageUsers(userDocIds: userNames)
+//                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+//                    self.fetch = true
+//                }
+            }
         }
     }
 }

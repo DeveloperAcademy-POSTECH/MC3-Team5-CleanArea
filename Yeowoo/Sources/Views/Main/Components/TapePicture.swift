@@ -14,17 +14,17 @@ struct TapePicture: View {
         ZStack {
             VStack {
                 Spacer()
-                NavigationLink(destination: EmptyView()) {
-                    AsyncImage(url: URL(string: picture)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(height: UIScreen.getHeight(140))
-                            .clipShape(RoundedRectangle(cornerRadius: 5))
-                    } placeholder: {
-                        ProgressView()
-                    }
+//                NavigationLink(destination: EmptyView()) {
+                AsyncImage(url: URL(string: picture)) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(height: UIScreen.getHeight(140))
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                } placeholder: {
+                    ProgressView()
                 }
+//                }
             }
             
             VStack {

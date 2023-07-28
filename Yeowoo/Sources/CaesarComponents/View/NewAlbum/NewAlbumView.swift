@@ -106,10 +106,9 @@ struct NewAlbumView: View {
 			let dateFormatter = DateFormatter()
 			dateFormatter.dateFormat = "yyyy.MM.dd"
 			self.newAlbum.startDay = dateFormatter.string(from: Date())
-			
-			// 추후에 지워야함 -> 본인 추가하기위함
-			UserDefaultsSetting.userDocId = "1ou1FfYndjvGv3WI5Xfq"
-			self.newAlbum.users.append(UserDefaultsSetting.userDocId)
+//
+//			UserDefaultsSetting.userDocId = "test"
+//			self.newAlbum.users.append(UserDefaultsSetting.userDocId)
 		}
 		.onDisappear {
 			self.endTextEditing()

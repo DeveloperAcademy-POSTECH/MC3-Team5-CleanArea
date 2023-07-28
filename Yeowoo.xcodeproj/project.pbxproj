@@ -10,7 +10,6 @@
 		1049B7F12A63F8BA0021F674 /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1049B7F02A63F8BA0021F674 /* Font+.swift */; };
 		1049B7F32A63F8FF0021F674 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1049B7F22A63F8FF0021F674 /* UIScreen+.swift */; };
 		1049B7FB2A63FA670021F674 /* CameraButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1049B7FA2A63FA670021F674 /* CameraButtonView.swift */; };
-		105F5DD92A68FFFE002E34CD /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105F5DD82A68FFFE002E34CD /* MainModel.swift */; };
 		106475182A6529E40092FE5B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475172A6529E40092FE5B /* MainView.swift */; };
 		1064751A2A65331D0092FE5B /* NoAlbumLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106475192A65331D0092FE5B /* NoAlbumLayout.swift */; };
 		1064751C2A6534FC0092FE5B /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064751B2A6534FC0092FE5B /* MainViewModel.swift */; };
@@ -26,9 +25,12 @@
 		10CB96D62A63FF7800C08DBC /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */; };
 		10CB96D82A64028C00C08DBC /* WriteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D72A64028C00C08DBC /* WriteTextView.swift */; };
 		10CB96DA2A6403D600C08DBC /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D92A6403D600C08DBC /* EditView.swift */; };
-		10CB96DC2A64042A00C08DBC /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96DB2A64042A00C08DBC /* RoleView.swift */; };
-		10CB96DE2A64044000C08DBC /* RoleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96DD2A64044000C08DBC /* RoleButton.swift */; };
 		10CC160D2A64452300B27955 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CC160C2A64452300B27955 /* Buttons.swift */; };
+		10D7AAC92A70F643002F68CE /* NotiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D7AAC82A70F643002F68CE /* NotiView.swift */; };
+		10FD58CF2A7388A6000F60F2 /* InvitationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FD58CD2A7388A6000F60F2 /* InvitationViewModel.swift */; };
+		10FD58D02A7388A6000F60F2 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FD58CE2A7388A6000F60F2 /* SettingViewModel.swift */; };
+		10FD58D32A7388B9000F60F2 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FD58D12A7388B9000F60F2 /* Notification.swift */; };
+		10FD58D42A7388B9000F60F2 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FD58D22A7388B9000F60F2 /* NotificationViewModel.swift */; };
 		65264BDC2A67C7BD009963E6 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65264BDB2A67C7BD009963E6 /* String+.swift */; };
 		6556C3ED2A68FEFD00B4EEE1 /* MultiInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3EC2A68FEFD00B4EEE1 /* MultiInvitationView.swift */; };
 		6556C3EF2A68FF0C00B4EEE1 /* TwoInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3EE2A68FF0C00B4EEE1 /* TwoInvitationView.swift */; };
@@ -42,11 +44,7 @@
 		6556C4072A7162C000B4EEE1 /* NotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C4062A7162C000B4EEE1 /* NotificationDelegate.swift */; };
 		6556C4092A7162D500B4EEE1 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C4082A7162D500B4EEE1 /* Schedule.swift */; };
 		6556C40B2A7162EB00B4EEE1 /* Push.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C40A2A7162EB00B4EEE1 /* Push.swift */; };
-		6556C40D2A71708700B4EEE1 /* InvitationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C40C2A71708700B4EEE1 /* InvitationViewModel.swift */; };
 		6556C4112A729C0200B4EEE1 /* Test2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C4102A729C0200B4EEE1 /* Test2.swift */; };
-		6556C4132A72D26500B4EEE1 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C4122A72D26500B4EEE1 /* NotificationViewModel.swift */; };
-		6556C4152A72D3F100B4EEE1 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C4142A72D3F100B4EEE1 /* Notification.swift */; };
-		6556C40F2A7245DA00B4EEE1 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C40E2A7245DA00B4EEE1 /* SettingViewModel.swift */; };
 		65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076862A56F949003E6D92 /* YeowooApp.swift */; };
 		65C076892A56F949003E6D92 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076882A56F949003E6D92 /* ContentView.swift */; };
 		65C0768B2A56F94B003E6D92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C0768A2A56F94B003E6D92 /* Assets.xcassets */; };
@@ -132,7 +130,6 @@
 		1049B7F02A63F8BA0021F674 /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		1049B7F22A63F8FF0021F674 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		1049B7FA2A63FA670021F674 /* CameraButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraButtonView.swift; sourceTree = "<group>"; };
-		105F5DD82A68FFFE002E34CD /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		106475172A6529E40092FE5B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		106475192A65331D0092FE5B /* NoAlbumLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAlbumLayout.swift; sourceTree = "<group>"; };
 		1064751B2A6534FC0092FE5B /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -148,9 +145,12 @@
 		10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		10CB96D72A64028C00C08DBC /* WriteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTextView.swift; sourceTree = "<group>"; };
 		10CB96D92A6403D600C08DBC /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
-		10CB96DB2A64042A00C08DBC /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
-		10CB96DD2A64044000C08DBC /* RoleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleButton.swift; sourceTree = "<group>"; };
 		10CC160C2A64452300B27955 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		10D7AAC82A70F643002F68CE /* NotiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiView.swift; sourceTree = "<group>"; };
+		10FD58CD2A7388A6000F60F2 /* InvitationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InvitationViewModel.swift; path = Yeowoo/CaesarComponents/ViewModel/InvitationViewModel.swift; sourceTree = SOURCE_ROOT; };
+		10FD58CE2A7388A6000F60F2 /* SettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingViewModel.swift; path = Yeowoo/CaesarComponents/ViewModel/SettingViewModel.swift; sourceTree = SOURCE_ROOT; };
+		10FD58D12A7388B9000F60F2 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Notification.swift; path = Yeowoo/CaesarComponents/View/Notification/Notification.swift; sourceTree = SOURCE_ROOT; };
+		10FD58D22A7388B9000F60F2 /* NotificationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationViewModel.swift; path = Yeowoo/CaesarComponents/View/Notification/NotificationViewModel.swift; sourceTree = SOURCE_ROOT; };
 		65264BDB2A67C7BD009963E6 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		6556C3EC2A68FEFD00B4EEE1 /* MultiInvitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiInvitationView.swift; sourceTree = "<group>"; };
 		6556C3EE2A68FF0C00B4EEE1 /* TwoInvitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoInvitationView.swift; sourceTree = "<group>"; };
@@ -164,11 +164,7 @@
 		6556C4062A7162C000B4EEE1 /* NotificationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDelegate.swift; sourceTree = "<group>"; };
 		6556C4082A7162D500B4EEE1 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		6556C40A2A7162EB00B4EEE1 /* Push.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Push.swift; sourceTree = "<group>"; };
-		6556C40C2A71708700B4EEE1 /* InvitationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationViewModel.swift; sourceTree = "<group>"; };
 		6556C4102A729C0200B4EEE1 /* Test2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test2.swift; sourceTree = "<group>"; };
-		6556C4122A72D26500B4EEE1 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
-		6556C4142A72D3F100B4EEE1 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
-		6556C40E2A7245DA00B4EEE1 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		65C076832A56F949003E6D92 /* Yeowoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yeowoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C076862A56F949003E6D92 /* YeowooApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeowooApp.swift; sourceTree = "<group>"; };
 		65C076882A56F949003E6D92 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -198,7 +194,6 @@
 		65C0774E2A612EF5003E6D92 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
 		65C077502A616874003E6D92 /* GalleryLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryLayout.swift; sourceTree = "<group>"; };
 		65C077522A640CF9003E6D92 /* AlbumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailView.swift; sourceTree = "<group>"; };
-		D575D8292A67EB760036BE7D /* NotiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiView.swift; sourceTree = "<group>"; };
 		D5A77DDE2A66AA1D000D8F4E /* TextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldModifier.swift; sourceTree = "<group>"; };
 		D5A77DE02A66AA2D000D8F4E /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		D5A77DE22A66AA45000D8F4E /* CardViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModifier.swift; sourceTree = "<group>"; };
@@ -284,7 +279,6 @@
 				1049B7FA2A63FA670021F674 /* CameraButtonView.swift */,
 				10CB96D92A6403D600C08DBC /* EditView.swift */,
 				10CB96D72A64028C00C08DBC /* WriteTextView.swift */,
-				10CB96DB2A64042A00C08DBC /* RoleView.swift */,
 				10CC160C2A64452300B27955 /* Buttons.swift */,
 			);
 			path = CameraViews;
@@ -308,14 +302,6 @@
 				106475202A6536D70092FE5B /* AlbumLayout.swift */,
 			);
 			path = Layouts;
-			sourceTree = "<group>";
-		};
-		105F5DD72A68FFD4002E34CD /* MainModel */ = {
-			isa = PBXGroup;
-			children = (
-				105F5DD82A68FFFE002E34CD /* MainModel.swift */,
-			);
-			path = MainModel;
 			sourceTree = "<group>";
 		};
 		106475162A6529AE0092FE5B /* Main */ = {
@@ -351,7 +337,6 @@
 			isa = PBXGroup;
 			children = (
 				10CB96D32A63FDF000C08DBC /* FeatureButton.swift */,
-				10CB96DD2A64044000C08DBC /* RoleButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -379,8 +364,8 @@
 			isa = PBXGroup;
 			children = (
 				6556C3FD2A6EB92600B4EEE1 /* FindFriendViewModel.swift */,
-				6556C40C2A71708700B4EEE1 /* InvitationViewModel.swift */,
-				6556C40E2A7245DA00B4EEE1 /* SettingViewModel.swift */,
+				10FD58CD2A7388A6000F60F2 /* InvitationViewModel.swift */,
+				10FD58CE2A7388A6000F60F2 /* SettingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -421,7 +406,6 @@
 		65C076852A56F949003E6D92 /* Yeowoo */ = {
 			isa = PBXGroup;
 			children = (
-				D5A77DDA2A66A991000D8F4E /* CaesarComponents */,
 				65C077322A5FBF17003E6D92 /* Yeowoo.entitlements */,
 				65C076B02A5709D8003E6D92 /* Configuration */,
 				65C076B12A5709F6003E6D92 /* Infos */,
@@ -479,6 +463,7 @@
 			isa = PBXGroup;
 			children = (
 				6556C4012A71628500B4EEE1 /* TestNoti */,
+				D5A77DDA2A66A991000D8F4E /* CaesarComponents */,
 				1049B7EF2A63F8B00021F674 /* Global */,
 				65C076B32A570A07003E6D92 /* Models */,
 				65C076B42A570A11003E6D92 /* Services */,
@@ -492,7 +477,6 @@
 		65C076B32A570A07003E6D92 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				105F5DD72A68FFD4002E34CD /* MainModel */,
 				65C0770E2A5BDACF003E6D92 /* User.swift */,
 				65C0774C2A612C92003E6D92 /* Album.swift */,
 			);
@@ -585,6 +569,9 @@
 				D5A77E0E2A66AD86000D8F4E /* NoticardView.swift */,
 				D5A77E0C2A66AD40000D8F4E /* NotificationView.swift */,
 				D5A77E102A66AD97000D8F4E /* EmptyNotificationView.swift */,
+				10D7AAC82A70F643002F68CE /* NotiView.swift */,
+				10FD58D12A7388B9000F60F2 /* Notification.swift */,
+				10FD58D22A7388B9000F60F2 /* NotificationViewModel.swift */,
 			);
 			path = NotiChildView;
 			sourceTree = "<group>";
@@ -662,9 +649,6 @@
 			isa = PBXGroup;
 			children = (
 				D575D8262A67EB470036BE7D /* NotiChildView */,
-				D575D8292A67EB760036BE7D /* NotiView.swift */,
-				6556C4122A72D26500B4EEE1 /* NotificationViewModel.swift */,
-				6556C4142A72D3F100B4EEE1 /* Notification.swift */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
@@ -848,7 +832,6 @@
 				65C077392A5FF255003E6D92 /* UserDefaultsWrapper.swift in Sources */,
 				D5A77E012A66AC6B000D8F4E /* SettingView.swift in Sources */,
 				106475262A6539E40092FE5B /* PlusPerson.swift in Sources */,
-				10CB96DE2A64044000C08DBC /* RoleButton.swift in Sources */,
 				6556C40B2A7162EB00B4EEE1 /* Push.swift in Sources */,
 				1064752A2A65691E0092FE5B /* TapePicture.swift in Sources */,
 				10CB96D82A64028C00C08DBC /* WriteTextView.swift in Sources */,
@@ -858,6 +841,7 @@
 				F33453742A645F8A0031A22C /* SignUpView.swift in Sources */,
 				65C077372A5FF248003E6D92 /* UserDefaultsSetting.swift in Sources */,
 				F37DA9A22A63C1D70020603E /* LoginView.swift in Sources */,
+				10FD58D02A7388A6000F60F2 /* SettingViewModel.swift in Sources */,
 				65C0774B2A611D46003E6D92 /* SecondFeedLayout.swift in Sources */,
 				65C077192A5BF4C7003E6D92 /* KeyChainError.swift in Sources */,
 				D5A77DE52A66AA6C000D8F4E /* EditProfileRowView.swift in Sources */,
@@ -877,14 +861,13 @@
 				6556C3ED2A68FEFD00B4EEE1 /* MultiInvitationView.swift in Sources */,
 				65C0774D2A612C92003E6D92 /* Album.swift in Sources */,
 				65C0774F2A612EF5003E6D92 /* AlbumViewModel.swift in Sources */,
-				6556C4152A72D3F100B4EEE1 /* Notification.swift in Sources */,
 				1049B7F32A63F8FF0021F674 /* UIScreen+.swift in Sources */,
 				65C077192A5BF4C7003E6D92 /* KeyChainError.swift in Sources */,
 				106475212A6536D70092FE5B /* AlbumLayout.swift in Sources */,
+				10FD58CF2A7388A6000F60F2 /* InvitationViewModel.swift in Sources */,
 				6556C4052A7162AE00B4EEE1 /* NotificationHandler.swift in Sources */,
 				1049B7F12A63F8BA0021F674 /* Font+.swift in Sources */,
 				65C077172A5BF4A7003E6D92 /* KeyChainAccount.swift in Sources */,
-				6556C4132A72D26500B4EEE1 /* NotificationViewModel.swift in Sources */,
 				6556C4072A7162C000B4EEE1 /* NotificationDelegate.swift in Sources */,
 				6556C4002A700E0600B4EEE1 /* CacheAsyncImage.swift in Sources */,
 				10CC160D2A64452300B27955 /* Buttons.swift in Sources */,
@@ -897,9 +880,11 @@
 				1049B7FB2A63FA670021F674 /* CameraButtonView.swift in Sources */,
 				6556C3F72A6BA82B00B4EEE1 /* View+.swift in Sources */,
 				65C076FD2A5A7F1F003E6D92 /* FirebaseError.swift in Sources */,
-				6556C40F2A7245DA00B4EEE1 /* SettingViewModel.swift in Sources */,
 				65C077472A611D29003E6D92 /* FirstFeedLayout.swift in Sources */,
+				10FD58D42A7388B9000F60F2 /* NotificationViewModel.swift in Sources */,
 				6556C3FE2A6EB92600B4EEE1 /* FindFriendViewModel.swift in Sources */,
+				10D7AAC92A70F643002F68CE /* NotiView.swift in Sources */,
+				10FD58D32A7388B9000F60F2 /* Notification.swift in Sources */,
 				65C077512A616874003E6D92 /* GalleryLayout.swift in Sources */,
 				65C0773E2A611763003E6D92 /* AlbumFeedView.swift in Sources */,
 				65C076892A56F949003E6D92 /* ContentView.swift in Sources */,
@@ -913,7 +898,6 @@
 				D5A77DFA2A66AB47000D8F4E /* Travel.swift in Sources */,
 				65C077152A5BF322003E6D92 /* KeyChainManager.swift in Sources */,
 				D5A77E132A66ADA9000D8F4E /* NewAlbumView.swift in Sources */,
-				10CB96DC2A64042A00C08DBC /* RoleView.swift in Sources */,
 				6556C4032A71629400B4EEE1 /* NotiTestView.swift in Sources */,
 				65C0770F2A5BDACF003E6D92 /* User.swift in Sources */,
 				65C076FF2A5A7F2A003E6D92 /* FirebaseService.swift in Sources */,
@@ -921,7 +905,6 @@
 				1064752C2A656A170092FE5B /* DoneTravelLayout.swift in Sources */,
 				106475282A653A1D0092FE5B /* Person.swift in Sources */,
 				106475302A656DFB0092FE5B /* BeforeTravelLayout.swift in Sources */,
-				105F5DD92A68FFFE002E34CD /* MainModel.swift in Sources */,
 				6556C4112A729C0200B4EEE1 /* Test2.swift in Sources */,
 				65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */,
 				D5A77DE72A66AA7E000D8F4E /* FoxCardView.swift in Sources */,
@@ -931,7 +914,6 @@
 				D5A77E052A66ACFD000D8F4E /* DemoMainView.swift in Sources */,
 				D5A77DE92A66AA93000D8F4E /* BackToolBarModifier.swift in Sources */,
 				D5A77DEF2A66AAD4000D8F4E /* FindFriendContents.swift in Sources */,
-				6556C40D2A71708700B4EEE1 /* InvitationViewModel.swift in Sources */,
 				D5A77E192A66B696000D8F4E /* InvitationView.swift in Sources */,
 				1064752E2A656BB20092FE5B /* RecommendLayout.swift in Sources */,
 			);
@@ -1093,7 +1075,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Yeowoo/Preview Content\"";
-				DEVELOPMENT_TEAM = F92UQYH2RA;
+				DEVELOPMENT_TEAM = AZDJLQL538;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Yeowoo/Info.plist;
@@ -1110,7 +1092,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ungchun.Yeowoo;
+				PRODUCT_BUNDLE_IDENTIFIER = pin.Yeowoo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1127,7 +1109,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Yeowoo/Preview Content\"";
-				DEVELOPMENT_TEAM = F92UQYH2RA;
+				DEVELOPMENT_TEAM = AZDJLQL538;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Yeowoo/Info.plist;
@@ -1144,7 +1126,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ungchun.Yeowoo;
+				PRODUCT_BUNDLE_IDENTIFIER = pin.Yeowoo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

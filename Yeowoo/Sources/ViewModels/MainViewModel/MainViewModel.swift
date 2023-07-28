@@ -8,7 +8,7 @@ import Combine
 import SwiftUI
 
 final class MainViewModel: ObservableObject {
-    
+
     @Published var notStartAlbums: [Album] = []
     @Published var progressAlbums: [Album] = []
     @Published var finishAlbums: [Album] = []
@@ -20,12 +20,14 @@ final class MainViewModel: ObservableObject {
     @Published var hasAlbum = 0
     @Published var today: String = ""
     @Published var role: String = ""
+    @Published var finishedFetch: Bool = false
+    @Published var randomUser: [User] = []
     
     private var cancellables = Set<AnyCancellable>()
     
     // 앨범 정보 불러오기
     @MainActor
-    func fetchAlbums() {
+    func fetchAlbums() async {
         FirebaseService.fetchAlbums()
             .sink { completion in
                 switch completion {
@@ -57,7 +59,7 @@ final class MainViewModel: ObservableObject {
     
     // 유저 정보 불러오기
     @MainActor
-    func fetchUser(userDocIds: [String]) {
+    func fetchUser(userDocIds: [String]) async {
         FirebaseService.fetchUser(userDocIds: userDocIds)
             .sink { completion in
                 switch completion {
@@ -68,6 +70,22 @@ final class MainViewModel: ObservableObject {
                 }
             } receiveValue: { user in
                 self.users = user
+            }
+            .store(in: &cancellables)
+    }
+    
+    @MainActor
+    func randomImageUsers(userDocIds: [String]) async {
+        FirebaseService.fetchUser(userDocIds: userDocIds)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    return
+                }
+            } receiveValue: { user in
+                self.randomUser = user
             }
             .store(in: &cancellables)
     }
@@ -93,21 +111,27 @@ final class MainViewModel: ObservableObject {
         print("==")
         print(start)
         let startDay = formatter.date(from: start)!
-        let endDay = formatter.date(from: end)!
         let current = Date()
         
-        if (startDay <= current) && (current <= endDay) {
-            // 여행중
-            return 1
-        } else if current < startDay {
-            // 여행전
-            return 0
-        }
         // 여행 완료
-        return 2
+        if end != "" {
+            let endDay = formatter.date(from: end)!
+            if current >= endDay {
+                return 2
+            }
+        }
+        
+        // 여행중
+        if startDay <= current {
+            return 1
+        }
+        
+        // 여행전
+        return 0
     }
     
     // 오늘 날짜 확인
+    @MainActor
     func getCurrentDateTime() {
         let formatter = DateFormatter() //객체 생성
         formatter.locale = Locale(identifier: "ko_kr")
@@ -127,6 +151,7 @@ final class MainViewModel: ObservableObject {
     }
     
     // 여행 시작일로부터 몇일 지났는지
+    @MainActor
     func travelingDate(_ start: String) -> Int {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_kr")
@@ -141,6 +166,7 @@ final class MainViewModel: ObservableObject {
     }
 
     // 여행일까지 앞으로 남은 기간
+    @MainActor
     func D_Day(_ start: String) -> Int {
         
         let formatter = DateFormatter()
@@ -159,6 +185,7 @@ final class MainViewModel: ObservableObject {
     }
 
     // 여행 끝난 당일 3개의 랜덤 이미지 선택
+    @MainActor
     func randomPicture(_ album: [ImagesEntity] , _ pic: inout [String]){
         var three: [String] = ["", "", ""]
         var images: [String] = []
@@ -196,10 +223,25 @@ final class MainViewModel: ObservableObject {
     }
     
     // 진행중인 여행에서의 내 역할 가져오기
+    @MainActor
     func searchRole(_ userId: String) {
         role = albums[0].role[albums[0].users.firstIndex(of: userId) ?? 1]
         
         print(role)
     }
-
+    
+    @MainActor
+    func loadAlbum() async {
+        await fetchAlbums()
+        await fetchUser(userDocIds: [UserDefaultsSetting.userDocId])
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
+            if self.hasAlbum == 2 {
+                self.searchRole(UserDefaultsSetting.userDocId)
+            }
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                self.finishedFetch = true
+            }
+        }
+    }
 }
