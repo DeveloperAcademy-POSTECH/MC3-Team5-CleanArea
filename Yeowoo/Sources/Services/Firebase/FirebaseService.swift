@@ -267,9 +267,41 @@ struct FirebaseService {
 					}
 				} else {
 					for id in userDocIds {
+						print("@@ \(id)")
 						if let document = snapshot.documents.first(where: { $0.documentID == id }) {
 							let data = document.data()
-							users.append(User(documentData: data)!)
+							
+							var notis: [Notification] = []
+							
+							let docId = data["docId"] as? String
+							let email = data["email"] as? String
+							let fcmToken: String = data["fcmToken"] as! String
+							let finishedAlbum: [String] = data["finishedAlbum"] as! [String]
+							let id: String = data["id"] as! String
+							let isFirstLogin: Bool = data["isFirstLogin"] as! Bool
+							let nickname: String = data["nickname"] as! String
+							let password: String = data["password"] as! String
+							let profileImage: String = data["profileImage"] as! String
+							let progressAlbum: String = data["progressAlbum"] as! String
+							 
+							let test = document.data()["notification"] as! [[String: Any]]
+							for notiData in test {
+								if let albumId = notiData["albumId"] as? String,
+								   let sendData = notiData["sendData"] as? String,
+								   let sendUserNickname = notiData["sendUserNickname"] as? String,
+								   let travelTitle = notiData["travelTitle"] as? String,
+								   let userDocIds = notiData["userDocIds"] as? [String] {
+									let noti = Notification(albumId: albumId, sendDate: sendData,
+															sendUserNickname: sendUserNickname,
+															travelTitle: travelTitle, userDocIds: userDocIds)
+									notis.append(noti)
+								}
+							}
+							
+							users.append(User(docId: docId!, id: id, email: email!, password: password,
+											  isFirstLogin: isFirstLogin, nickname: nickname,
+											  profileImage: profileImage, progressAlbum: progressAlbum,
+											  finishedAlbum: finishedAlbum, notification: notis, fcmToken: fcmToken))
 						}
 					}
 					promise(.success(users))

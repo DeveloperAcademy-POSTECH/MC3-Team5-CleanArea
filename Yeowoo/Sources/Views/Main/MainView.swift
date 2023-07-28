@@ -96,7 +96,6 @@ struct MainView: View {
                                                     Spacer()
                                                         .frame(height: UIScreen.getHeight(24))
                                                     AlbumLayout(
-                                                        mainViewModel: mainViewModel,
                                                         coverImage: mainViewModel.albums[0].albumCoverImage,
                                                         userId: mainViewModel.albums[0].users,
                                                         travelName: mainViewModel.albums[0].albumTitle,
@@ -144,7 +143,6 @@ struct MainView: View {
                                             AlbumFeedView(albumDocId: data.id, viewModel: AlbumViewModel())
                                         }) {
                                             AlbumLayout(
-                                                mainViewModel: mainViewModel,
                                                 coverImage: data.albumCoverImage,
                                                 userId: data.users,
                                                 travelName: data.albumTitle,
@@ -215,6 +213,9 @@ struct MainView: View {
                     }
                 }
             }
+		}
+		.onAppear {
+			UserDefaultsSetting.userDocId = "Mt5DPoKI4Im0vZfq9vOl"
 		}
         .task {
             await mainViewModel.loadAlbum()

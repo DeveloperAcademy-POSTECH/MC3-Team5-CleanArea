@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AlbumLayout: View {
     
-    @ObservedObject var mainViewModel: MainViewModel
+    @ObservedObject var mainViewModel = MainViewModel()
     @State var fetch: Bool = false
     @State var days: Int = 0
     @State var traveling: Int = 0

@@ -17,7 +17,7 @@ struct User: Identifiable {
 	let profileImage: String	// 프로필 사진 url
 	let progressAlbum: String	// 현재 여행 중 앨범 id
 	let finishedAlbum: [String]	// 종료된 여행 앨범 id
-	let notification: [String]	// 알림
+	let notification: [Notification]	// 알림
 	let fcmToken: String	// fcmToken
 	
 	init(docId: String = "",
@@ -29,7 +29,7 @@ struct User: Identifiable {
 		 profileImage: String = "",
 		 progressAlbum: String = "",
 		 finishedAlbum: [String] = [],
-		 notification: [String] = [],
+		 notification: [Notification] = [],
 		 fcmToken: String = "") {
 		self.docId = docId
 		self.id = id
@@ -54,7 +54,7 @@ struct User: Identifiable {
 			  let profileImage = documentData["profileImage"] as? String,
 			  let progressAlbum = documentData["progressAlbum"] as? String,
 			  let finishedAlbum = documentData["finishedAlbum"] as? [String],
-			  let notification = documentData["notification"] as? [String],
+			  let notification = documentData["notification"] as? [Notification],
 			  let fcmToken = documentData["fcmToken"] as? String else {
 			return nil
 		}
