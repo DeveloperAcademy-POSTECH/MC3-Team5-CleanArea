@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CameraButton: View {
+    @StateObject var mainViewModel: MainViewModel
     @State private var image = UIImage()
     @State var changeCamera: Bool = false
     @State private var showModal = false
@@ -68,7 +69,8 @@ struct CameraButton: View {
                         .frame(height: UIScreen.getHeight(40))
                     
                     ZStack {
-                        Buttons(isFlash: $isFlash,
+                        Buttons(mainViewModel: mainViewModel,
+                                isFlash: $isFlash,
                                 didCapture: $didCapture,
                                 changeCamera: $changeCamera,
                                 image: $image,
@@ -84,9 +86,9 @@ struct CameraButton: View {
         }
     }
 }
-
-struct CameraButton_Previews: PreviewProvider {
-    static var previews: some View {
-        CameraButton()
-    }
-}
+//
+//struct CameraButton_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CameraButton()
+//    }
+//}

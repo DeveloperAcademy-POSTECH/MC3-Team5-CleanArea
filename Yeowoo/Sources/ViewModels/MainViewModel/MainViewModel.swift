@@ -21,7 +21,8 @@ final class MainViewModel: ObservableObject {
     @Published var today: String = ""
     @Published var role: String = ""
     @Published var finishedFetch: Bool = false
-    @Published var randomUser: [User] = []
+    @Published var currentDocId: String = ""
+    @Published var fetchState: Bool = false
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -53,6 +54,7 @@ final class MainViewModel: ObservableObject {
                 self.hasTraveling()
                 self.isEmpty()
                 self.getCurrentDateTime()
+                self.getDocId()
             }
             .store(in: &cancellables)
     }
@@ -73,23 +75,23 @@ final class MainViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    
-    @MainActor
-    func randomImageUsers(userDocIds: [String]) async {
-        FirebaseService.fetchUser(userDocIds: userDocIds)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .finished:
-                    return
-                }
-            } receiveValue: { user in
-                self.randomUser = user
-            }
-            .store(in: &cancellables)
-    }
-    
+//
+//    @MainActor
+//    func randomImageUsers(userDocIds: [String]) async {
+//        FirebaseService.fetchUser(userDocIds: userDocIds)
+//            .sink { completion in
+//                switch completion {
+//                case .failure(let error):
+//                    print(error.localizedDescription)
+//                case .finished:
+//                    return
+//                }
+//            } receiveValue: { user in
+//                self.randomUser = user
+//            }
+//            .store(in: &cancellables)
+//    }
+//
     // 여행 중인지 확인
     @MainActor
     func hasTraveling() {
@@ -243,5 +245,25 @@ final class MainViewModel: ObservableObject {
                 self.finishedFetch = true
             }
         }
+    }
+    
+    @MainActor
+    func testUpload(image: UIImage, albumDocId: String, comment: String, uploadUser: String) async throws {
+        _ = try await FirebaseService.uploadAlbumImage(image: image,
+                                                       albumDocId: albumDocId,
+                                                       fileName: String(describing: UUID()),
+                                                       comment: comment,
+                                                       uploadUser: uploadUser)
+    }
+    
+    func getDocId() {
+        currentDocId = albums[0].id
+    }
+    
+    @MainActor
+    func refetch(didPhoto: inout Bool, showModal: inout Bool) {
+        didPhoto = false
+        showModal = false
+        self.finishedFetch = false
     }
 }

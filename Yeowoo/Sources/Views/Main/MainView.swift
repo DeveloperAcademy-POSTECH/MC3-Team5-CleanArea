@@ -122,6 +122,11 @@ struct MainView: View {
                                         
                                         Spacer()
                                             .frame(height: UIScreen.getHeight(24))
+                                    } else {
+                                        VStack {
+                                            Spacer()
+                                                .frame(height: UIScreen.getHeight(24))
+                                        }
                                     }
                                     VStack {
                                         HStack {
@@ -175,7 +180,7 @@ struct MainView: View {
                                 Spacer()
                                 
                                 if (mainViewModel.traveling == 0 || mainViewModel.traveling == 1) && mainViewModel.hasAlbum == 2 {
-                                    CameraButton()
+                                    CameraButton(mainViewModel: mainViewModel)
                                         .padding(.trailing, UIScreen.getWidth(20))
                                 } else {
                                     NavigationLink(destination: NewAlbumView().navigationBarBackButtonHidden()) {
@@ -202,7 +207,7 @@ struct MainView: View {
                     ZStack {
                         VStack {
                             Spacer()
-                                .frame(height: UIScreen.getHeight(65))
+                                .frame(height: UIScreen.getHeight(60))
                             
                             Rectangle()
                                 .foregroundColor(.white)
@@ -214,11 +219,11 @@ struct MainView: View {
                 }
             }
 		}
-		.onAppear {
-			UserDefaultsSetting.userDocId = "Mt5DPoKI4Im0vZfq9vOl"
-		}
         .task {
-            await mainViewModel.loadAlbum()
+            if !mainViewModel.fetchState {
+                await mainViewModel.loadAlbum()
+                mainViewModel.fetchState = true
+            }
         }
 	}
 }

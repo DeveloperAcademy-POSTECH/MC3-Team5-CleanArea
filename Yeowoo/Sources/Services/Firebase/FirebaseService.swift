@@ -359,7 +359,7 @@ struct FirebaseService {
 	//MARK: - Album
 	
 	/// 이미지 올리기
-	static func uploadAlbumImage(image: UIImage, albumDocId: String, fileName: String) async throws -> FirebaseState {
+    static func uploadAlbumImage(image: UIImage, albumDocId: String, fileName: String, comment: String, uploadUser: String) async throws -> FirebaseState {
 		let data = image.jpegData(compressionQuality: 0.5)!
 		let storage = Storage.storage()
 		let metaData = StorageMetadata()
@@ -377,13 +377,13 @@ struct FirebaseService {
 						let updatedData: [String: Any] = [
 							// 수정
 							"images": FieldValue.arrayUnion([
-								["comment" : "설명 테스트 index",
+								["comment" : comment,
 								 "fileName" : fileName,
 								 "url" : String(describing: URL),
 								 "likeUsers": [],
 								 "roleCheck": true,
 								 "updateTime": dateFormatter.string(from: Date()),
-								 "uploadUser": ""] as [String : Any]
+								 "uploadUser": uploadUser] as [String : Any]
 							])
 						]
 						let path = db.collection("album").document(albumDocId)

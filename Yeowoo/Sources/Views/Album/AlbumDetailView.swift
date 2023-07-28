@@ -108,8 +108,11 @@ private extension AlbumDetailView {
 				}
 			} label: {
 				Image(systemName: "ellipsis")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
 					.foregroundColor(Color("G4"))
 					.rotationEffect(Angle(degrees: 90))
+                    .frame(width: UIScreen.getHeight(22), height: UIScreen.getWidth(42))
 			}
 			.alert(item: $alertType) { alertType in
 				switch alertType {

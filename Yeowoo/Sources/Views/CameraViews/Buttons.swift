@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Buttons: View {
+    @StateObject var mainViewModel: MainViewModel
     @Binding var isFlash: Bool
     @Binding var didCapture: Bool
     @Binding var changeCamera: Bool
@@ -23,7 +24,10 @@ struct Buttons: View {
                 FeatureButton(imageName: isFlash == true ? "bolt.fill" : "bolt.slash.fill")
             }
             
-            NavigationLink(destination: EditView(showModal: $showModal, image: $image, didPhoto: $didPhoto),
+            NavigationLink(destination: EditView(mainViewModel: mainViewModel,
+                                                 showModal: $showModal,
+                                                 image: $image,
+                                                 didPhoto: $didPhoto),
                            isActive: $open) {
                 Button(action: {
                     didCapture = true
