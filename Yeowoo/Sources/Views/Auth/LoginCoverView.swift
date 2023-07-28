@@ -10,7 +10,7 @@ import SwiftUI
 
 
 struct LoginCoverView: View {
-	
+
 	func sendPushNotification(to token: String, title: String, body: String) {
 		let servertoken = "AAAA4KO-MwQ:APA91bEIXXh04n3m6Kh7lBDkPz8fLkquU6XKvmbdPQRIFN65v8tCbANrSL5ogt6IY9a9pKXa2lhQcMI_K4IKexExQ2KsERemlwmG__tXZ3870yoCje-_9r5z9EYAO7EzJbhAgNTJ7xGm"
 		let urlString = "https://fcm.googleapis.com/fcm/send"
@@ -37,15 +37,20 @@ struct LoginCoverView: View {
 		}
 		task.resume()
 	}
+	@EnvironmentObject var appState: AppState
+	@State var isViewActive: Bool = false
+	@State var userInfo = User()
 	
 	var body: some View {
-		NavigationView {
+		NavigationStack {
 			ZStack {
 				VStack(alignment: .center, spacing: 0) {
 					Image("loginLogo")
 				}
 				
-				NavigationLink(destination: LoginView()) {
+				Button {
+					isViewActive = true
+				} label: {
 					Text("로그인")
 						.font(.system(size: 18))
 						.fontWeight(.semibold)
@@ -54,6 +59,15 @@ struct LoginCoverView: View {
 						.background(
 							RoundedRectangle(cornerRadius: 10)
 								.fill(Color("B1")))
+				}
+				.navigationDestination(isPresented: $isViewActive, destination: {
+					SettingView(userInfo: $userInfo)
+				})
+				.onReceive(self.appState.$moveToRootView) { moveToDashboard in
+					if moveToDashboard {
+						self.isViewActive = false
+						self.appState.moveToRootView = false
+					}
 				}
 				.padding(.top, 320)
 				
