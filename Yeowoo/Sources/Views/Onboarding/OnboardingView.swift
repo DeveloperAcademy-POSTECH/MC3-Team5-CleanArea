@@ -11,55 +11,56 @@ import UIKit
 struct OnboardingView: View {
     @State private var selectedPage = 0
     var body: some View {
-        VStack {
-            ZStack {
-                TabView(selection: $selectedPage) {
-                    PageOne()
-                        .tag(0)
-                    Color.blue
-                        .tag(1)
-                    Color.green
-                        .tag(2)
-                    Color.yellow
-                        .tag(3)
-                }
-                .tabViewStyle(.page(indexDisplayMode: .never))
-                VStack(spacing: 0) {
-                    Spacer()
-                    
-                    HStack(spacing: UIScreen.getWidth(10)) {
-                        ForEach(0..<4) { pageNumber in
-                            Circle()
-                                .fill(
-                                    selectedPage == pageNumber ?
-                                    Color.mainColor : Color("G5")
-                                )
-                                .frame(width: 8, height: 8)
-                        }
+        ZStack {
+            TabView(selection: $selectedPage) {
+                PageOne()
+                    .tag(0)
+                PageTwo()
+                    .tag(1)
+                PageThree()
+                    .tag(2)
+                PageFour()
+                    .tag(3)
+            }
+            .edgesIgnoringSafeArea(.bottom)
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            
+            VStack(spacing: 0) {
+                Spacer()
+                
+                HStack(spacing: UIScreen.getWidth(10)) {
+                    ForEach(0..<4) { pageNumber in
+                        Circle()
+                            .fill(
+                                selectedPage == pageNumber ?
+                                Color.mainColor : Color("G5")
+                            )
+                            .frame(width: 8, height: 8)
                     }
-                    
-                    Spacer()
-                        .frame(height: UIScreen.getHeight(20))
                 }
                 
+                Spacer()
+                    .frame(height: UIScreen.getHeight(94))
             }
-            Spacer()
-                .frame(height: UIScreen.getHeight(selectedPage == 3 ? 20 : 74))
-            if selectedPage == 3 {
-                Button(action: {
-                    
-                }) {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 10)
-                            .foregroundColor(Color.mainColor)
-                            .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(54))
-                        
-                        Text("시작하기")
-                            .foregroundColor(.white)
-                            .font(.custom18bold())
+            VStack {
+                Spacer()
+                if selectedPage == 3 {
+                    Button(action: {
+
+                    }) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundColor(Color.mainColor)
+                                .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(54))
+
+                            Text("시작하기")
+                                .foregroundColor(.white)
+                                .font(.custom18bold())
+                        }
                     }
                 }
             }
+            .padding(.bottom, 10)
         }
     }
 }
@@ -71,7 +72,7 @@ private extension OnboardingView {
         ZStack {
             VStack(spacing: 0) {
                 Spacer()
-                    .frame(height: UIScreen.getHeight(73))
+                    .frame(height: UIScreen.getHeight(63))
                 
                 HStack {
                     Text("함께 여행할 친구들을 초대해\n우리만의 공유앨범을 만들어 보세요")
@@ -83,18 +84,98 @@ private extension OnboardingView {
                 }
                 
                 Spacer()
-                    .frame(height: UIScreen.getHeight(40))
                 
-                ZStack {
-                    Rectangle()
+                Image("Onboarding1")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: UIScreen.getHeight(636))
+            }
+        }
+        .edgesIgnoringSafeArea(.bottom)
+    }
+    
+    @ViewBuilder
+    func PageTwo() -> some View {
+        ZStack {
+            VStack(spacing: 0) {
+                Spacer()
+                    .frame(height: UIScreen.getHeight(63))
+                
+                HStack {
+                    Text("역할별로 정리된 앨범을 눌러\n친구의 시선으로 여행을 기억해봐요")
+                        .font(.custom22bold())
+                        .lineSpacing(5)
+                        .padding(.leading, UIScreen.getWidth(20))
                     
-                    VStack {
-                        Spacer()
-                        
-                        LinearGradient(gradient: Gradient(colors: [.clear, .white]), startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 0.5))
-                            .frame(height: UIScreen.getHeight(100))
-                    }
+                    Spacer()
                 }
+                
+                Spacer()
+                
+                Image("Onboarding2")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: UIScreen.getHeight(636))
+            }
+        }
+        .edgesIgnoringSafeArea(.bottom)
+    }
+    
+    @ViewBuilder
+    func PageThree() -> some View {
+        ZStack {
+            VStack(spacing: 0) {
+                Spacer()
+                    .frame(height: UIScreen.getHeight(63))
+                
+                HStack {
+                    Text("친구들이 작성한 글과 사진을 보며\n생생하게 여행을 기억해봐요")
+                        .font(.custom22bold())
+                        .lineSpacing(5)
+                        .padding(.leading, UIScreen.getWidth(20))
+                    
+                    Spacer()
+                }
+                
+                Spacer()
+                
+                Image("Onboarding3")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: UIScreen.getHeight(636))
+            }
+        }
+        .edgesIgnoringSafeArea(.bottom)
+    }
+    
+    @ViewBuilder
+    func PageFour() -> some View {
+        ZStack {
+            VStack {
+                Spacer()
+                
+                Image("Onboarding4")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: UIScreen.getWidth(390))
+                
+                Spacer()
+            }
+            
+            VStack(spacing: 0) {
+                Spacer()
+                    .frame(height: UIScreen.getHeight(63))
+                
+                HStack {
+                    Text("여우와 함께 여행 중 우리가 함께한\n모든 순간을 기억해봐요")
+                        .font(.custom22bold())
+                        .lineSpacing(5)
+                        .padding(.leading, UIScreen.getWidth(20))
+                    
+                    Spacer()
+                }
+                
+                Spacer()
             }
         }
     }
