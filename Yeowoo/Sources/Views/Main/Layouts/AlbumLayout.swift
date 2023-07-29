@@ -10,6 +10,7 @@ import SwiftUI
 struct AlbumLayout: View {
     
     @ObservedObject var mainViewModel = MainViewModel()
+    @State private var albumCover: [Image] = [Image("Album1"), Image("Album2"), Image("Album3"), Image("Album4")]
     @State var fetch: Bool = false
     @State var days: Int = 0
     @State var traveling: Int = 0
@@ -35,7 +36,7 @@ struct AlbumLayout: View {
                             ProgressView()
                         }
                     } else {
-                        Text("사진사진사진")
+                        albumCover.randomElement()
                     }
                     
                     RadialGradient(colors: [Color("ButtonColor"), .clear], center: .bottomLeading, startRadius: 0, endRadius: 270)
