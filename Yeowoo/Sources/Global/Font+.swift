@@ -52,6 +52,10 @@ extension Font {
     static func custom20bold() -> Font {
         return Font.system(size: 20 * setFontSize(), weight: .bold)
     }
+    
+    static func custom22bold() -> Font {
+        return Font.system(size: 22 * setFontSize(), weight: .bold)
+    }
 
     static func custom24bold() -> Font {
         return Font.system(size: 24 * setFontSize(), weight: .bold)

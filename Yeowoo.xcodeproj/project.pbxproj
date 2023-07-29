@@ -21,6 +21,7 @@
 		1064752C2A656A170092FE5B /* DoneTravelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064752B2A656A170092FE5B /* DoneTravelLayout.swift */; };
 		1064752E2A656BB20092FE5B /* RecommendLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064752D2A656BB20092FE5B /* RecommendLayout.swift */; };
 		106475302A656DFB0092FE5B /* BeforeTravelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1064752F2A656DFB0092FE5B /* BeforeTravelLayout.swift */; };
+		10A363AC2A74FF7800B55C34 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A363AB2A74FF7800B55C34 /* OnboardingView.swift */; };
 		10CB96D42A63FDF000C08DBC /* FeatureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D32A63FDF000C08DBC /* FeatureButton.swift */; };
 		10CB96D62A63FF7800C08DBC /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */; };
 		10CB96D82A64028C00C08DBC /* WriteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D72A64028C00C08DBC /* WriteTextView.swift */; };
@@ -141,6 +142,7 @@
 		1064752B2A656A170092FE5B /* DoneTravelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTravelLayout.swift; sourceTree = "<group>"; };
 		1064752D2A656BB20092FE5B /* RecommendLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendLayout.swift; sourceTree = "<group>"; };
 		1064752F2A656DFB0092FE5B /* BeforeTravelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeforeTravelLayout.swift; sourceTree = "<group>"; };
+		10A363AB2A74FF7800B55C34 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		10CB96D32A63FDF000C08DBC /* FeatureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureButton.swift; sourceTree = "<group>"; };
 		10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		10CB96D72A64028C00C08DBC /* WriteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTextView.swift; sourceTree = "<group>"; };
@@ -333,6 +335,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		10A363AA2A74FF4E00B55C34 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				10A363AB2A74FF7800B55C34 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		10CB96D22A63FDD500C08DBC /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -507,6 +517,7 @@
 		65C076B62A570A23003E6D92 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				10A363AA2A74FF4E00B55C34 /* Onboarding */,
 				6556C3F32A6A505D00B4EEE1 /* Auth */,
 				65C0773A2A611521003E6D92 /* Album */,
 				106475162A6529AE0092FE5B /* Main */,
@@ -902,6 +913,7 @@
 				65C0770F2A5BDACF003E6D92 /* User.swift in Sources */,
 				65C076FF2A5A7F2A003E6D92 /* FirebaseService.swift in Sources */,
 				65C077152A5BF322003E6D92 /* KeyChainManager.swift in Sources */,
+				10A363AC2A74FF7800B55C34 /* OnboardingView.swift in Sources */,
 				1064752C2A656A170092FE5B /* DoneTravelLayout.swift in Sources */,
 				106475282A653A1D0092FE5B /* Person.swift in Sources */,
 				106475302A656DFB0092FE5B /* BeforeTravelLayout.swift in Sources */,
