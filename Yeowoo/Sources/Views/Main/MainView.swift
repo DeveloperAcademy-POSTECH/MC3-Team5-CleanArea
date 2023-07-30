@@ -8,11 +8,11 @@
 import SwiftUI
 
 final class AppState: ObservableObject {
-    @Published var moveToRootView: Bool = false
+	@Published var moveToRootView: Bool = false
 }
 
 struct MainView: View {
-    @EnvironmentObject var appState: AppState
+	@EnvironmentObject var appState: AppState
 	@ObservedObject var mainViewModel = MainViewModel()
 	@ObservedObject var albumViewModel = AlbumViewModel()
 	
@@ -52,8 +52,10 @@ struct MainView: View {
 							Spacer()
 								.frame(width: UIScreen.getWidth(9))
 							
-//							NavigationLink(destination: SettingView(userInfo: $mainViewModel.users.first!)){
-								NavigationLink(destination: EmptyView()){
+							NavigationLink(destination:
+											SettingView(userInfo: mainViewModel.users.first ?? User())
+								.navigationBarBackButtonHidden()
+							){
 								ZStack {
 									Image("Person")
 										.resizable()
@@ -92,7 +94,7 @@ struct MainView: View {
 										
 										NavigationLink(destination: {
 											AlbumFeedView(albumDocId: mainViewModel.albums[0].id, viewModel: AlbumViewModel())
-                                                .navigationBarBackButtonHidden()
+												.navigationBarBackButtonHidden()
 										}) {
 											// ViewModel에 userProfileImage 가져오는 메소드 추가
 											ZStack {
@@ -224,9 +226,9 @@ struct MainView: View {
 				}
 			}
 		}
-//        .onAppear {
-//            UserDefaultsSetting.userDocId = "9sF6utDpaMngwUTF09Em"
-//        }
+		//        .onAppear {
+		//            UserDefaultsSetting.userDocId = "9sF6utDpaMngwUTF09Em"
+		//        }
 		.task {
 			if !mainViewModel.fetchState {
 				await mainViewModel.loadAlbum()

@@ -96,6 +96,10 @@ struct FindFriendView: View {
 //					sendPushNotification(to: tokens, title: "From \(UserDefaultsSetting.nickname)", body: "\(newAlbum.albumTitle)에 초대해요!")
 					
 					sendPushNotification(to: selectedFriends.map { $0.fcmToken }, title: "From \(UserDefaultsSetting.nickname)", body: "\(newAlbum.albumTitle)에 초대해요!")
+					
+//					sendPushNotification(to: [testToken], title: "From \(UserDefaultsSetting.nickname)", body: "\(newAlbum.albumTitle)에 초대해요!")
+					
+				
 				}
 			} label: {
 				Rectangle()

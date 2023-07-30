@@ -11,7 +11,7 @@ import PhotosUI
 struct ProfileSettingView: View {
 	@Environment(\.dismiss) var dismiss
 	//    var myImage: String
-	@Binding var userInfo: User
+	var userInfo: User
 	
 	@State private var selectedImage: PhotosPickerItem?
 	@State private var nickName = ""
@@ -134,15 +134,16 @@ struct ProfileSettingView: View {
 					}
 				}
 			} label: {
-				Text("저장하기")
-					.foregroundColor(.white)
-					.font(.system(size: 18))
-					.fontWeight(.bold)
+				ZStack {
+					RoundedRectangle(cornerRadius: 10)
+						.foregroundColor(viewModel.idDuplicateCheckFlag == .pass && nickName.count >= 2 ? Color.mainColor : Color.mainColor.opacity(0.2))
+						.frame(height: UIScreen.getHeight(54))
+						.padding([.leading, .trailing], UIScreen.getWidth(20))
+					Text("저장하기")
+						.font(.custom18semibold())
+						.foregroundColor(.white)
+				}
 			}
-			.disabled(viewModel.idDuplicateCheckFlag == .pass && nickName.count >= 2 ? false : true)
-			.frame(width: UIScreen.main.bounds.width - 30, height: 54)
-			.background(RoundedRectangle(cornerRadius: 10, style: .continuous)
-				.fill(viewModel.idDuplicateCheckFlag == .pass && nickName.count >= 2 ? Color.mainColor : Color.mainColor.opacity(0.2)))
 		}
 		.onAppear {
 			nickName = userInfo.nickname

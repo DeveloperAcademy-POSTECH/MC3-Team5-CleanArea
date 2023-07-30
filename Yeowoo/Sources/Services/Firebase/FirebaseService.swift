@@ -469,6 +469,7 @@ struct FirebaseService {
 								images.append(image)
 							}
 						}
+						images.sort { $0.uploadTime > $1.uploadTime }
 						promise(.success(Album(id: document.documentID, albumTitle: albumTitle,
 											   albumCoverImage: albumCoverImage, startDay: startDay,
 											   endDay: endDay, images: images, isClosed: isClosed, users: users, role: role)))
@@ -648,8 +649,8 @@ struct FirebaseService {
 			"endDay": "",
 			"images": [],
 			"isClosed": false,
-			"users": album.users.first,
-			"role": album.role.first
+			"users": [album.users.first],
+			"role": [album.role.first]
 		]
 		let collectionRef = db.collection("Album")
 		//		let documentRef = collectionRef.addDocument(data: albumData) { error in
@@ -674,6 +675,7 @@ struct FirebaseService {
 			let collectionUserRef = db.collection("User").document(docId)
 			
 			collectionUserRef.updateData([
+				"progressAlbum" : albumId,
 				"notification" : FieldValue.arrayUnion([notificationData])
 			])
 		}

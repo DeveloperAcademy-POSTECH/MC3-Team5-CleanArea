@@ -12,6 +12,7 @@ import UIKit
 final class SettingViewModel: ObservableObject {
 	
 	@Published var idDuplicateCheckFlag: IdDuplicateState = .none
+	@Published var users: [User] = []
 	
 	private var cancellables = Set<AnyCancellable>()
 	
@@ -40,4 +41,20 @@ final class SettingViewModel: ObservableObject {
 													   id: id) == .success { }
 		}
 	}
+	
+	@MainActor
+	func fetchUser(userDocIds: [String]) {
+		FirebaseService.fetchUser(userDocIds: userDocIds)
+			.sink { completion in
+				switch completion {
+				case .failure(let error):
+					print(error.localizedDescription)
+				case .finished:
+					return
+				}
+			} receiveValue: { user in
+				self.users = user
+			}
+			.store(in: &cancellables)
+	}	
 }

@@ -71,15 +71,16 @@ struct AlbumFeedView: View {
 											.fontWeight(.semibold)
 									}
 									.onTapGesture {
+										testSortToggle.toggle()
 										viewModel.imageSort(state: testSortToggle)
 									}
 									Toggle(isOn: self.$layoutToggleState) {}
-									.onChange(of: layoutToggleState, perform: { _ in
-										withAnimation(.default) {
-											proxy.scrollTo("scroll_to_top", anchor: .top)
-										}
-									})
-									.toggleStyle(CheckmarkToggleStyle())
+										.onChange(of: layoutToggleState, perform: { _ in
+											withAnimation(.default) {
+												proxy.scrollTo("scroll_to_top", anchor: .top)
+											}
+										})
+										.toggleStyle(CheckmarkToggleStyle())
 								}
 								.frame(height: 40)
 								.background(Color.white)
@@ -95,6 +96,7 @@ struct AlbumFeedView: View {
 						}
 					}
 				}
+				.scrollDisabled((viewModel.visibleImages.isEmpty || viewModel.visibleImages[0].count == 0) ? true : false)
 			}
 			.navigationBarTitle("")
 			.navigationBarHidden(true)
@@ -133,71 +135,70 @@ private extension AlbumFeedView {
 				} label: {
 					Label("여행 종료하기", systemImage: "xmark.circle")
 				}
+			} label: {
+				Image(systemName: "ellipsis")
+					.foregroundColor(Color("G4"))
+					.rotationEffect(Angle(degrees: 90))
 			}
-		label: {
-			Image(systemName: "ellipsis")
-				.foregroundColor(Color("G4"))
-				.rotationEffect(Angle(degrees: 90))
-		}
-		.sheet(isPresented: $showingEditSheet) {
-			VStack(spacing: 24) {
-				Text("앨범 제목 수정하기")
-					.font(.system(size: 18))
-					.fontWeight(.bold)
-				TextField("20자 이내로 입력해주세요", text: $changedAlbumTitle)
-					.font(.system(size: 16))
-					.padding()
-					.background(Color(uiColor: .secondarySystemBackground))
-					.cornerRadius(10)
-					.onAppear {
-						UITextField.appearance().clearButtonMode = .whileEditing
-					}
-				Button {
-					Task {
-						try await viewModel.updateAlbumTitle(albumDocId: viewModel.albums.id,
-															 title: changedAlbumTitle)
-						showingUpdateAlert = true
-					}
-				} label: {
-					Rectangle()
-						.fill(Color.mainColor)
-						.frame(height: 54)
+			.sheet(isPresented: $showingEditSheet) {
+				VStack(spacing: 24) {
+					Text("앨범 제목 수정하기")
+						.font(.system(size: 18))
+						.fontWeight(.bold)
+					TextField("20자 이내로 입력해주세요", text: $changedAlbumTitle)
+						.font(.system(size: 16))
+						.padding()
+						.background(Color(uiColor: .secondarySystemBackground))
 						.cornerRadius(10)
-						.overlay {
-							Text("완료")
-								.font(.system(size: 18))
-								.fontWeight(.bold)
-								.foregroundColor(Color.white)
+						.onAppear {
+							UITextField.appearance().clearButtonMode = .whileEditing
 						}
-				}
-				.alert(isPresented: $showingUpdateAlert) {
-					Alert(
-						title: Text("제목 수정"),
-						message: Text("앨범 제목을 수정했어요."),
-						dismissButton: .default(Text("확인")) {
-							showingEditSheet = false
+					Button {
+						Task {
+							try await viewModel.updateAlbumTitle(albumDocId: viewModel.albums.id,
+																 title: changedAlbumTitle)
+							showingUpdateAlert = true
 						}
-					)
-				}
-				
-			}
-			.padding(.horizontal, 20)
-			.presentationDetents([.height(250)])
-		}
-		.alert(isPresented: $showingFinishAlert) {
-			Alert(
-				title: Text(viewModel.albums.isClosed ? "여행 삭제" : "여행 종료"),
-				message: Text(viewModel.albums.isClosed ? "현재 계정에서만 삭제되며 복구가 불가능합니다" :
-								"여행을 종료하면\n사진 및 영상 업로드가 불가능해요"),
-				primaryButton: .destructive(Text(viewModel.albums.isClosed ? "삭제" : "종료")) {
-					Task {
-						viewModel.albums.isClosed ? try await viewModel.removeTravel(docId: viewModel.albums.id) :
-						try await viewModel.closedTravel(docId: viewModel.albums.id)
+					} label: {
+						Rectangle()
+							.fill(Color.mainColor)
+							.frame(height: 54)
+							.cornerRadius(10)
+							.overlay {
+								Text("완료")
+									.font(.system(size: 18))
+									.fontWeight(.bold)
+									.foregroundColor(Color.white)
+							}
 					}
-				},
-				secondaryButton: .cancel(Text("취소")) { }
-			)
-		}
+					.alert(isPresented: $showingUpdateAlert) {
+						Alert(
+							title: Text("제목 수정"),
+							message: Text("앨범 제목을 수정했어요."),
+							dismissButton: .default(Text("확인")) {
+								showingEditSheet = false
+							}
+						)
+					}
+					
+				}
+				.padding(.horizontal, 20)
+				.presentationDetents([.height(250)])
+			}
+			.alert(isPresented: $showingFinishAlert) {
+				Alert(
+					title: Text(viewModel.albums.isClosed ? "여행 삭제" : "여행 종료"),
+					message: Text(viewModel.albums.isClosed ? "현재 계정에서만 삭제되며 복구가 불가능합니다" :
+									"여행을 종료하면\n사진 및 영상 업로드가 불가능해요"),
+					primaryButton: .destructive(Text(viewModel.albums.isClosed ? "삭제" : "종료")) {
+						Task {
+							viewModel.albums.isClosed ? try await viewModel.removeTravel(docId: viewModel.albums.id) :
+							try await viewModel.closedTravel(docId: viewModel.albums.id)
+						}
+					},
+					secondaryButton: .cancel(Text("취소")) { }
+				)
+			}
 		}
 		.frame(height: 48)
 		.padding(.horizontal, 20)
@@ -312,14 +313,20 @@ private extension AlbumFeedView {
 	@ViewBuilder
 	func ImageView() -> some View {
 		if roleState == .all && (viewModel.visibleImages.isEmpty || viewModel.visibleImages[0].count == 0) {
-			VStack {
+			VStack(spacing: 10) {
 				Text("첫 번째 사진을 올려보세요!")
+					.font(.system(size: 20))
+					.fontWeight(.semibold)
 				Text("카메라로 사진을 찍어 첫 추억을 남겨보세요")
+					.font(.system(size: 14))
+					.foregroundColor(Color("G3"))
 			}
-			.padding(.top, UIScreen.main.bounds.height / 3.5)
+			.padding(.top, UIScreen.main.bounds.width / 2)
 		} else if roleState == .user && (viewModel.roleImage.isEmpty || viewModel.roleImage[0].count == 0) {
 			Text("앨범이 비어있어요")
-				.padding(.top, UIScreen.main.bounds.height / 3.5)
+				.font(.system(size: 20))
+				.foregroundColor(Color("G3"))
+				.padding(.top, UIScreen.main.bounds.width / 2)
 		} else {
 			VStack(spacing: layoutToggleState ? 0 : 2) {
 				ForEach(roleState == .all ? viewModel.visibleImages.indices
