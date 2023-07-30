@@ -66,8 +66,10 @@ struct DemoMainView: View {
                                         .foregroundColor(.mainColor))
                             }
                             NavigationLink{
-								SettingView(userInfo: $userInfo)
-                                    .navigationBarBackButtonHidden()
+//								SettingView(userInfo: $userInfo)
+//                                    .navigationBarBackButtonHidden()
+								EmptyView()
+									.navigationBarBackButtonHidden()
                             } label: {
                                 Circle()
                                     .foregroundColor(.white)

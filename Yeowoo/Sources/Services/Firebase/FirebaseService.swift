@@ -159,12 +159,12 @@ struct FirebaseService {
 				let metaData = StorageMetadata()
 				metaData.contentType = "image/png"
 				let uuid = String(describing: UUID())
-				storage.reference().child("album1/" + uuid).putData(data, metadata: metaData) { (metaData, error) in
+				storage.reference().child("Album/" + uuid).putData(data, metadata: metaData) { (metaData, error) in
 					if let error = error {
 						print("error \(error.localizedDescription)")
 						return
 					} else {
-						storage.reference().child("album1/" + uuid).downloadURL { URL, error in
+						storage.reference().child("Album/" + uuid).downloadURL { URL, error in
 							guard let URL else { return }
 							do {
 								let id = try KeyChainManager.shared.read(account: .documentId)
@@ -219,7 +219,7 @@ struct FirebaseService {
 				print("error \(error.localizedDescription)")
 				return
 			} else {
-				storage.reference().child("album1/" + "test2").downloadURL { URL, error in
+				storage.reference().child("Album/" + "test2").downloadURL { URL, error in
 					guard let URL else { return }
 					do {
 						let id = try KeyChainManager.shared.read(account: .documentId)
@@ -367,12 +367,12 @@ struct FirebaseService {
 		let metaData = StorageMetadata()
 		metaData.contentType = "image/png"
 		return try await withUnsafeThrowingContinuation { configuration in
-			storage.reference().child("album1/" + "\(fileName)").putData(data, metadata: metaData) { ( metaData, error ) in
+			storage.reference().child("Album/" + "\(fileName)").putData(data, metadata: metaData) { ( metaData, error ) in
 				if error != nil {
 					configuration.resume(returning: .fail)
 					return
 				} else {
-					storage.reference().child("album1/" + "\(fileName)").downloadURL { URL, error in
+					storage.reference().child("Album/" + "\(fileName)").downloadURL { URL, error in
 						let dateFormatter = DateFormatter()
 						dateFormatter.dateFormat = "yyyy.MM.dd HH:mm:ss"
 						guard let URL else { return }
@@ -388,7 +388,7 @@ struct FirebaseService {
 								 "uploadUser": uploadUser] as [String : Any]
 							])
 						]
-						let path = db.collection("album").document(albumDocId)
+						let path = db.collection("Album").document(albumDocId)
 						path.updateData(updatedData)
 						configuration.resume(returning: .success)
 					}
@@ -400,7 +400,7 @@ struct FirebaseService {
 	/// 앨범 이미지 불러오기
 	static func fetchAlbumImages(albumDocId: String) -> AnyPublisher<Album, Error> {
 		Future<Album, Error> { promise in
-			db.collection("album").getDocuments { snapshot, error in
+			db.collection("Album").getDocuments { snapshot, error in
 				if let error {
 					promise(.failure(error))
 					return
@@ -451,7 +451,9 @@ struct FirebaseService {
 	
 	/// 앨범 가져오기
 	static func fetchAlbums() -> AnyPublisher<[Album], Error> {
-		let query = db.collection("album").whereField("users", arrayContains: UserDefaultsSetting.userDocId)
+		let query = db.collection("Album").whereField("users", arrayContains: UserDefaultsSetting.userDocId)
+		
+		print("!! \(UserDefaultsSetting.userDocId)")
 		
 		return Future<[Album], Error> { promise in
 			query.getDocuments { snapshot, error in
@@ -461,7 +463,7 @@ struct FirebaseService {
 				}
 				
 				var albums: [Album] = []
-				
+			
 				for document in snapshot?.documents ?? [] {
 					let data = document.data()
 					if let imagesData = data["images"] as? [[String: Any]] {
@@ -507,20 +509,20 @@ struct FirebaseService {
 		let metaData = StorageMetadata()
 		metaData.contentType = "image/png"
 		return try await withUnsafeThrowingContinuation { configuration in
-			storage.reference().child("album1/" + "test4").delete { error in
+			storage.reference().child("Album/" + "test4").delete { error in
 				if error != nil {
 					configuration.resume(returning: .fail)
 					return
 				}
 			}
-			storage.reference().child("album1/" + "test5").putData(data, metadata: metaData) { ( metaData, error ) in
+			storage.reference().child("Album/" + "test5").putData(data, metadata: metaData) { ( metaData, error ) in
 				if error != nil {
 					configuration.resume(returning: .fail)
 					return
 				} else {
-					storage.reference().child("album1/" + "test5").downloadURL { URL, error in
+					storage.reference().child("Album/" + "test5").downloadURL { URL, error in
 						guard let URL else { return }
-						let path = db.collection("album").document(albumDocId)
+						let path = db.collection("Album").document(albumDocId)
 						path.getDocument { snapshot, error in
 							guard let document = snapshot, document.exists else {
 								configuration.resume(returning: .fail)
@@ -556,7 +558,7 @@ struct FirebaseService {
 	static func deleteAlbumImage(albumDocId: String, parmFileName: String) async throws -> FirebaseState {
 		return try await withUnsafeThrowingContinuation { configuration in
 			let storage = Storage.storage()
-			storage.reference().child("album1/" + parmFileName).delete { error in
+			storage.reference().child("Album/" + parmFileName).delete { error in
 				if let error = error {
 					print("Error deleting file: \(error)")
 				} else {
@@ -564,7 +566,7 @@ struct FirebaseService {
 				}
 			}
 			
-			let path = db.collection("album").document(albumDocId)
+			let path = db.collection("Album").document(albumDocId)
 			path.getDocument { snapshot, error in
 				guard let document = snapshot, document.exists else {
 					configuration.resume(returning: .fail)
@@ -595,7 +597,7 @@ struct FirebaseService {
 	
 	/// 앨범 제목 수정하기
 	static func updateAlbumTitle(albumDocId: String, changedTitle: String) async throws -> FirebaseState {
-		let documentRef = db.collection("album").document(albumDocId)
+		let documentRef = db.collection("Album").document(albumDocId)
 		return try await withUnsafeThrowingContinuation { configuration in
 			documentRef.updateData([
 				"title": changedTitle
@@ -616,7 +618,7 @@ struct FirebaseService {
 			"users": album.users,
 			"role": album.role
 		]
-		let collectionRef = db.collection("album")
+		let collectionRef = db.collection("Album")
 		let documentRef = collectionRef.addDocument(data: albumData) { error in
 			if let error = error {
 				print("error \(error.localizedDescription)")
@@ -645,7 +647,7 @@ struct FirebaseService {
 	
 	/// 여행 종료
 	static func closedTravel(albumDocId: String) async throws -> FirebaseState {
-		let albumDocumentRef = db.collection("album").document(albumDocId)
+		let albumDocumentRef = db.collection("Album").document(albumDocId)
 		return try await withUnsafeThrowingContinuation { configuration in
 			albumDocumentRef.updateData([
 				"isClosed": true
@@ -711,7 +713,7 @@ struct FirebaseService {
 	
 	/// 앨범 대표 이미지 수정
 	static func updateAlbumCoverImage(albumDocId: String, url: String) async throws -> FirebaseState {
-		let documentRef = db.collection("album").document(albumDocId)
+		let documentRef = db.collection("Album").document(albumDocId)
 		return try await withUnsafeThrowingContinuation { configuration in
 			documentRef.updateData([
 				"coverImage": url
@@ -723,7 +725,7 @@ struct FirebaseService {
 	/// 좋아요 등록
 	static func updateLikeUsers(albumDocId: String, paramFileName: String) async throws -> FirebaseState {
 		return try await withUnsafeThrowingContinuation { configuration in
-			let path = db.collection("album").document(albumDocId)
+			let path = db.collection("Album").document(albumDocId)
 			path.getDocument { snapshot, error in
 				guard let document = snapshot, document.exists else {
 					configuration.resume(returning: .fail)
@@ -760,7 +762,7 @@ struct FirebaseService {
 	/// 좋아요 삭제
 	static func removeUserFromLikeUsers(albumDocId: String, paramFileName: String) async throws -> FirebaseState {
 		return try await withUnsafeThrowingContinuation { configuration in
-			let path = db.collection("album").document(albumDocId)
+			let path = db.collection("Album").document(albumDocId)
 			path.getDocument { snapshot, error in
 				guard let document = snapshot, document.exists else {
 					configuration.resume(returning: .fail)
@@ -797,7 +799,7 @@ struct FirebaseService {
 	
 	/// 여행참가
 	static func participateTravel(albumDocId: String, role: String) async throws -> FirebaseState {
-		let albumDocumentRef = db.collection("album").document(albumDocId)
+		let albumDocumentRef = db.collection("Album").document(albumDocId)
 		return try await withUnsafeThrowingContinuation { configuration in
 			albumDocumentRef.updateData([
 				"role": FieldValue.arrayUnion(["albumDocId"]),

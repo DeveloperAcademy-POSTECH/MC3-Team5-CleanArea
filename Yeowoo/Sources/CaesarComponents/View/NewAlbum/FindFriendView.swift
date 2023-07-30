@@ -78,10 +78,12 @@ struct FindFriendView: View {
 				newAlbum.users.append(contentsOf: selectedFriends.map { $0.docId })
 				print("@@@ \(newAlbum.users)")
 				
-				for _ in 0..<newAlbum.users.count - 1 {
-					newAlbum.role.append("normalFox")
+				if !newAlbum.users.isEmpty {
+					for _ in 0..<newAlbum.users.count - 1 {
+						newAlbum.role.append("normalFox")
+					}
 				}
-
+				
 				// 여행 생성
 				Task {
 					try await viewModel.createTravel(newAlbum: newAlbum)
@@ -106,7 +108,7 @@ struct FindFriendView: View {
 			.alert(isPresented: $showAlert) {
 				Alert(title: Text("여행 생성 성공"), message: Text("이제 여행을 떠나볼까요?"),
 					  dismissButton: .default(Text("확인"), action: {
-					// 루트 부로 이동
+					// 루트뷰로 이동
 					self.appState.moveToRootView = true
 				}))
 			}

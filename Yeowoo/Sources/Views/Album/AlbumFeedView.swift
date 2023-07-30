@@ -146,7 +146,7 @@ private extension AlbumFeedView {
 					}
 				Button {
 					Task {
-						try await viewModel.updateAlbumTitle(albumDocId: "T9eJMPQEGQClFHEahX6r",
+						try await viewModel.updateAlbumTitle(albumDocId: viewModel.albums.id,
 															 title: changedAlbumTitle)
 						showingUpdateAlert = true
 					}
@@ -183,8 +183,8 @@ private extension AlbumFeedView {
 								"여행을 종료하면\n사진 및 영상 업로드가 불가능해요"),
 				primaryButton: .destructive(Text(viewModel.albums.isClosed ? "삭제" : "종료")) {
 					Task {
-						viewModel.albums.isClosed ? try await viewModel.removeTravel(docId: "") :
-						try await viewModel.closedTravel(docId: "")
+						viewModel.albums.isClosed ? try await viewModel.removeTravel(docId: viewModel.albums.id) :
+						try await viewModel.closedTravel(docId: viewModel.albums.id)
 					}
 				},
 				secondaryButton: .cancel(Text("취소")) { }

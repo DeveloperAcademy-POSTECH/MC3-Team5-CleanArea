@@ -257,7 +257,9 @@ final class MainViewModel: ObservableObject {
     }
     
     func getDocId() {
-        currentDocId = albums[0].id
+		if !albums.isEmpty {
+			currentDocId = albums[0].id
+		}
     }
     
     @MainActor

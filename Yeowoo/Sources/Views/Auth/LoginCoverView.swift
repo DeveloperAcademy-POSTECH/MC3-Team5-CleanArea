@@ -64,7 +64,7 @@ struct LoginCoverView: View {
 								.fill(Color("B1")))
 				}
 				.navigationDestination(isPresented: $isViewActive, destination: {
-					SettingView(userInfo: $userInfo)
+					LoginView()
 				})
 				.onReceive(self.appState.$moveToRootView) { moveToDashboard in
 					if moveToDashboard {
