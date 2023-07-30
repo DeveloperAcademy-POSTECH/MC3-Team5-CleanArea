@@ -12,6 +12,8 @@ enum AlbumState {
 	case all
 }
 
+//arrow.up.arrow.down
+
 struct AlbumFeedView: View {
 	
 	@Environment(\.dismiss) var dismiss
@@ -53,29 +55,35 @@ struct AlbumFeedView: View {
 						Divider()
 						
 						// sort 임시 토글
-						Toggle(isOn: self.$testSortToggle) { }
-							.onChange(of: testSortToggle) { newValue in
-								viewModel.imageSort(state: newValue)
-							}
+						
 						
 						LazyVStack(pinnedViews: [.sectionHeaders]){
 							Section {
 								ImageView()
 							} header: {
 								HStack {
-									Toggle(isOn: self.$layoutToggleState) {
-										Text((roleState == .all ? "All" : self.nowSelectedUser?.nickname)!)
+									HStack(spacing: 2) {
+										Image(systemName: "arrow.up.arrow.down")
+											.font(.system(size: 15))
+											.fontWeight(.semibold)
+										Text("최신순")
+											.font(.system(size: 15))
+											.fontWeight(.semibold)
 									}
+									.onTapGesture {
+										viewModel.imageSort(state: testSortToggle)
+									}
+									Toggle(isOn: self.$layoutToggleState) {}
 									.onChange(of: layoutToggleState, perform: { _ in
 										withAnimation(.default) {
 											proxy.scrollTo("scroll_to_top", anchor: .top)
 										}
 									})
 									.toggleStyle(CheckmarkToggleStyle())
-									.padding(.horizontal)
 								}
 								.frame(height: 40)
 								.background(Color.white)
+								.padding(.horizontal)
 							}
 							if roleState == .all ? (!viewModel.tempVisibleImages.isEmpty)
 								: (!viewModel.tempVisibleRoleImages.isEmpty) {

@@ -187,13 +187,14 @@ final class AlbumViewModel: ObservableObject {
 	
 	/// sort
 	func imageSort(state: Bool) {
+		let sortState = state ? false : true
 		let formatter = DateFormatter()
 		formatter.dateFormat = "yyyy.MM.dd HH:mm:ss"
 		
 		visibleImages = visibleImages.map { $0.sorted { (img1, img2) -> Bool in
 			if let date1 = formatter.date(from: img1.uploadTime),
 			   let date2 = formatter.date(from: img2.uploadTime) {
-				return state ? date1 > date2 : date1 < date2
+				return sortState ? date1 > date2 : date1 < date2
 			}
 			return false
 		}}
@@ -201,7 +202,7 @@ final class AlbumViewModel: ObservableObject {
 		visibleRoleImages = visibleRoleImages.map { $0.sorted { (img1, img2) -> Bool in
 			if let date1 = formatter.date(from: img1.uploadTime),
 			   let date2 = formatter.date(from: img2.uploadTime) {
-				return state ? date1 > date2 : date1 < date2
+				return sortState ? date1 > date2 : date1 < date2
 			}
 			return false
 		}}
