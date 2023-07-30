@@ -13,4 +13,5 @@ struct Notification {
 	let sendUserNickname: String
 	let travelTitle: String
 	let userDocIds: [String]
+	let isParticipateChk: Bool
 }

@@ -33,10 +33,8 @@ final class FindFriendViewModel: ObservableObject {
 										sendDate: dateFormatter.string(from: Date()),
 										sendUserNickname: UserDefaultsSetting.nickname,
 										travelTitle: newAlbum.albumTitle,
-										userDocIds: newAlbum.users)
+										userDocIds: newAlbum.users,
+										isParticipateChk: false)
 		_ = try await FirebaseService.createTravel(album: newAlbum, notification: notification)
-		
-		// 알림 보내기
-		// 생성
 	}
 }

@@ -22,17 +22,22 @@ struct YeowooApp: App {
 //			}
 			
 			
-			MainView()
+//			MainView()
 			
 			// Test
 //			LoginCoverView()
 			
-//			NotificationView()
+			NavigationView {
+				NavigationLink("노티") {
+					NotificationView()
+				}
+			}
 			
 			// CameraButtonView()
 			//			 MainView()
 			// SignUpView()
-			//			NewAlbumView()
+//			NewAlbumView()
+//			DemoMainView()
 			
 //						let appState = AppState()
 //			//

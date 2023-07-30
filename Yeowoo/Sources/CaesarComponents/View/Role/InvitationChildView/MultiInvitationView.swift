@@ -13,7 +13,8 @@ struct MultiInvitationView: View {
 	//	var place = "제주도 여행"
 	@State private var opacityValues = [0.0, 0.0, 0.0, 0.0]
 	
-	var mockData: MockModel
+	let noti : Notification
+//	var mockData: MockModel
 	
 	//참가한 사람 -3 사람 수 표시
 	//	var number: Int = mockData.count
@@ -32,8 +33,8 @@ struct MultiInvitationView: View {
 					.opacity(0.1)
 			}
 			VStack(alignment: .leading){
-				Text("\(mockData.sendUserNickName)님이 초대한")
-				Text(mockData.travelTitle)
+				Text("\(noti.sendUserNickname)님이 초대한")
+				Text(noti.travelTitle)
 					.foregroundColor(.mainColor)
 				+ Text("에 참가하실래요?")
 			}
@@ -51,21 +52,26 @@ struct MultiInvitationView: View {
 					Circle()
 						.frame(width: UIScreen.width/3-30, height: UIScreen.width/3-30)
 						.foregroundColor(Color.white)
-					CacheAsyncImage(url: URL(string: mockData.belongUsersProfileUrl[0] == "" ?
-											 "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/mockUserData%2FAzhy.png?alt=media&token=a62e430a-0725-4be5-a7f2-b8197cdc0b27" :
-												mockData.belongUsersProfileUrl[0])!) { phase in
-						switch phase {
-						case .success(let image):
-							image
-								.resizable()
-								.scaledToFill()
-								.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
-								.clipShape(Circle())
-						default:
-							ProgressView()
-								.frame(width: UIScreen.main.bounds.width, height: 390)
-						}
-					}
+					Image("Azhy")
+						.resizable()
+						.scaledToFill()
+						.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
+						.clipShape(Circle())
+//					CacheAsyncImage(url: URL(string: mockData.belongUsersProfileUrl[0] == "" ?
+//											 "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/mockUserData%2FAzhy.png?alt=media&token=a62e430a-0725-4be5-a7f2-b8197cdc0b27" :
+//												mockData.belongUsersProfileUrl[0])!) { phase in
+//						switch phase {
+//						case .success(let image):
+//							image
+//								.resizable()
+//								.scaledToFill()
+//								.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
+//								.clipShape(Circle())
+//						default:
+//							ProgressView()
+//								.frame(width: UIScreen.main.bounds.width, height: 390)
+//						}
+//					}
 				}
 				.opacity(opacityValues[0])
 				.offset(x: -70)
@@ -74,47 +80,57 @@ struct MultiInvitationView: View {
 					Circle()
 						.frame(width: UIScreen.width/3-30, height: UIScreen.width/3-30)
 						.foregroundColor(Color.white)
-					CacheAsyncImage(url: URL(string: mockData.belongUsersProfileUrl[1] == "" ?
-											 "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/mockUserData%2FAzhy.png?alt=media&token=a62e430a-0725-4be5-a7f2-b8197cdc0b27" :
-												mockData.belongUsersProfileUrl[1])!) { phase in
-						switch phase {
-						case .success(let image):
-							image
-								.resizable()
-								.scaledToFill()
-								.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
-								.clipShape(Circle())
-						default:
-							ProgressView()
-								.frame(width: UIScreen.main.bounds.width, height: 390)
-						}
-					}
+					Image("Azhy")
+						.resizable()
+						.scaledToFill()
+						.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
+						.clipShape(Circle())
+//					CacheAsyncImage(url: URL(string: mockData.belongUsersProfileUrl[1] == "" ?
+//											 "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/mockUserData%2FAzhy.png?alt=media&token=a62e430a-0725-4be5-a7f2-b8197cdc0b27" :
+//												mockData.belongUsersProfileUrl[1])!) { phase in
+//						switch phase {
+//						case .success(let image):
+//							image
+//								.resizable()
+//								.scaledToFill()
+//								.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
+//								.clipShape(Circle())
+//						default:
+//							ProgressView()
+//								.frame(width: UIScreen.main.bounds.width, height: 390)
+//						}
+//					}
 				}
 				.opacity(opacityValues[1])
 				ZStack{
 					Circle()
 						.frame(width: UIScreen.width/3-30, height: UIScreen.width/3-30)
 						.foregroundColor(Color.white)
-					CacheAsyncImage(url: URL(string: mockData.belongUsersProfileUrl[2] == "" ?
-											 "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/mockUserData%2FAzhy.png?alt=media&token=a62e430a-0725-4be5-a7f2-b8197cdc0b27" :
-												mockData.belongUsersProfileUrl[2])!) { phase in
-						switch phase {
-						case .success(let image):
-							image
-								.resizable()
-								.scaledToFill()
-								.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
-								.clipShape(Circle())
-						default:
-							ProgressView()
-								.frame(width: UIScreen.main.bounds.width, height: 390)
-						}
-					}
+					Image("Azhy")
+						.resizable()
+						.scaledToFill()
+						.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
+						.clipShape(Circle())
+//					CacheAsyncImage(url: URL(string: mockData.belongUsersProfileUrl[2] == "" ?
+//											 "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/mockUserData%2FAzhy.png?alt=media&token=a62e430a-0725-4be5-a7f2-b8197cdc0b27" :
+//												mockData.belongUsersProfileUrl[2])!) { phase in
+//						switch phase {
+//						case .success(let image):
+//							image
+//								.resizable()
+//								.scaledToFill()
+//								.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
+//								.clipShape(Circle())
+//						default:
+//							ProgressView()
+//								.frame(width: UIScreen.main.bounds.width, height: 390)
+//						}
+//					}
 				}
 				.opacity(opacityValues[2])
 				.offset(x: 70)
 				
-				if mockData.belongUsersProfileUrl.count == 3 {
+				if noti.userDocIds.count == 3 {
 					//3명일때는 안뜨도록
 					
 				} else {
@@ -125,7 +141,7 @@ struct MultiInvitationView: View {
 						Circle()
 							.frame(width: 34, height: 34)
 							.foregroundColor(Color.whiteGray)
-						Text("+\(mockData.belongUsersProfileUrl.count - 3)")
+						Text("+\(noti.userDocIds.count - 3)")
 							.foregroundColor(.noGray)
 							.font(.system(size: 20, weight: .bold, design: .default))
 					}
@@ -149,7 +165,7 @@ struct MultiInvitationView: View {
 				}
 				NavigationLink{
 					//참여 로직
-					RoleSelectView(mockData: self.mockData)
+					RoleSelectView(noti: self.noti)
 						.navigationBarBackButtonHidden()
 					
 				} label: {
