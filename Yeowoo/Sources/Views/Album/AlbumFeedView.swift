@@ -223,7 +223,7 @@ private extension AlbumFeedView {
 										.padding(5)
 										.overlay {
 											RoundedRectangle(cornerRadius: 20)
-												.stroke(Color.mainColor, lineWidth: 2)
+												.stroke(viewModel.albums.role[index] == "normalFox" ? Color.normalColor : viewModel.albums.role[index] == "eatFox" ? Color.eatColor : viewModel.albums.role[index] == "activityFox" ? Color.activityColor : viewModel.albums.role[index] == "captaionFox" ? Color.captaionColor : viewModel.albums.role[index] == "paparazziFox" ? Color.paparazziColor : Color.sceneColor, lineWidth: 2)
 												.padding(2)
 										}
 										.overlay (
@@ -245,7 +245,7 @@ private extension AlbumFeedView {
 								}
 							}
 						}
-						Spacer().frame(height: 15)
+						Spacer().frame(height: 24)
 						Text("\(viewModel.users[index].nickname)")
 							.font(.system(size: 12))
 							.fontWeight(.bold)

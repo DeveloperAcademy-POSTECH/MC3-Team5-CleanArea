@@ -19,5 +19,11 @@ extension Color{
     static let unclicked = Color(red: 171 / 255, green: 241 / 255, blue: 248 / 255)
     static let friendGray = Color(red: 47 / 255, green: 47 / 255, blue: 47 / 255)
     static let circleGray = Color(red: 214 / 255, green: 214 / 255, blue: 214 / 255)
-
+	
+	static let sceneColor = Color(red: 223 / 255, green: 250 / 255, blue: 81 / 255, opacity: 0.6)
+	static let captaionColor = Color(red: 255 / 255, green: 99 / 255, blue: 13 / 255, opacity: 0.4)
+	static let paparazziColor = Color(red: 88 / 255, green: 228 / 255, blue: 241 / 255, opacity: 0.4)
+	static let activityColor = Color(red: 255 / 255, green: 52 / 255, blue: 100 / 255, opacity: 0.4)
+	static let eatColor = Color(red: 255 / 255, green: 227 / 255, blue: 83 / 255, opacity: 0.6)
+	static let normalColor = Color(red: 25 / 255, green: 25 / 255, blue: 25 / 255, opacity: 0.4)
 }
