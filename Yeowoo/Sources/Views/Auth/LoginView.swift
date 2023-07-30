@@ -16,7 +16,7 @@ struct LoginView: View {
 	@State private var password = ""
 	
 	@State var isLoggedIn: Bool = false
-	@State var isShownPassword: Bool = false
+	@State var isShownPassword: Bool = true
 	
 	@State private var isAutoLogin = false
 	@State private var isSavedID = false
