@@ -72,7 +72,7 @@ struct WriteTextView: View {
                     try await mainViewModel.testUpload(image: image, albumDocId: mainViewModel.currentDocId, comment: contentsText, uploadUser: UserDefaultsSetting.userDocId)
                     image = UIImage()
 //                    mainViewModel.finishedFetch = false
-                    await mainViewModel.loadAlbum()
+                    try await mainViewModel.loadAlbum()
                 }
             }) {
                 ZStack {

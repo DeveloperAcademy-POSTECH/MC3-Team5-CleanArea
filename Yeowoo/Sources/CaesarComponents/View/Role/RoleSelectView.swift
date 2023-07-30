@@ -68,7 +68,7 @@ struct RoleSelectView: View {
 						print("@@ \(noti.albumId)")
 						
 						Task {
-							try await viewModel.participateTravel(albumDocId: noti.albumId, role: foxs[selectedIndex ?? 0].foxImage)
+							try await viewModel.participateTravel(albumDocId: noti.albumId, role: foxs[selectedIndex ?? 0].foxImage, noti: noti)
 						}
 						
 

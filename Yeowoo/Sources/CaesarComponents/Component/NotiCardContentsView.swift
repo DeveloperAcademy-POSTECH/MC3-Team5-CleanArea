@@ -10,6 +10,8 @@ import SwiftUI
 struct NotiCardContentsView: View {
 	
 	let notis : Notification
+	@State private var showAlert = false
+	@State private var showNavi = false
 	
 	// 이미 합류한 여행이면 뷰로 못넘어가게 로직 추가
 	var body: some View {
@@ -18,7 +20,7 @@ struct NotiCardContentsView: View {
 				InvitationView(noti: notis)
 					.navigationBarBackButtonHidden()
 			} label: {
-				Image("Azhy")
+				Image("Pin")
 					.resizable()
 					.scaledToFill()
 					.frame(width: 42, height: 42)
@@ -42,6 +44,31 @@ struct NotiCardContentsView: View {
 						.opacity(0.3)
 						.padding(.trailing, 20)
 				}
+			}
+		} else {
+			Image("Pin")
+				.resizable()
+				.scaledToFill()
+				.frame(width: 42, height: 42)
+				.clipShape(Circle())
+				.padding(.horizontal, 12 )
+			
+			HStack{
+				VStack(alignment: .leading){
+					Text("From. \(notis.sendUserNickname)").font((.system(size: 12, weight: .semibold, design: .default)))
+						.foregroundColor(.gray)
+					Text("\(notis.travelTitle)에 초대해요!")
+						.font((.system(size: 15, weight: .regular, design: .default)))
+						.foregroundColor(.black)
+				}
+				
+				Spacer()
+				
+				Image(systemName: "chevron.right")
+					.imageScale(.large)
+					.foregroundColor(.gray)
+					.opacity(0.3)
+					.padding(.trailing, 20)
 			}
 		}
 	}

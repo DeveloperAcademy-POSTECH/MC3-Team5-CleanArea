@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AlbumLayout: View {
     
-    @ObservedObject var mainViewModel = MainViewModel()
+	@ObservedObject var mainViewModel: MainViewModel
     @State private var albumCover: [Image] = [Image("Album1"), Image("Album2"), Image("Album3"), Image("Album4")]
     @State var fetch: Bool = false
     @State var days: Int = 0
@@ -145,7 +145,9 @@ struct AlbumLayout: View {
                 }
                 
                 // 유저 패치
-                await mainViewModel.fetchUser(userDocIds: userId)
+				Task {
+					try await mainViewModel.fetchUser(userDocIds: userId)
+				}
                 
                 // 유저 패치 이후 프로필 사진 가져오기 ( 딜레이 1초 )
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {

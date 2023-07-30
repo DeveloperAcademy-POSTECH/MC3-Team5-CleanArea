@@ -20,7 +20,7 @@ final class InvitationViewModel: ObservableObject {
 	private var cancellables = Set<AnyCancellable>()
 	
 	// 여행에 참가
-	func participateTravel(albumDocId: String, role: String) async throws {
-		if try await FirebaseService.participateTravel(albumDocId: albumDocId, role: role) == .success { }
+	func participateTravel(albumDocId: String, role: String, noti: Notification) async throws {
+		if try await FirebaseService.participateTravel(albumDocId: albumDocId, role: role, notification: noti) == .success { }
 	}
 }

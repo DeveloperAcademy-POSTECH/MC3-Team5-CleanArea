@@ -11,6 +11,7 @@ struct SettingView: View {
 	@EnvironmentObject var appState: AppState
 	
 	@ObservedObject var viewModel = SettingViewModel()
+	@ObservedObject var mainViewModel: MainViewModel
 	
 	var userInfo: User
 	
@@ -32,7 +33,7 @@ struct SettingView: View {
 				
 				NavigationLink{
 					//                        ProfileSettingView(selectedImage: $myImage)
-					ProfileSettingView(userInfo: userInfo, viewModel: self.viewModel)
+					ProfileSettingView(mainViewModel: mainViewModel, userInfo: userInfo, viewModel: self.viewModel)
 						.navigationBarBackButtonHidden()
 				}label: {
 					HStack{

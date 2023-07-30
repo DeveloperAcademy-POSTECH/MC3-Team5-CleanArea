@@ -98,7 +98,11 @@ struct LoginView: View {
 						.flatMap { ($0 as?
 									UIWindowScene)?.windows ?? [] }
 						.first { $0.isKeyWindow }
-					window?.rootViewController = UIHostingController(rootView: MainView())
+					let appState = AppState()
+					window?.rootViewController = UIHostingController(
+						rootView: MainView()
+							.environmentObject(appState)
+					)
 					window?.makeKeyAndVisible()
 				}))
 			} else {

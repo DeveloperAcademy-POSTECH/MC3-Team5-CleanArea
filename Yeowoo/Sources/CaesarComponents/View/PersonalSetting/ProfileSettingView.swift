@@ -9,6 +9,9 @@ import SwiftUI
 import PhotosUI
 
 struct ProfileSettingView: View {
+	@ObservedObject var mainViewModel: MainViewModel
+	@EnvironmentObject var appState: AppState
+	
 	@Environment(\.dismiss) var dismiss
 	//    var myImage: String
 	var userInfo: User
@@ -124,12 +127,13 @@ struct ProfileSettingView: View {
 						try await viewModel.updateProfile(nickName: nickName, id: identity)
 						dismiss()
 					} else {
+//						Task {
+//							mainViewModel.finishedFetch = false
+//							try await mainViewModel.loadAlbum()
+//						}
 						if let data = try? await selectedImage?.loadTransferable(type: Data.self) {
 							try await viewModel.updateProfile(imageData: data, nickName: nickName, id: identity)
 							viewModel.idDuplicateCheckFlag = .none
-							
-							// 이거 후에 user fetch 해야함. 머지후에 핀이랑 이야기해서 추가하기
-							dismiss()
 						}
 					}
 				}

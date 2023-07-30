@@ -35,6 +35,7 @@ struct InvitationView: View {
 		//		}
 		//
 		
+		// 추후 수정
 		MultiInvitationView(noti: noti)
 		
 //		if noti.userDocIds.count < 3 {

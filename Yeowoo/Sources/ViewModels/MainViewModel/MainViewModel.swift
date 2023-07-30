@@ -50,6 +50,8 @@ final class MainViewModel: ObservableObject {
                 print("finishAlbums \(self.finishAlbums.count)")
                 print("albums \(albums.count)")
                 print("albumsName \(albums)")
+				
+				
                 
                 self.hasTraveling()
                 self.isEmpty()
@@ -61,19 +63,21 @@ final class MainViewModel: ObservableObject {
     
     // 유저 정보 불러오기
     @MainActor
-    func fetchUser(userDocIds: [String]) async {
-        FirebaseService.fetchUser(userDocIds: userDocIds)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .finished:
-                    return
-                }
-            } receiveValue: { user in
-                self.users = user
-            }
-            .store(in: &cancellables)
+    func fetchUser(userDocIds: [String]) async throws {
+		print("fetchUser fetchUser fetchUser")
+		self.users = try await FirebaseService.fetchUser(userDocIds: userDocIds)
+//        FirebaseService.fetchUser(userDocIds: userDocIds)
+//            .sink { completion in
+//                switch completion {
+//                case .failure(let error):
+//                    print(error.localizedDescription)
+//                case .finished:
+//                    return
+//                }
+//            } receiveValue: { user in
+//                self.users = user
+//            }
+//            .store(in: &cancellables)
     }
     
     // 여행 중인지 확인
@@ -133,7 +137,7 @@ final class MainViewModel: ObservableObject {
     func isEmpty() {
         hasAlbum = albums.isEmpty == true ? 1 : 2
 
-        print(albums.isEmpty)
+        print("??? \(albums.isEmpty)")
     }
     
     // 여행 시작일로부터 몇일 지났는지
@@ -238,9 +242,9 @@ final class MainViewModel: ObservableObject {
     }
     
     @MainActor
-    func loadAlbum() async {
+    func loadAlbum() async throws {
+		try await fetchUser(userDocIds: [UserDefaultsSetting.userDocId])
         await fetchAlbums()
-        await fetchUser(userDocIds: [UserDefaultsSetting.userDocId])
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
             if self.hasAlbum == 2 {

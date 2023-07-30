@@ -43,7 +43,9 @@ final class AlbumViewModel: ObservableObject {
 				self.images.removeAll()
 				self.albums = images
 				var urls: [ImagesEntity] = []
-				self.fetchUser(userDocIds: images.users)
+				Task {
+					try await self.fetchUser(userDocIds: images.users)
+				}
 				images.images.forEach { url in
 					urls.append(url)
 					if urls.count == 5 {
@@ -117,19 +119,20 @@ final class AlbumViewModel: ObservableObject {
 	
 	/// 유저 불러오기
 	@MainActor
-	func fetchUser(userDocIds: [String]) {
-		FirebaseService.fetchUser(userDocIds: userDocIds)
-			.sink { completion in
-				switch completion {
-				case .failure(let error):
-					print(error.localizedDescription)
-				case .finished:
-					return
-				}
-			} receiveValue: { user in
-				self.users = user
-			}
-			.store(in: &cancellables)
+	func fetchUser(userDocIds: [String]) async throws {
+		self.users = try await FirebaseService.fetchUser(userDocIds: userDocIds)
+//		FirebaseService.fetchUser(userDocIds: userDocIds)
+//			.sink { completion in
+//				switch completion {
+//				case .failure(let error):
+//					print(error.localizedDescription)
+//				case .finished:
+//					return
+//				}
+//			} receiveValue: { user in
+//				self.users = user
+//			}
+//			.store(in: &cancellables)
 	}
 	
 	/// 좋아요 클릭

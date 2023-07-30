@@ -16,6 +16,8 @@ struct MainView: View {
 	@ObservedObject var mainViewModel = MainViewModel()
 	@ObservedObject var albumViewModel = AlbumViewModel()
 	
+	@State var isViewActive = false
+	
 	var body: some View {
 		NavigationView {
 			ZStack {
@@ -49,21 +51,48 @@ struct MainView: View {
 								}
 							}
 							
+							
 							Spacer()
 								.frame(width: UIScreen.getWidth(9))
 							
-							NavigationLink(destination:
-											SettingView(userInfo: mainViewModel.users.first ?? User())
-								.navigationBarBackButtonHidden()
-							){
-								ZStack {
-									Image("Person")
-										.resizable()
-										.aspectRatio(contentMode: .fit)
-										.frame(width: UIScreen.getWidth(24))
-								}.frame(width: UIScreen.getWidth(27), height: UIScreen.getHeight(29))
-							}
+							
+							NavigationLink(destination: SettingView(mainViewModel: self.mainViewModel, userInfo: mainViewModel.users.first ?? User())
+								.navigationBarBackButtonHidden()) {
+									ZStack {
+										Image("Person")
+											.resizable()
+											.aspectRatio(contentMode: .fit)
+											.frame(width: UIScreen.getWidth(24))
+									}.frame(width: UIScreen.getWidth(27), height: UIScreen.getHeight(29))
+								}
 						}
+							
+//							Button {
+//								isViewActive = true
+//							} label: {
+//								ZStack {
+//									Image("Person")
+//										.resizable()
+//										.aspectRatio(contentMode: .fit)
+//										.frame(width: UIScreen.getWidth(24))
+//								}.frame(width: UIScreen.getWidth(27), height: UIScreen.getHeight(29))
+//							}
+//							.navigationDestination(isPresented: $isViewActive, destination: {
+//								SettingView(mainViewModel: self.mainViewModel, userInfo: mainViewModel.users.first ?? User())
+//									.navigationBarBackButtonHidden()
+//							})
+//							.onReceive(self.appState.$moveToRootView) { moveToDashboard in
+//								if moveToDashboard {
+//									self.isViewActive = false
+//									self.appState.moveToRootView = false
+//								}
+//								//											Task {
+//								//												mainViewModel.finishedFetch = false
+//								//												try await mainViewModel.loadAlbum()
+//
+//								//											}
+//							}
+//						}
 						
 						Spacer()
 							.frame(width: UIScreen.getWidth(20))
@@ -103,6 +132,7 @@ struct MainView: View {
 													Spacer()
 														.frame(height: UIScreen.getHeight(24))
 													AlbumLayout(
+														mainViewModel: mainViewModel,
 														coverImage: mainViewModel.albums[0].albumCoverImage,
 														userId: mainViewModel.albums[0].users,
 														travelName: mainViewModel.albums[0].albumTitle,
@@ -154,12 +184,12 @@ struct MainView: View {
 										NavigationLink(destination: {
 											AlbumFeedView(albumDocId: data.id, viewModel: AlbumViewModel())
 										}) {
-											AlbumLayout(
-												coverImage: data.albumCoverImage,
-												userId: data.users,
-												travelName: data.albumTitle,
-												startDay: data.startDay,
-												endDay: data.endDay)
+											AlbumLayout(mainViewModel: mainViewModel,
+														coverImage: data.albumCoverImage,
+														userId: data.users,
+														travelName: data.albumTitle,
+														startDay: data.startDay,
+														endDay: data.endDay)
 											.padding(.bottom, UIScreen.getHeight(24))
 										}
 									}
@@ -226,14 +256,14 @@ struct MainView: View {
 				}
 			}
 		}
-		//        .onAppear {
-		//            UserDefaultsSetting.userDocId = "9sF6utDpaMngwUTF09Em"
-		//        }
-		.task {
-			if !mainViewModel.fetchState {
-				await mainViewModel.loadAlbum()
-				mainViewModel.fetchState = true
+		.onAppear {
+			Task {
+				if !mainViewModel.fetchState {
+					try await mainViewModel.loadAlbum()
+					mainViewModel.fetchState = true
+				}
 			}
 		}
+		
 	}
 }

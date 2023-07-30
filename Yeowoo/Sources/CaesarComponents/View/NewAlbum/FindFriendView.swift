@@ -114,7 +114,7 @@ struct FindFriendView: View {
 					  dismissButton: .default(Text("확인"), action: {
                     Task {
                         mainViewModel.finishedFetch = false
-                        await mainViewModel.loadAlbum()
+                        try await mainViewModel.loadAlbum()
                     }
 					// 루트뷰로 이동
 //					self.appState.moveToRootView = true

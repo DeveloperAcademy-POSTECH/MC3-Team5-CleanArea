@@ -42,19 +42,20 @@ final class SettingViewModel: ObservableObject {
 		}
 	}
 	
-	@MainActor
-	func fetchUser(userDocIds: [String]) {
-		FirebaseService.fetchUser(userDocIds: userDocIds)
-			.sink { completion in
-				switch completion {
-				case .failure(let error):
-					print(error.localizedDescription)
-				case .finished:
-					return
-				}
-			} receiveValue: { user in
-				self.users = user
-			}
-			.store(in: &cancellables)
-	}	
+//	@MainActor
+//	func fetchUser(userDocIds: [String]) async throws {
+//		try await FirebaseService.fetchUser(userDocIds: userDocIds)
+//		FirebaseService.fetchUser(userDocIds: userDocIds)
+//			.sink { completion in
+//				switch completion {
+//				case .failure(let error):
+//					print(error.localizedDescription)
+//				case .finished:
+//					return
+//				}
+//			} receiveValue: { user in
+//				self.users = user
+//			}
+//			.store(in: &cancellables)
+//	}
 }

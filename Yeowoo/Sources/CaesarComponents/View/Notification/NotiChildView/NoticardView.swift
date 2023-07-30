@@ -63,16 +63,15 @@ struct NotiCardView: View {
 	var body: some View {
 		VStack {
 			ForEach(sortedGroupedTravels, id: \.key) { item in
-				Text(item.key)
-					.font(.system(size: 18, weight: .semibold, design: .default))
-					.frame(maxWidth: .infinity, alignment: .leading)
-					.padding(.leading, 20)
-					.padding(.bottom, 20)
+					Text(item.key)
+						.font(.system(size: 18, weight: .semibold, design: .default))
+						.frame(maxWidth: .infinity, alignment: .leading)
+						.padding(.leading, 20)
+						.padding(.bottom, 20)
 
-				ForEach(item.value, id: \.albumId) { noti in
-					NotiCardContentsView(notis: noti)
-				}
-
+					ForEach(item.value, id: \.albumId) { noti in
+						NotiCardContentsView(notis: noti)
+					}
 				Divider()
 			}
 		}

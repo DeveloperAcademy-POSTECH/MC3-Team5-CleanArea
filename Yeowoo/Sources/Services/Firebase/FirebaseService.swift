@@ -167,7 +167,6 @@ struct FirebaseService {
 						storage.reference().child("Album/" + uuid).downloadURL { URL, error in
 							guard let URL else { return }
 							do {
-								let id = try KeyChainManager.shared.read(account: .documentId)
 								let path = db.collection("User").document(UserDefaultsSetting.userDocId)
 								path.updateData([
 									"profileImage" : String(describing: URL),
@@ -235,31 +234,28 @@ struct FirebaseService {
 		return .success
 	}
 	
-	/// 유저 정보 불러오기
-	static func fetchUser(userDocIds: [String] = []) -> AnyPublisher<[User], Error> {
-		Future<[User], Error> { promise in
-			var users: [User] = []
+	static func fetchUser(userDocIds: [String] = []) async throws -> [User] {
+		var users: [User] = []
+		return try await withUnsafeThrowingContinuation { configuration in
 			db.collection("User").getDocuments { snapshot, error in
 				if let error {
-					promise(.failure(error))
+					//					promise(.failure(error))
 					return
 				}
 				guard let snapshot else {
-					promise(.failure(FirebaseError.badsnapshot))
+					//					promise(.failure(FirebaseError.badsnapshot))
 					return
 				}
 				if userDocIds.isEmpty {
+
 					do {
 						let documentId = try KeyChainManager.shared.read(account: .documentId)
 						if let document = snapshot.documents.first(where: { $0.documentID == documentId }) {
 							let data = document.data()
 							users.append(User(documentData: data)!)
-							promise(.success(users))
-							//								if let user = User(documentData: data) {
-							//									promise(.success(user))
-							//								}
+							//							promise(.success(users))
 						} else {
-							promise(.failure(FirebaseError.badsnapshot))
+							//							promise(.failure(FirebaseError.badsnapshot))
 							return
 						}
 					} catch {
@@ -299,19 +295,94 @@ struct FirebaseService {
 									notis.append(noti)
 								}
 							}
-							
 							users.append(User(docId: docId!, id: id, email: email!, password: password,
 											  isFirstLogin: isFirstLogin, nickname: nickname,
 											  profileImage: profileImage, progressAlbum: progressAlbum,
 											  finishedAlbum: finishedAlbum, notification: notis, fcmToken: fcmToken))
 						}
 					}
-					promise(.success(users))
+					//					promise(.success(users))
 				}
+				configuration.resume(returning: users)
 			}
 		}
-		.eraseToAnyPublisher()
 	}
+	
+	/// 유저 정보 불러오기
+	//	static func fetchUser(userDocIds: [String] = []) -> AnyPublisher<[User], Error> {
+	//		Future<[User], Error> { promise in
+
+	//			var users: [User] = []
+	//			db.collection("User").getDocuments { snapshot, error in
+	//				if let error {
+	//					promise(.failure(error))
+	//					return
+	//				}
+	//				guard let snapshot else {
+	//					promise(.failure(FirebaseError.badsnapshot))
+	//					return
+	//				}
+	//				if userDocIds.isEmpty {
+	//					do {
+	//						let documentId = try KeyChainManager.shared.read(account: .documentId)
+	//						if let document = snapshot.documents.first(where: { $0.documentID == documentId }) {
+	//							let data = document.data()
+	//							users.append(User(documentData: data)!)
+	//							promise(.success(users))
+	//						} else {
+	//							promise(.failure(FirebaseError.badsnapshot))
+	//							return
+	//						}
+	//					} catch {
+	//						print(KeyChainError.itemNotFound)
+	//					}
+	//				} else {
+	//					for id in userDocIds {
+	//						print("@@ \(id)")
+	//						if let document = snapshot.documents.first(where: { $0.documentID == id }) {
+	//							let data = document.data()
+	//
+	//							var notis: [Notification] = []
+	//
+	//							let docId = data["docId"] as? String
+	//							let email = data["email"] as? String
+	//							let fcmToken: String = data["fcmToken"] as! String
+	//							let finishedAlbum: [String] = data["finishedAlbum"] as! [String]
+	//							let id: String = data["id"] as! String
+	//							let isFirstLogin: Bool = data["isFirstLogin"] as! Bool
+	//							let nickname: String = data["nickname"] as! String
+	//							let password: String = data["password"] as! String
+	//							let profileImage: String = data["profileImage"] as! String
+	//							let progressAlbum: String = data["progressAlbum"] as! String
+	//
+	//							let test = document.data()["notification"] as! [[String: Any]]
+	//							for notiData in test {
+	//								if let albumId = notiData["albumId"] as? String,
+	//								   let sendData = notiData["sendDate"] as? String,
+	//								   let sendUserNickname = notiData["sendUserNickname"] as? String,
+	//								   let travelTitle = notiData["travelTitle"] as? String,
+	//								   let userDocIds = notiData["userDocIds"] as? [String],
+	//								   let isParticipateChk = notiData["isParticipateChk"] as? Bool {
+	//									let noti = Notification(albumId: albumId, sendDate: sendData,
+	//															sendUserNickname: sendUserNickname,
+	//															travelTitle: travelTitle, userDocIds: userDocIds,
+	//															isParticipateChk: isParticipateChk)
+	//									notis.append(noti)
+	//								}
+	//							}
+	//
+	//							users.append(User(docId: docId!, id: id, email: email!, password: password,
+	//											  isFirstLogin: isFirstLogin, nickname: nickname,
+	//											  profileImage: profileImage, progressAlbum: progressAlbum,
+	//											  finishedAlbum: finishedAlbum, notification: notis, fcmToken: fcmToken))
+	//						}
+	//					}
+	//					promise(.success(users))
+	//				}
+	//			}
+	//		}
+	//		.eraseToAnyPublisher()
+	//	}
 	
 	/// 회원 탈퇴
 	static func withdrawalUser() async throws -> FirebaseState {
@@ -653,12 +724,6 @@ struct FirebaseService {
 			"role": [album.role.first]
 		]
 		let collectionRef = db.collection("Album")
-		//		let documentRef = collectionRef.addDocument(data: albumData) { error in
-		//			if let error = error {
-		//				print("error \(error.localizedDescription)")
-		//				return
-		//			}
-		//		}
 		let documentRef = try await collectionRef.addDocument(data: albumData)
 		let albumId = documentRef.documentID // 여행이 만들어진 후에 여행의 documentID를 가져옴
 		
@@ -671,15 +736,23 @@ struct FirebaseService {
 			"isParticipateChk": notification.isParticipateChk
 		]
 		
-		album.users.forEach { docId in
-			let collectionUserRef = db.collection("User").document(docId)
-			
-			collectionUserRef.updateData([
-				"progressAlbum" : albumId,
-				"notification" : FieldValue.arrayUnion([notificationData])
-			])
-		}
+		var users = album.users
+		let collectionUserRef = db.collection("User").document(users.first!)
+		try await collectionUserRef.updateData([
+			"progressAlbum" : albumId,
+		])
 		
+		users.removeFirst()
+		
+		if !users.isEmpty {
+			users.forEach { docId in
+				let collectionUserRef = db.collection("User").document(docId)
+				collectionUserRef.updateData([
+//					"progressAlbum" : albumId,
+					"notification" : FieldValue.arrayUnion([notificationData])
+				])
+			}
+		}
 		return .success
 	}
 	
@@ -687,8 +760,12 @@ struct FirebaseService {
 	static func closedTravel(albumDocId: String) async throws -> FirebaseState {
 		let albumDocumentRef = db.collection("Album").document(albumDocId)
 		return try await withUnsafeThrowingContinuation { configuration in
+			
+			let dateFormatter = DateFormatter()
+			dateFormatter.dateFormat = "yyyy.MM.dd"
 			albumDocumentRef.updateData([
-				"isClosed": true
+				"isClosed": true,
+				"endDay": dateFormatter.string(from: Date())
 			])
 			
 			albumDocumentRef.getDocument { snapshot, error in
@@ -836,15 +913,39 @@ struct FirebaseService {
 	}
 	
 	/// 여행참가
-	static func participateTravel(albumDocId: String, role: String) async throws -> FirebaseState {
-		// progressAlbum 앨범 id 추가해야하고
-		// 이렇게 하니까 기존에 있던 데이터 날아가고 덮어씌어짐
+	static func participateTravel(albumDocId: String, role: String, notification: Notification) async throws -> FirebaseState {
 		let albumDocumentRef = db.collection("Album").document(albumDocId)
 		return try await withUnsafeThrowingContinuation { configuration in
 			albumDocumentRef.updateData([
-				"role": FieldValue.arrayUnion(["albumDocId"]),
-				"users": FieldValue.arrayUnion(["albumDocId"])
+				"role": FieldValue.arrayUnion([role]),
+				"users": FieldValue.arrayUnion([UserDefaultsSetting.userDocId])
 			])
+			do {
+				let id = try KeyChainManager.shared.read(account: .documentId)
+				let documentRef = db.collection("User").document(id)
+				
+				
+//				let notificationData: [String: Any] = [
+//					"albumId": notification.albumId,
+//					"sendDate": notification.sendDate,
+//					"sendUserNickname": notification.sendUserNickname,
+//					"travelTitle": notification.travelTitle,
+//					"userDocIds": notification.userDocIds,
+//					"isParticipateChk": true
+//				]
+				
+				documentRef.updateData([
+//					"notification": FieldValue.arrayUnion([notificationData]),
+					"progressAlbum": albumDocId
+				]) { error in
+					print(KeyChainError.itemNotFound)
+				}
+				
+			} catch {
+				print(KeyChainError.itemNotFound)
+			}
+			
+			
 			configuration.resume(returning: .success)
 		}
 	}
