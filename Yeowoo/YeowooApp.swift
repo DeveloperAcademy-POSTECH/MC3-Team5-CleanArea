@@ -26,7 +26,7 @@ struct YeowooApp: App {
 			}
 			
 			
-			//			MainView()
+//						MainView()
 			
 			// Test
 			//			LoginCoverView()

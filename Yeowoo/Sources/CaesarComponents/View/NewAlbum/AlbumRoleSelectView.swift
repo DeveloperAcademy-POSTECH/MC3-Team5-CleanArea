@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AlbumRoleSelectView: View {
 	
+    @StateObject var mainViewModel: MainViewModel
 	@State var isActive = false
 	
 	@Environment(\.dismiss) var dismiss
@@ -63,7 +64,7 @@ struct AlbumRoleSelectView: View {
 			if selectedIndex != nil {
 				NavigationLink {
 					//선택 완료(선택된 selectedIndex 넘기기)
-					FindFriendView(newAlbum: self.newAlbum)
+                    FindFriendView(mainViewModel: mainViewModel, newAlbum: self.newAlbum)
 						.navigationBarBackButtonHidden()
 					
 				} label: {
