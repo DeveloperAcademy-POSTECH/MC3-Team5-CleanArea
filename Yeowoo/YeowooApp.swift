@@ -16,14 +16,14 @@ struct YeowooApp: App {
 		WindowGroup {
 			// 자동로그인
 			if UserDefaultsSetting.userDocId.isEmpty {
-				let appState = AppState()
-				LoginCoverView()
-					.environmentObject(appState)
+				OnboardingView()
 			} else {
 				let appState = AppState()
 				MainView()
 					.environmentObject(appState)
 			}
+			
+			
 			
 			
 			//			MainView()

@@ -11,58 +11,64 @@ import UIKit
 struct OnboardingView: View {
     @State private var selectedPage = 0
     var body: some View {
-        ZStack {
-            TabView(selection: $selectedPage) {
-                PageOne()
-                    .tag(0)
-                PageTwo()
-                    .tag(1)
-                PageThree()
-                    .tag(2)
-                PageFour()
-                    .tag(3)
-            }
-            .edgesIgnoringSafeArea(.bottom)
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            
-            VStack(spacing: 0) {
-                Spacer()
-                
-                HStack(spacing: UIScreen.getWidth(10)) {
-                    ForEach(0..<4) { pageNumber in
-                        Circle()
-                            .fill(
-                                selectedPage == pageNumber ?
-                                Color.mainColor : Color("G5")
-                            )
-                            .frame(width: 8, height: 8)
-                    }
-                }
-                
-                Spacer()
-                    .frame(height: UIScreen.getHeight(94))
-            }
-            VStack {
-                Spacer()
-                if selectedPage == 3 {
-                    Button(action: {
-
-                    }) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(Color.mainColor)
-                                .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(54))
-
-                            Text("시작하기")
-                                .foregroundColor(.white)
-                                .font(.custom18bold())
-                        }
-                    }
-                }
-            }
-            .padding(.bottom, 10)
-        }
+		NavigationView {
+			ZStack {
+				TabView(selection: $selectedPage) {
+					PageOne()
+						.tag(0)
+					PageTwo()
+						.tag(1)
+					PageThree()
+						.tag(2)
+					PageFour()
+						.tag(3)
+				}
+				.edgesIgnoringSafeArea(.bottom)
+				.tabViewStyle(.page(indexDisplayMode: .never))
+				
+				VStack(spacing: 0) {
+					Spacer()
+					
+					HStack(spacing: UIScreen.getWidth(10)) {
+						ForEach(0..<4) { pageNumber in
+							Circle()
+								.fill(
+									selectedPage == pageNumber ?
+									Color.mainColor : Color("G5")
+								)
+								.frame(width: 8, height: 8)
+						}
+					}
+					
+					Spacer()
+						.frame(height: UIScreen.getHeight(94))
+				}
+				VStack {
+					Spacer()
+					if selectedPage == 3 {
+						NavigationLink {
+							let appState = AppState()
+							LoginCoverView()
+								.environmentObject(appState)
+								.navigationBarBackButtonHidden()
+						} label: {
+							ZStack {
+								RoundedRectangle(cornerRadius: 10)
+									.foregroundColor(Color.mainColor)
+									.frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(54))
+								
+								Text("시작하기")
+									.foregroundColor(.white)
+									.font(.custom18bold())
+							}
+						}
+					}
+				}
+				.padding(.bottom, 10)
+			}
+		}
     }
+		
 }
 
 private extension OnboardingView {

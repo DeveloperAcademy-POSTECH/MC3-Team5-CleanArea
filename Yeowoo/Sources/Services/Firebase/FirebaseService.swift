@@ -347,9 +347,42 @@ struct FirebaseService {
 					configuration.resume(throwing: FirebaseError.badsnapshot)
 					return
 				}
+				
 				if let document = snapshot.documents.first(where: { $0.data()["id"] as! String == userId }) {
 					let data = document.data()
-					let user = User(documentData: data)!
+					
+					var notis: [Notification] = []
+					
+					let docId = data["docId"] as? String
+					let email = data["email"] as? String
+					let fcmToken: String = data["fcmToken"] as! String
+					let finishedAlbum: [String] = data["finishedAlbum"] as! [String]
+					let id: String = data["id"] as! String
+					let isFirstLogin: Bool = data["isFirstLogin"] as! Bool
+					let nickname: String = data["nickname"] as! String
+					let password: String = data["password"] as! String
+					let profileImage: String = data["profileImage"] as! String
+					let progressAlbum: String = data["progressAlbum"] as! String
+					
+					let test = document.data()["notification"] as! [[String: Any]]
+					for notiData in test {
+						if let albumId = notiData["albumId"] as? String,
+						   let sendData = notiData["sendDate"] as? String,
+						   let sendUserNickname = notiData["sendUserNickname"] as? String,
+						   let travelTitle = notiData["travelTitle"] as? String,
+						   let userDocIds = notiData["userDocIds"] as? [String],
+						   let isParticipateChk = notiData["isParticipateChk"] as? Bool {
+							let noti = Notification(albumId: albumId, sendDate: sendData,
+													sendUserNickname: sendUserNickname,
+													travelTitle: travelTitle, userDocIds: userDocIds,
+													isParticipateChk: isParticipateChk)
+							notis.append(noti)
+						}
+					}
+					let user = User(docId: docId!, id: id, email: email!, password: password,
+									isFirstLogin: isFirstLogin, nickname: nickname,
+									profileImage: profileImage, progressAlbum: progressAlbum,
+									finishedAlbum: finishedAlbum, notification: notis, fcmToken: fcmToken)
 					configuration.resume(returning: user)
 				} else {
 					configuration.resume(throwing: FirebaseError.badsnapshot)
@@ -361,7 +394,7 @@ struct FirebaseService {
 	//MARK: - Album
 	
 	/// 이미지 올리기
-    static func uploadAlbumImage(image: UIImage, albumDocId: String, fileName: String, comment: String, uploadUser: String) async throws -> FirebaseState {
+	static func uploadAlbumImage(image: UIImage, albumDocId: String, fileName: String, comment: String, uploadUser: String) async throws -> FirebaseState {
 		let data = image.jpegData(compressionQuality: 0.5)!
 		let storage = Storage.storage()
 		let metaData = StorageMetadata()
@@ -463,7 +496,7 @@ struct FirebaseService {
 				}
 				
 				var albums: [Album] = []
-			
+				
 				for document in snapshot?.documents ?? [] {
 					let data = document.data()
 					if let imagesData = data["images"] as? [[String: Any]] {
@@ -615,23 +648,26 @@ struct FirebaseService {
 			"endDay": "",
 			"images": [],
 			"isClosed": false,
-			"users": album.users,
-			"role": album.role
+			"users": album.users.first,
+			"role": album.role.first
 		]
 		let collectionRef = db.collection("Album")
-		let documentRef = collectionRef.addDocument(data: albumData) { error in
-			if let error = error {
-				print("error \(error.localizedDescription)")
-				return
-			}
-		}
+		//		let documentRef = collectionRef.addDocument(data: albumData) { error in
+		//			if let error = error {
+		//				print("error \(error.localizedDescription)")
+		//				return
+		//			}
+		//		}
+		let documentRef = try await collectionRef.addDocument(data: albumData)
+		let albumId = documentRef.documentID // 여행이 만들어진 후에 여행의 documentID를 가져옴
 		
 		let notificationData: [String: Any] = [
-			"albumId": notification.albumId,
+			"albumId": albumId,
 			"sendDate": notification.sendDate,
 			"sendUserNickname": notification.sendUserNickname,
 			"travelTitle": notification.travelTitle,
-			"userDocIds": notification.userDocIds
+			"userDocIds": notification.userDocIds,
+			"isParticipateChk": notification.isParticipateChk
 		]
 		
 		album.users.forEach { docId in
@@ -799,6 +835,8 @@ struct FirebaseService {
 	
 	/// 여행참가
 	static func participateTravel(albumDocId: String, role: String) async throws -> FirebaseState {
+		// progressAlbum 앨범 id 추가해야하고
+		// 이렇게 하니까 기존에 있던 데이터 날아가고 덮어씌어짐
 		let albumDocumentRef = db.collection("Album").document(albumDocId)
 		return try await withUnsafeThrowingContinuation { configuration in
 			albumDocumentRef.updateData([
@@ -827,8 +865,8 @@ struct FirebaseService {
 				do {
 					
 					var notis: [Notification] = []
-					//					let documentId = try KeyChainManager.shared.read(account: .documentId)
-					let documentId = "1ou1FfYndjvGv3WI5Xfq"
+					let documentId = try KeyChainManager.shared.read(account: .documentId)
+					print("@@ documentId \(documentId)")
 					if let document = snapshot.documents.first(where: { $0.documentID == documentId }) {
 						let data = document.data()["notification"] as! [[String: Any]]
 						print("data \(data)")

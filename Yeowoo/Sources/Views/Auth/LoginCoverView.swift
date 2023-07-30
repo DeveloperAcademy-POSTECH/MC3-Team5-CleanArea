@@ -46,50 +46,55 @@ struct LoginCoverView: View {
 	
 	var body: some View {
 		NavigationStack {
-			ZStack {
+			
 				VStack(alignment: .center, spacing: 0) {
 					Image("loginLogo")
-				}
-				
-				Button {
-					isViewActive = true
-				} label: {
-					Text("로그인")
-						.font(.system(size: 18))
-						.fontWeight(.semibold)
-						.foregroundColor(.white)
-						.frame(width: 350, height: 54)
-						.background(
-							RoundedRectangle(cornerRadius: 10)
-								.fill(Color("B1")))
-				}
-				.navigationDestination(isPresented: $isViewActive, destination: {
-					LoginView()
-				})
-				.onReceive(self.appState.$moveToRootView) { moveToDashboard in
-					if moveToDashboard {
-						self.isViewActive = false
-						self.appState.moveToRootView = false
+					
+					Spacer()
+						.frame(height: 40)
+					
+					Image("LoginIamge")
+					
+					Spacer()
+						.frame(height: 40)
+					
+					Button {
+						isViewActive = true
+					} label: {
+						Text("로그인")
+							.font(.system(size: 18))
+							.fontWeight(.semibold)
+							.foregroundColor(.white)
+							.frame(width: 350, height: 54)
+							.background(
+								RoundedRectangle(cornerRadius: 10)
+									.fill(Color("B1")))
 					}
+					.navigationDestination(isPresented: $isViewActive, destination: {
+						LoginView()
+					})
+					.onReceive(self.appState.$moveToRootView) { moveToDashboard in
+						if moveToDashboard {
+							self.isViewActive = false
+							self.appState.moveToRootView = false
+						}
+					}
+					
+					Spacer()
+						.frame(height: 12)
+					
+					NavigationLink(destination: SignUpView()) {
+						Text("회원가입")
+							.font(.system(size: 18))
+							.fontWeight(.semibold)
+							.foregroundColor(.black)
+							.frame(width: 350, height: 54)
+							.background(
+								RoundedRectangle(cornerRadius: 10)
+									.fill(Color("G6")))
+					}
+					.ignoresSafeArea(.keyboard)
 				}
-				.padding(.top, 320)
-				
-				NavigationLink(destination: SignUpView()) {
-					Text("회원가입")
-						.font(.system(size: 18))
-						.fontWeight(.semibold)
-						.foregroundColor(.black)
-						.frame(width: 350, height: 54)
-						.background(
-							RoundedRectangle(cornerRadius: 10)
-								.fill(Color("G6")))
-				}
-				.ignoresSafeArea(.keyboard)
-				.padding(.top, 440)
-			}
-		}
-		.onAppear {
-//			sendPushNotification(to: "cBQ7l9axn0q7gb3AYab9jf:APA91bGZ3xRKQVgGI5V084qArYZKXON8ypDx_jBqbpNXpQPxgCbJlM-MH3uEZ1eR5LBjyhB063ofEY0QBdpDIgm1k2NY8AcSCx1ZBnc24-xRKDxt0Qz_9GBaWD5H4dftIiBW5bCKU-Zw", title: "title", body: "제발 바디")
 		}
 	}
 }
