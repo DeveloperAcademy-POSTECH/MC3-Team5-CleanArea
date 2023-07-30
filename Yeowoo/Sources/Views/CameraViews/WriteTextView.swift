@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WriteTextView: View {
+    @StateObject var mainViewModel: MainViewModel
     @Binding var showModal: Bool
     @Binding var contentsText: String
     @Binding var image: UIImage
@@ -59,35 +60,20 @@ struct WriteTextView: View {
                         }
                     }
                 }
-                
-//                HStack {
-//                    Spacer()
-//
-//                    VStack {
-//                        Button(action: {
-//                            contentsText = ""
-//                        }) {
-//                            Image(systemName: "xmark.circle.fill")
-//                                .foregroundColor(Color("G3"))
-//                                .aspectRatio(contentMode: .fit)
-//                                .frame(width: UIScreen.getWidth(18))
-//                                .padding(.trailing, UIScreen.getWidth(32))
-//                        }
-//                        .padding(.top, UIScreen.getHeight(22))
-//
-//                        Spacer()
-//                    }
-//                }
             }
             
             Spacer()
                 .frame(height: UIScreen.getWidth(12))
             
             Button(action: {
-                didPhoto = false
-                showModal = false
-                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-//                isWirte = false
+                Task {
+                    mainViewModel.refetch(didPhoto: &didPhoto, showModal: &showModal)
+                    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                    try await mainViewModel.testUpload(image: image, albumDocId: mainViewModel.currentDocId, comment: contentsText, uploadUser: UserDefaultsSetting.userDocId)
+                    image = UIImage()
+//                    mainViewModel.finishedFetch = false
+                    await mainViewModel.loadAlbum()
+                }
             }) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)

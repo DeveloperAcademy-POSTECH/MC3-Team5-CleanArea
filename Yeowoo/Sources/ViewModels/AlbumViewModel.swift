@@ -180,7 +180,9 @@ final class AlbumViewModel: ObservableObject {
 	func testUpload() async throws {
 		_ = try await FirebaseService.uploadAlbumImage(image: UIImage(named: "9")!,
 													   albumDocId: "T9eJMPQEGQClFHEahX6r",
-													   fileName: String(describing: UUID()))
+													   fileName: String(describing: UUID()),
+                                                       comment: "",
+                                                       uploadUser: "")
 	}
 	
 	/// sort

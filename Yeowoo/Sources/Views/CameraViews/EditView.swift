@@ -10,6 +10,7 @@ import SwiftUI
 import SwiftUI
 
 struct EditView: View {
+    @StateObject var mainViewModel: MainViewModel
     @Binding var showModal: Bool
     @Binding var image: UIImage
     @Binding var didPhoto: Bool
@@ -81,7 +82,7 @@ struct EditView: View {
                         .foregroundColor(.white)
                 }
             }.sheet(isPresented: $isWrite) {
-                WriteTextView(showModal: $showModal, contentsText: $contentsText, image: $image, didPhoto: $didPhoto)
+                WriteTextView(mainViewModel: mainViewModel, showModal: $showModal, contentsText: $contentsText, image: $image, didPhoto: $didPhoto)
                     .presentationDetents([.height(UIScreen.getHeight(338)), .large])
             }
             
@@ -90,9 +91,9 @@ struct EditView: View {
         }.navigationBarHidden(true)
     }
 }
-
-struct EditView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditView(showModal: .constant(false), image: .constant(UIImage(systemName: "square")!), didPhoto: .constant(false))
-    }
-}
+//
+//struct EditView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        EditView(showModal: .constant(false), image: .constant(UIImage(systemName: "square")!), didPhoto: .constant(false))
+//    }
+//}
