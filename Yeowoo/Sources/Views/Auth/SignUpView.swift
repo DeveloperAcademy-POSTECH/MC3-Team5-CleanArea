@@ -243,15 +243,9 @@ struct SignUpView: View {
 		}
 //		.disabled(true)
 		.navigationTitle("회원가입")
-		.navigationBarBackButtonHidden(true)
-		.navigationBarItems(leading: Button(action:{
-			self.presentationMode.wrappedValue.dismiss()
-		}) {
-			HStack{
-				Image(systemName: "chevron.left")
-					.foregroundColor(.gray)
-			}
-		})
+		.navigationBarTitleDisplayMode(.inline)
+		.background(Color.white)
+		.modifier(BackToolBarModifier())
 		.onTapGesture {
 			self.endTextEditing()
 		}

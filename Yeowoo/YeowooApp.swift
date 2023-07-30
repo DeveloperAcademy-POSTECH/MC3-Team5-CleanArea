@@ -22,35 +22,6 @@ struct YeowooApp: App {
 				MainView()
 					.environmentObject(appState)
 			}
-			
-			
-			
-			
-			//			MainView()
-			
-			// Test
-			//			LoginCoverView()
-			
-			//			NavigationView {
-			//				NavigationLink("노티") {
-			//					NotificationView()
-			//				}
-			//			}
-			
-			// CameraButtonView()
-			//			 MainView()
-			// SignUpView()
-			//			NewAlbumView()
-			//			DemoMainView()
-			
-			//						let appState = AppState()
-			//			//
-			//						DemoMainView()
-			//							.environmentObject(appState)
-			
-			//			MainView()
-			
-			//			ContentView()
 		}
 	}
 }

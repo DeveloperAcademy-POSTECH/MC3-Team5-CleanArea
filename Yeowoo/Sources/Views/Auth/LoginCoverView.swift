@@ -72,6 +72,7 @@ struct LoginCoverView: View {
 					}
 					.navigationDestination(isPresented: $isViewActive, destination: {
 						LoginView()
+							.navigationBarBackButtonHidden()
 					})
 					.onReceive(self.appState.$moveToRootView) { moveToDashboard in
 						if moveToDashboard {
@@ -83,7 +84,9 @@ struct LoginCoverView: View {
 					Spacer()
 						.frame(height: 12)
 					
-					NavigationLink(destination: SignUpView()) {
+					NavigationLink(
+						destination: SignUpView().navigationBarBackButtonHidden()
+					) {
 						Text("회원가입")
 							.font(.system(size: 18))
 							.fontWeight(.semibold)

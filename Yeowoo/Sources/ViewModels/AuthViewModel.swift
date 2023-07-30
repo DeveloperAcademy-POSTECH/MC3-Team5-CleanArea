@@ -33,7 +33,9 @@ final class AuthViewModel: ObservableObject {
 	
 	func signup(id: String, pwd: String, nickname: String) async throws -> Bool {
 		let signupUser = User(docId: "", id: id, email: "", password: pwd, isFirstLogin: true,
-							  nickname: nickname, profileImage: "", progressAlbum: "", finishedAlbum: [],
+							  nickname: nickname,
+							  profileImage: "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/Album%2FmockImage.png?alt=media&token=8de90280-4254-48cc-aaa8-970a71e9143d",
+							  progressAlbum: "", finishedAlbum: [],
 							  notification: [], fcmToken: "")
 		return try await FirebaseService.signup(user: signupUser) == .success ? true : false
 	}

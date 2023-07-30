@@ -108,16 +108,8 @@ struct LoginView: View {
 		}
 		.padding()
 		.navigationTitle("로그인")
-		.navigationBarBackButtonHidden(true)
-		.navigationBarItems(leading:
-								Button(action:{
-			self.presentationMode.wrappedValue.dismiss()
-		}) {
-			HStack{
-				Image(systemName: "chevron.left")
-					.foregroundColor(.gray)
-			}
-		}
-		)
+		.navigationBarTitleDisplayMode(.inline)
+		.background(Color.white)
+		.modifier(BackToolBarModifier())
 	}
 }
