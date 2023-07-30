@@ -283,17 +283,19 @@ struct FirebaseService {
 							let password: String = data["password"] as! String
 							let profileImage: String = data["profileImage"] as! String
 							let progressAlbum: String = data["progressAlbum"] as! String
-							 
+							
 							let test = document.data()["notification"] as! [[String: Any]]
 							for notiData in test {
 								if let albumId = notiData["albumId"] as? String,
-								   let sendData = notiData["sendData"] as? String,
+								   let sendData = notiData["sendDate"] as? String,
 								   let sendUserNickname = notiData["sendUserNickname"] as? String,
 								   let travelTitle = notiData["travelTitle"] as? String,
-								   let userDocIds = notiData["userDocIds"] as? [String] {
+								   let userDocIds = notiData["userDocIds"] as? [String],
+								   let isParticipateChk = notiData["isParticipateChk"] as? Bool {
 									let noti = Notification(albumId: albumId, sendDate: sendData,
 															sendUserNickname: sendUserNickname,
-															travelTitle: travelTitle, userDocIds: userDocIds)
+															travelTitle: travelTitle, userDocIds: userDocIds,
+															isParticipateChk: isParticipateChk)
 									notis.append(noti)
 								}
 							}
@@ -447,57 +449,57 @@ struct FirebaseService {
 		.eraseToAnyPublisher()
 	}
 	
-    /// 앨범 가져오기
-    static func fetchAlbums() -> AnyPublisher<[Album], Error> {
-        let query = db.collection("album").whereField("users", arrayContains: UserDefaultsSetting.userDocId)
-        
-        return Future<[Album], Error> { promise in
-            query.getDocuments { snapshot, error in
-                if let error = error {
-                    promise(.failure(error))
-                    return
-                }
-                
-                var albums: [Album] = []
-                
-                for document in snapshot?.documents ?? [] {
-                    let data = document.data()
-                    if let imagesData = data["images"] as? [[String: Any]] {
-                        var images: [ImagesEntity] = []
-                        let isClosed = data["isClosed"] as? Bool ?? false
-                        let users: [String] = data["users"] as? [String] ?? []
-                        let albumTitle = data["title"] as? String ?? ""
-                        let albumCoverImage = data["coverImage"] as? String ?? ""
-                        let startDay = data["startDay"] as? String ?? ""
-                        let endDay = data["endDay"] as? String ?? ""
-                        let role = data["role"] as? [String] ?? []
-                        
-                        for imageData in imagesData {
-                            if let comment = imageData["comment"] as? String,
-                               let fileName = imageData["fileName"] as? String,
-                               let likeUsers = imageData["likeUsers"] as? [String],
-                               let updateTime = imageData["updateTime"] as? String,
-                               let url = imageData["url"] as? String,
-                               let uploadUser = imageData["uploadUser"] as? String,
-                               let roleCheck = imageData["roleCheck"] as? Bool {
-                                let image = ImagesEntity(comment: comment, fileName: fileName, url: url, uploadUser: uploadUser, roleCheck: roleCheck, likeUsers: likeUsers, uploadTime: updateTime)
-                                images.append(image)
-                            }
-                        }
-                        
-                        let album = Album(id: document.documentID, albumTitle: albumTitle,
-                                          albumCoverImage: albumCoverImage, startDay: startDay,
-                                          endDay: endDay, images: images, isClosed: isClosed, users: users, role: role)
-                        albums.append(album)
-                    }
-                }
-                
-                promise(.success(albums))
-            }
-        }
-        .eraseToAnyPublisher()
-    }
-    
+	/// 앨범 가져오기
+	static func fetchAlbums() -> AnyPublisher<[Album], Error> {
+		let query = db.collection("album").whereField("users", arrayContains: UserDefaultsSetting.userDocId)
+		
+		return Future<[Album], Error> { promise in
+			query.getDocuments { snapshot, error in
+				if let error = error {
+					promise(.failure(error))
+					return
+				}
+				
+				var albums: [Album] = []
+				
+				for document in snapshot?.documents ?? [] {
+					let data = document.data()
+					if let imagesData = data["images"] as? [[String: Any]] {
+						var images: [ImagesEntity] = []
+						let isClosed = data["isClosed"] as? Bool ?? false
+						let users: [String] = data["users"] as? [String] ?? []
+						let albumTitle = data["title"] as? String ?? ""
+						let albumCoverImage = data["coverImage"] as? String ?? ""
+						let startDay = data["startDay"] as? String ?? ""
+						let endDay = data["endDay"] as? String ?? ""
+						let role = data["role"] as? [String] ?? []
+						
+						for imageData in imagesData {
+							if let comment = imageData["comment"] as? String,
+							   let fileName = imageData["fileName"] as? String,
+							   let likeUsers = imageData["likeUsers"] as? [String],
+							   let updateTime = imageData["updateTime"] as? String,
+							   let url = imageData["url"] as? String,
+							   let uploadUser = imageData["uploadUser"] as? String,
+							   let roleCheck = imageData["roleCheck"] as? Bool {
+								let image = ImagesEntity(comment: comment, fileName: fileName, url: url, uploadUser: uploadUser, roleCheck: roleCheck, likeUsers: likeUsers, uploadTime: updateTime)
+								images.append(image)
+							}
+						}
+						
+						let album = Album(id: document.documentID, albumTitle: albumTitle,
+										  albumCoverImage: albumCoverImage, startDay: startDay,
+										  endDay: endDay, images: images, isClosed: isClosed, users: users, role: role)
+						albums.append(album)
+					}
+				}
+				
+				promise(.success(albums))
+			}
+		}
+		.eraseToAnyPublisher()
+	}
+	
 	/// 이미지 수정
 	static func updateAlbumImage(image: UIImage, albumDocId: String) async throws -> FirebaseState {
 		let data = image.jpegData(compressionQuality: 0.5)!
@@ -637,7 +639,7 @@ struct FirebaseService {
 				"notification" : FieldValue.arrayUnion([notificationData])
 			])
 		}
-
+		
 		return .success
 	}
 	
@@ -807,13 +809,9 @@ struct FirebaseService {
 	
 	//MARK: - Notification
 	
-//	static func fetchNotification() async throws -> FirebaseState {
-//
-//	}
-	
 	static func fetchNotification() -> AnyPublisher<[Notification], Error> {
 		Future<[Notification], Error> { promise in
-			var notifications: [Notification] = []
+			//			var notifications: [Notification] = []
 			db.collection("User").getDocuments { snapshot, error in
 				if let error {
 					promise(.failure(error))
@@ -825,13 +823,32 @@ struct FirebaseService {
 				}
 				
 				do {
-//					let documentId = try KeyChainManager.shared.read(account: .documentId)
+					
+					var notis: [Notification] = []
+					//					let documentId = try KeyChainManager.shared.read(account: .documentId)
 					let documentId = "1ou1FfYndjvGv3WI5Xfq"
 					if let document = snapshot.documents.first(where: { $0.documentID == documentId }) {
-						let data = document.data()["notification"]
-						print("@@ data \(data)")
-
-//						promise(.success(users))
+						let data = document.data()["notification"] as! [[String: Any]]
+						print("data \(data)")
+						
+						for notiData in data {
+							print("notiData \(notiData["albumId"])")
+							if let albumId = notiData["albumId"] as? String,
+							   let sendData = notiData["sendDate"] as? String,
+							   let sendUserNickname = notiData["sendUserNickname"] as? String,
+							   let travelTitle = notiData["travelTitle"] as? String,
+							   let userDocIds = notiData["userDocIds"] as? [String],
+							   let isParticipateChk = notiData["isParticipateChk"] as? Bool {
+								let noti = Notification(albumId: albumId, sendDate: sendData,
+														sendUserNickname: sendUserNickname,
+														travelTitle: travelTitle, userDocIds: userDocIds,
+														isParticipateChk: isParticipateChk)
+								notis.append(noti)
+							}
+							print("@@ oti \(notis)")
+						}
+						print("notis \(notis)")
+						promise(.success(notis))
 					} else {
 						promise(.failure(FirebaseError.badsnapshot))
 						return

@@ -7,15 +7,13 @@
 
 import SwiftUI
 
-
-
-struct LoginCoverView: View {
-
-	func sendPushNotification(to token: String, title: String, body: String) {
-		let servertoken = "AAAA4KO-MwQ:APA91bEIXXh04n3m6Kh7lBDkPz8fLkquU6XKvmbdPQRIFN65v8tCbANrSL5ogt6IY9a9pKXa2lhQcMI_K4IKexExQ2KsERemlwmG__tXZ3870yoCje-_9r5z9EYAO7EzJbhAgNTJ7xGm"
-		let urlString = "https://fcm.googleapis.com/fcm/send"
-		let url = NSURL(string: urlString)!
-		let paramString: [String : Any] = ["to" : token,
+func sendPushNotification(to token: [String], title: String, body: String) {
+	let servertoken = "AAAA4KO-MwQ:APA91bEIXXh04n3m6Kh7lBDkPz8fLkquU6XKvmbdPQRIFN65v8tCbANrSL5ogt6IY9a9pKXa2lhQcMI_K4IKexExQ2KsERemlwmG__tXZ3870yoCje-_9r5z9EYAO7EzJbhAgNTJ7xGm"
+	let urlString = "https://fcm.googleapis.com/fcm/send"
+	let url = NSURL(string: urlString)!
+	token.forEach { tokenVal in
+		let stringToken = String(describing: tokenVal)
+		let paramString: [String : Any] = ["to" : stringToken,
 										   "notification" : ["title" : title, "body" : body],
 										   "data" : ["user" : "test_id"]
 		]
@@ -37,6 +35,11 @@ struct LoginCoverView: View {
 		}
 		task.resume()
 	}
+}
+
+
+struct LoginCoverView: View {
+
 	@EnvironmentObject var appState: AppState
 	@State var isViewActive: Bool = false
 	@State var userInfo = User()

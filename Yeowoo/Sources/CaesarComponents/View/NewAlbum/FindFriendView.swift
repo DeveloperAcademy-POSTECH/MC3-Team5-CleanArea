@@ -86,6 +86,14 @@ struct FindFriendView: View {
 				Task {
 					try await viewModel.createTravel(newAlbum: newAlbum)
 					showAlert = true
+					
+					// 여기 알림 보내기
+					
+//					let tokens = ["cBQ7l9axn0q7gb3AYab9jf:APA91bGZ3xRKQVgGI5V084qArYZKXON8ypDx_jBqbpNXpQPxgCbJlM-MH3uEZ1eR5LBjyhB063ofEY0QBdpDIgm1k2NY8AcSCx1ZBnc24-xRKDxt0Qz_9GBaWD5H4dftIiBW5bCKU-Zw"]
+					
+//					sendPushNotification(to: tokens, title: "From \(UserDefaultsSetting.nickname)", body: "\(newAlbum.albumTitle)에 초대해요!")
+					
+					sendPushNotification(to: selectedFriends.map { $0.fcmToken }, title: "From \(UserDefaultsSetting.nickname)", body: "\(newAlbum.albumTitle)에 초대해요!")
 				}
 			} label: {
 				Rectangle()
