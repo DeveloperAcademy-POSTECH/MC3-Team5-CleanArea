@@ -16,7 +16,7 @@ struct LoginView: View {
 	@State private var password = ""
 	
 	@State var isLoggedIn: Bool = false
-	@State var isShownPassword: Bool = false
+	@State var isShownPassword: Bool = true
 	
 	@State private var isAutoLogin = false
 	@State private var isSavedID = false
@@ -108,16 +108,8 @@ struct LoginView: View {
 		}
 		.padding()
 		.navigationTitle("로그인")
-		.navigationBarBackButtonHidden(true)
-		.navigationBarItems(leading:
-								Button(action:{
-			self.presentationMode.wrappedValue.dismiss()
-		}) {
-			HStack{
-				Image(systemName: "chevron.left")
-					.foregroundColor(.gray)
-			}
-		}
-		)
+		.navigationBarTitleDisplayMode(.inline)
+		.background(Color.white)
+		.modifier(BackToolBarModifier())
 	}
 }
