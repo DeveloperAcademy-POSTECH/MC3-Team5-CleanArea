@@ -16,7 +16,8 @@ struct RoleSelectView: View {
     //선택된 여우 번호
     @State private var selectedIndex: Int? = nil
 	
-	var mockData: MockModel
+	let noti: Notification
+//	var mockData: MockModel
 	@ObservedObject var viewModel = InvitationViewModel()
     
     var body: some View {
@@ -61,14 +62,16 @@ struct RoleSelectView: View {
                 // 버튼
                 if selectedIndex != nil {
                     Button{
-                            //선택 완료(선택된 selectedIndex 넘기기)
                         print("selected fox is number \(selectedIndex ?? -1)")
 						print("selected fox \(foxs[selectedIndex ?? 0].foxImage)")
 						
+						print("@@ \(noti.albumId)")
+						
 						Task {
-							try await viewModel.participateTravel(albumDocId: mockData.albumId, role: foxs[selectedIndex ?? 0].foxImage)
+							try await viewModel.participateTravel(albumDocId: noti.albumId, role: foxs[selectedIndex ?? 0].foxImage)
 						}
 						
+
 						// 이거하고 메인으로 가야함
 						// 추후에 메인이랑 연결해야함
 						// self.appState.moveToRootView = true

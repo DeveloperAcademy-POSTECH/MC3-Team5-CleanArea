@@ -17,9 +17,12 @@ import Foundation
 
 final class NotificationViewModel: ObservableObject {
 	
+	@Published var notis: [Notification] = []
+	
 	private var cancellables = Set<AnyCancellable>()
 	
 	// 여행에 참가
+	
 	func fetchNotification() {
 		FirebaseService.fetchNotification()
 			.sink { completion in
@@ -31,6 +34,12 @@ final class NotificationViewModel: ObservableObject {
 				}
 			} receiveValue: { noti in
 //				self.users = user
+				self.notis = noti
+				print("@@ noti \(noti)")
+				let groupedTravels = Dictionary(grouping: self.notis, by: { $0.sendDate })
+				let sortedGroupedTravels = groupedTravels.sorted(by: { $0.key > $1.key })
+				print("@@ groupedTravels \(groupedTravels)")
+				print("@@ sortedGroupedTravels \(sortedGroupedTravels)")
 			}
 			.store(in: &cancellables)
 	}
