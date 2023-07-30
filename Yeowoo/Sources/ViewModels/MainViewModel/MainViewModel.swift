@@ -75,23 +75,7 @@ final class MainViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-//
-//    @MainActor
-//    func randomImageUsers(userDocIds: [String]) async {
-//        FirebaseService.fetchUser(userDocIds: userDocIds)
-//            .sink { completion in
-//                switch completion {
-//                case .failure(let error):
-//                    print(error.localizedDescription)
-//                case .finished:
-//                    return
-//                }
-//            } receiveValue: { user in
-//                self.randomUser = user
-//            }
-//            .store(in: &cancellables)
-//    }
-//
+    
     // 여행 중인지 확인
     @MainActor
     func hasTraveling() {
@@ -188,39 +172,60 @@ final class MainViewModel: ObservableObject {
 
     // 여행 끝난 당일 3개의 랜덤 이미지 선택
     @MainActor
-    func randomPicture(_ album: [ImagesEntity] , _ pic: inout [String]){
+    func randomPicture(_ album: [ImagesEntity] , _ pic: inout [String]) {
         var three: [String] = ["", "", ""]
         var images: [String] = []
         var one: String
         var isHave = false
         
-        for insert in 0..<album.count {
-            images.append(album[insert].url)
-        }
         
-        for i in 0..<3{
-            one = images.randomElement()!
+        if album.isEmpty || (album.count < 3) {
+            if album.isEmpty {
+                print("isEmpty")
+                for change in 0..<3 {
+                    pic[change] = ""
+                }
+            } else {
+                print("isEmpty no")
+                for change in 0..<album.count {
+                    pic[change] = album[change].url
+                }
+                for change in album.count..<3 {
+                    pic[change] = ""
+                }
+                
+                
+            }
+        } else {
+            print("here")
+            for insert in 0..<album.count {
+                images.append(album[insert].url)
+            }
             
-            while true {
-                for j in 0..<i {
-                    if three[j] == one {
-                        one = images.randomElement()!
-                        isHave = true
+            for i in 0..<3{
+                one = images.randomElement()!
+                
+                while true {
+                    for j in 0..<i {
+                        if three[j] == one {
+                            one = images.randomElement()!
+                            isHave = true
+                            break
+                        }
+                    }
+                    if isHave {
+                        isHave = false
+                        continue
+                    } else {
                         break
                     }
                 }
-                if isHave {
-                    isHave = false
-                    continue
-                } else {
-                    break
-                }
+                three[i] = one
             }
-            three[i] = one
-        }
-        for k in 0..<3 {
-            pic[k] = three[k]
-            print(pic[k])
+            for k in 0..<3 {
+                pic[k] = three[k]
+                print(pic[k])
+            }
         }
     }
     

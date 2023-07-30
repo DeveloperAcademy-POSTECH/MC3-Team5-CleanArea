@@ -10,7 +10,7 @@ import SwiftUI
 struct NewAlbumView: View {
 	
 	@Environment(\.dismiss) var dismiss
-	
+    @StateObject var mainViewModel: MainViewModel
 	@State var newAlbum = Album()
 	@State var selectingFox = false
 	@State var albumName: String = ""
@@ -71,7 +71,7 @@ struct NewAlbumView: View {
 			
 			if !albumName.isEmpty {
 				NavigationLink{
-					AlbumRoleSelectView(newAlbum: self.newAlbum)
+                    AlbumRoleSelectView(mainViewModel: mainViewModel, newAlbum: self.newAlbum)
 						.navigationBarBackButtonHidden()
 				} label: {
 					Rectangle()

@@ -85,14 +85,14 @@ struct DoneTravelLayout: View {
                 .frame(height: UIScreen.getHeight(24))
         }
         .task {
-//            if !fetch {
-//                mainViewModel.randomPicture(images, &picture)
-////                
-////                await mainViewModel.randomImageUsers(userDocIds: userNames)
-////                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
-////                    self.fetch = true
-////                }
-//            }
+            if !fetch {
+                mainViewModel.randomPicture(images, &picture)
+//
+//                await mainViewModel.randomImageUsers(userDocIds: userNames)
+//                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+//                    self.fetch = true
+//                }
+            }
         }
     }
 }

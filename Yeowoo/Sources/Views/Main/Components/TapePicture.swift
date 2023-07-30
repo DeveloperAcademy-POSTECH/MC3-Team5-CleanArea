@@ -22,7 +22,11 @@ struct TapePicture: View {
                         .frame(height: UIScreen.getHeight(140))
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                 } placeholder: {
-                    ProgressView()
+                    Image("EmptyCard")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(height: UIScreen.getHeight(140))
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
                 }
 //                }
             }

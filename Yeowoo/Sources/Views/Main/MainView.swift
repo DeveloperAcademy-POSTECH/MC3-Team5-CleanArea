@@ -7,8 +7,12 @@
 
 import SwiftUI
 
+final class AppState: ObservableObject {
+    @Published var moveToRootView: Bool = false
+}
+
 struct MainView: View {
-	
+    @EnvironmentObject var appState: AppState
 	@ObservedObject var mainViewModel = MainViewModel()
 	@ObservedObject var albumViewModel = AlbumViewModel()
 	
@@ -88,6 +92,7 @@ struct MainView: View {
 										
 										NavigationLink(destination: {
 											AlbumFeedView(albumDocId: mainViewModel.albums[0].id, viewModel: AlbumViewModel())
+                                                .navigationBarBackButtonHidden()
 										}) {
 											// ViewModel에 userProfileImage 가져오는 메소드 추가
 											ZStack {
@@ -183,7 +188,7 @@ struct MainView: View {
 									CameraButton(mainViewModel: mainViewModel)
 										.padding(.trailing, UIScreen.getWidth(20))
 								} else {
-									NavigationLink(destination: NewAlbumView().navigationBarBackButtonHidden()) {
+									NavigationLink(destination: NewAlbumView(mainViewModel: mainViewModel).navigationBarBackButtonHidden()) {
 										ZStack {
 											Circle()
 												.aspectRatio(contentMode: .fit)
@@ -219,6 +224,9 @@ struct MainView: View {
 				}
 			}
 		}
+//        .onAppear {
+//            UserDefaultsSetting.userDocId = "9sF6utDpaMngwUTF09Em"
+//        }
 		.task {
 			if !mainViewModel.fetchState {
 				await mainViewModel.loadAlbum()

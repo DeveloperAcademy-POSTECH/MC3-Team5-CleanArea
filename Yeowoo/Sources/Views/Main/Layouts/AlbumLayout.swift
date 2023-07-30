@@ -33,7 +33,7 @@ struct AlbumLayout: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                         } placeholder: {
-                            ProgressView()
+                            albumCover.randomElement()
                         }
                     } else {
                         albumCover.randomElement()

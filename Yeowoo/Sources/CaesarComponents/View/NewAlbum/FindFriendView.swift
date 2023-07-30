@@ -12,7 +12,7 @@ struct FindFriendView: View {
 	@EnvironmentObject var appState: AppState
 	
 	@StateObject var viewModel = FindFriendViewModel()
-	
+    @StateObject var mainViewModel: MainViewModel
 	@Environment(\.dismiss) var dismiss
 	
 	@State var findUser: User = User()
@@ -108,8 +108,12 @@ struct FindFriendView: View {
 			.alert(isPresented: $showAlert) {
 				Alert(title: Text("여행 생성 성공"), message: Text("이제 여행을 떠나볼까요?"),
 					  dismissButton: .default(Text("확인"), action: {
+                    Task {
+                        mainViewModel.finishedFetch = false
+                        await mainViewModel.loadAlbum()
+                    }
 					// 루트뷰로 이동
-					self.appState.moveToRootView = true
+//					self.appState.moveToRootView = true
 				}))
 			}
 		}
