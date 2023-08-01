@@ -129,7 +129,6 @@ final class MainViewModel: ObservableObject {
         formatter.dateStyle = .medium
         formatter.dateFormat = "yyyy.MM.dd" //데이터 포멧 설정
         today = formatter.string(from: Date()) //문자열로 바꾸기
-        
     }
     
     // 앨범이 비어있는지 확인

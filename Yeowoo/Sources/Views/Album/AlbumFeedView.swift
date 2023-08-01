@@ -250,7 +250,7 @@ private extension AlbumFeedView {
 						Text("\(viewModel.users[index].nickname)")
 							.font(.system(size: 12))
 							.fontWeight(.bold)
-						Text("\(viewModel.users[index].nickname)")
+						Text("\(viewModel.users[index].id)")
 							.font(.system(size: 12))
 					}
 					.overlay {
