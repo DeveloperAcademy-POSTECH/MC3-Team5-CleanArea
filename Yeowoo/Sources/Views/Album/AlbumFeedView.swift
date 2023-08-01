@@ -16,6 +16,12 @@ enum AlbumState {
 
 struct AlbumFeedView: View {
 	
+	enum AlertType {
+		case confirmDelete
+		case confirmClosure
+		case invalidAction
+	}
+	
 	@Environment(\.dismiss) var dismiss
 	
 	private let albumDocId: String
@@ -31,9 +37,12 @@ struct AlbumFeedView: View {
 	@State private var showingEditSheet = false
 	@State private var changedAlbumTitle = ""
 	
+	@State private var showFindUserView = false
+	
 	// sort 임시 토글
 	@State private var testSortToggle = true
 	
+	@State private var alertType: AlertType = .confirmDelete
     init(mainViewModel: MainViewModel, albumDocId: String, viewModel: AlbumViewModel) {
         self.mainViewModel = mainViewModel
 		self.albumDocId = albumDocId
@@ -72,6 +81,7 @@ struct AlbumFeedView: View {
 											.font(.system(size: 15))
 											.fontWeight(.semibold)
 									}
+									.padding(.horizontal)
 									.onTapGesture {
 										testSortToggle.toggle()
 										viewModel.imageSort(state: testSortToggle)
@@ -83,10 +93,10 @@ struct AlbumFeedView: View {
 											}
 										})
 										.toggleStyle(CheckmarkToggleStyle())
+										.padding(.horizontal)
 								}
 								.frame(height: 40)
 								.background(Color.white)
-								.padding(.horizontal)
 							}
 							if roleState == .all ? (!viewModel.tempVisibleImages.isEmpty)
 								: (!viewModel.tempVisibleRoleImages.isEmpty) {
@@ -134,6 +144,16 @@ private extension AlbumFeedView {
 				}
 				Button(role: .destructive) {
 					showingFinishAlert = true
+					
+					if viewModel.albums.isClosed {
+						alertType = .confirmDelete
+					} else {
+						if viewModel.albums.users.first == UserDefaultsSetting.userDocId {
+							alertType = .confirmClosure
+						} else {
+							alertType = .invalidAction
+						}
+					}
 				} label: {
 					Label("여행 종료하기", systemImage: "xmark.circle")
 				}
@@ -196,9 +216,6 @@ private extension AlbumFeedView {
 						Task {
 							viewModel.albums.isClosed ? try await viewModel.removeTravel(docId: viewModel.albums.id) :
 							try await viewModel.closedTravel(docId: viewModel.albums.id)
-                            mainViewModel.finishedFetch = false
-                            mainViewModel.openAlbum.toggle()
-                            try await mainViewModel.loadAlbum()
 						}
 					},
 					secondaryButton: .cancel(Text("취소")) { }
@@ -274,6 +291,7 @@ private extension AlbumFeedView {
 				}
 				Button {
 					print("친구 추가 버튼 클릭")
+					showFindUserView = true
 				} label: {
 					RoundedRectangle(cornerRadius: 20)
 						.fill(Color.white)
@@ -290,6 +308,13 @@ private extension AlbumFeedView {
 								.frame(width: 24, height: 24)
 						}
 				}
+				.background(
+					NavigationLink("", destination:
+									InviteFriendView(newAlbum: self.viewModel.albums)
+										.navigationBarBackButtonHidden()
+								   , isActive: $showFindUserView)
+					
+				)
 			}
 		}
 		.padding(.horizontal, 20)

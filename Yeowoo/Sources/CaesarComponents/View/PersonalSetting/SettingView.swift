@@ -13,6 +13,9 @@ struct SettingView: View {
 	@ObservedObject var viewModel = SettingViewModel()
 	@StateObject var mainViewModel: MainViewModel
 	
+	@State private var showLoginCoverView = false
+	
+	
 	var userInfo: User
 	
 	@Environment(\.dismiss) var dismiss
@@ -112,18 +115,20 @@ struct SettingView: View {
 			Spacer()
 			
 			//회원탈퇴/로그아웃
-			VStack{
+			VStack(spacing: 0){
 				//회원탈퇴
 				Button{
 					deletingAccount = true
 				} label: {
-					Text("회원 탈퇴")
-						.font(.system(size: 18, weight: .bold, design: .default))
-						.foregroundColor(Color.warningRed)
+					ZStack {
+						RoundedRectangle(cornerRadius: 10)
+							.fill(Color.whiteGray)
+							.frame(width: 350, height: 54)
+						Text ("회원 탈퇴")
+							.font(.system(size: 18, weight: .bold, design: .default))
+							.foregroundColor(Color.warningRed)
+					}.padding(.top)
 				}
-				.frame(width: UIScreen.main.bounds.width - 30, height: 54)
-				.background(RoundedRectangle(cornerRadius: 10, style: .continuous)
-					.fill(Color.whiteGray))
 				//탈퇴 alert
 				.alert(isPresented: $deletingAccount) {
 					Alert(
@@ -135,25 +140,30 @@ struct SettingView: View {
 														//탈퇴코드
 														Task {
 															try await viewModel.withdrawalUser()
-															self.appState.moveToRootView = true
+															showLoginCoverView = true
 														}
 													}),
 						secondaryButton: .cancel(Text("취소"))
 					)
 				}
-				
+				.background(
+					NavigationLink("",
+								   destination: LoginCoverView().navigationBarBackButtonHidden(),
+								   isActive: $showLoginCoverView)
+				)
 				
 				//로그아웃
 				Button{
 					loggingOutSheet = true
 				} label: {
-					Text("로그아웃")
-						.font(.system(size: 18, weight: .bold, design: .default))
-						.foregroundColor(Color(red: 100 / 255, green: 100 / 255, blue: 100 / 255))
+					ZStack {
+						RoundedRectangle(cornerRadius: 10)
+							.fill(Color.whiteGray)
+							.frame(width: 350, height: 54)
+						Text ("로그아웃")
+							.font(.system(size: 18, weight: .bold, design: .default))
+					}.padding(.top)
 				}
-				.frame(width: UIScreen.main.bounds.width - 30, height: 54)
-				.background(RoundedRectangle(cornerRadius: 10, style: .continuous)
-					.fill(Color.whiteGray))
 				//로그아웃 시트
 				.actionSheet(isPresented: $loggingOutSheet) {
 					ActionSheet(title: Text("로그아웃"),
@@ -161,9 +171,10 @@ struct SettingView: View {
 								buttons: [
 									.destructive(Text("로그아웃")) {
 										do {
+											print("logout do")
 											try KeyChainManager.shared.delete(account: .documentId)
 											UserDefaultsSetting.userDocId = ""
-											self.appState.moveToRootView = true
+											showLoginCoverView = true
 										} catch {
 											print(KeyChainError.itemNotFound)
 										}
@@ -171,6 +182,11 @@ struct SettingView: View {
 									.cancel(Text("취소"))
 								])
 				}
+				.background(
+					NavigationLink("",
+								   destination: LoginCoverView().navigationBarBackButtonHidden(),
+								   isActive: $showLoginCoverView)
+				)
 			}
 		}
 		.navigationTitle("설정")

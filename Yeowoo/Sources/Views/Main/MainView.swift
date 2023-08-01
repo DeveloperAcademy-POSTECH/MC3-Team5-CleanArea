@@ -87,12 +87,14 @@ struct MainView: View {
 									if !(mainViewModel.traveling == 2) {
 										if mainViewModel.traveling == 1 {
 											// 친구들과 단체 사진 어떠세요?
-											RecommendLayout(role: $mainViewModel.role,
+											RecommendLayout(mainViewModel: mainViewModel,
+															role: $mainViewModel.role,
 															startday: mainViewModel.albums[0].startDay,
 															nickname: mainViewModel.users[0].nickname)
 										} else {
 											// 여행까지 며칠 남았어요!
-											BeforeTravelLayout(role: $mainViewModel.role,
+											BeforeTravelLayout(mainViewModel: mainViewModel,
+															   role: $mainViewModel.role,
 															   nickname: mainViewModel.users[0].nickname,
 															   startDay: mainViewModel.albums[0].startDay)
 										}

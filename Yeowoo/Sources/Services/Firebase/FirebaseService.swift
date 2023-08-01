@@ -247,7 +247,7 @@ struct FirebaseService {
 					return
 				}
 				if userDocIds.isEmpty {
-
+					
 					do {
 						let documentId = try KeyChainManager.shared.read(account: .documentId)
 						if let document = snapshot.documents.first(where: { $0.documentID == documentId }) {
@@ -311,7 +311,7 @@ struct FirebaseService {
 	/// 유저 정보 불러오기
 	//	static func fetchUser(userDocIds: [String] = []) -> AnyPublisher<[User], Error> {
 	//		Future<[User], Error> { promise in
-
+	
 	//			var users: [User] = []
 	//			db.collection("User").getDocuments { snapshot, error in
 	//				if let error {
@@ -748,7 +748,7 @@ struct FirebaseService {
 			users.forEach { docId in
 				let collectionUserRef = db.collection("User").document(docId)
 				collectionUserRef.updateData([
-//					"progressAlbum" : albumId,
+					//					"progressAlbum" : albumId,
 					"notification" : FieldValue.arrayUnion([notificationData])
 				])
 			}
@@ -808,15 +808,46 @@ struct FirebaseService {
 						finishedAlbum.removeAll { $0 == albumDocId }
 						documentRef.updateData(["finishedAlbum": finishedAlbum]) { error in
 							if let error = error {
-								print("Error updating user document: \(error)")
 								configuration.resume(returning: .fail)
 							} else {
-								print("Document updated successfully.")
 								configuration.resume(returning: .success)
 							}
 						}
 					} else {
 						configuration.resume(returning: .fail)
+					}
+				}
+				
+				let albumDocRef = db.collection("Album").document(albumDocId)
+				albumDocRef.getDocument { snapshot, error in
+					if let error = error {
+						print("Error getting album document: \(error)")
+						return
+					}
+					
+					guard let document = snapshot, document.exists, let data = document.data() else {
+						print("Album document does not exist or has no data.")
+						return
+					}
+					
+					if let usersArray = data["users"] as? [String], let roleArray = data["role"] as? [String] {
+						if let index = usersArray.firstIndex(of: UserDefaultsSetting.userDocId) {
+							if index < roleArray.count {
+								var updatedRoleArray = roleArray
+								updatedRoleArray.remove(at: index)
+								
+								albumDocRef.updateData([
+									"role": updatedRoleArray
+								]) { error in
+									if let error = error {
+										print("Error removing role from role array: \(error)")
+									}
+								}
+								albumDocRef.updateData([
+									"users": FieldValue.arrayRemove([UserDefaultsSetting.userDocId])
+								])
+							}
+						}
 					}
 				}
 			}
@@ -913,6 +944,7 @@ struct FirebaseService {
 	}
 	
 	/// 여행참가
+	
 	static func participateTravel(albumDocId: String, role: String, notification: Notification) async throws -> FirebaseState {
 		let albumDocumentRef = db.collection("Album").document(albumDocId)
 		return try await withUnsafeThrowingContinuation { configuration in
@@ -924,21 +956,28 @@ struct FirebaseService {
 				let id = try KeyChainManager.shared.read(account: .documentId)
 				let documentRef = db.collection("User").document(id)
 				
+				let notificationData: [String: Any] = [
+					"albumId": notification.albumId,
+					"sendDate": notification.sendDate,
+					"sendUserNickname": notification.sendUserNickname,
+					"travelTitle": notification.travelTitle,
+					"userDocIds": notification.userDocIds,
+					"isParticipateChk": true
+				]
 				
-//				let notificationData: [String: Any] = [
-//					"albumId": notification.albumId,
-//					"sendDate": notification.sendDate,
-//					"sendUserNickname": notification.sendUserNickname,
-//					"travelTitle": notification.travelTitle,
-//					"userDocIds": notification.userDocIds,
-//					"isParticipateChk": true
-//				]
-				
-				documentRef.updateData([
-//					"notification": FieldValue.arrayUnion([notificationData]),
-					"progressAlbum": albumDocId
-				]) { error in
-					print(KeyChainError.itemNotFound)
+				documentRef.getDocument { document, error in
+					if let document = document, document.exists {
+						if var notifications = document.data()?["notification"] as? [[String: Any]] {
+							if let existingIndex = notifications.firstIndex(where: { $0["albumId"] as? String == notification.albumId }) {
+								notifications[existingIndex] = notificationData
+							} else {
+								notifications.append(notificationData)
+							}
+							documentRef.updateData(["notification": notifications, "progressAlbum": albumDocId])
+						} else {
+							documentRef.updateData(["notification": [notificationData], "progressAlbum": albumDocId])
+						}
+					}
 				}
 				
 			} catch {
@@ -1002,5 +1041,69 @@ struct FirebaseService {
 			}
 		}
 		.eraseToAnyPublisher()
+	}
+	
+	/// 친구 추가
+	static func inviteFriend(album: Album, notification: Notification) async throws -> FirebaseState {
+		let notificationData: [String: Any] = [
+			"albumId": album.id,
+			"sendDate": notification.sendDate,
+			"sendUserNickname": notification.sendUserNickname,
+			"travelTitle": notification.travelTitle,
+			"userDocIds": notification.userDocIds,
+			"isParticipateChk": notification.isParticipateChk
+		]
+		
+		var users = album.users
+		let collectionUserRef = db.collection("User").document(users.first!)
+		
+		users.removeFirst()
+		
+		if !users.isEmpty {
+			users.forEach { docId in
+				let collectionUserRef = db.collection("User").document(docId)
+				collectionUserRef.updateData([
+					"notification" : FieldValue.arrayUnion([notificationData])
+				])
+			}
+		}
+		return .success
+	}
+	
+	static func changedMyRole(album: Album) async throws -> FirebaseState {
+		let albumDocRef = db.collection("Album").document(album.id)
+		return try await withUnsafeThrowingContinuation { configuration in
+			albumDocRef.getDocument { snapshot, error in
+				if let error = error {
+					print("Error getting album document: \(error)")
+					return
+				}
+				
+				guard let document = snapshot, document.exists, let data = document.data() else {
+					print("Album document does not exist or has no data.")
+					return
+				}
+				
+				if let usersArray = data["users"] as? [String], let roleArray = data["role"] as? [String] {
+					if let index = usersArray.firstIndex(of: UserDefaultsSetting.userDocId) {
+						if index < roleArray.count {
+							var updatedRoleArray = roleArray
+							updatedRoleArray.remove(at: index)
+							
+							albumDocRef.updateData([
+								"role": updatedRoleArray
+							]) { error in
+								if let error = error {
+									print("Error removing role from role array: \(error)")
+								}
+							}
+							albumDocRef.updateData([
+								"users": FieldValue.arrayRemove([UserDefaultsSetting.userDocId])
+							])
+						}
+					}
+				}
+			}
+		}
 	}
 }
