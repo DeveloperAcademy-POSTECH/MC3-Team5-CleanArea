@@ -70,6 +70,7 @@ struct AlbumFeedView: View {
 											.font(.system(size: 15))
 											.fontWeight(.semibold)
 									}
+									.padding(.horizontal)
 									.onTapGesture {
 										testSortToggle.toggle()
 										viewModel.imageSort(state: testSortToggle)
@@ -81,10 +82,10 @@ struct AlbumFeedView: View {
 											}
 										})
 										.toggleStyle(CheckmarkToggleStyle())
+										.padding(.horizontal)
 								}
 								.frame(height: 40)
 								.background(Color.white)
-								.padding(.horizontal)
 							}
 							if roleState == .all ? (!viewModel.tempVisibleImages.isEmpty)
 								: (!viewModel.tempVisibleRoleImages.isEmpty) {
