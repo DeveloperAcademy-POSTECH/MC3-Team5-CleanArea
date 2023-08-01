@@ -10,6 +10,7 @@ import UIKit
 
 struct OnboardingView: View {
     @State private var selectedPage = 0
+	@State private var isLoginHidden = false
     var body: some View {
 		NavigationView {
 			ZStack {
@@ -44,6 +45,14 @@ struct OnboardingView: View {
 						.frame(height: UIScreen.getHeight(94))
 				}
 				VStack {
+//					.fullScreenCover(isPresented: $isLoginHidden) {
+//						let appState = AppState()
+//						LoginCoverView()
+//							.environmentObject(appState)
+//							.navigationBarBackButtonHidden()
+//							.animation(.easeInOut, value: 20)
+//							.transition(.move(edge: .leading))
+//					}
 					Spacer()
 					if selectedPage == 3 {
 						NavigationLink {
@@ -184,11 +193,5 @@ private extension OnboardingView {
                 Spacer()
             }
         }
-    }
-}
-
-struct OnboardingView_Previews: PreviewProvider {
-    static var previews: some View {
-        OnboardingView()
     }
 }

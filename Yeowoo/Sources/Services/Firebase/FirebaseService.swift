@@ -808,15 +808,46 @@ struct FirebaseService {
 						finishedAlbum.removeAll { $0 == albumDocId }
 						documentRef.updateData(["finishedAlbum": finishedAlbum]) { error in
 							if let error = error {
-								print("Error updating user document: \(error)")
 								configuration.resume(returning: .fail)
 							} else {
-								print("Document updated successfully.")
 								configuration.resume(returning: .success)
 							}
 						}
 					} else {
 						configuration.resume(returning: .fail)
+					}
+				}
+				
+				let albumDocRef = db.collection("Album").document(albumDocId)
+				albumDocRef.getDocument { snapshot, error in
+					if let error = error {
+						print("Error getting album document: \(error)")
+						return
+					}
+					
+					guard let document = snapshot, document.exists, let data = document.data() else {
+						print("Album document does not exist or has no data.")
+						return
+					}
+					
+					if let usersArray = data["users"] as? [String], let roleArray = data["role"] as? [String] {
+						if let index = usersArray.firstIndex(of: UserDefaultsSetting.userDocId) {
+							if index < roleArray.count {
+								var updatedRoleArray = roleArray
+								updatedRoleArray.remove(at: index)
+								
+								albumDocRef.updateData([
+									"role": updatedRoleArray
+								]) { error in
+									if let error = error {
+										print("Error removing role from role array: \(error)")
+									}
+								}
+								albumDocRef.updateData([
+									"users": FieldValue.arrayRemove([UserDefaultsSetting.userDocId])
+								])
+							}
+						}
 					}
 				}
 			}
@@ -925,7 +956,6 @@ struct FirebaseService {
 				let id = try KeyChainManager.shared.read(account: .documentId)
 				let documentRef = db.collection("User").document(id)
 				
-				
 				let notificationData: [String: Any] = [
 					"albumId": notification.albumId,
 					"sendDate": notification.sendDate,
@@ -1011,5 +1041,69 @@ struct FirebaseService {
 			}
 		}
 		.eraseToAnyPublisher()
+	}
+	
+	/// 친구 추가
+	static func inviteFriend(album: Album, notification: Notification) async throws -> FirebaseState {
+		let notificationData: [String: Any] = [
+			"albumId": album.id,
+			"sendDate": notification.sendDate,
+			"sendUserNickname": notification.sendUserNickname,
+			"travelTitle": notification.travelTitle,
+			"userDocIds": notification.userDocIds,
+			"isParticipateChk": notification.isParticipateChk
+		]
+		
+		var users = album.users
+		let collectionUserRef = db.collection("User").document(users.first!)
+		
+		users.removeFirst()
+		
+		if !users.isEmpty {
+			users.forEach { docId in
+				let collectionUserRef = db.collection("User").document(docId)
+				collectionUserRef.updateData([
+					"notification" : FieldValue.arrayUnion([notificationData])
+				])
+			}
+		}
+		return .success
+	}
+	
+	static func changedMyRole(album: Album) async throws -> FirebaseState {
+		let albumDocRef = db.collection("Album").document(album.id)
+		return try await withUnsafeThrowingContinuation { configuration in
+			albumDocRef.getDocument { snapshot, error in
+				if let error = error {
+					print("Error getting album document: \(error)")
+					return
+				}
+				
+				guard let document = snapshot, document.exists, let data = document.data() else {
+					print("Album document does not exist or has no data.")
+					return
+				}
+				
+				if let usersArray = data["users"] as? [String], let roleArray = data["role"] as? [String] {
+					if let index = usersArray.firstIndex(of: UserDefaultsSetting.userDocId) {
+						if index < roleArray.count {
+							var updatedRoleArray = roleArray
+							updatedRoleArray.remove(at: index)
+							
+							albumDocRef.updateData([
+								"role": updatedRoleArray
+							]) { error in
+								if let error = error {
+									print("Error removing role from role array: \(error)")
+								}
+							}
+							albumDocRef.updateData([
+								"users": FieldValue.arrayRemove([UserDefaultsSetting.userDocId])
+							])
+						}
+					}
+				}
+			}
+		}
 	}
 }

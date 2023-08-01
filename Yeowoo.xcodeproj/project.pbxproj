@@ -32,6 +32,7 @@
 		10FD58D02A7388A6000F60F2 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FD58CE2A7388A6000F60F2 /* SettingViewModel.swift */; };
 		10FD58D32A7388B9000F60F2 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FD58D12A7388B9000F60F2 /* Notification.swift */; };
 		10FD58D42A7388B9000F60F2 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FD58D22A7388B9000F60F2 /* NotificationViewModel.swift */; };
+		6509A5332A78F39500073EB2 /* InviteFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6509A5322A78F39500073EB2 /* InviteFriendView.swift */; };
 		65264BDC2A67C7BD009963E6 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65264BDB2A67C7BD009963E6 /* String+.swift */; };
 		6556C3ED2A68FEFD00B4EEE1 /* MultiInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3EC2A68FEFD00B4EEE1 /* MultiInvitationView.swift */; };
 		6556C3EF2A68FF0C00B4EEE1 /* TwoInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3EE2A68FF0C00B4EEE1 /* TwoInvitationView.swift */; };
@@ -153,6 +154,7 @@
 		10FD58CE2A7388A6000F60F2 /* SettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingViewModel.swift; path = Yeowoo/CaesarComponents/ViewModel/SettingViewModel.swift; sourceTree = SOURCE_ROOT; };
 		10FD58D12A7388B9000F60F2 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Notification.swift; path = Yeowoo/CaesarComponents/View/Notification/Notification.swift; sourceTree = SOURCE_ROOT; };
 		10FD58D22A7388B9000F60F2 /* NotificationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationViewModel.swift; path = Yeowoo/CaesarComponents/View/Notification/NotificationViewModel.swift; sourceTree = SOURCE_ROOT; };
+		6509A5322A78F39500073EB2 /* InviteFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteFriendView.swift; sourceTree = "<group>"; };
 		65264BDB2A67C7BD009963E6 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		6556C3EC2A68FEFD00B4EEE1 /* MultiInvitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiInvitationView.swift; sourceTree = "<group>"; };
 		6556C3EE2A68FF0C00B4EEE1 /* TwoInvitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoInvitationView.swift; sourceTree = "<group>"; };
@@ -560,6 +562,7 @@
 				65C0773F2A611C31003E6D92 /* Layouts */,
 				65C0773D2A611763003E6D92 /* AlbumFeedView.swift */,
 				65C077522A640CF9003E6D92 /* AlbumDetailView.swift */,
+				6509A5322A78F39500073EB2 /* InviteFriendView.swift */,
 			);
 			path = Album;
 			sourceTree = "<group>";
@@ -880,6 +883,7 @@
 				1049B7F12A63F8BA0021F674 /* Font+.swift in Sources */,
 				65C077172A5BF4A7003E6D92 /* KeyChainAccount.swift in Sources */,
 				6556C4072A7162C000B4EEE1 /* NotificationDelegate.swift in Sources */,
+				6509A5332A78F39500073EB2 /* InviteFriendView.swift in Sources */,
 				6556C4002A700E0600B4EEE1 /* CacheAsyncImage.swift in Sources */,
 				10CC160D2A64452300B27955 /* Buttons.swift in Sources */,
 				106475182A6529E40092FE5B /* MainView.swift in Sources */,
@@ -1087,7 +1091,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Yeowoo/Preview Content\"";
-				DEVELOPMENT_TEAM = 33F2H2TBU4;
+				DEVELOPMENT_TEAM = F92UQYH2RA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Yeowoo/Info.plist;
@@ -1105,7 +1109,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ungchun.Yeowoo.caesar;
+				PRODUCT_BUNDLE_IDENTIFIER = ungchun.Yeowoo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1122,7 +1126,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Yeowoo/Preview Content\"";
-				DEVELOPMENT_TEAM = 33F2H2TBU4;
+				DEVELOPMENT_TEAM = F92UQYH2RA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Yeowoo/Info.plist;
@@ -1140,7 +1144,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ungchun.Yeowoo.caesar;
+				PRODUCT_BUNDLE_IDENTIFIER = ungchun.Yeowoo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

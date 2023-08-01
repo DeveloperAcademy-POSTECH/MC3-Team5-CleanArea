@@ -210,4 +210,9 @@ final class AlbumViewModel: ObservableObject {
 			return false
 		}}
 	}
+	
+	/// 내 역할 변경
+	func changedMyRole() {
+		
+	}
 }

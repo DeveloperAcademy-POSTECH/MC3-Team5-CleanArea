@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BeforeTravelLayout: View {
-    @StateObject var mainViewModel = MainViewModel()
+	@StateObject var mainViewModel: MainViewModel
     @State var fetch: Bool = false
     @Binding var role: String
     var nickname: String
@@ -17,18 +17,18 @@ struct BeforeTravelLayout: View {
     
     var body: some View {
         VStack {
-            HStack {
-                VStack(alignment: .leading, spacing: 3) {
-                    Text("\(nickname)님,")
-                    Text("여행까지 ") +
-                    Text("\(date)일 ").foregroundColor(Color("ButtonColor")) +
-                    Text("남았어요!")
-                }
-                Spacer()
+			HStack {
+				VStack(alignment: .leading, spacing: 3) {
+					Text("\(nickname)님,")
+					Text("여행까지 ") +
+					Text("\(date)일 ").foregroundColor(Color("ButtonColor")) +
+					Text("남았어요!")
+				}
+				Spacer()
                 
                 VStack {
                     NavigationLink(destination : {
-                        RoleChangeView()
+						RoleChangeView(album: mainViewModel.albums.first!)
                             .navigationBarBackButtonHidden()
                     }) {
                         ZStack {
