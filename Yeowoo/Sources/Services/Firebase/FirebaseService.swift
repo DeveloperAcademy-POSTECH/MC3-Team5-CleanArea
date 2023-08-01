@@ -247,7 +247,7 @@ struct FirebaseService {
 					return
 				}
 				if userDocIds.isEmpty {
-
+					
 					do {
 						let documentId = try KeyChainManager.shared.read(account: .documentId)
 						if let document = snapshot.documents.first(where: { $0.documentID == documentId }) {
@@ -311,7 +311,7 @@ struct FirebaseService {
 	/// 유저 정보 불러오기
 	//	static func fetchUser(userDocIds: [String] = []) -> AnyPublisher<[User], Error> {
 	//		Future<[User], Error> { promise in
-
+	
 	//			var users: [User] = []
 	//			db.collection("User").getDocuments { snapshot, error in
 	//				if let error {
@@ -748,7 +748,7 @@ struct FirebaseService {
 			users.forEach { docId in
 				let collectionUserRef = db.collection("User").document(docId)
 				collectionUserRef.updateData([
-//					"progressAlbum" : albumId,
+					//					"progressAlbum" : albumId,
 					"notification" : FieldValue.arrayUnion([notificationData])
 				])
 			}
@@ -913,6 +913,7 @@ struct FirebaseService {
 	}
 	
 	/// 여행참가
+	
 	static func participateTravel(albumDocId: String, role: String, notification: Notification) async throws -> FirebaseState {
 		let albumDocumentRef = db.collection("Album").document(albumDocId)
 		return try await withUnsafeThrowingContinuation { configuration in
@@ -925,20 +926,28 @@ struct FirebaseService {
 				let documentRef = db.collection("User").document(id)
 				
 				
-//				let notificationData: [String: Any] = [
-//					"albumId": notification.albumId,
-//					"sendDate": notification.sendDate,
-//					"sendUserNickname": notification.sendUserNickname,
-//					"travelTitle": notification.travelTitle,
-//					"userDocIds": notification.userDocIds,
-//					"isParticipateChk": true
-//				]
+				let notificationData: [String: Any] = [
+					"albumId": notification.albumId,
+					"sendDate": notification.sendDate,
+					"sendUserNickname": notification.sendUserNickname,
+					"travelTitle": notification.travelTitle,
+					"userDocIds": notification.userDocIds,
+					"isParticipateChk": true
+				]
 				
-				documentRef.updateData([
-//					"notification": FieldValue.arrayUnion([notificationData]),
-					"progressAlbum": albumDocId
-				]) { error in
-					print(KeyChainError.itemNotFound)
+				documentRef.getDocument { document, error in
+					if let document = document, document.exists {
+						if var notifications = document.data()?["notification"] as? [[String: Any]] {
+							if let existingIndex = notifications.firstIndex(where: { $0["albumId"] as? String == notification.albumId }) {
+								notifications[existingIndex] = notificationData
+							} else {
+								notifications.append(notificationData)
+							}
+							documentRef.updateData(["notification": notifications, "progressAlbum": albumDocId])
+						} else {
+							documentRef.updateData(["notification": [notificationData], "progressAlbum": albumDocId])
+						}
+					}
 				}
 				
 			} catch {
