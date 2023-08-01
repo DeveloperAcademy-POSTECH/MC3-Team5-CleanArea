@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RecommendLayout: View {
-    @StateObject var mainViewModel = MainViewModel()
+	@StateObject var mainViewModel: MainViewModel
     @State var fetch: Bool = false
     @Binding var role: String
     var startday: String
@@ -34,7 +34,7 @@ struct RecommendLayout: View {
                 
                 VStack {
                     NavigationLink(destination: {
-                        RoleChangeView()
+						RoleChangeView(album: mainViewModel.albums.first!)
                             .navigationBarBackButtonHidden()
                     }) {
                         ZStack {

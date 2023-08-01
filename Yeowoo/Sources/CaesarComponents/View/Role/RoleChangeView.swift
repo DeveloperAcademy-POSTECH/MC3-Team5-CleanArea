@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RoleChangeView: View {
     
+	let album: Album
     @Environment(\.dismiss) var dismiss
     @State var selectingFox = false
     @State var progressBar = false
@@ -52,7 +53,10 @@ struct RoleChangeView: View {
                     Button{
                             //선택 완료(선택된 selectedIndex 넘기기)
                         print("selected fox is number \(selectedIndex ?? -1)")
-                            
+						
+						print("mainViewMo \(album.id)")
+						
+						
                         } label: {
                             Rectangle()
                                 .frame(width: UIScreen.main.bounds.width - 30, height: 54)
@@ -75,11 +79,5 @@ struct RoleChangeView: View {
             .navigationBarTitleDisplayMode(.inline)
             .background(Color.white)
             .modifier(BackToolBarModifier())
-    }
-}
-
-struct RoleChangeView_Previews: PreviewProvider {
-    static var previews: some View {
-        RoleChangeView()
     }
 }

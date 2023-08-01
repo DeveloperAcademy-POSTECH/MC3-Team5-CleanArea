@@ -16,6 +16,12 @@ enum AlbumState {
 
 struct AlbumFeedView: View {
 	
+	enum AlertType {
+		case confirmDelete
+		case confirmClosure
+		case invalidAction
+	}
+	
 	@Environment(\.dismiss) var dismiss
 	
 	private let albumDocId: String
@@ -30,8 +36,13 @@ struct AlbumFeedView: View {
 	@State private var showingEditSheet = false
 	@State private var changedAlbumTitle = ""
 	
+	@State private var showFindUserView = false
+	
 	// sort 임시 토글
 	@State private var testSortToggle = true
+	
+	@State private var alertType: AlertType = .confirmDelete
+	
 	
 	init(albumDocId: String, viewModel: AlbumViewModel) {
 		self.albumDocId = albumDocId
@@ -70,6 +81,7 @@ struct AlbumFeedView: View {
 											.font(.system(size: 15))
 											.fontWeight(.semibold)
 									}
+									.padding(.horizontal)
 									.onTapGesture {
 										testSortToggle.toggle()
 										viewModel.imageSort(state: testSortToggle)
@@ -81,10 +93,10 @@ struct AlbumFeedView: View {
 											}
 										})
 										.toggleStyle(CheckmarkToggleStyle())
+										.padding(.horizontal)
 								}
 								.frame(height: 40)
 								.background(Color.white)
-								.padding(.horizontal)
 							}
 							if roleState == .all ? (!viewModel.tempVisibleImages.isEmpty)
 								: (!viewModel.tempVisibleRoleImages.isEmpty) {
@@ -132,6 +144,16 @@ private extension AlbumFeedView {
 				}
 				Button(role: .destructive) {
 					showingFinishAlert = true
+					
+					if viewModel.albums.isClosed {
+						alertType = .confirmDelete
+					} else {
+						if viewModel.albums.users.first == UserDefaultsSetting.userDocId {
+							alertType = .confirmClosure
+						} else {
+							alertType = .invalidAction
+						}
+					}
 				} label: {
 					Label("여행 종료하기", systemImage: "xmark.circle")
 				}
@@ -186,18 +208,36 @@ private extension AlbumFeedView {
 				.presentationDetents([.height(250)])
 			}
 			.alert(isPresented: $showingFinishAlert) {
-				Alert(
-					title: Text(viewModel.albums.isClosed ? "여행 삭제" : "여행 종료"),
-					message: Text(viewModel.albums.isClosed ? "현재 계정에서만 삭제되며 복구가 불가능합니다" :
-									"여행을 종료하면\n사진 및 영상 업로드가 불가능해요"),
-					primaryButton: .destructive(Text(viewModel.albums.isClosed ? "삭제" : "종료")) {
-						Task {
-							viewModel.albums.isClosed ? try await viewModel.removeTravel(docId: viewModel.albums.id) :
-							try await viewModel.closedTravel(docId: viewModel.albums.id)
-						}
-					},
-					secondaryButton: .cancel(Text("취소")) { }
-				)
+				switch alertType {
+				case .confirmDelete:
+					return Alert(
+						title: Text("여행 삭제"),
+						message: Text("현재 계정에서만 삭제되며 복구가 불가능합니다"),
+						primaryButton: .destructive(Text("삭제")) {
+							Task {
+								try await viewModel.removeTravel(docId: viewModel.albums.id)
+							}
+						},
+						secondaryButton: .cancel(Text("취소")) { }
+					)
+				case .confirmClosure:
+					return Alert(
+						title: Text("여행 종료"),
+						message: Text("여행을 종료하면\n사진 및 영상 업로드가 불가능해요"),
+						primaryButton: .destructive(Text(viewModel.albums.isClosed ? "삭제" : "종료")) {
+							Task {
+								try await viewModel.closedTravel(docId: viewModel.albums.id)
+							}
+						},
+						secondaryButton: .cancel(Text("취소")) { }
+					)
+				case .invalidAction:
+					return Alert(
+						title: Text("여행 종료는 여행을 만든 사람만 가능합니다."),
+						message: Text("여행 종료는 신중하게 해주세요."),
+						dismissButton: .default(Text("확인"))
+					)
+				}
 			}
 		}
 		.frame(height: 48)
@@ -269,6 +309,7 @@ private extension AlbumFeedView {
 				}
 				Button {
 					print("친구 추가 버튼 클릭")
+					showFindUserView = true
 				} label: {
 					RoundedRectangle(cornerRadius: 20)
 						.fill(Color.white)
@@ -285,6 +326,13 @@ private extension AlbumFeedView {
 								.frame(width: 24, height: 24)
 						}
 				}
+				.background(
+					NavigationLink("", destination:
+									InviteFriendView(newAlbum: self.viewModel.albums)
+										.navigationBarBackButtonHidden()
+								   , isActive: $showFindUserView)
+					
+				)
 			}
 		}
 		.padding(.horizontal, 20)

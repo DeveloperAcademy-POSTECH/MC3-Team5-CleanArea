@@ -75,6 +75,7 @@ struct LoginCoverView: View {
 							.navigationBarBackButtonHidden()
 					})
 					.onReceive(self.appState.$moveToRootView) { moveToDashboard in
+						print("logout sibal")
 						if moveToDashboard {
 							self.isViewActive = false
 							self.appState.moveToRootView = false

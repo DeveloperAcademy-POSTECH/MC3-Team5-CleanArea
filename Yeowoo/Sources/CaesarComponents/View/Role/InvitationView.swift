@@ -36,21 +36,12 @@ struct InvitationView: View {
 		//
 		
 		// 추후 수정
-		MultiInvitationView(noti: noti)
+//		MultiInvitationView(noti: noti)
 		
-//		if noti.userDocIds.count < 3 {
-//			TwoInvitationView()
-//				.onAppear {
-//					UserDefaultsSetting.userDocId = "Mt5DPoKI4Im0vZfq9vOl"
-//					//					Task {
-//					//						try await FirebaseService.participateTravel(albumDocId: "GQAPDJeFgTtz9V3LeuFe", role: "testFox")
-//					//					}
-//				}
-//		} else {
-//			MultiInvitationView(noti: noti)
-////			.onAppear {
-////				UserDefaultsSetting.userDocId = "Mt5DPoKI4Im0vZfq9vOl"
-////			}
-//		}
+		if noti.userDocIds.count < 3 {
+			TwoInvitationView(noti: noti)
+		} else {
+			MultiInvitationView(noti: noti)
+		}
 	}
 }
