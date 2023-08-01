@@ -216,6 +216,9 @@ private extension AlbumFeedView {
 						Task {
 							viewModel.albums.isClosed ? try await viewModel.removeTravel(docId: viewModel.albums.id) :
 							try await viewModel.closedTravel(docId: viewModel.albums.id)
+                            mainViewModel.finishedFetch = false
+                            mainViewModel.openAlbum.toggle()
+                            try await mainViewModel.loadAlbum()
 						}
 					},
 					secondaryButton: .cancel(Text("취소")) { }
