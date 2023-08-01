@@ -36,7 +36,7 @@ struct MainView: View {
 						// Alarm, Setting 버튼
 						HStack {
 							NavigationLink(destination:
-											NotificationView().navigationBarBackButtonHidden()
+											NotificationView(mainViewModel: mainViewModel).navigationBarBackButtonHidden()
 										   , isActive: $mainViewModel.openAlarm) {
 								Button(action: {
 									mainViewModel.openAlarm.toggle()
@@ -56,44 +56,20 @@ struct MainView: View {
 								.frame(width: UIScreen.getWidth(9))
 							
 							
-							NavigationLink(destination: SettingView(mainViewModel: self.mainViewModel, userInfo: mainViewModel.users.first ?? User())
-								.navigationBarBackButtonHidden()) {
-									ZStack {
-										Image("Person")
-											.resizable()
-											.aspectRatio(contentMode: .fit)
-											.frame(width: UIScreen.getWidth(24))
-									}.frame(width: UIScreen.getWidth(27), height: UIScreen.getHeight(29))
-								}
+                            NavigationLink(destination: SettingView(mainViewModel: mainViewModel, userInfo: mainViewModel.users.first ?? User()).navigationBarBackButtonHidden(), isActive: $mainViewModel.openSetting) {
+                                Button(action: {
+                                    mainViewModel.openSetting.toggle()
+                                }) {
+                                    ZStack {
+                                        Image("Person")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: UIScreen.getWidth(24))
+                                    }.frame(width: UIScreen.getWidth(27), height: UIScreen.getHeight(29))
+                                }
+                            }
 						}
 							
-//							Button {
-//								isViewActive = true
-//							} label: {
-//								ZStack {
-//									Image("Person")
-//										.resizable()
-//										.aspectRatio(contentMode: .fit)
-//										.frame(width: UIScreen.getWidth(24))
-//								}.frame(width: UIScreen.getWidth(27), height: UIScreen.getHeight(29))
-//							}
-//							.navigationDestination(isPresented: $isViewActive, destination: {
-//								SettingView(mainViewModel: self.mainViewModel, userInfo: mainViewModel.users.first ?? User())
-//									.navigationBarBackButtonHidden()
-//							})
-//							.onReceive(self.appState.$moveToRootView) { moveToDashboard in
-//								if moveToDashboard {
-//									self.isViewActive = false
-//									self.appState.moveToRootView = false
-//								}
-//								//											Task {
-//								//												mainViewModel.finishedFetch = false
-//								//												try await mainViewModel.loadAlbum()
-//
-//								//											}
-//							}
-//						}
-						
 						Spacer()
 							.frame(width: UIScreen.getWidth(20))
 					}
@@ -121,27 +97,30 @@ struct MainView: View {
 															   startDay: mainViewModel.albums[0].startDay)
 										}
 										
-										NavigationLink(destination: {
-											AlbumFeedView(albumDocId: mainViewModel.albums[0].id, viewModel: AlbumViewModel())
+										NavigationLink(destination:
+											AlbumFeedView(mainViewModel: mainViewModel, albumDocId: mainViewModel.albums[0].id, viewModel: AlbumViewModel())
 												.navigationBarBackButtonHidden()
-										}) {
+                                                       , isActive: $mainViewModel.openAlbum) {
 											// ViewModel에 userProfileImage 가져오는 메소드 추가
-											ZStack {
-												LinearGradient(gradient: Gradient(colors: [.clear, Color("G5")]), startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
-												VStack(spacing: 0) {
-													Spacer()
-														.frame(height: UIScreen.getHeight(24))
-													AlbumLayout(
-														mainViewModel: mainViewModel,
-														coverImage: mainViewModel.albums[0].albumCoverImage,
-														userId: mainViewModel.albums[0].users,
-														travelName: mainViewModel.albums[0].albumTitle,
-														startDay: mainViewModel.albums[0].startDay,
-														endDay: mainViewModel.albums[0].endDay)
-													Spacer()
-														.frame(height: UIScreen.getHeight(24))
-												}
-											}
+                                            Button(action: {
+                                                mainViewModel.openAlbum.toggle()
+                                            }) {
+                                                ZStack {
+                                                    LinearGradient(gradient: Gradient(colors: [.clear, Color("G5")]), startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
+                                                    VStack(spacing: 0) {
+                                                        Spacer()
+                                                            .frame(height: UIScreen.getHeight(24))
+                                                        AlbumLayout(
+                                                            coverImage: mainViewModel.albums[0].albumCoverImage,
+                                                            userId: mainViewModel.albums[0].users,
+                                                            travelName: mainViewModel.albums[0].albumTitle,
+                                                            startDay: mainViewModel.albums[0].startDay,
+                                                            endDay: mainViewModel.albums[0].endDay)
+                                                        Spacer()
+                                                            .frame(height: UIScreen.getHeight(24))
+                                                    }
+                                                }
+                                            }
 										}
 										
 										Spacer()
@@ -165,27 +144,29 @@ struct MainView: View {
 												.frame(height: UIScreen.getHeight(24))
 										}
 									}
-									VStack {
-										HStack {
-											Spacer()
-												.frame(width: UIScreen.getWidth(20))
-											
-											Text("우리가 함께한 추억들")
-												.font(.custom18bold())
-											
-											Spacer()
-										}
-										Spacer()
-											.frame(height: UIScreen.getHeight(24))
-									}
+                                    if (mainViewModel.albums.count == 1 && mainViewModel.albums[0].endDay == mainViewModel.today) ||
+                                        mainViewModel.albums.count > 1 {
+                                        VStack {
+                                            HStack {
+                                                Spacer()
+                                                    .frame(width: UIScreen.getWidth(20))
+                                                
+                                                Text("우리가 함께한 추억들")
+                                                    .font(.custom18bold())
+                                                
+                                                Spacer()
+                                            }
+                                            Spacer()
+                                                .frame(height: UIScreen.getHeight(24))
+                                        }
+                                    }
 									
 									ForEach(mainViewModel.albums[((mainViewModel.traveling == 1 || mainViewModel.traveling == 0) ? 1 : 0)..<mainViewModel.albums.count], id: \.self){ data in
 										
 										NavigationLink(destination: {
-											AlbumFeedView(albumDocId: data.id, viewModel: AlbumViewModel())
+                                            AlbumFeedView(mainViewModel: mainViewModel, albumDocId: data.id, viewModel: AlbumViewModel())
 										}) {
-											AlbumLayout(mainViewModel: mainViewModel,
-														coverImage: data.albumCoverImage,
+											AlbumLayout(coverImage: data.albumCoverImage,
 														userId: data.users,
 														travelName: data.albumTitle,
 														startDay: data.startDay,
@@ -216,7 +197,7 @@ struct MainView: View {
 							HStack {
 								Spacer()
 								
-								if (mainViewModel.traveling == 0 || mainViewModel.traveling == 1) && mainViewModel.hasAlbum == 2 {
+								if mainViewModel.traveling == 1 && mainViewModel.hasAlbum == 2 {
 									CameraButton(mainViewModel: mainViewModel)
 										.padding(.trailing, UIScreen.getWidth(20))
 								} else {
@@ -257,12 +238,17 @@ struct MainView: View {
 			}
 		}
 		.onAppear {
+//            2023.07.01 -> Date -> Int, Double
+            mainViewModel.albums.sort{ $0.startDay > $1.startDay }
 			Task {
 				if !mainViewModel.fetchState {
 					try await mainViewModel.loadAlbum()
 					mainViewModel.fetchState = true
 				}
 			}
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+                print("NLNLNLN \(mainViewModel.users)")
+            }
 		}
 		
 	}

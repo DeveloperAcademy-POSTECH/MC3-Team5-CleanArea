@@ -23,6 +23,8 @@ final class MainViewModel: ObservableObject {
     @Published var finishedFetch: Bool = false
     @Published var currentDocId: String = ""
     @Published var fetchState: Bool = false
+    @Published var openSetting = false
+    @Published var openAlbum = false
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -45,17 +47,18 @@ final class MainViewModel: ObservableObject {
                 self.progressAlbums = albums.filter { !$0.isClosed && (tempNowDate > Double($0.startDay) ?? 0.0) }
                 self.finishAlbums = albums.filter { $0.isClosed }
                 
-                print("notStartAlbums \(self.notStartAlbums.count)")
-                print("progressAlbums \(self.progressAlbums.count)")
-                print("finishAlbums \(self.finishAlbums.count)")
-                print("albums \(albums.count)")
-                print("albumsName \(albums)")
+//                print("notStartAlbums \(self.notStartAlbums.count)")
+//                print("progressAlbums \(self.progressAlbums.count)")
+//                print("finishAlbums \(self.finishAlbums.count)")
+//                print("albums \(albums.count)")
+//                print("albumsName \(albums)")
 				
 				
                 
-                self.hasTraveling()
                 self.isEmpty()
                 self.getCurrentDateTime()
+                self.sortAlbum()
+                self.hasTraveling()
                 self.getDocId()
             }
             .store(in: &cancellables)
@@ -275,5 +278,31 @@ final class MainViewModel: ObservableObject {
         didPhoto = false
         showModal = false
         self.finishedFetch = false
+    }
+    
+    func sortAlbum() {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_kr")
+        formatter.timeZone = TimeZone(abbreviation: "KST")
+        formatter.dateStyle = .medium
+        formatter.dateFormat = "yyyy.MM.dd"
+        
+//        albums.sort{ formatter.date(from: $0.startDay)! > formatter.date(from: $1.startDay)! }
+        
+        albums.sort { album1, album2 in
+            if album1.startDay == album2.startDay {
+                if album1.endDay.isEmpty && album2.endDay.isEmpty {
+                    return false
+                } else if album1.endDay.isEmpty {
+                    return true
+                } else if album2.endDay.isEmpty {
+                    return false
+                } else {
+                    return album1.endDay < album2.endDay
+                }
+            } else {
+                return album1.startDay > album2.startDay
+            }
+        }
     }
 }

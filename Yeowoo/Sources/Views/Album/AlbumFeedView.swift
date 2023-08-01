@@ -20,6 +20,7 @@ struct AlbumFeedView: View {
 	
 	private let albumDocId: String
 	
+    @ObservedObject private var mainViewModel: MainViewModel
 	@ObservedObject private var viewModel: AlbumViewModel
 	
 	@State private var layoutToggleState = true
@@ -33,7 +34,8 @@ struct AlbumFeedView: View {
 	// sort 임시 토글
 	@State private var testSortToggle = true
 	
-	init(albumDocId: String, viewModel: AlbumViewModel) {
+    init(mainViewModel: MainViewModel, albumDocId: String, viewModel: AlbumViewModel) {
+        self.mainViewModel = mainViewModel
 		self.albumDocId = albumDocId
 		self.viewModel = viewModel
 	}
@@ -194,6 +196,9 @@ private extension AlbumFeedView {
 						Task {
 							viewModel.albums.isClosed ? try await viewModel.removeTravel(docId: viewModel.albums.id) :
 							try await viewModel.closedTravel(docId: viewModel.albums.id)
+                            mainViewModel.finishedFetch = false
+                            mainViewModel.openAlbum.toggle()
+                            try await mainViewModel.loadAlbum()
 						}
 					},
 					secondaryButton: .cancel(Text("취소")) { }
