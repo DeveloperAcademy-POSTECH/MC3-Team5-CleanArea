@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AlbumLayout: View {
     
-	@ObservedObject var mainViewModel: MainViewModel
+	@ObservedObject var mainViewModel = MainViewModel()
     @State private var albumCover: [Image] = [Image("Album1"), Image("Album2"), Image("Album3"), Image("Album4")]
     @State var fetch: Bool = false
     @State var days: Int = 0

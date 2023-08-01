@@ -26,6 +26,7 @@ struct AlbumFeedView: View {
 	
 	private let albumDocId: String
 	
+    @ObservedObject private var mainViewModel: MainViewModel
 	@ObservedObject private var viewModel: AlbumViewModel
 	
 	@State private var layoutToggleState = true
@@ -42,9 +43,8 @@ struct AlbumFeedView: View {
 	@State private var testSortToggle = true
 	
 	@State private var alertType: AlertType = .confirmDelete
-	
-	
-	init(albumDocId: String, viewModel: AlbumViewModel) {
+    init(mainViewModel: MainViewModel, albumDocId: String, viewModel: AlbumViewModel) {
+        self.mainViewModel = mainViewModel
 		self.albumDocId = albumDocId
 		self.viewModel = viewModel
 	}
@@ -208,36 +208,21 @@ private extension AlbumFeedView {
 				.presentationDetents([.height(250)])
 			}
 			.alert(isPresented: $showingFinishAlert) {
-				switch alertType {
-				case .confirmDelete:
-					return Alert(
-						title: Text("여행 삭제"),
-						message: Text("현재 계정에서만 삭제되며 복구가 불가능합니다"),
-						primaryButton: .destructive(Text("삭제")) {
-							Task {
-								try await viewModel.removeTravel(docId: viewModel.albums.id)
-							}
-						},
-						secondaryButton: .cancel(Text("취소")) { }
-					)
-				case .confirmClosure:
-					return Alert(
-						title: Text("여행 종료"),
-						message: Text("여행을 종료하면\n사진 및 영상 업로드가 불가능해요"),
-						primaryButton: .destructive(Text(viewModel.albums.isClosed ? "삭제" : "종료")) {
-							Task {
-								try await viewModel.closedTravel(docId: viewModel.albums.id)
-							}
-						},
-						secondaryButton: .cancel(Text("취소")) { }
-					)
-				case .invalidAction:
-					return Alert(
-						title: Text("여행 종료는 여행을 만든 사람만 가능합니다."),
-						message: Text("여행 종료는 신중하게 해주세요."),
-						dismissButton: .default(Text("확인"))
-					)
-				}
+				Alert(
+					title: Text(viewModel.albums.isClosed ? "여행 삭제" : "여행 종료"),
+					message: Text(viewModel.albums.isClosed ? "현재 계정에서만 삭제되며 복구가 불가능합니다" :
+									"여행을 종료하면\n사진 및 영상 업로드가 불가능해요"),
+					primaryButton: .destructive(Text(viewModel.albums.isClosed ? "삭제" : "종료")) {
+						Task {
+							viewModel.albums.isClosed ? try await viewModel.removeTravel(docId: viewModel.albums.id) :
+							try await viewModel.closedTravel(docId: viewModel.albums.id)
+                            mainViewModel.finishedFetch = false
+                            mainViewModel.openAlbum.toggle()
+                            try await mainViewModel.loadAlbum()
+						}
+					},
+					secondaryButton: .cancel(Text("취소")) { }
+				)
 			}
 		}
 		.frame(height: 48)

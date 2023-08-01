@@ -23,7 +23,11 @@ struct Person: View {
                     .frame(width: UIScreen.getWidth(31))
                     .clipShape(Circle())
             } placeholder: {
-                ProgressView()
+                Image("EmptyProfile")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: UIScreen.getWidth(31))
+                    .clipShape(Circle())
             }
         }
     }

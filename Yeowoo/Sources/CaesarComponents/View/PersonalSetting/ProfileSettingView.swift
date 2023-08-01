@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct ProfileSettingView: View {
-	@ObservedObject var mainViewModel: MainViewModel
+	@StateObject var mainViewModel: MainViewModel
 	@EnvironmentObject var appState: AppState
 	
 	@Environment(\.dismiss) var dismiss
@@ -135,6 +135,9 @@ struct ProfileSettingView: View {
 							try await viewModel.updateProfile(imageData: data, nickName: nickName, id: identity)
 							viewModel.idDuplicateCheckFlag = .none
 						}
+                        mainViewModel.finishedFetch = false
+                        mainViewModel.openSetting.toggle()
+                        try await mainViewModel.loadAlbum()
 					}
 				}
 			} label: {

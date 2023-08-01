@@ -11,7 +11,7 @@ struct SettingView: View {
 	@EnvironmentObject var appState: AppState
 	
 	@ObservedObject var viewModel = SettingViewModel()
-	@ObservedObject var mainViewModel: MainViewModel
+	@StateObject var mainViewModel: MainViewModel
 	
 	@State private var showLoginCoverView = false
 	

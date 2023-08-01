@@ -117,7 +117,7 @@ private extension OnboardingView {
                     .frame(height: UIScreen.getHeight(63))
                 
                 HStack {
-                    Text("역할별로 정리된 앨범을 눌러\n친구의 시선으로 여행을 기억해봐요")
+                    Text("역할별로 정리된 앨범을 눌러\n친구들의 시선으로 여행을 즐겨 보세요")
                         .font(.custom22bold())
                         .lineSpacing(5)
                         .padding(.leading, UIScreen.getWidth(20))
@@ -144,7 +144,7 @@ private extension OnboardingView {
                     .frame(height: UIScreen.getHeight(63))
                 
                 HStack {
-                    Text("친구들이 작성한 글과 사진을 보며\n생생하게 여행을 기억해봐요")
+                    Text("친구들이 작성한 글과 사진을 보며\n여행의 순간들을 생생하게 공유해 보세요")
                         .font(.custom22bold())
                         .lineSpacing(5)
                         .padding(.leading, UIScreen.getWidth(20))

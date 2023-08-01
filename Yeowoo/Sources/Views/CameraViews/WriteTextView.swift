@@ -71,7 +71,7 @@ struct WriteTextView: View {
                     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
                     try await mainViewModel.testUpload(image: image, albumDocId: mainViewModel.currentDocId, comment: contentsText, uploadUser: UserDefaultsSetting.userDocId)
                     image = UIImage()
-//                    mainViewModel.finishedFetch = false
+                    mainViewModel.finishedFetch = false
                     try await mainViewModel.loadAlbum()
                 }
             }) {
