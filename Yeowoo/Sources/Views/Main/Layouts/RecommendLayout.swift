@@ -35,7 +35,7 @@ struct RecommendLayout: View {
                 
                 VStack {
                     NavigationLink(destination :
-                        RoleChangeView(album: mainViewModel.albums.first!, mainViewModel: mainViewModel)
+									RoleChangeView(mainViewModel: mainViewModel, album: mainViewModel.albums.first!)
                             .navigationBarBackButtonHidden(), isActive: $mainViewModel.openChange) {
                         Button(action: {
                             mainViewModel.openChange.toggle()

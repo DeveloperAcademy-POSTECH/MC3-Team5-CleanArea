@@ -11,20 +11,19 @@ import UIKit
 
 final class AlbumViewModel: ObservableObject {
 	
-	var likeChk = false
-	
 	@Published var albumTitle = ""
 	@Published var fetchState = false
 	@Published var roleImage: [[ImagesEntity]] = []
 	@Published var users: [User] = []
-	var images: [[ImagesEntity]] = []
 	@Published var albums: Album = Album()
 	
 	@Published var visibleImages: [[ImagesEntity]] = []
 	var tempVisibleImages: [[ImagesEntity]] = []
-	
 	@Published var visibleRoleImages: [[ImagesEntity]] = []
 	var tempVisibleRoleImages: [[ImagesEntity]] = []
+	
+	var likeChk = false
+	var images: [[ImagesEntity]] = []
 	
 	private var cancellables = Set<AnyCancellable>()
 	
@@ -121,18 +120,6 @@ final class AlbumViewModel: ObservableObject {
 	@MainActor
 	func fetchUser(userDocIds: [String]) async throws {
 		self.users = try await FirebaseService.fetchUser(userDocIds: userDocIds)
-//		FirebaseService.fetchUser(userDocIds: userDocIds)
-//			.sink { completion in
-//				switch completion {
-//				case .failure(let error):
-//					print(error.localizedDescription)
-//				case .finished:
-//					return
-//				}
-//			} receiveValue: { user in
-//				self.users = user
-//			}
-//			.store(in: &cancellables)
 	}
 	
 	/// 좋아요 클릭
@@ -177,15 +164,6 @@ final class AlbumViewModel: ObservableObject {
 													  parmFileName: fileName) == .success {
 			self.fetchAlbumImages(albumDocId: albumDocId)
 		}
-	}
-	
-	/// 태스트 이미지 업로드용
-	func testUpload() async throws {
-		_ = try await FirebaseService.uploadAlbumImage(image: UIImage(named: "9")!,
-													   albumDocId: "T9eJMPQEGQClFHEahX6r",
-													   fileName: String(describing: UUID()),
-                                                       comment: "",
-                                                       uploadUser: "")
 	}
 	
 	/// sort

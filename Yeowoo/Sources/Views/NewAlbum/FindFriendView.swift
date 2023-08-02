@@ -1,23 +1,26 @@
 //
-//  InviteFriendView.swift
-//  Yeowoo
+//  FindFriendView.swift
+//  YeoWooSimpleView
 //
-//  Created by Kim SungHun on 2023/08/01.
+//  Created by 정회승 on 2023/07/18.
 //
 
 import SwiftUI
 
-struct InviteFriendView: View {
+struct FindFriendView: View {
 	
 	@Environment(\.dismiss) var dismiss
 	
-	@StateObject var viewModel = FindFriendViewModel()
+	@EnvironmentObject var appState: AppState
 	
-	@State var findUser: User = User()
-	@State var friendID: String = ""
-	@State var myFriend: [User] = []
-	@State var selectedFriends: [User] = []
-	@State var friendToggles: [Bool] = []
+	@StateObject var viewModel = FindFriendViewModel()
+	@StateObject var mainViewModel: MainViewModel
+	
+	@State private var findUser: User = User()
+	@State private var friendID: String = ""
+	@State private var myFriend: [User] = []
+	@State private var selectedFriends: [User] = []
+	@State private var friendToggles: [Bool] = []
 	@State var newAlbum: Album
 	@State var showAlert = false
 	
@@ -26,8 +29,7 @@ struct InviteFriendView: View {
 			Rectangle()
 				.frame(width: UIScreen.width - 50, height: 3)
 				.padding(.top, 15)
-				.foregroundColor(Color("B1"))
-			
+				.foregroundColor(.mainColor)
 			Text("친구 찾기")
 				.font(.system(size: 18, weight: .bold, design: .default))
 				.frame(maxWidth: .infinity, alignment: .leading)
@@ -37,12 +39,10 @@ struct InviteFriendView: View {
 			
 			ZStack {
 				GrayTitleMakingView(text: $friendID, placeholder: "친구 아이디를 입력해주세요")
-				
 				HStack {
 					Spacer()
 						.frame(width: UIScreen.width - 110)
 					Button {
-						// 유저 찾기
 						Task {
 							findUser = try await viewModel.searchUser(parmUserId: friendID)
 							if !myFriend.contains(where: { $0.id == findUser.id }) {
@@ -64,40 +64,41 @@ struct InviteFriendView: View {
 				ForEach(myFriend.indices, id: \.self) { index in
 					FindFriendContents(friendToggle: $friendToggles[index], user: myFriend[index])
 				}
+				
 				Spacer()
 			}
 			
 			Button{
 				selectedFriends = myFriend.indices.filter { friendToggles[$0] }.map { myFriend[$0] }
 				newAlbum.users.append(contentsOf: selectedFriends.map { $0.docId })
-				
 				if !newAlbum.users.isEmpty {
 					for _ in 0..<newAlbum.users.count - 1 {
 						newAlbum.role.append("normalFox")
 					}
 				}
-				
 				Task {
-					try await viewModel.inviteFriend(album: newAlbum, inviteUsers: selectedFriends)
+					try await viewModel.createTravel(newAlbum: newAlbum)
 					showAlert = true
-					sendPushNotification(to: selectedFriends.map { $0.fcmToken },
-										 title: "From \(UserDefaultsSetting.nickname)",
-										 body: "\(newAlbum.albumTitle)에 초대해요!")
+					sendPushNotification(to: selectedFriends.map { $0.fcmToken }, title: "From \(UserDefaultsSetting.nickname)", body: "\(newAlbum.albumTitle)에 초대해요!")
 				}
 			} label: {
 				Rectangle()
 					.frame(width: UIScreen.main.bounds.width - 30, height: 54)
-					.foregroundColor(Color("B1"))
+					.foregroundColor(Color.mainColor)
 					.cornerRadius(10)
-					.overlay(Text("초대하기").font(.system(size: 18,
-													   weight: .bold,
-													   design: .default)).foregroundColor(Color.white))
+					.overlay(Text("여행 시작하기").font(.system(size: 18,
+														  weight: .bold,
+														  design: .default)).foregroundColor(Color.white))
 					.padding(.bottom, 20)
 			}
 			.alert(isPresented: $showAlert) {
-				Alert(title: Text("초대하기 성공"), message: Text("여행을 계속 즐겨봐요!"),
+				Alert(title: Text("여행 생성 성공"), message: Text("이제 여행을 떠나볼까요?"),
 					  dismissButton: .default(Text("확인"), action: {
-					dismiss()
+					Task {
+						mainViewModel.finishedFetch = false
+						mainViewModel.openMake.toggle()
+						try await mainViewModel.loadAlbum()
+					}
 				}))
 			}
 		}

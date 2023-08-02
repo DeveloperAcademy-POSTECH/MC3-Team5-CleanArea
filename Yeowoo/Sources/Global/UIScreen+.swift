@@ -26,5 +26,8 @@ extension UIScreen {
     static func getHeight8(_ height: CGFloat) -> CGFloat {
         screenHeight / 667 * height
     }
+	
+	static let width = UIScreen.main.bounds.width
+	static let height = UIScreen.main.bounds.height
 }
 
