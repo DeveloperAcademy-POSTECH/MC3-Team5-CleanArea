@@ -13,7 +13,6 @@ extension UIScreen {
     static let screenSize = UIScreen.main.bounds.size
     static let camViewHeight: CGFloat = UIScreen.main.bounds.size.width * 4.0 / 3.0
     static let videoViewHeight: CGFloat = UIScreen.main.bounds.size.width * 16.0 / 9.0
-//    static let statusBar = UIApplication.shared.statu
 
     static func getWidth(_ width: CGFloat) -> CGFloat {
         screenWidth / 390 * width

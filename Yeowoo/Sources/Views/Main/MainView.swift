@@ -188,8 +188,6 @@ struct MainView: View {
 								}.frame(maxWidth: .infinity)
 							})
 						} else if mainViewModel.hasAlbum == 1 {
-							
-							// albums ==> albums.count == 0
 							VStack {
 								Spacer()
 									.frame(height: UIScreen.getHeight(45))
