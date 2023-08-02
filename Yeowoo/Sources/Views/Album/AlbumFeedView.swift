@@ -7,14 +7,12 @@
 
 import SwiftUI
 
-enum AlbumState {
-	case user
-	case all
-}
-
-//arrow.up.arrow.down
-
 struct AlbumFeedView: View {
+	
+	enum AlbumState {
+		case user
+		case all
+	}
 	
 	enum AlertType {
 		case confirmDelete
@@ -30,20 +28,17 @@ struct AlbumFeedView: View {
 	@ObservedObject private var viewModel: AlbumViewModel
 	
 	@State private var layoutToggleState = true
-	@State private var nowSelectedUser: User? // 현재 역할이 선택된 유저
+	@State private var nowSelectedUser: User?
 	@State private var roleState: AlbumState = .all
 	@State private var showingFinishAlert = false
 	@State private var showingUpdateAlert = false
 	@State private var showInviteAlert = false
 	@State private var showingEditSheet = false
 	@State private var changedAlbumTitle = ""
-	
 	@State private var showFindUserView = false
-	
-	// sort 임시 토글
-	@State private var testSortToggle = true
-	
+	@State private var sortToggle = true
 	@State private var alertType: AlertType = .confirmDelete
+	
 	init(mainViewModel: MainViewModel, albumDocId: String, viewModel: AlbumViewModel) {
 		self.mainViewModel = mainViewModel
 		self.albumDocId = albumDocId
@@ -66,9 +61,6 @@ struct AlbumFeedView: View {
 							.frame(height: 24)
 						Divider()
 						
-						// sort 임시 토글
-						
-						
 						LazyVStack(pinnedViews: [.sectionHeaders]){
 							Section {
 								ImageView()
@@ -84,8 +76,8 @@ struct AlbumFeedView: View {
 									}
 									.padding(.horizontal)
 									.onTapGesture {
-										testSortToggle.toggle()
-										viewModel.imageSort(state: testSortToggle)
+										sortToggle.toggle()
+										viewModel.imageSort(state: sortToggle)
 									}
 									Toggle(isOn: self.$layoutToggleState) {}
 										.onChange(of: layoutToggleState, perform: { _ in
@@ -271,7 +263,16 @@ private extension AlbumFeedView {
 										.padding(5)
 										.overlay {
 											RoundedRectangle(cornerRadius: 20)
-												.stroke(viewModel.albums.role[index] == "normalFox" ? Color.normalColor : viewModel.albums.role[index] == "eatFox" ? Color.eatColor : viewModel.albums.role[index] == "activityFox" ? Color.activityColor : viewModel.albums.role[index] == "captaionFox" ? Color.captaionColor : viewModel.albums.role[index] == "paparazziFox" ? Color.paparazziColor : Color.sceneColor, lineWidth: 2)
+												.stroke(viewModel.albums.role[index] == "normalFox"
+														? Color.normalColor :
+															viewModel.albums.role[index] == "eatFox"
+														? Color.eatColor :
+															viewModel.albums.role[index] == "activityFox"
+														? Color.activityColor :
+															viewModel.albums.role[index] == "captaionFox"
+														? Color.captaionColor :
+															viewModel.albums.role[index] == "paparazziFox"
+														? Color.paparazziColor : Color.sceneColor, lineWidth: 2)
 												.padding(2)
 										}
 										.overlay (
@@ -315,7 +316,6 @@ private extension AlbumFeedView {
 					}
 				}
 				Button {
-					print("친구 추가 버튼 클릭")
 					if viewModel.albums.isClosed {
 						showInviteAlert = true
 					} else {
@@ -407,13 +407,13 @@ private extension AlbumFeedView {
 		if layoutToggleState {
 			if roleState == .all {
 				GalleryLayout(viewModel: viewModel,
-                              mainViewModel: mainViewModel,
+							  mainViewModel: mainViewModel,
 							  entitys: viewModel.visibleImages[index],
 							  user: viewModel.users,
 							  entityIndex: index)
 			} else {
 				GalleryLayout(viewModel: viewModel,
-                              mainViewModel: mainViewModel, 
+							  mainViewModel: mainViewModel,
 							  entitys: viewModel.visibleRoleImages[index],
 							  user: viewModel.users,
 							  entityIndex: index)
@@ -421,14 +421,14 @@ private extension AlbumFeedView {
 		} else {
 			if index % 3 == 1 {
 				if roleState == .all {
-                    FirstFeedLayout(mainViewModel: mainViewModel,
-                                    entityIndex: index,
+					FirstFeedLayout(mainViewModel: mainViewModel,
+									entityIndex: index,
 									entitys: viewModel.visibleImages[index],
 									user: viewModel.users,
 									viewModel: viewModel)
 				} else {
 					FirstFeedLayout(mainViewModel: mainViewModel,
-                                    entityIndex: index,
+									entityIndex: index,
 									entitys: viewModel.visibleRoleImages[index],
 									user: viewModel.users,
 									viewModel: viewModel)
@@ -436,13 +436,13 @@ private extension AlbumFeedView {
 			} else {
 				if roleState == .all {
 					SecondFeedLayout(mainViewModel: mainViewModel,
-                                     entityIndex: index,
+									 entityIndex: index,
 									 entitys: viewModel.visibleImages[index],
 									 user: viewModel.users,
 									 viewModel: viewModel)
 				} else {
 					SecondFeedLayout(mainViewModel: mainViewModel,
-                                     entityIndex: index,
+									 entityIndex: index,
 									 entitys: viewModel.visibleRoleImages[index],
 									 user: viewModel.users,
 									 viewModel: viewModel)
