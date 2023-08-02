@@ -14,7 +14,7 @@ struct TapePicture: View {
         ZStack {
             VStack {
                 Spacer()
-//                NavigationLink(destination: EmptyView()) {
+                
                 AsyncImage(url: URL(string: picture)) { image in
                     image
                         .resizable()
@@ -28,7 +28,6 @@ struct TapePicture: View {
                         .frame(height: UIScreen.getHeight(140))
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                 }
-//                }
             }
             
             VStack {
@@ -38,7 +37,8 @@ struct TapePicture: View {
                 
                 Spacer()
             }
-        }.frame(width: UIScreen.getWidth(105), height: UIScreen.getHeight(160))
+        }
+        .frame(width: UIScreen.getWidth(105), height: UIScreen.getHeight(160))
     }
 }
 

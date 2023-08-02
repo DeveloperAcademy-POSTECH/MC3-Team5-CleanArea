@@ -8,26 +8,21 @@ import Combine
 import SwiftUI
 
 final class MainViewModel: ObservableObject {
-
-    @Published var notStartAlbums: [Album] = []
-    @Published var progressAlbums: [Album] = []
-    @Published var finishAlbums: [Album] = []
     @Published var albums: [Album] = []
     @Published var users: [User] = []
-    @Published var traveling = 0
-    @Published var hasAlarm = true
-    @Published var hasAlbum = 0
+    @Published var currentDocId: String = ""
     @Published var today: String = ""
     @Published var role: String = ""
     @Published var finishedFetch: Bool = false
-    @Published var currentDocId: String = ""
+    @Published var openSetting: Bool = false
     @Published var fetchState: Bool = false
-    @Published var openAlarm = false
-    @Published var openSetting = false
-    @Published var openAlbum = false
-    @Published var openChange = false
-    @Published var openMake = false
-    
+    @Published var openChange: Bool = false
+    @Published var openAlarm: Bool = false
+    @Published var openAlbum: Bool = false
+    @Published var openMake: Bool = false
+    @Published var hasAlarm: Bool = true
+    @Published var traveling: Int = 0
+    @Published var hasAlbum: Int = 0
     private var cancellables = Set<AnyCancellable>()
     
     // 앨범 정보 불러오기
@@ -44,19 +39,7 @@ final class MainViewModel: ObservableObject {
             } receiveValue: { albums in
                 self.albums = albums
                 let tempNowDate = Double(Date().timeIntervalSince1970)
-                
-                self.notStartAlbums = albums.filter { !$0.isClosed && (tempNowDate < Double($0.startDay) ?? 0.0) }
-                self.progressAlbums = albums.filter { !$0.isClosed && (tempNowDate > Double($0.startDay) ?? 0.0) }
-                self.finishAlbums = albums.filter { $0.isClosed }
-                
-//                print("notStartAlbums \(self.notStartAlbums.count)")
-//                print("progressAlbums \(self.progressAlbums.count)")
-//                print("finishAlbums \(self.finishAlbums.count)")
-//                print("albums \(albums.count)")
-//                print("albumsName \(albums)")
-				
-				
-                
+
                 self.isEmpty()
                 self.getCurrentDateTime()
                 self.sortAlbum()
@@ -69,20 +52,7 @@ final class MainViewModel: ObservableObject {
     // 유저 정보 불러오기
     @MainActor
     func fetchUser(userDocIds: [String]) async throws {
-		print("fetchUser fetchUser fetchUser")
 		self.users = try await FirebaseService.fetchUser(userDocIds: userDocIds)
-//        FirebaseService.fetchUser(userDocIds: userDocIds)
-//            .sink { completion in
-//                switch completion {
-//                case .failure(let error):
-//                    print(error.localizedDescription)
-//                case .finished:
-//                    return
-//                }
-//            } receiveValue: { user in
-//                self.users = user
-//            }
-//            .store(in: &cancellables)
     }
     
     // 여행 중인지 확인
@@ -103,8 +73,6 @@ final class MainViewModel: ObservableObject {
         formatter.dateStyle = .medium
         formatter.dateFormat = "yyyy.MM.dd"
         
-        print("==")
-        print(start)
         let startDay = formatter.date(from: start)!
         let current = Date()
         
@@ -140,8 +108,6 @@ final class MainViewModel: ObservableObject {
     @MainActor
     func isEmpty() {
         hasAlbum = albums.isEmpty == true ? 1 : 2
-
-        print("??? \(albums.isEmpty)")
     }
     
     // 여행 시작일로부터 몇일 지났는지
@@ -162,7 +128,6 @@ final class MainViewModel: ObservableObject {
     // 여행일까지 앞으로 남은 기간
     @MainActor
     func D_Day(_ start: String) -> Int {
-        
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_kr")
         formatter.timeZone = TimeZone(abbreviation: "KST")
@@ -170,9 +135,6 @@ final class MainViewModel: ObservableObject {
         formatter.dateFormat = "yyyy.MM.dd"
         
         let startDay = formatter.date(from: start)!
-        print(startDay)
-        print(Date())
-        
         let day = Int(ceil(startDay.timeIntervalSinceNow / 86400))
         
         return day
@@ -186,33 +148,27 @@ final class MainViewModel: ObservableObject {
         var one: String
         var isHave = false
         
-        
         if album.isEmpty || (album.count < 3) {
             if album.isEmpty {
-                print("isEmpty")
                 for change in 0..<3 {
                     pic[change] = ""
                 }
             } else {
-                print("isEmpty no")
                 for change in 0..<album.count {
                     pic[change] = album[change].url
                 }
+                
                 for change in album.count..<3 {
                     pic[change] = ""
                 }
-                
-                
             }
         } else {
-            print("here")
             for insert in 0..<album.count {
                 images.append(album[insert].url)
             }
             
             for i in 0..<3{
                 one = images.randomElement()!
-                
                 while true {
                     for j in 0..<i {
                         if three[j] == one {
@@ -232,7 +188,6 @@ final class MainViewModel: ObservableObject {
             }
             for k in 0..<3 {
                 pic[k] = three[k]
-                print(pic[k])
             }
         }
     }
@@ -241,8 +196,6 @@ final class MainViewModel: ObservableObject {
     @MainActor
     func searchRole(_ userId: String) {
         role = albums[0].role[albums[0].users.firstIndex(of: userId) ?? 1]
-        
-        print(role)
     }
     
     @MainActor
@@ -261,7 +214,7 @@ final class MainViewModel: ObservableObject {
     }
     
     @MainActor
-    func testUpload(image: UIImage, albumDocId: String, comment: String, uploadUser: String) async throws {
+    func imageUpload(image: UIImage, albumDocId: String, comment: String, uploadUser: String) async throws {
         _ = try await FirebaseService.uploadAlbumImage(image: image,
                                                        albumDocId: albumDocId,
                                                        fileName: String(describing: UUID()),
@@ -282,14 +235,13 @@ final class MainViewModel: ObservableObject {
         self.finishedFetch = false
     }
     
+    // 앨범 순서 정리
     func sortAlbum() {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_kr")
         formatter.timeZone = TimeZone(abbreviation: "KST")
         formatter.dateStyle = .medium
         formatter.dateFormat = "yyyy.MM.dd"
-        
-//        albums.sort{ formatter.date(from: $0.startDay)! > formatter.date(from: $1.startDay)! }
         
         albums.sort { album1, album2 in
             if album1.startDay == album2.startDay {

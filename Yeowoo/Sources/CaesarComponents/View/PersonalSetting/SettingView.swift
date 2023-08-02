@@ -47,7 +47,7 @@ struct SettingView: View {
 									.resizable()
 									.scaledToFill()
 									.frame(width: 64, height: 64)
-									.background(Color.mainColor)
+									.background(Color("B1"))
 									.clipShape(Circle())
 									.padding(.horizontal, 10 )
 							default:
@@ -105,7 +105,7 @@ struct SettingView: View {
 						Spacer()
 						
 						Toggle("", isOn: $notiToggle)
-							.toggleStyle(SwitchToggleStyle(tint: Color.mainColor))
+							.toggleStyle(SwitchToggleStyle(tint: Color("B1")))
 							.padding(.trailing, 20)
 					}
 				}

@@ -15,6 +15,7 @@ struct Buttons: View {
     @Binding var image: UIImage
     @Binding var showModal: Bool
     @Binding var didPhoto: Bool
+    
     @State var open = false
     var body: some View {
         HStack(spacing: UIScreen.getWidth(40)) {
@@ -45,9 +46,3 @@ struct Buttons: View {
         }
     }
 }
-
-//struct Buttons_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Buttons(isFlash: .constant(false), didCapture: .constant(false), changeCamera: .constant(false))
-//    }
-//}

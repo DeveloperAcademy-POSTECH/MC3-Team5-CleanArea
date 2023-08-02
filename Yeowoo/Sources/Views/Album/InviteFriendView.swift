@@ -25,7 +25,7 @@ struct InviteFriendView: View {
 			Rectangle()
 				.frame(width: UIScreen.width - 50, height: 3)
 				.padding(.top, 15)
-				.foregroundColor(.mainColor)
+				.foregroundColor(Color("B1"))
 			
 			Text("친구 찾기")
 				.font(.system(size: 18, weight: .bold, design: .default))
@@ -102,7 +102,7 @@ struct InviteFriendView: View {
 			} label: {
 				Rectangle()
 					.frame(width: UIScreen.main.bounds.width - 30, height: 54)
-					.foregroundColor(Color.mainColor)
+					.foregroundColor(Color("B1"))
 					.cornerRadius(10)
 					.overlay(Text("초대하기").font(.system(size: 18, weight: .bold, design: .default)).foregroundColor(Color.white))
 					.padding(.bottom, 20)

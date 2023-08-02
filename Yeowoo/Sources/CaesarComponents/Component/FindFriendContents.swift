@@ -47,7 +47,7 @@ struct FindFriendContents: View {
                 } label: {
                     Image(systemName: friendToggle ? "checkmark.circle.fill" : "circle")
                                     .imageScale(.large)
-                                    .foregroundColor(friendToggle ? .mainColor : .circleGray)
+                                    .foregroundColor(friendToggle ? Color("B1") : .circleGray)
                 }
                
             }

@@ -46,7 +46,7 @@
 //                                .resizable()
 //                                .frame(width: 8, height: 16))
 //                            .fontWeight(.bold)
-//                        .foregroundColor(.mainColor)
+//                        .foregroundColor(Color("B1"))
 //                    }
 //                    .padding(.trailing, 20)
 //                .padding(.top, 100)
@@ -66,7 +66,7 @@
 //                                    .frame(width: 48, height: 48)
 //                                    .shadow(radius: 20)
 //                                    .overlay( Image(systemName: "bell.fill")
-//                                        .foregroundColor(.mainColor))
+//                                        .foregroundColor(Color("B1")))
 //                            }
 //                            NavigationLink{
 ////								SettingView(userInfo: $userInfo)
@@ -80,7 +80,7 @@
 //                                    .shadow(radius: 20)
 //                                    .overlay( Image(systemName: "gear")
 //                                        .imageScale(.large)
-//                                        .foregroundColor(.mainColor))
+//                                        .foregroundColor(Color("B1")))
 //                            }
 //                        }
 //                    }
@@ -94,7 +94,7 @@
 //						Image(systemName: "plus.circle.fill")
 //							.resizable()
 //							.frame(width: 76, height: 76)
-//							.foregroundColor(.mainColor)
+//							.foregroundColor(Color("B1"))
 //							.padding(.trailing, 20)
 //					}
 //					.navigationDestination(isPresented: $isViewActive, destination: {

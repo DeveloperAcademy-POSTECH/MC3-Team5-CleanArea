@@ -30,22 +30,22 @@ struct SignUpView: View {
 	var body: some View {
 		ScrollView(showsIndicators: false) {
 			Spacer()
-				.frame(height: 35)
+                .frame(height: UIScreen.getHeight(35))
 			
 			VStack(alignment: .leading) {
 				//아이디
 				Text("아이디")
                     .font(.custom18bold())
-					.padding(.leading, 8)
+                    .padding(.leading, UIScreen.getWidth(8))
 				
 				ZStack(alignment: .trailing) {
 					//아이디 입력창
 					TextField("아이디를 입력하세요", text: $ID)
                         .font(.custom16regular())
+                        .padding()
                         .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(46))
 						.background(Color("G5"))
 						.cornerRadius(10)
-                        .padding()
 						.onChange(of: ID) { _ in
 							viewModel.textFieldEditing()
 						}

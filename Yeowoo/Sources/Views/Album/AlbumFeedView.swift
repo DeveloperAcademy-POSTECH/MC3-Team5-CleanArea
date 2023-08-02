@@ -184,7 +184,7 @@ private extension AlbumFeedView {
 						}
 					} label: {
 						Rectangle()
-							.fill(Color.mainColor)
+							.fill(Color("B1"))
 							.frame(height: 54)
 							.cornerRadius(10)
 							.overlay {
@@ -458,7 +458,7 @@ struct CheckmarkToggleStyle: ToggleStyle {
 			configuration.label
 			Spacer()
 			Rectangle()
-				.foregroundColor(configuration.isOn ? Color.mainColor : Color("G5"))
+				.foregroundColor(configuration.isOn ? Color("B1") : Color("G5"))
 				.frame(width: 60, height: 32, alignment: .center)
 				.overlay(
 					Circle()

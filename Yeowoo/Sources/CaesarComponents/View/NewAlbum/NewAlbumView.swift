@@ -25,11 +25,11 @@ struct NewAlbumView: View {
 					Rectangle()
 						.frame(width: (UIScreen.width - 50)/3, height: 3)
 						.padding(.top, 15)
-						.foregroundColor(.mainColor)
+						.foregroundColor(Color("B1"))
 					Rectangle()
 						.frame(width: (UIScreen.width - 50)/3*2, height: 3)
 						.padding(.top, 15)
-						.foregroundColor(.mainColor)
+						.foregroundColor(Color("B1"))
 						.opacity(0.1)
 				}
 				
@@ -55,7 +55,7 @@ struct NewAlbumView: View {
 							   selection: $selectedDate,
 							   in: Date()...,
 							   displayedComponents: .date)
-					.accentColor(.mainColor)
+					.accentColor(Color("B1"))
 					.padding()
 					.frame(width: UIScreen.width - 50 ,height: 44)
 				}
@@ -76,7 +76,7 @@ struct NewAlbumView: View {
 				} label: {
 					Rectangle()
 						.frame(width: UIScreen.main.bounds.width - 30, height: 54)
-						.foregroundColor(Color.mainColor)
+						.foregroundColor(Color("B1"))
 						.cornerRadius(10)
 						.overlay(Text("다음").font(.system(size: 18, weight: .bold, design: .default)).foregroundColor(Color.white))
 						.padding(.bottom, 20)

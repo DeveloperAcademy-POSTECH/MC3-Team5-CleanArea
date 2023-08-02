@@ -10,10 +10,10 @@ import SwiftUI
 struct BeforeTravelLayout: View {
 	@StateObject var mainViewModel: MainViewModel
     @State var fetch: Bool = false
+    @State var date: Int = 0
     @Binding var role: String
     var nickname: String
     var startDay: String
-    @State var date: Int = 0
     
     var body: some View {
         VStack {
@@ -21,7 +21,7 @@ struct BeforeTravelLayout: View {
 				VStack(alignment: .leading, spacing: 3) {
 					Text("\(nickname)님,")
 					Text("여행까지 ") +
-					Text("\(date)일 ").foregroundColor(Color("ButtonColor")) +
+					Text("\(date)일 ").foregroundColor(Color("B1")) +
 					Text("남았어요!")
 				}
 				Spacer()

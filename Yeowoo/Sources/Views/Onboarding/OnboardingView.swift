@@ -160,7 +160,7 @@ private extension OnboardingView {
                     Circle()
                         .fill(
                             selectedPage == pageNumber ?
-                            Color.mainColor : Color("G5")
+                            Color("B1") : Color("G5")
                         )
                         .frame(width: 8, height: 8)
                 }
@@ -185,7 +185,7 @@ private extension OnboardingView {
                 } label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 10)
-                            .foregroundColor(Color.mainColor)
+                            .foregroundColor(Color("B1"))
                             .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(54))
                         
                         Text("시작하기")

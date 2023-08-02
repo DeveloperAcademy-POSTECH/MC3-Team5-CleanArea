@@ -14,10 +14,10 @@ struct PlusPerson: View {
         ZStack {
             Circle()
                 .foregroundColor(.white)
-                .frame(width: 32)
+                .frame(width: UIScreen.getWidth(32))
             Circle()
-                .foregroundColor(Color(uiColor: .darkGray))
-                .frame(width: 31)
+                .foregroundColor(Color("G1"))
+                .frame(width: UIScreen.getWidth(31))
             
             Text("+\(plusCount)")
                 .foregroundColor(.white)

@@ -40,7 +40,7 @@ struct ProfileSettingView: View {
 									.resizable()
 									.scaledToFill()
 									.frame(width: 130, height: 130)
-									.background(Color.mainColor)
+									.background(Color("B1"))
 									.clipShape(Circle())
 									.padding(.horizontal, 10)
 							default:
@@ -54,7 +54,7 @@ struct ProfileSettingView: View {
 								.resizable()
 								.scaledToFill()
 								.frame(width: 130, height: 130)
-								.background(Color.mainColor)
+								.background(Color("B1"))
 								.clipShape(Circle())
 								.padding(.horizontal, 10)
 						}
@@ -113,7 +113,7 @@ struct ProfileSettingView: View {
 						"사용하실 수 없는 아이디입니다."
 				)
 				.font(.footnote)
-				.foregroundColor(viewModel.idDuplicateCheckFlag == .pass ? Color.mainColor : Color.warningRed)
+				.foregroundColor(viewModel.idDuplicateCheckFlag == .pass ? Color("B1") : Color.warningRed)
 				.padding(.leading, 32)
 				.padding(.top, 10)
 				Spacer()
@@ -143,7 +143,7 @@ struct ProfileSettingView: View {
 			} label: {
 				ZStack {
 					RoundedRectangle(cornerRadius: 10)
-						.foregroundColor(viewModel.idDuplicateCheckFlag == .pass && nickName.count >= 2 ? Color.mainColor : Color.mainColor.opacity(0.2))
+						.foregroundColor(viewModel.idDuplicateCheckFlag == .pass && nickName.count >= 2 ? Color("B1") : Color("B1").opacity(0.2))
 						.frame(height: UIScreen.getHeight(54))
 						.padding([.leading, .trailing], UIScreen.getWidth(20))
 					Text("저장하기")
