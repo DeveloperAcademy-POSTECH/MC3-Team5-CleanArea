@@ -288,14 +288,6 @@
 			path = CameraViews;
 			sourceTree = "<group>";
 		};
-		1049B7F92A63FA470021F674 /* CameraViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */,
-			);
-			path = CameraViewModel;
-			sourceTree = "<group>";
-		};
 		105F5DD62A67C499002E34CD /* Layouts */ = {
 			isa = PBXGroup;
 			children = (
@@ -316,14 +308,6 @@
 				106475172A6529E40092FE5B /* MainView.swift */,
 			);
 			path = Main;
-			sourceTree = "<group>";
-		};
-		1064751D2A6535070092FE5B /* MainViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				1064751B2A6534FC0092FE5B /* MainViewModel.swift */,
-			);
-			path = MainViewModel;
 			sourceTree = "<group>";
 		};
 		106475222A6537CF0092FE5B /* Components */ = {
@@ -509,8 +493,8 @@
 			isa = PBXGroup;
 			children = (
 				65C0774E2A612EF5003E6D92 /* AlbumViewModel.swift */,
-				1064751D2A6535070092FE5B /* MainViewModel */,
-				1049B7F92A63FA470021F674 /* CameraViewModel */,
+				1064751B2A6534FC0092FE5B /* MainViewModel.swift */,
+				10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */,
 				6556C3F42A6A509E00B4EEE1 /* AuthViewModel.swift */,
 			);
 			path = ViewModels;
