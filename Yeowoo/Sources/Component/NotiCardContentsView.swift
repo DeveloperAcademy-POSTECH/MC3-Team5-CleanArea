@@ -20,7 +20,8 @@ struct NotiCardContentsView: View {
 	var body: some View {
 		if !notis.isParticipateChk {
 			NavigationLink {
-                InvitationView(mainViewModel: mainViewModel, notification: notis, users: users)
+                InvitationView(mainViewModel: mainViewModel,
+							   notification: notis, users: users)
 					.navigationBarBackButtonHidden()
 			} label: {
 

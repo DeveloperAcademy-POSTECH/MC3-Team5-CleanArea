@@ -38,7 +38,7 @@ struct FindFriendView: View {
 				.padding(. leading, 30)
 			
 			ZStack {
-				GrayTitleMakingView(placeholder: "친구 아이디를 입력해주세요", text: $friendID)
+				GrayTitleMakingView(text: $friendID, placeholder: "친구 아이디를 입력해주세요")
 				HStack {
 					Spacer()
 						.frame(width: UIScreen.width - 110)
@@ -62,8 +62,7 @@ struct FindFriendView: View {
 			
 			ScrollView{
 				ForEach(myFriend.indices, id: \.self) { index in
-					FindFriendContents(user: myFriend[index],
-									   friendToggle: $friendToggles[index])
+					FindFriendContents(friendToggle: $friendToggles[index], user: myFriend[index])
 				}
 				
 				Spacer()

@@ -75,10 +75,10 @@ struct ProfileSettingView: View {
 				}
 			}
 			
-			EditProfileRowView(Profile: "닉네임", placeholder: "닉네임을 써주세요", text: $nickName)
+			EditProfileRowView(text: $nickName, Profile: "닉네임", placeholder: "닉네임을 써주세요")
 			
 			ZStack(alignment: .trailing) {
-				EditProfileRowView(Profile: "아이디", placeholder: "아이디를 써주세요", text: $identity)
+				EditProfileRowView(text: $identity, Profile: "아이디", placeholder: "아이디를 써주세요")
 					.onChange(of: identity) { _ in
 						viewModel.textFieldEditing()
 					}
