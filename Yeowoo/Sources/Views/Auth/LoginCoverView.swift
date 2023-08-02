@@ -51,21 +51,20 @@ struct LoginCoverView: View {
 					Image("loginLogo")
 					
 					Spacer()
-						.frame(height: 40)
+                        .frame(height: UIScreen.getHeight(40))
 					
 					Image("LoginIamge")
 					
 					Spacer()
-						.frame(height: 40)
+                        .frame(height: UIScreen.getHeight(40))
 					
 					Button {
 						isViewActive = true
 					} label: {
 						Text("로그인")
-							.font(.system(size: 18))
-							.fontWeight(.semibold)
+                            .font(.custom18semibold())
 							.foregroundColor(.white)
-							.frame(width: 350, height: 54)
+                            .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(54))
 							.background(
 								RoundedRectangle(cornerRadius: 10)
 									.fill(Color("B1")))
@@ -83,16 +82,15 @@ struct LoginCoverView: View {
 					}
 					
 					Spacer()
-						.frame(height: 12)
+                        .frame(height: UIScreen.getHeight(12))
 					
 					NavigationLink(
 						destination: SignUpView().navigationBarBackButtonHidden()
 					) {
 						Text("회원가입")
-							.font(.system(size: 18))
-							.fontWeight(.semibold)
+                            .font(.custom18semibold())
 							.foregroundColor(.black)
-							.frame(width: 350, height: 54)
+                            .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(54))
 							.background(
 								RoundedRectangle(cornerRadius: 10)
 									.fill(Color("G6")))
