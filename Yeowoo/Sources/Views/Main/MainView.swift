@@ -36,7 +36,7 @@ struct MainView: View {
 						// Alarm, Setting 버튼
 						HStack {
 							NavigationLink(destination:
-											NotificationView().navigationBarBackButtonHidden()
+											NotificationView(mainViewModel: mainViewModel).navigationBarBackButtonHidden()
 										   , isActive: $mainViewModel.openAlarm) {
 								Button(action: {
 									mainViewModel.openAlarm.toggle()
@@ -146,7 +146,7 @@ struct MainView: View {
 												.frame(height: UIScreen.getHeight(24))
 										}
 									}
-                                    if (mainViewModel.albums.count == 1 && mainViewModel.albums[0].endDay == mainViewModel.today) ||
+                                    if (mainViewModel.albums.count == 1 && mainViewModel.albums[0].endDay <= mainViewModel.today) ||
                                         mainViewModel.albums.count > 1 {
                                         VStack {
                                             HStack {

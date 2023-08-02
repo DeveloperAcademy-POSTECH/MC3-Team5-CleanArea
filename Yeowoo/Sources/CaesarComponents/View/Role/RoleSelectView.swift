@@ -19,6 +19,7 @@ struct RoleSelectView: View {
 	let noti: Notification
 //	var mockData: MockModel
 	@ObservedObject var viewModel = InvitationViewModel()
+    @StateObject var mainViewModel: MainViewModel
     
     var body: some View {
             VStack {
@@ -69,6 +70,9 @@ struct RoleSelectView: View {
 						
 						Task {
 							try await viewModel.participateTravel(albumDocId: noti.albumId, role: foxs[selectedIndex ?? 0].foxImage, noti: noti)
+                            mainViewModel.finishedFetch = false
+                            mainViewModel.openAlarm.toggle()
+                            try await mainViewModel.loadAlbum()
 						}
 						
 

@@ -58,6 +58,7 @@
 import SwiftUI
 
 struct NotiCardView: View {
+    @StateObject var mainViewModel: MainViewModel
 	var sortedGroupedTravels: [(key: String, value: [Notification])]
 	
 	var body: some View {
@@ -70,7 +71,7 @@ struct NotiCardView: View {
 						.padding(.bottom, 20)
 
 					ForEach(item.value, id: \.albumId) { noti in
-						NotiCardContentsView(notis: noti)
+						NotiCardContentsView(notis: noti, mainViewModel: mainViewModel)
 					}
 				Divider()
 			}

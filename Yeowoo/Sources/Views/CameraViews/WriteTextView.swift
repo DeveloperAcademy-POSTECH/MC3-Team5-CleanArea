@@ -68,8 +68,13 @@ struct WriteTextView: View {
             Button(action: {
                 Task {
                     mainViewModel.refetch(didPhoto: &didPhoto, showModal: &showModal)
-                    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-                    try await mainViewModel.testUpload(image: image, albumDocId: mainViewModel.currentDocId, comment: contentsText, uploadUser: UserDefaultsSetting.userDocId)
+                    if let resizeImage = image.resizeWithWidth(width: 700) {
+                        UIImageWriteToSavedPhotosAlbum(resizeImage, nil, nil, nil)
+                        try await mainViewModel.testUpload(image: resizeImage, albumDocId: mainViewModel.currentDocId, comment: contentsText, uploadUser: UserDefaultsSetting.userDocId)
+                    }
+//                    image.resizeWithWidth(width: 700)
+//                    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+//                    try await mainViewModel.testUpload(image: image, albumDocId: mainViewModel.currentDocId, comment: contentsText, uploadUser: UserDefaultsSetting.userDocId)
                     image = UIImage()
                     mainViewModel.finishedFetch = false
                     try await mainViewModel.loadAlbum()
@@ -89,6 +94,21 @@ struct WriteTextView: View {
         }
     }
 }
+
+extension UIImage {
+    func resizeWithWidth(width: CGFloat) -> UIImage? {
+        let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))))
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = self
+        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, scale)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        imageView.layer.render(in: context)
+        guard let result = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+        UIGraphicsEndImageContext()
+        return result
+    }
+}
+
 //
 //struct WriteTextView_Previews: PreviewProvider {
 //    static var previews: some View {

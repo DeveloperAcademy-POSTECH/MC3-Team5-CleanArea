@@ -21,6 +21,7 @@ import UIKit
 struct NotificationView: View {
 	
 	@ObservedObject var viewModel = NotificationViewModel()
+    @StateObject var mainViewModel: MainViewModel
 	
 	@Environment(\.dismiss) var dismiss
 	@State private var deletingAll = false
@@ -37,7 +38,7 @@ struct NotificationView: View {
 				} else {
 					let groupedTravels = Dictionary(grouping: viewModel.notis, by: { $0.sendDate })
 					let sortedGroupedTravels = groupedTravels.sorted(by: { $0.key > $1.key })
-					NotiCardView(sortedGroupedTravels: sortedGroupedTravels)
+					NotiCardView(mainViewModel: mainViewModel, sortedGroupedTravels: sortedGroupedTravels)
 				}
 			}
 			.padding(.top, 55)

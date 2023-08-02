@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TwoInvitationView: View {
+    @StateObject var mainViewModel: MainViewModel
 	@Environment(\.dismiss) var dismiss
 	var friend = "시저"
 	var place = "포항 여행"
@@ -103,7 +104,7 @@ struct TwoInvitationView: View {
 				}
 				NavigationLink{
 					//참여 로직
-					RoleSelectView(noti: noti)
+                    RoleSelectView(noti: noti, mainViewModel: mainViewModel)
 						.navigationBarBackButtonHidden()
 					
 				} label: {
