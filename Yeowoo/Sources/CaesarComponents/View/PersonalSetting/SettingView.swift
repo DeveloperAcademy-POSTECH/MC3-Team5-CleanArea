@@ -138,9 +138,15 @@ struct SettingView: View {
 							.foregroundColor(.warningRed),
 													action: {
 														//탈퇴코드
-														Task {
-															try await viewModel.withdrawalUser()
-															showLoginCoverView = true
+														do {
+															try KeyChainManager.shared.delete(account: .documentId)
+															UserDefaultsSetting.userDocId = ""
+															Task {
+																try await viewModel.withdrawalUser()
+																showLoginCoverView = true
+															}
+														} catch {
+															print(KeyChainError.itemNotFound)
 														}
 													}),
 						secondaryButton: .cancel(Text("취소"))
