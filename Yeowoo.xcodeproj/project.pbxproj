@@ -359,13 +359,6 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
-		6556C3FC2A6EB91500B4EEE1 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		6556C4012A71628500B4EEE1 /* TestNoti */ = {
 			isa = PBXGroup;
 			children = (
@@ -500,7 +493,6 @@
 			children = (
 				D5A77DDB2A66A9EA000D8F4E /* Component */,
 				6556C4012A71628500B4EEE1 /* TestNoti */,
-				D5A77DDA2A66A991000D8F4E /* CaesarComponents */,
 				1049B7EF2A63F8B00021F674 /* Global */,
 				65C076B32A570A07003E6D92 /* Models */,
 				65C076B42A570A11003E6D92 /* Services */,
@@ -612,23 +604,6 @@
 			path = Layouts;
 			sourceTree = "<group>";
 		};
-		D575D8262A67EB470036BE7D /* NotiChildView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = NotiChildView;
-			sourceTree = "<group>";
-		};
-		D5A77DDA2A66A991000D8F4E /* CaesarComponents */ = {
-			isa = PBXGroup;
-			children = (
-				6556C3FC2A6EB91500B4EEE1 /* ViewModel */,
-				D5A77DDD2A66AA01000D8F4E /* View */,
-				D5A77DDC2A66A9F2000D8F4E /* Model */,
-			);
-			path = CaesarComponents;
-			sourceTree = "<group>";
-		};
 		D5A77DDB2A66A9EA000D8F4E /* Component */ = {
 			isa = PBXGroup;
 			children = (
@@ -641,61 +616,6 @@
 				D5A77E1A2A66B6ED000D8F4E /* NotiCardContentsView.swift */,
 			);
 			path = Component;
-			sourceTree = "<group>";
-		};
-		D5A77DDC2A66A9F2000D8F4E /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				D5A77DF42A66AB0E000D8F4E /* MockupDataModel */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		D5A77DDD2A66AA01000D8F4E /* View */ = {
-			isa = PBXGroup;
-			children = (
-				D5A77DFF2A66AC50000D8F4E /* PersonalSetting */,
-				D5A77DFD2A66AC38000D8F4E /* Role */,
-				D5A77DFC2A66AC2F000D8F4E /* Notification */,
-				D5A77DFB2A66AC22000D8F4E /* NewAlbum */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		D5A77DF42A66AB0E000D8F4E /* MockupDataModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MockupDataModel;
-			sourceTree = "<group>";
-		};
-		D5A77DFB2A66AC22000D8F4E /* NewAlbum */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = NewAlbum;
-			sourceTree = "<group>";
-		};
-		D5A77DFC2A66AC2F000D8F4E /* Notification */ = {
-			isa = PBXGroup;
-			children = (
-				D575D8262A67EB470036BE7D /* NotiChildView */,
-			);
-			path = Notification;
-			sourceTree = "<group>";
-		};
-		D5A77DFD2A66AC38000D8F4E /* Role */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Role;
-			sourceTree = "<group>";
-		};
-		D5A77DFF2A66AC50000D8F4E /* PersonalSetting */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PersonalSetting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
