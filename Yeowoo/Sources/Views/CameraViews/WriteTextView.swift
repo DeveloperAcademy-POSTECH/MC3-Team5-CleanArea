@@ -70,11 +70,9 @@ struct WriteTextView: View {
                     mainViewModel.refetch(didPhoto: &didPhoto, showModal: &showModal)
                     if let resizeImage = image.resizeWithWidth(width: 700) {
                         UIImageWriteToSavedPhotosAlbum(resizeImage, nil, nil, nil)
-                        try await mainViewModel.testUpload(image: resizeImage, albumDocId: mainViewModel.currentDocId, comment: contentsText, uploadUser: UserDefaultsSetting.userDocId)
+                        try await mainViewModel.imageUpload(image: resizeImage, albumDocId: mainViewModel.currentDocId, comment: contentsText, uploadUser: UserDefaultsSetting.userDocId)
                     }
-//                    image.resizeWithWidth(width: 700)
-//                    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-//                    try await mainViewModel.testUpload(image: image, albumDocId: mainViewModel.currentDocId, comment: contentsText, uploadUser: UserDefaultsSetting.userDocId)
+                    
                     image = UIImage()
                     mainViewModel.finishedFetch = false
                     try await mainViewModel.loadAlbum()
@@ -82,7 +80,7 @@ struct WriteTextView: View {
             }) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
-                        .foregroundColor(Color("ButtonColor"))
+                        .foregroundColor(Color("B1"))
                         .frame(height: UIScreen.getHeight(54))
                         .padding([.leading, .trailing], UIScreen.getWidth(20))
                     
@@ -108,10 +106,3 @@ extension UIImage {
         return result
     }
 }
-
-//
-//struct WriteTextView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        WriteTextView(isWirte: .constant(true), contentsText: .constant(""))
-//    }
-//}

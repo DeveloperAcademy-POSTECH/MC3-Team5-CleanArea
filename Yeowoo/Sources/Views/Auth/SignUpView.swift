@@ -22,32 +22,28 @@ struct SignUpView: View {
 	
 	// 닉네임 사용 가능하다 아니다 확인하는 프로퍼티
 	@State private var nickname = ""
-	
 	@State var isShownPassword: Bool = true
 	@State var isShownDoublePassword: Bool = true
-	
 	@State var showAlertFlag: Bool = false
 	@State var showAlert: Bool = false
 	
 	var body: some View {
 		ScrollView(showsIndicators: false) {
 			Spacer()
-				.frame(height: 35)
-			//아이디
+                .frame(height: UIScreen.getHeight(35))
 			
-			VStack(alignment: .leading){
+			VStack(alignment: .leading) {
 				//아이디
 				Text("아이디")
-					.font(.system(size: 18))
-					.fontWeight(.bold)
-					.padding(.leading, 8)
+                    .font(.custom18bold())
+                    .padding(.leading, UIScreen.getWidth(8))
 				
-				ZStack(alignment: .trailing){
+				ZStack(alignment: .trailing) {
 					//아이디 입력창
 					TextField("아이디를 입력하세요", text: $ID)
-						.font(.system(size: 16))
-						.padding()
-						.frame(width: 350, height: 46)
+                        .font(.custom16regular())
+                        .padding()
+                        .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(46))
 						.background(Color("G5"))
 						.cornerRadius(10)
 						.onChange(of: ID) { _ in
@@ -61,16 +57,15 @@ struct SignUpView: View {
 						}
 					}) {
 						Text("중복확인")
-							.fontWeight(.semibold)
-							.font(.system(size: 14))
+                            .font(.custom14semibold())
 							.foregroundColor(.white)
-							.frame(width: 69, height: 24)
+                            .frame(width: UIScreen.getWidth(69), height: UIScreen.getHeight(24))
 							.background(
 								RoundedRectangle(cornerRadius: 10)
 									.fill(Color(viewModel.idDuplicateCheckFlag == .pass ? "G4" : "B1")))
 					}
 					.disabled(viewModel.idDuplicateCheckFlag == .pass ? true : false)
-					.padding(10)
+                    .padding(UIScreen.getHeight(10))
 				}
 				
 				//** 아이디 확인 메시지
@@ -79,39 +74,37 @@ struct SignUpView: View {
 						viewModel.idDuplicateCheckFlag == .pass ? "사용하실 수 있는 아이디입니다." :
 						"사용하실 수 없는 아이디입니다."
 				)
-				.font(.system(size: 14))
+                .font(.custom14regular())
 				.foregroundColor(Color(
-					viewModel.idDuplicateCheckFlag == .pass ? "mainColor" : "R1"
+					viewModel.idDuplicateCheckFlag == .pass ? "B1" : "R1"
 				))
 				Spacer()
-					.frame(height: 30)
+                    .frame(height: UIScreen.getHeight(30))
 			}
 			
-			
-			//비밀번호
-			VStack(alignment: .leading){
+			VStack(alignment: .leading) {
 				//비밀번호
 				Text("비밀번호")
-					.font(.system(size: 18))
-					.fontWeight(.bold)
-					.padding(.leading, 8)
+                    .font(.custom18bold())
+                    .padding(.leading, UIScreen.getWidth(8))
 				
 				//비밀번호 입력창
 				ZStack(alignment: .trailing) {
-					if isShownPassword{
+					if isShownPassword {
 						SecureField("비밀번호를 입력하세요", text: $password)
-							.font(.system(size: 16))
+                            .font(.custom16regular())
 							.padding()
-							.frame(width: 350, height: 46)
+                            .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(46))
 							.background(Color("G5"))
 							.cornerRadius(10)
 					} else { TextField("비밀번호를 입력하세요", text: $password)
-							.font(.system(size: 16))
+                            .font(.custom16regular())
 							.padding()
-							.frame(width: 350, height: 46)
+                            .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(46))
 							.background(Color("G5"))
 							.cornerRadius(10)
 					}
+                    
 					//입력시 비밀번호 보이기 및 감추기
 					Button {
 						isShownPassword.toggle()
@@ -127,12 +120,12 @@ struct SignUpView: View {
 					if isShownDoublePassword{
 						SecureField("비밀번호를 다시 입력해주세요", text: $doublePassword)
 							.padding()
-							.frame(width: 350, height: 46)
+                            .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(46))
 							.background(Color("G5"))
 							.cornerRadius(10)
 					} else { TextField("비밀번호를 다시 입력해주세요", text: $doublePassword)
 							.padding()
-							.frame(width: 350, height: 46)
+                            .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(46))
 							.background(Color("G5"))
 							.cornerRadius(10)
 					}
@@ -149,36 +142,34 @@ struct SignUpView: View {
 				//비밀번호 확인 메시지
 				if password == "" && doublePassword == "" {
 					Text("비밀번호가 일치합니다")
-						.font(.system(size: 14))
+                        .font(.custom14regular())
 						.opacity(0)
 				} else if password == doublePassword {
 					Text("비밀번호가 일치합니다")
-						.font(.system(size: 14))
+                        .font(.custom14regular())
 						.foregroundColor(Color("B1"))
 				} else {
 					Text("비밀번호가 일치하지 않습니다")
-						.font(.system(size: 14))
+                        .font(.custom14regular())
 						.foregroundColor(Color("R1"))
 				}
 				
 				Spacer()
-					.frame(height: 30)
+                    .frame(height: UIScreen.getHeight(30))
 			}
 			
-			//닉네임
-			VStack(alignment: .leading){
+			VStack(alignment: .leading) {
 				
 				//닉네임
 				Text("닉네임")
-					.font(.system(size: 18))
-					.fontWeight(.bold)
-					.padding(.leading, 8)
+                    .font(.custom18bold())
+                    .padding(.leading, UIScreen.getWidth(8))
 				
 				//닉네임 입력창
 				TextField("두 글자 이상으로 된 닉네임", text: $nickname)
-					.font(.system(size: 16))
+                    .font(.custom16regular())
 					.padding()
-					.frame(width: 350, height: 46)
+                    .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(46))
 					.background(Color("G5"))
 					.cornerRadius(10)
 				
@@ -186,16 +177,16 @@ struct SignUpView: View {
 				if !nickname.isEmpty {
 					if nickname.count >= 2 {
 						Text("사용하실 수 있는 닉네임입니다.")
-							.font(.system(size: 14))
+                            .font(.custom14regular())
 							.foregroundColor(Color("B1"))
 					} else {
 						Text("사용하실 수 없는 닉네임입니다.")
-							.font(.system(size: 14))
+                            .font(.custom14regular())
 							.foregroundColor(Color("R1"))
 					}
 				}  else {
 					Text("사용하실 수 없는 닉네임입니다.")
-						.font(.system(size: 14))
+                        .font(.custom14regular())
 						.opacity(0)
 				}
 			}
@@ -220,11 +211,10 @@ struct SignUpView: View {
 						.fill(Color("B1"))
 						.opacity(viewModel.idDuplicateCheckFlag == .pass &&
 								 password == doublePassword && nickname.count >= 2 ? 1 : 0.2)
-						.frame(width: 350, height: 54)
+                        .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(54))
 					Text ("가입하기")
 						.foregroundColor(.white)
-						.font(.system(size: 18))
-						.fontWeight(.bold)
+                        .font(.custom18bold())
 				}.padding(.top)
 			}
 			.disabled(viewModel.idDuplicateCheckFlag == .pass &&
@@ -241,7 +231,6 @@ struct SignUpView: View {
 				}
 			}
 		}
-//		.disabled(true)
 		.navigationTitle("회원가입")
 		.navigationBarTitleDisplayMode(.inline)
 		.background(Color.white)

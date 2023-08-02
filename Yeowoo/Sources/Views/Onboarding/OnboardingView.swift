@@ -27,53 +27,9 @@ struct OnboardingView: View {
 				.edgesIgnoringSafeArea(.bottom)
 				.tabViewStyle(.page(indexDisplayMode: .never))
 				
-				VStack(spacing: 0) {
-					Spacer()
-					
-					HStack(spacing: UIScreen.getWidth(10)) {
-						ForEach(0..<4) { pageNumber in
-							Circle()
-								.fill(
-									selectedPage == pageNumber ?
-									Color.mainColor : Color("G5")
-								)
-								.frame(width: 8, height: 8)
-						}
-					}
-					
-					Spacer()
-						.frame(height: UIScreen.getHeight(94))
-				}
-				VStack {
-//					.fullScreenCover(isPresented: $isLoginHidden) {
-//						let appState = AppState()
-//						LoginCoverView()
-//							.environmentObject(appState)
-//							.navigationBarBackButtonHidden()
-//							.animation(.easeInOut, value: 20)
-//							.transition(.move(edge: .leading))
-//					}
-					Spacer()
-					if selectedPage == 3 {
-						NavigationLink {
-							let appState = AppState()
-							LoginCoverView()
-								.environmentObject(appState)
-								.navigationBarBackButtonHidden()
-						} label: {
-							ZStack {
-								RoundedRectangle(cornerRadius: 10)
-									.foregroundColor(Color.mainColor)
-									.frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(54))
-								
-								Text("시작하기")
-									.foregroundColor(.white)
-									.font(.custom18bold())
-							}
-						}
-					}
-				}
-				.padding(.bottom, 10)
+				PageCircle()
+                
+				NextButton()
 			}
 		}
     }
@@ -124,7 +80,6 @@ private extension OnboardingView {
                     
                     Spacer()
                 }
-                
                 Spacer()
                 
                 Image("Onboarding2")
@@ -193,5 +148,53 @@ private extension OnboardingView {
                 Spacer()
             }
         }
+    }
+    
+    @ViewBuilder
+    func PageCircle() -> some View {
+        VStack(spacing: 0) {
+            Spacer()
+            
+            HStack(spacing: UIScreen.getWidth(10)) {
+                ForEach(0..<4) { pageNumber in
+                    Circle()
+                        .fill(
+                            selectedPage == pageNumber ?
+                            Color("B1") : Color("G5")
+                        )
+                        .frame(width: 8, height: 8)
+                }
+            }
+            
+            Spacer()
+                .frame(height: UIScreen.getHeight(94))
+        }
+    }
+    
+    @ViewBuilder
+    func NextButton() -> some View {
+        VStack {
+            Spacer()
+            
+            if selectedPage == 3 {
+                NavigationLink {
+                    let appState = AppState()
+                    LoginCoverView()
+                        .environmentObject(appState)
+                        .navigationBarBackButtonHidden()
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .foregroundColor(Color("B1"))
+                            .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(54))
+                        
+                        Text("시작하기")
+                            .foregroundColor(.white)
+                            .font(.custom18bold())
+                    }
+                }
+            }
+        }
+        .padding(.bottom, UIScreen.getHeight(10))
     }
 }

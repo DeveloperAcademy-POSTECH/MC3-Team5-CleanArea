@@ -8,21 +8,21 @@
 import SwiftUI
 
 struct DoneTravelLayout: View {
-    @StateObject var mainViewModel = MainViewModel()
+    @ObservedObject var mainViewModel: MainViewModel
+    @State var picture: [String] = ["", "", ""]
+    @State var numbers: [Int] = []
+    @State var fetch: Bool = false
     var userNames: [String]
     var images: [ImagesEntity]
     var nickname: String
     var albumName: String
-    @State var picture: [String] = ["", "", ""]
-    @State var numbers: [Int] = []
-    @State var fetch: Bool = false
     
     var body: some View {
         VStack {
             HStack(spacing: UIScreen.getWidth(10)) {
                 VStack(alignment: .leading, spacing: UIScreen.getHeight(3)) {
                     Text("\(nickname)님")
-                    Text("\(albumName)").foregroundColor(Color("ButtonColor")) +
+                    Text("\(albumName)").foregroundColor(Color("B1")) +
                     Text("에서")
                     Text("즐거웠던 추억을 되돌아보세요!")
                 }
@@ -47,12 +47,9 @@ struct DoneTravelLayout: View {
                                     LinearGradient(
                                         stops: [
                                             Gradient.Stop(color: .white, location: 0.43),
-                                            Gradient.Stop(color: .white.opacity(0), location: 1.00),
-                                        ],
+                                            Gradient.Stop(color: .white.opacity(0), location: 1.00)],
                                         startPoint: UnitPoint(x: 0, y: 0.57),
-                                        endPoint: UnitPoint(x: 1, y: 0.57)
-                                    )
-                                )
+                                        endPoint: UnitPoint(x: 1, y: 0.57)))
                             
                             Spacer()
                             
@@ -63,12 +60,9 @@ struct DoneTravelLayout: View {
                                     LinearGradient(
                                         stops: [
                                             Gradient.Stop(color: .white, location: 0.43),
-                                            Gradient.Stop(color: .white.opacity(0), location: 1.00),
-                                        ],
+                                            Gradient.Stop(color: .white.opacity(0), location: 1.00)],
                                         startPoint: UnitPoint(x: 0, y: 0.57),
-                                        endPoint: UnitPoint(x: 1, y: 0.57)
-                                    )
-                                )
+                                        endPoint: UnitPoint(x: 1, y: 0.57)))
                         }
                     }
                     
@@ -87,11 +81,6 @@ struct DoneTravelLayout: View {
         .task {
             if !fetch {
                 mainViewModel.randomPicture(images, &picture)
-//
-//                await mainViewModel.randomImageUsers(userDocIds: userNames)
-//                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
-//                    self.fetch = true
-//                }
             }
         }
     }

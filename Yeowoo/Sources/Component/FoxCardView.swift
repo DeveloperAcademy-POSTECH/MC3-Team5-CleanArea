@@ -21,9 +21,8 @@ struct FoxCardView: View {
 					.overlay {
 						RoundedRectangle(cornerRadius: 10)
 							.stroke(lineWidth: 1.5)
-							.foregroundColor(isSelected ? .mainColor : .clear)
+							.foregroundColor(isSelected ? Color("B1") : .clear)
 					}
-				
 				VStack {
 					Image(fox.foxImage)
 						.resizable()

@@ -73,7 +73,7 @@ struct EditView: View {
             }) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 100)
-                        .foregroundColor(Color("ButtonColor"))
+                        .foregroundColor(Color("B1"))
                         .frame(height: UIScreen.getHeight(54))
                         .padding([.leading, .trailing], UIScreen.getWidth(20))
                     
@@ -91,9 +91,3 @@ struct EditView: View {
         }.navigationBarHidden(true)
     }
 }
-//
-//struct EditView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        EditView(showModal: .constant(false), image: .constant(UIImage(systemName: "square")!), didPhoto: .constant(false))
-//    }
-//}

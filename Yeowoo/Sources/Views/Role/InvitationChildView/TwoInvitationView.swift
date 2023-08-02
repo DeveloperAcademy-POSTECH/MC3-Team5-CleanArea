@@ -22,17 +22,17 @@ struct TwoInvitationView: View {
 				Rectangle()
 					.frame(width: (UIScreen.width - 50)/2, height: 3)
 					.padding(.top, 15)
-					.foregroundColor(.mainColor)
+					.foregroundColor(Color("B1"))
 				Rectangle()
 					.frame(width: (UIScreen.width - 50)/2, height: 3)
 					.padding(.top, 15)
-					.foregroundColor(.mainColor)
+					.foregroundColor(Color("B1"))
 					.opacity(0.1)
 			}
 			VStack(alignment: .leading){
 				Text("\(noti.sendUserNickname)님이 초대한")
 				Text(noti.travelTitle)
-					.foregroundColor(.mainColor)
+					.foregroundColor(Color("B1"))
 				+ Text("에 참가하실래요?")
 			}
 			.font(.system(size: 24, weight: .bold, design: .default))
@@ -110,7 +110,7 @@ struct TwoInvitationView: View {
 				} label: {
 					Rectangle()
 						.frame(width: UIScreen.main.bounds.width/2 - 30, height: 54)
-						.foregroundColor(Color.mainColor)
+						.foregroundColor(Color("B1"))
 						.cornerRadius(10)
 						.overlay(Text("참가할게요").font(.system(size: 18, weight: .bold, design: .default)).foregroundColor(Color.white))
 				}

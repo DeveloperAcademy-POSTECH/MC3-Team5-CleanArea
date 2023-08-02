@@ -86,9 +86,3 @@ struct CameraButton: View {
         }
     }
 }
-//
-//struct CameraButton_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CameraButton()
-//    }
-//}

@@ -8,19 +8,20 @@
 import SwiftUI
 
 struct RecommendLayout: View {
-	@StateObject var mainViewModel: MainViewModel
+	@ObservedObject var mainViewModel: MainViewModel
     @State var fetch: Bool = false
+    @State var date: Int = 0
     @Binding var role: String
     var startday: String
     var nickname: String
-    @State var date: Int = 0
+    
     var body: some View {
         ZStack {
             HStack {
                 VStack(alignment: .leading, spacing: 3) {
                     Text("\(nickname)님")
                     Text("여행 ") +
-                    Text("\(date)일차").foregroundColor(Color("ButtonColor")) +
+                    Text("\(date)일차").foregroundColor(Color("B1")) +
                     Text("인 오늘")
                     Text("친구들과 단체사진 어떠세요?")
                 }

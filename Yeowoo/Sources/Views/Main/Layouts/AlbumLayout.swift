@@ -11,13 +11,13 @@ struct AlbumLayout: View {
     
 	@ObservedObject var mainViewModel = MainViewModel()
     @State private var albumCover: [Image] = [Image("Album1"), Image("Album2"), Image("Album3"), Image("Album4")]
-    @State var fetch: Bool = false
-    @State var days: Int = 0
-    @State var traveling: Int = 0
     @State var profileImages: [String] = []
-    var coverImage: String
-    var personCount = 0
+    @State var fetch: Bool = false
+    @State var traveling: Int = 0
+    @State var days: Int = 0
     var userId: [String]
+    var personCount = 0
+    var coverImage: String
     var travelName: String
     var startDay: String
     var endDay: String
@@ -39,7 +39,7 @@ struct AlbumLayout: View {
                         albumCover.randomElement()
                     }
                     
-                    RadialGradient(colors: [Color("ButtonColor"), .clear], center: .bottomLeading, startRadius: 0, endRadius: 270)
+                    RadialGradient(colors: [Color("B1"), .clear], center: .bottomLeading, startRadius: 0, endRadius: 270)
                         .opacity(1)
                 }.frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(190))
                     .cornerRadius(20, corners: [.topLeft, .topRight])

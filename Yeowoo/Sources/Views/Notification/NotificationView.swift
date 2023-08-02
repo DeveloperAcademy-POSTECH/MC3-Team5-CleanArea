@@ -58,7 +58,7 @@ struct NotificationView: View {
 						deletingAlarm = true
 					}) {
 						Label("전체 삭제", systemImage: "trash")
-							.foregroundColor(.warningRed)
+							.foregroundColor(Color("R1"))
 					}
 				} label: {
 					Label("", systemImage: "ellipsis")
@@ -75,7 +75,7 @@ struct NotificationView: View {
 				title: Text("알림 삭제"),
 				message: Text("알림을 정말 모두 삭제하시겠어요?"),
 				primaryButton: .destructive(Text("삭제")
-					.foregroundColor(.warningRed),
+					.foregroundColor(Color("R1")),
 											action: {
 												//삭제코드
 											}),

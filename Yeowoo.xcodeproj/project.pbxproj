@@ -263,14 +263,6 @@
 			path = CameraViews;
 			sourceTree = "<group>";
 		};
-		1049B7F92A63FA470021F674 /* CameraViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */,
-			);
-			path = CameraViewModel;
-			sourceTree = "<group>";
-		};
 		105F5DD62A67C499002E34CD /* Layouts */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,14 +283,6 @@
 				106475172A6529E40092FE5B /* MainView.swift */,
 			);
 			path = Main;
-			sourceTree = "<group>";
-		};
-		1064751D2A6535070092FE5B /* MainViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				1064751B2A6534FC0092FE5B /* MainViewModel.swift */,
-			);
-			path = MainViewModel;
 			sourceTree = "<group>";
 		};
 		106475222A6537CF0092FE5B /* Components */ = {
@@ -506,8 +490,8 @@
 				10FD58CD2A7388A6000F60F2 /* InvitationViewModel.swift */,
 				10FD58CE2A7388A6000F60F2 /* SettingViewModel.swift */,
 				65C0774E2A612EF5003E6D92 /* AlbumViewModel.swift */,
-				1064751D2A6535070092FE5B /* MainViewModel */,
-				1049B7F92A63FA470021F674 /* CameraViewModel */,
+				1064751B2A6534FC0092FE5B /* MainViewModel.swift */,
+				10CB96D52A63FF7800C08DBC /* CameraViewModel.swift */,
 				6556C3F42A6A509E00B4EEE1 /* AuthViewModel.swift */,
 			);
 			path = ViewModels;
@@ -975,7 +959,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Yeowoo/Preview Content\"";
-				DEVELOPMENT_TEAM = F92UQYH2RA;
+				DEVELOPMENT_TEAM = AZDJLQL538;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Yeowoo/Info.plist;
@@ -993,7 +977,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ungchun.Yeowoo;
+				PRODUCT_BUNDLE_IDENTIFIER = ungchun.Yeowoo.pin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1013,7 +997,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Yeowoo/Preview Content\"";
-				DEVELOPMENT_TEAM = F92UQYH2RA;
+				DEVELOPMENT_TEAM = AZDJLQL538;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Yeowoo/Info.plist;
@@ -1031,7 +1015,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ungchun.Yeowoo;
+				PRODUCT_BUNDLE_IDENTIFIER = ungchun.Yeowoo.pin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

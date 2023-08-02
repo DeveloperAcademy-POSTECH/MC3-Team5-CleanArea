@@ -61,7 +61,7 @@ struct RoleChangeView: View {
 				} label: {
 					Rectangle()
 						.frame(width: UIScreen.main.bounds.width - 30, height: 54)
-						.foregroundColor(Color.mainColor)
+						.foregroundColor(Color("B1"))
 						.cornerRadius(10)
 						.overlay(Text("저장하기").font(.system(size: 18,
 														   weight: .bold,
