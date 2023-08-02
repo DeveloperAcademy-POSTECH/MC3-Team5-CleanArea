@@ -46,6 +46,7 @@
 		6556C4092A7162D500B4EEE1 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C4082A7162D500B4EEE1 /* Schedule.swift */; };
 		6556C40B2A7162EB00B4EEE1 /* Push.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C40A2A7162EB00B4EEE1 /* Push.swift */; };
 		6556C4112A729C0200B4EEE1 /* Test2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C4102A729C0200B4EEE1 /* Test2.swift */; };
+		65AEDEB02A7A73D700234215 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AEDEAF2A7A73D700234215 /* Color+.swift */; };
 		65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076862A56F949003E6D92 /* YeowooApp.swift */; };
 		65C076892A56F949003E6D92 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076882A56F949003E6D92 /* ContentView.swift */; };
 		65C0768B2A56F94B003E6D92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C0768A2A56F94B003E6D92 /* Assets.xcassets */; };
@@ -80,18 +81,13 @@
 		65C077512A616874003E6D92 /* GalleryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077502A616874003E6D92 /* GalleryLayout.swift */; };
 		65C077532A640CF9003E6D92 /* AlbumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C077522A640CF9003E6D92 /* AlbumDetailView.swift */; };
 		D5A77DDF2A66AA1D000D8F4E /* TextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DDE2A66AA1D000D8F4E /* TextFieldModifier.swift */; };
-		D5A77DE12A66AA2D000D8F4E /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DE02A66AA2D000D8F4E /* Font.swift */; };
 		D5A77DE32A66AA45000D8F4E /* CardViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DE22A66AA45000D8F4E /* CardViewModifier.swift */; };
 		D5A77DE52A66AA6C000D8F4E /* EditProfileRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DE42A66AA6C000D8F4E /* EditProfileRowView.swift */; };
 		D5A77DE72A66AA7E000D8F4E /* FoxCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DE62A66AA7E000D8F4E /* FoxCardView.swift */; };
 		D5A77DE92A66AA93000D8F4E /* BackToolBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DE82A66AA93000D8F4E /* BackToolBarModifier.swift */; };
 		D5A77DED2A66AAC0000D8F4E /* GrayTitleMakingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DEC2A66AAC0000D8F4E /* GrayTitleMakingView.swift */; };
 		D5A77DEF2A66AAD4000D8F4E /* FindFriendContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DEE2A66AAD4000D8F4E /* FindFriendContents.swift */; };
-		D5A77DF12A66AAEB000D8F4E /* ColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DF02A66AAEB000D8F4E /* ColorModel.swift */; };
-		D5A77DF32A66AAFD000D8F4E /* ScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DF22A66AAFD000D8F4E /* ScreenModel.swift */; };
-		D5A77DF62A66AB26000D8F4E /* SubUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DF52A66AB26000D8F4E /* SubUser.swift */; };
 		D5A77DF82A66AB39000D8F4E /* Fox.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DF72A66AB39000D8F4E /* Fox.swift */; };
-		D5A77DFA2A66AB47000D8F4E /* Travel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DF92A66AB47000D8F4E /* Travel.swift */; };
 		D5A77E012A66AC6B000D8F4E /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E002A66AC6B000D8F4E /* SettingView.swift */; };
 		D5A77E032A66ACE7000D8F4E /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E022A66ACE7000D8F4E /* ProfileSettingView.swift */; };
 		D5A77E092A66AD1D000D8F4E /* RoleSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E082A66AD1D000D8F4E /* RoleSelectView.swift */; };
@@ -166,6 +162,7 @@
 		6556C4082A7162D500B4EEE1 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		6556C40A2A7162EB00B4EEE1 /* Push.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Push.swift; sourceTree = "<group>"; };
 		6556C4102A729C0200B4EEE1 /* Test2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test2.swift; sourceTree = "<group>"; };
+		65AEDEAF2A7A73D700234215 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		65C076832A56F949003E6D92 /* Yeowoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yeowoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C076862A56F949003E6D92 /* YeowooApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeowooApp.swift; sourceTree = "<group>"; };
 		65C076882A56F949003E6D92 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -196,18 +193,13 @@
 		65C077502A616874003E6D92 /* GalleryLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryLayout.swift; sourceTree = "<group>"; };
 		65C077522A640CF9003E6D92 /* AlbumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailView.swift; sourceTree = "<group>"; };
 		D5A77DDE2A66AA1D000D8F4E /* TextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldModifier.swift; sourceTree = "<group>"; };
-		D5A77DE02A66AA2D000D8F4E /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		D5A77DE22A66AA45000D8F4E /* CardViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModifier.swift; sourceTree = "<group>"; };
 		D5A77DE42A66AA6C000D8F4E /* EditProfileRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileRowView.swift; sourceTree = "<group>"; };
 		D5A77DE62A66AA7E000D8F4E /* FoxCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoxCardView.swift; sourceTree = "<group>"; };
 		D5A77DE82A66AA93000D8F4E /* BackToolBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackToolBarModifier.swift; sourceTree = "<group>"; };
 		D5A77DEC2A66AAC0000D8F4E /* GrayTitleMakingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayTitleMakingView.swift; sourceTree = "<group>"; };
 		D5A77DEE2A66AAD4000D8F4E /* FindFriendContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindFriendContents.swift; sourceTree = "<group>"; };
-		D5A77DF02A66AAEB000D8F4E /* ColorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorModel.swift; sourceTree = "<group>"; };
-		D5A77DF22A66AAFD000D8F4E /* ScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenModel.swift; sourceTree = "<group>"; };
-		D5A77DF52A66AB26000D8F4E /* SubUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubUser.swift; sourceTree = "<group>"; };
 		D5A77DF72A66AB39000D8F4E /* Fox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fox.swift; sourceTree = "<group>"; };
-		D5A77DF92A66AB47000D8F4E /* Travel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Travel.swift; sourceTree = "<group>"; };
 		D5A77E002A66AC6B000D8F4E /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		D5A77E022A66ACE7000D8F4E /* ProfileSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingView.swift; sourceTree = "<group>"; };
 		D5A77E082A66AD1D000D8F4E /* RoleSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleSelectView.swift; sourceTree = "<group>"; };
@@ -268,6 +260,7 @@
 				6556C3F62A6BA82B00B4EEE1 /* View+.swift */,
 				6556C3FA2A6E68C400B4EEE1 /* UINavigationController+.swift */,
 				6556C3FF2A700E0600B4EEE1 /* CacheAsyncImage.swift */,
+				65AEDEAF2A7A73D700234215 /* Color+.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -522,6 +515,7 @@
 		65C076B32A570A07003E6D92 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D5A77DF72A66AB39000D8F4E /* Fox.swift */,
 				10FD58D12A7388B9000F60F2 /* Notification.swift */,
 				65C0770E2A5BDACF003E6D92 /* User.swift */,
 				65C0774C2A612C92003E6D92 /* Album.swift */,
@@ -656,9 +650,6 @@
 			isa = PBXGroup;
 			children = (
 				D5A77DF42A66AB0E000D8F4E /* MockupDataModel */,
-				D5A77DF02A66AAEB000D8F4E /* ColorModel.swift */,
-				D5A77DF22A66AAFD000D8F4E /* ScreenModel.swift */,
-				D5A77DE02A66AA2D000D8F4E /* Font.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -677,9 +668,6 @@
 		D5A77DF42A66AB0E000D8F4E /* MockupDataModel */ = {
 			isa = PBXGroup;
 			children = (
-				D5A77DF52A66AB26000D8F4E /* SubUser.swift */,
-				D5A77DF72A66AB39000D8F4E /* Fox.swift */,
-				D5A77DF92A66AB47000D8F4E /* Travel.swift */,
 			);
 			path = MockupDataModel;
 			sourceTree = "<group>";
@@ -858,7 +846,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5A77DF62A66AB26000D8F4E /* SubUser.swift in Sources */,
 				D5A77E112A66AD97000D8F4E /* EmptyNotificationView.swift in Sources */,
 				106475242A6537FD0092FE5B /* TravelLabel.swift in Sources */,
 				65C077392A5FF255003E6D92 /* UserDefaultsWrapper.swift in Sources */,
@@ -869,6 +856,7 @@
 				10CB96D82A64028C00C08DBC /* WriteTextView.swift in Sources */,
 				10CB96D62A63FF7800C08DBC /* CameraViewModel.swift in Sources */,
 				65C077342A5FE55B003E6D92 /* AppDelegate.swift in Sources */,
+				65AEDEB02A7A73D700234215 /* Color+.swift in Sources */,
 				F37DA9A42A63C2180020603E /* LoginCoverView.swift in Sources */,
 				F33453742A645F8A0031A22C /* SignUpView.swift in Sources */,
 				65C077372A5FF248003E6D92 /* UserDefaultsSetting.swift in Sources */,
@@ -877,7 +865,6 @@
 				65C0774B2A611D46003E6D92 /* SecondFeedLayout.swift in Sources */,
 				65C077192A5BF4C7003E6D92 /* KeyChainError.swift in Sources */,
 				D5A77DE52A66AA6C000D8F4E /* EditProfileRowView.swift in Sources */,
-				D5A77DF32A66AAFD000D8F4E /* ScreenModel.swift in Sources */,
 				D5A77E1B2A66B6ED000D8F4E /* NotiCardContentsView.swift in Sources */,
 				D5A77E0D2A66AD40000D8F4E /* NotificationView.swift in Sources */,
 				6556C3FB2A6E68C400B4EEE1 /* UINavigationController+.swift in Sources */,
@@ -889,7 +876,6 @@
 				D5A77DED2A66AAC0000D8F4E /* GrayTitleMakingView.swift in Sources */,
 				D5A77E152A66ADBD000D8F4E /* AlbumRoleSelectView.swift in Sources */,
 				65C077172A5BF4A7003E6D92 /* KeyChainAccount.swift in Sources */,
-				D5A77DF12A66AAEB000D8F4E /* ColorModel.swift in Sources */,
 				6556C3ED2A68FEFD00B4EEE1 /* MultiInvitationView.swift in Sources */,
 				65C0774D2A612C92003E6D92 /* Album.swift in Sources */,
 				65C0774F2A612EF5003E6D92 /* AlbumViewModel.swift in Sources */,
@@ -926,8 +912,6 @@
 				65C0770F2A5BDACF003E6D92 /* User.swift in Sources */,
 				65C076FF2A5A7F2A003E6D92 /* FirebaseService.swift in Sources */,
 				D5A77DE32A66AA45000D8F4E /* CardViewModifier.swift in Sources */,
-				D5A77DE12A66AA2D000D8F4E /* Font.swift in Sources */,
-				D5A77DFA2A66AB47000D8F4E /* Travel.swift in Sources */,
 				65C077152A5BF322003E6D92 /* KeyChainManager.swift in Sources */,
 				D5A77E132A66ADA9000D8F4E /* NewAlbumView.swift in Sources */,
 				6556C4032A71629400B4EEE1 /* NotiTestView.swift in Sources */,
