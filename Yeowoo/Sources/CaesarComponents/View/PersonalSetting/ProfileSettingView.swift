@@ -113,7 +113,7 @@ struct ProfileSettingView: View {
 						"사용하실 수 없는 아이디입니다."
 				)
 				.font(.footnote)
-				.foregroundColor(viewModel.idDuplicateCheckFlag == .pass ? Color("B1") : Color.warningRed)
+				.foregroundColor(viewModel.idDuplicateCheckFlag == .pass ? Color("B1") : Color("R1"))
 				.padding(.leading, 32)
 				.padding(.top, 10)
 				Spacer()

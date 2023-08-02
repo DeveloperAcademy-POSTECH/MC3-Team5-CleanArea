@@ -22,7 +22,7 @@ struct TapePicture: View {
                         .frame(height: UIScreen.getHeight(140))
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                 } placeholder: {
-                    Image("EmptyCard")
+                    Image("EmptyFoxCard")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(height: UIScreen.getHeight(140))

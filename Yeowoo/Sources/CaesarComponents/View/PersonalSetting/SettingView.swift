@@ -126,7 +126,7 @@ struct SettingView: View {
 							.frame(width: 350, height: 54)
 						Text ("회원 탈퇴")
 							.font(.system(size: 18, weight: .bold, design: .default))
-							.foregroundColor(Color.warningRed)
+							.foregroundColor(Color("R1"))
 					}.padding(.top)
 				}
 				//탈퇴 alert
@@ -135,7 +135,7 @@ struct SettingView: View {
 						title: Text("회원 탈퇴"),
 						message: Text("탈퇴시 사진 복구가 불가능합니다. 정말 탈퇴하시겠습니까?"),
 						primaryButton: .destructive(Text("탈퇴")
-							.foregroundColor(.warningRed),
+							.foregroundColor(Color("R1")),
 													action: {
 														//탈퇴코드
 														do {
