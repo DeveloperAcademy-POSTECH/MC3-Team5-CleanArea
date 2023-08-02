@@ -41,12 +41,12 @@ extension AppDelegate: MessagingDelegate {
 	func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
 		print("get fcmToken \(String(describing: fcmToken))")
 		
-		if UserDefaultsSetting.isFirstEnter {
-			FirebaseService.updateFCMToken(fcmToken: fcmToken ?? "")
-			UserDefaultsSetting.isFirstEnter = false
-		}
-		
 		FirebaseService.updateFCMToken(fcmToken: fcmToken ?? "")
+		
+//		if UserDefaultsSetting.isFirstEnter {
+//			FirebaseService.updateFCMToken(fcmToken: fcmToken ?? "")
+//			UserDefaultsSetting.isFirstEnter = false
+//		}
 	}
 }
 
