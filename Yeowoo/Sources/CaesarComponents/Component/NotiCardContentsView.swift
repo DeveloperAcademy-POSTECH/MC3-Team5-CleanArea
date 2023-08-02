@@ -23,12 +23,30 @@ struct NotiCardContentsView: View {
                 InvitationView(mainViewModel: mainViewModel, noti: notis, users: users)
 					.navigationBarBackButtonHidden()
 			} label: {
-				Image("Pin")
-					.resizable()
-					.scaledToFill()
-					.frame(width: 42, height: 42)
-					.clipShape(Circle())
-					.padding(.horizontal, 12 )
+
+				if users.isEmpty {
+					ProgressView()
+						.frame(width: 42, height: 42)
+				} else {
+					CacheAsyncImage(url: URL(string: users.first!.profileImage)!) { phase in
+						switch phase {
+						case .success(let image):
+							image
+								.resizable()
+								.scaledToFill()
+								.frame(width: 42, height: 42)
+								.clipShape(Circle())
+								.padding(.horizontal, 12 )
+						default:
+							ProgressView()
+								.frame(width: 42, height: 42)
+						}
+					}
+
+				}
+				
+				
+
 				
 				HStack{
 					VStack(alignment: .leading){
@@ -54,29 +72,46 @@ struct NotiCardContentsView: View {
 				}
 			}
 		} else {
-			Image("Pin")
-				.resizable()
-				.scaledToFill()
-				.frame(width: 42, height: 42)
-				.clipShape(Circle())
-				.padding(.horizontal, 12 )
-			
-			HStack{
-				VStack(alignment: .leading){
-					Text("From. \(notis.sendUserNickname)").font((.system(size: 12, weight: .semibold, design: .default)))
-						.foregroundColor(.gray)
-					Text("\(notis.travelTitle)에 초대해요!")
-						.font((.system(size: 15, weight: .regular, design: .default)))
-						.foregroundColor(.black)
+			HStack {
+				
+				if users.isEmpty {
+					ProgressView()
+						.frame(width: 42, height: 42)
+				} else {
+					CacheAsyncImage(url: URL(string: users.first!.profileImage)!) { phase in
+						switch phase {
+						case .success(let image):
+							image
+								.resizable()
+								.scaledToFill()
+								.frame(width: 42, height: 42)
+								.clipShape(Circle())
+								.padding(.horizontal, 12 )
+						default:
+							ProgressView()
+								.frame(width: 42, height: 42)
+						}
+					}
+
 				}
 				
-				Spacer()
-				
-				Image(systemName: "chevron.right")
-					.imageScale(.large)
-					.foregroundColor(.gray)
-					.opacity(0.3)
-					.padding(.trailing, 20)
+				HStack{
+					VStack(alignment: .leading){
+						Text("From. \(notis.sendUserNickname)").font((.system(size: 12, weight: .semibold, design: .default)))
+							.foregroundColor(.gray)
+						Text("\(notis.travelTitle)에 초대해요!")
+							.font((.system(size: 15, weight: .regular, design: .default)))
+							.foregroundColor(.black)
+					}
+					
+					Spacer()
+					
+					Image(systemName: "chevron.right")
+						.imageScale(.large)
+						.foregroundColor(.gray)
+						.opacity(0.3)
+						.padding(.trailing, 20)
+				}
 			}
 		}
 	}

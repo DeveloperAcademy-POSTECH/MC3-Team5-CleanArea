@@ -1044,7 +1044,8 @@ struct FirebaseService {
 	}
 	
 	/// 친구 추가
-	static func inviteFriend(album: Album, notification: Notification) async throws -> FirebaseState {
+	static func inviteFriend(album: Album, notification: Notification, inviteUsers: [User]) async throws -> FirebaseState {
+		print("??? \(inviteUsers)")
 		let notificationData: [String: Any] = [
 			"albumId": album.id,
 			"sendDate": notification.sendDate,
@@ -1054,18 +1055,11 @@ struct FirebaseService {
 			"isParticipateChk": notification.isParticipateChk
 		]
 		
-		var users = album.users
-		let collectionUserRef = db.collection("User").document(users.first!)
-		
-		users.removeFirst()
-		
-		if !users.isEmpty {
-			users.forEach { docId in
-				let collectionUserRef = db.collection("User").document(docId)
-				collectionUserRef.updateData([
-					"notification" : FieldValue.arrayUnion([notificationData])
-				])
-			}
+		inviteUsers.forEach { user in
+			let collectionUserRef = db.collection("User").document(user.docId)
+			collectionUserRef.updateData([
+				"notification" : FieldValue.arrayUnion([notificationData])
+			])
 		}
 		return .success
 	}
