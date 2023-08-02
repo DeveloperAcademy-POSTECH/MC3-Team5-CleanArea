@@ -17,7 +17,7 @@ final class AlbumViewModel: ObservableObject {
 	@Published var fetchState = false
 	@Published var roleImage: [[ImagesEntity]] = []
 	@Published var users: [User] = []
-	@Published var images: [[ImagesEntity]] = []
+	var images: [[ImagesEntity]] = []
 	@Published var albums: Album = Album()
 	
 	@Published var visibleImages: [[ImagesEntity]] = []
@@ -212,7 +212,7 @@ final class AlbumViewModel: ObservableObject {
 	}
 	
 	/// 내 역할 변경
-	func changedMyRole() {
-		
+	func changedMyRole(album: Album, role: String) async throws {
+		_ = try await FirebaseService.changedMyRole(album: album, role: role)
 	}
 }

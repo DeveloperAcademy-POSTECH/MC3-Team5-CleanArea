@@ -15,6 +15,7 @@ struct RoleChangeView: View {
     @State var progressBar = false
     //선택된 여우 번호
     @State private var selectedIndex: Int? = nil
+	@ObservedObject var viewModel = AlbumViewModel()
 	
     var body: some View {
             VStack {
@@ -56,6 +57,9 @@ struct RoleChangeView: View {
 						
 						print("mainViewMo \(album.id)")
 						
+						Task {
+							try await viewModel.changedMyRole(album: album, role: foxs[selectedIndex ?? 0].foxImage)
+						}
 						
                         } label: {
                             Rectangle()

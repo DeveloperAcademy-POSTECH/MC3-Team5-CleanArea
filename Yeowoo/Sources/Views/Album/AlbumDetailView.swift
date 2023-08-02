@@ -10,12 +10,13 @@ import SwiftUI
 struct AlbumDetailView: View {
 	
 	enum AlertType: Identifiable {
-		case save, edit, remove
+		case save, edit, remove, blockRemove
 		var id: Int {
 			switch self {
 			case .save: return 0
 			case .edit: return 1
 			case .remove: return 2
+			case .blockRemove: return 3
 			}
 		}
 	}
@@ -31,6 +32,7 @@ struct AlbumDetailView: View {
 	@State private var tempLikeState: Bool
 	@State private var tempLikeCount: Int
 	@State private var alertType: AlertType? = nil
+	@State private var showRemoveAlert = false
 	
 	init(entityIndex: Int, entitys: ImagesEntity, user: User,
 		 tempLikeState: Bool, tempLikeCount: Int, viewModel: AlbumViewModel) {
@@ -65,8 +67,8 @@ struct AlbumDetailView: View {
 						entitys.likeUsers.append(UserDefaultsSetting.userDocId)
 					} else {
 						if let index = entitys.likeUsers.firstIndex(of: UserDefaultsSetting.userDocId) {
-								entitys.likeUsers.remove(at: index)
-							}
+							entitys.likeUsers.remove(at: index)
+						}
 					}
 					viewModel.afterLikeFetch(entityIndex: entityIndex, entity: entitys)
 				}
@@ -108,11 +110,11 @@ private extension AlbumDetailView {
 				}
 			} label: {
 				Image(systemName: "ellipsis")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
+					.resizable()
+					.aspectRatio(contentMode: .fit)
 					.foregroundColor(Color("G4"))
 					.rotationEffect(Angle(degrees: 90))
-                    .frame(width: UIScreen.getHeight(22), height: UIScreen.getWidth(42))
+					.frame(width: UIScreen.getHeight(22), height: UIScreen.getWidth(42))
 			}
 			.alert(item: $alertType) { alertType in
 				switch alertType {
@@ -155,13 +157,23 @@ private extension AlbumDetailView {
 						message: Text("사진을 삭제할까요?"),
 						primaryButton: .destructive(Text("삭제")) {
 							print("entitys.fileName \(entitys.fileName)")
-							Task {
-								try await viewModel.deleteAlbumImage(albumDocId: viewModel.albums.id,
-																	 fileName: entitys.fileName)
-							}
 							dismiss()
+							if entitys.uploadUser == UserDefaultsSetting.userDocId {
+								Task {
+									try await viewModel.deleteAlbumImage(albumDocId: viewModel.albums.id,
+																		 fileName: entitys.fileName)
+								}
+							} else {
+								self.alertType = .blockRemove
+							}
 						},
 						secondaryButton: .cancel(Text("취소")) {}
+					)
+				case .blockRemove:
+					return Alert(
+						title: Text("사진 삭제"),
+						message: Text("본인이 올린 사진만 삭제가 가능해요."),
+						dismissButton: .default(Text("확인")) { }
 					)
 				}
 			}
