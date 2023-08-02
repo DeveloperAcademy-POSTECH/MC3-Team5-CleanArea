@@ -26,7 +26,7 @@ struct AlbumFeedView: View {
 	
 	private let albumDocId: String
 	
-    @ObservedObject private var mainViewModel: MainViewModel
+	@ObservedObject private var mainViewModel: MainViewModel
 	@ObservedObject private var viewModel: AlbumViewModel
 	
 	@State private var layoutToggleState = true
@@ -34,6 +34,7 @@ struct AlbumFeedView: View {
 	@State private var roleState: AlbumState = .all
 	@State private var showingFinishAlert = false
 	@State private var showingUpdateAlert = false
+	@State private var showInviteAlert = false
 	@State private var showingEditSheet = false
 	@State private var changedAlbumTitle = ""
 	
@@ -43,8 +44,8 @@ struct AlbumFeedView: View {
 	@State private var testSortToggle = true
 	
 	@State private var alertType: AlertType = .confirmDelete
-    init(mainViewModel: MainViewModel, albumDocId: String, viewModel: AlbumViewModel) {
-        self.mainViewModel = mainViewModel
+	init(mainViewModel: MainViewModel, albumDocId: String, viewModel: AlbumViewModel) {
+		self.mainViewModel = mainViewModel
 		self.albumDocId = albumDocId
 		self.viewModel = viewModel
 	}
@@ -155,7 +156,7 @@ private extension AlbumFeedView {
 						}
 					}
 				} label: {
-					Label("여행 종료하기", systemImage: "xmark.circle")
+					Label(viewModel.albums.isClosed ? "여행 삭제하기" : "여행 종료하기", systemImage: "xmark.circle")
 				}
 			} label: {
 				Image(systemName: "ellipsis")
@@ -202,7 +203,6 @@ private extension AlbumFeedView {
 							}
 						)
 					}
-					
 				}
 				.padding(.horizontal, 20)
 				.presentationDetents([.height(250)])
@@ -216,9 +216,9 @@ private extension AlbumFeedView {
 						Task {
 							viewModel.albums.isClosed ? try await viewModel.removeTravel(docId: viewModel.albums.id) :
 							try await viewModel.closedTravel(docId: viewModel.albums.id)
-                            mainViewModel.finishedFetch = false
-                            mainViewModel.openAlbum.toggle()
-                            try await mainViewModel.loadAlbum()
+							mainViewModel.finishedFetch = false
+							mainViewModel.openAlbum.toggle()
+							try await mainViewModel.loadAlbum()
 						}
 					},
 					secondaryButton: .cancel(Text("취소")) { }
@@ -294,7 +294,11 @@ private extension AlbumFeedView {
 				}
 				Button {
 					print("친구 추가 버튼 클릭")
-					showFindUserView = true
+					if viewModel.albums.isClosed {
+						showInviteAlert = true
+					} else {
+						showFindUserView = true
+					}
 				} label: {
 					RoundedRectangle(cornerRadius: 20)
 						.fill(Color.white)
@@ -311,12 +315,18 @@ private extension AlbumFeedView {
 								.frame(width: 24, height: 24)
 						}
 				}
-				.background(
+				.alert(isPresented: $showInviteAlert) {
+					Alert(
+						title: Text("친구 초대"),
+						message: Text("여행이 종료되면 친구를 초대를 할 수 없어요."),
+						dismissButton: .default(Text("확인")) { }
+					)
+				}
+				.background (
 					NavigationLink("", destination:
 									InviteFriendView(newAlbum: self.viewModel.albums)
-										.navigationBarBackButtonHidden()
+						.navigationBarBackButtonHidden()
 								   , isActive: $showFindUserView)
-					
 				)
 			}
 		}

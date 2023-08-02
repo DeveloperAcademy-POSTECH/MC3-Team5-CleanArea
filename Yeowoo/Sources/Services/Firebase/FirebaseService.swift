@@ -1070,7 +1070,7 @@ struct FirebaseService {
 		return .success
 	}
 	
-	static func changedMyRole(album: Album) async throws -> FirebaseState {
+	static func changedMyRole(album: Album, role: String) async throws -> FirebaseState {
 		let albumDocRef = db.collection("Album").document(album.id)
 		return try await withUnsafeThrowingContinuation { configuration in
 			albumDocRef.getDocument { snapshot, error in
@@ -1079,27 +1079,20 @@ struct FirebaseService {
 					return
 				}
 				
-				guard let document = snapshot, document.exists, let data = document.data() else {
+				guard let document = snapshot, document.exists, var data = document.data() else {
 					print("Album document does not exist or has no data.")
 					return
 				}
 				
-				if let usersArray = data["users"] as? [String], let roleArray = data["role"] as? [String] {
+				if let usersArray = data["users"] as? [String], var roleArray = data["role"] as? [String] {
 					if let index = usersArray.firstIndex(of: UserDefaultsSetting.userDocId) {
-						if index < roleArray.count {
-							var updatedRoleArray = roleArray
-							updatedRoleArray.remove(at: index)
-							
-							albumDocRef.updateData([
-								"role": updatedRoleArray
-							]) { error in
-								if let error = error {
-									print("Error removing role from role array: \(error)")
-								}
+						roleArray[index] = role
+						
+						data["role"] = roleArray
+						albumDocRef.updateData(data) { error in
+							if let error = error {
+								print("Error updating role array: \(error)")
 							}
-							albumDocRef.updateData([
-								"users": FieldValue.arrayRemove([UserDefaultsSetting.userDocId])
-							])
 						}
 					}
 				}

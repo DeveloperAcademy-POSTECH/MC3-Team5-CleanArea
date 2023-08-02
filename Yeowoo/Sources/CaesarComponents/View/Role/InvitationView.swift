@@ -20,6 +20,7 @@ struct InvitationView: View {
 	//	@State var invitedFriends: [SubUser] = [users[0], users[1]]
 	
 	let noti : Notification
+	let users: [User]
 	
 	var body: some View {
 		
@@ -39,9 +40,9 @@ struct InvitationView: View {
 //		MultiInvitationView(noti: noti)
 		
 		if noti.userDocIds.count < 3 {
-			TwoInvitationView(noti: noti)
+			TwoInvitationView(noti: noti, users: users)
 		} else {
-			MultiInvitationView(noti: noti)
+			MultiInvitationView(noti: noti, users: users)
 		}
 	}
 }

@@ -31,12 +31,18 @@ struct NotificationView: View {
 	var body: some View {
 		ScrollView{
 			LazyVStack(spacing: 70){
-				let groupedTravels = Dictionary(grouping: viewModel.notis, by: { $0.sendDate })
-				let sortedGroupedTravels = groupedTravels.sorted(by: { $0.key > $1.key })
-				NotiCardView(sortedGroupedTravels: sortedGroupedTravels)
+				if viewModel.notis.isEmpty {
+					Text("알림이 없습니다.")
+						.padding(.top, UIScreen.main.bounds.height / 3)
+				} else {
+					let groupedTravels = Dictionary(grouping: viewModel.notis, by: { $0.sendDate })
+					let sortedGroupedTravels = groupedTravels.sorted(by: { $0.key > $1.key })
+					NotiCardView(sortedGroupedTravels: sortedGroupedTravels)
+				}
 			}
 			.padding(.top, 55)
 		}
+		.scrollDisabled(viewModel.notis.isEmpty ? true : false)
 		.onAppear {
 			viewModel.fetchNotification()
 		}
