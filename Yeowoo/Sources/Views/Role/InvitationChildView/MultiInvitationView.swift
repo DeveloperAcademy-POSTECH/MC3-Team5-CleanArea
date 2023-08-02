@@ -149,7 +149,7 @@ struct MultiInvitationView: View {
 				}
 				NavigationLink{
 					//참여 로직
-                    RoleSelectView(notification: self.noti, mainViewModel: mainViewModel)
+					RoleSelectView(mainViewModel: mainViewModel, notification: self.noti)
 						.navigationBarBackButtonHidden()
 					
 				} label: {
