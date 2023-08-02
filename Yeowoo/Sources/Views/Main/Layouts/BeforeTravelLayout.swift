@@ -27,35 +27,38 @@ struct BeforeTravelLayout: View {
 				Spacer()
                 
                 VStack {
-                    NavigationLink(destination : {
-						RoleChangeView(album: mainViewModel.albums.first!)
-                            .navigationBarBackButtonHidden()
-                    }) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 100)
-                                .frame(width: UIScreen.getWidth(90), height: UIScreen.getHeight(32))
-                                .foregroundColor(.white)
-                                .background(Color("G4")
-                                    .opacity(0.08)
-                                    .clipShape(RoundedRectangle(cornerRadius: 100))
-                                    .shadow(color: .black, radius: 1, x: 0, y: 4)
-                                    .blur(radius: 4, opaque: false))
-                            
-                            HStack {
-                                Spacer()
-                                    .frame(width: UIScreen.getWidth(10))
+                    NavigationLink(destination :
+						RoleChangeView(album: mainViewModel.albums.first!, mainViewModel: mainViewModel)
+                            .navigationBarBackButtonHidden(), isActive: $mainViewModel.openChange) {
+                        Button(action: {
+                            mainViewModel.openChange.toggle()
+                        }) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 100)
+                                    .frame(width: UIScreen.getWidth(90), height: UIScreen.getHeight(32))
+                                    .foregroundColor(.white)
+                                    .background(Color("G4")
+                                        .opacity(0.08)
+                                        .clipShape(RoundedRectangle(cornerRadius: 100))
+                                        .shadow(color: .black, radius: 1, x: 0, y: 4)
+                                        .blur(radius: 4, opaque: false))
                                 
-                                Image(role)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: UIScreen.getWidth(22.5), height: UIScreen.getHeight(20))
-                                
-                                Text("내 역할")
-                                    .font(.custom14semibold())
-                                    .foregroundColor(Color("G1"))
-                                
-                                Spacer()
-                                    .frame(width: UIScreen.getWidth(10))
+                                HStack {
+                                    Spacer()
+                                        .frame(width: UIScreen.getWidth(10))
+                                    
+                                    Image(role)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: UIScreen.getWidth(22.5), height: UIScreen.getHeight(20))
+                                    
+                                    Text("내 역할")
+                                        .font(.custom14semibold())
+                                        .foregroundColor(Color("G1"))
+                                    
+                                    Spacer()
+                                        .frame(width: UIScreen.getWidth(10))
+                                }
                             }
                         }
                     }

@@ -114,6 +114,7 @@ struct FindFriendView: View {
 					  dismissButton: .default(Text("확인"), action: {
                     Task {
                         mainViewModel.finishedFetch = false
+                        mainViewModel.openMake.toggle()
                         try await mainViewModel.loadAlbum()
                     }
 					// 루트뷰로 이동

@@ -385,11 +385,13 @@ private extension AlbumFeedView {
 		if layoutToggleState {
 			if roleState == .all {
 				GalleryLayout(viewModel: viewModel,
+                              mainViewModel: mainViewModel,
 							  entitys: viewModel.visibleImages[index],
 							  user: viewModel.users,
 							  entityIndex: index)
 			} else {
 				GalleryLayout(viewModel: viewModel,
+                              mainViewModel: mainViewModel, 
 							  entitys: viewModel.visibleRoleImages[index],
 							  user: viewModel.users,
 							  entityIndex: index)
@@ -397,24 +399,28 @@ private extension AlbumFeedView {
 		} else {
 			if index % 3 == 1 {
 				if roleState == .all {
-					FirstFeedLayout(entityIndex: index,
+                    FirstFeedLayout(mainViewModel: mainViewModel,
+                                    entityIndex: index,
 									entitys: viewModel.visibleImages[index],
 									user: viewModel.users,
 									viewModel: viewModel)
 				} else {
-					FirstFeedLayout(entityIndex: index,
+					FirstFeedLayout(mainViewModel: mainViewModel,
+                                    entityIndex: index,
 									entitys: viewModel.visibleRoleImages[index],
 									user: viewModel.users,
 									viewModel: viewModel)
 				}
 			} else {
 				if roleState == .all {
-					SecondFeedLayout(entityIndex: index,
+					SecondFeedLayout(mainViewModel: mainViewModel,
+                                     entityIndex: index,
 									 entitys: viewModel.visibleImages[index],
 									 user: viewModel.users,
 									 viewModel: viewModel)
 				} else {
-					SecondFeedLayout(entityIndex: index,
+					SecondFeedLayout(mainViewModel: mainViewModel,
+                                     entityIndex: index,
 									 entitys: viewModel.visibleRoleImages[index],
 									 user: viewModel.users,
 									 viewModel: viewModel)

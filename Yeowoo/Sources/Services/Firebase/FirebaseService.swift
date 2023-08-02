@@ -1097,6 +1097,7 @@ struct FirebaseService {
 					}
 				}
 			}
+            configuration.resume(returning: .success)
 		}
 	}
 }

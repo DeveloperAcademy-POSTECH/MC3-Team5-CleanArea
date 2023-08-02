@@ -13,6 +13,7 @@ struct GalleryLayout: View {
 	@State private var isActive: Bool = false
 	
 	@ObservedObject var viewModel: AlbumViewModel
+    @ObservedObject var mainViewModel: MainViewModel
 	
 	var entitys: [ImagesEntity]
 	var user: [User]
@@ -22,7 +23,8 @@ struct GalleryLayout: View {
 		LazyVStack {
 			ForEach(entitys.indices, id: \.self) { index in
 				NavigationLink(destination:
-								AlbumDetailView(entityIndex: entityIndex,
+								AlbumDetailView(mainViewModel: mainViewModel,
+                                                entityIndex: entityIndex,
 												entitys: entitys[detailIndex],
 												user: self.user.first(where: {$0.docId == entitys[detailIndex].uploadUser}) ?? User(),
 												tempLikeState: entitys[detailIndex].likeUsers.contains(UserDefaultsSetting.userDocId),

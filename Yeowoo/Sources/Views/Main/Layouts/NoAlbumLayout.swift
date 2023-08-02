@@ -10,7 +10,7 @@ import SwiftUI
 struct NoAlbumLayout: View {
     var body: some View {
         VStack(spacing: 0) {
-            Image("EmptyFox")
+            Image("PackFox")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: UIScreen.getWidth(247), height: UIScreen.getWidth(290))
