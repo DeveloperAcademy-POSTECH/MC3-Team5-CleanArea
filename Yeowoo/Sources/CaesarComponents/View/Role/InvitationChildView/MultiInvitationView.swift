@@ -12,7 +12,7 @@ struct MultiInvitationView: View {
 	//	var friend = "제임스"
 	//	var place = "제주도 여행"
 	@State private var opacityValues = [0.0, 0.0, 0.0, 0.0]
-	
+    @StateObject var mainViewModel: MainViewModel
 	let noti : Notification
 //	var mockData: MockModel
 	
@@ -165,7 +165,7 @@ struct MultiInvitationView: View {
 				}
 				NavigationLink{
 					//참여 로직
-					RoleSelectView(noti: self.noti)
+                    RoleSelectView(noti: self.noti, mainViewModel: mainViewModel)
 						.navigationBarBackButtonHidden()
 					
 				} label: {

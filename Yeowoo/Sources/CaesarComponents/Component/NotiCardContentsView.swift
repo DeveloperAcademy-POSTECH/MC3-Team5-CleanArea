@@ -10,6 +10,7 @@ import SwiftUI
 struct NotiCardContentsView: View {
 	
 	let notis : Notification
+    @StateObject var mainViewModel: MainViewModel
 	@State private var showAlert = false
 	@State private var showNavi = false
 	
@@ -17,7 +18,7 @@ struct NotiCardContentsView: View {
 	var body: some View {
 		if !notis.isParticipateChk {
 			NavigationLink {
-				InvitationView(noti: notis)
+				InvitationView(mainViewModel: mainViewModel, noti: notis)
 					.navigationBarBackButtonHidden()
 			} label: {
 				Image("Pin")

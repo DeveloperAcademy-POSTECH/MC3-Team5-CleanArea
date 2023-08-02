@@ -18,6 +18,7 @@ struct MockModel {
 struct InvitationView: View {
 	//유저 인원수 받기
 	//	@State var invitedFriends: [SubUser] = [users[0], users[1]]
+    @StateObject var mainViewModel: MainViewModel
 	
 	let noti : Notification
 	
@@ -39,9 +40,9 @@ struct InvitationView: View {
 //		MultiInvitationView(noti: noti)
 		
 		if noti.userDocIds.count < 3 {
-			TwoInvitationView(noti: noti)
+			TwoInvitationView(mainViewModel: mainViewModel, noti: noti)
 		} else {
-			MultiInvitationView(noti: noti)
+			MultiInvitationView(mainViewModel: mainViewModel, noti: noti)
 		}
 	}
 }

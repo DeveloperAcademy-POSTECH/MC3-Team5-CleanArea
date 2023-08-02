@@ -36,7 +36,7 @@ struct MainView: View {
 						// Alarm, Setting 버튼
 						HStack {
 							NavigationLink(destination:
-											NotificationView().navigationBarBackButtonHidden()
+											NotificationView(mainViewModel: mainViewModel).navigationBarBackButtonHidden()
 										   , isActive: $mainViewModel.openAlarm) {
 								Button(action: {
 									mainViewModel.openAlarm.toggle()
