@@ -14,11 +14,14 @@ struct NotiCardContentsView: View {
 	@State private var showAlert = false
 	@State private var showNavi = false
 	
+	@State var users: [User] = []
+	
 	// 이미 합류한 여행이면 뷰로 못넘어가게 로직 추가
 	var body: some View {
 		if !notis.isParticipateChk {
 			NavigationLink {
 				InvitationView(mainViewModel: mainViewModel, noti: notis)
+				InvitationView(noti: notis, users: users)
 					.navigationBarBackButtonHidden()
 			} label: {
 				Image("Pin")
@@ -44,6 +47,11 @@ struct NotiCardContentsView: View {
 						.foregroundColor(.gray)
 						.opacity(0.3)
 						.padding(.trailing, 20)
+				}
+			}
+			.onAppear {
+				Task {
+					self.users = try await FirebaseService.fetchUser(userDocIds: notis.userDocIds)
 				}
 			}
 		} else {

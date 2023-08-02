@@ -14,6 +14,7 @@ struct TwoInvitationView: View {
 	var place = "포항 여행"
 	@State private var opacityValues = [0.0, 0.0]
 	let noti : Notification
+	let users: [User]
 	
 	var body: some View {
 		VStack {
@@ -48,17 +49,19 @@ struct TwoInvitationView: View {
 					Circle()
 						.frame(width: UIScreen.width/3-15, height: UIScreen.width/3-15)
 						.foregroundColor(Color.white)
-					//					Image(users[0].profileImageUrl)
-					//						.resizable()
-					//						.scaledToFill()
-					//						.frame(width: UIScreen.width/3-21, height: UIScreen.width/3-21)
-					//						.clipShape(Circle())
-					
-					Image("Pin")
-						.resizable()
-						.scaledToFill()
-						.frame(width: UIScreen.width/3-21, height: UIScreen.width/3-21)
-						.clipShape(Circle())
+					CacheAsyncImage(url: URL(string: users[0].profileImage == "" ? "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/Album%2FmockImage.png?alt=media&token=c824dbe8-cd1c-459f-b27a-b756dcac4e84" : users[0].profileImage)!) { phase in
+						switch phase {
+						case .success(let image):
+							image
+								.resizable()
+								.scaledToFill()
+								.frame(width: UIScreen.width/3-21, height: UIScreen.width/3-21)
+								.clipShape(Circle())
+						default:
+							ProgressView()
+								.frame(width: UIScreen.width/3-21, height: UIScreen.width/3-21)
+						}
+					}
 				}
 				.opacity(opacityValues[0])
 				.offset(x: -42)
@@ -68,17 +71,19 @@ struct TwoInvitationView: View {
 						.frame(width: UIScreen.width/3-15, height: UIScreen.width/3-15)
 						.foregroundColor(Color.white)
 					
-					Image("Pin")
-						.resizable()
-						.scaledToFill()
-						.frame(width: UIScreen.width/3-21, height: UIScreen.width/3-21)
-						.clipShape(Circle())
-					
-					//					Image(users[1].profileImageUrl)
-					//						.resizable()
-					//						.scaledToFill()
-					//						.frame(width: UIScreen.width/3-21, height: UIScreen.width/3-21)
-					//						.clipShape(Circle())
+					CacheAsyncImage(url: URL(string: users[1].profileImage == "" ? "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/Album%2FmockImage.png?alt=media&token=c824dbe8-cd1c-459f-b27a-b756dcac4e84" : users[0].profileImage)!) { phase in
+						switch phase {
+						case .success(let image):
+							image
+								.resizable()
+								.scaledToFill()
+								.frame(width: UIScreen.width/3-21, height: UIScreen.width/3-21)
+								.clipShape(Circle())
+						default:
+							ProgressView()
+								.frame(width: UIScreen.width/3-21, height: UIScreen.width/3-21)
+						}
+					}
 				}
 				.opacity(opacityValues[1])
 				.offset(x: 40)

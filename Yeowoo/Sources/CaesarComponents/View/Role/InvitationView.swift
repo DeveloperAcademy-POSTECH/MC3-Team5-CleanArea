@@ -21,6 +21,7 @@ struct InvitationView: View {
     @StateObject var mainViewModel: MainViewModel
 	
 	let noti : Notification
+	let users: [User]
 	
 	var body: some View {
 		
@@ -40,9 +41,9 @@ struct InvitationView: View {
 //		MultiInvitationView(noti: noti)
 		
 		if noti.userDocIds.count < 3 {
-			TwoInvitationView(mainViewModel: mainViewModel, noti: noti)
+			TwoInvitationView(noti: noti, users: users)
 		} else {
-			MultiInvitationView(mainViewModel: mainViewModel, noti: noti)
+			MultiInvitationView(noti: noti, users: users)
 		}
 	}
 }

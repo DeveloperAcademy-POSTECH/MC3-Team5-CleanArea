@@ -14,6 +14,7 @@ struct MultiInvitationView: View {
 	@State private var opacityValues = [0.0, 0.0, 0.0, 0.0]
     @StateObject var mainViewModel: MainViewModel
 	let noti : Notification
+	let users: [User]
 //	var mockData: MockModel
 	
 	//참가한 사람 -3 사람 수 표시
@@ -52,26 +53,20 @@ struct MultiInvitationView: View {
 					Circle()
 						.frame(width: UIScreen.width/3-30, height: UIScreen.width/3-30)
 						.foregroundColor(Color.white)
-					Image("Pin")
-						.resizable()
-						.scaledToFill()
-						.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
-						.clipShape(Circle())
-//					CacheAsyncImage(url: URL(string: mockData.belongUsersProfileUrl[0] == "" ?
-//											 "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/mockUserData%2FAzhy.png?alt=media&token=a62e430a-0725-4be5-a7f2-b8197cdc0b27" :
-//												mockData.belongUsersProfileUrl[0])!) { phase in
-//						switch phase {
-//						case .success(let image):
-//							image
-//								.resizable()
-//								.scaledToFill()
-//								.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
-//								.clipShape(Circle())
-//						default:
-//							ProgressView()
-//								.frame(width: UIScreen.main.bounds.width, height: 390)
-//						}
-//					}
+
+					CacheAsyncImage(url: URL(string: users[0].profileImage == "" ? "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/Album%2FmockImage.png?alt=media&token=c824dbe8-cd1c-459f-b27a-b756dcac4e84" : users[0].profileImage)!) { phase in
+						switch phase {
+						case .success(let image):
+							image
+								.resizable()
+								.scaledToFill()
+								.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
+								.clipShape(Circle())
+						default:
+							ProgressView()
+								.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
+						}
+					}
 				}
 				.opacity(opacityValues[0])
 				.offset(x: -70)
@@ -80,52 +75,41 @@ struct MultiInvitationView: View {
 					Circle()
 						.frame(width: UIScreen.width/3-30, height: UIScreen.width/3-30)
 						.foregroundColor(Color.white)
-					Image("Pin")
-						.resizable()
-						.scaledToFill()
-						.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
-						.clipShape(Circle())
-//					CacheAsyncImage(url: URL(string: mockData.belongUsersProfileUrl[1] == "" ?
-//											 "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/mockUserData%2FAzhy.png?alt=media&token=a62e430a-0725-4be5-a7f2-b8197cdc0b27" :
-//												mockData.belongUsersProfileUrl[1])!) { phase in
-//						switch phase {
-//						case .success(let image):
-//							image
-//								.resizable()
-//								.scaledToFill()
-//								.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
-//								.clipShape(Circle())
-//						default:
-//							ProgressView()
-//								.frame(width: UIScreen.main.bounds.width, height: 390)
-//						}
-//					}
+
+					CacheAsyncImage(url: URL(string: users[1].profileImage == "" ? "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/Album%2FmockImage.png?alt=media&token=c824dbe8-cd1c-459f-b27a-b756dcac4e84" : users[1].profileImage)!) { phase in
+						switch phase {
+						case .success(let image):
+							image
+								.resizable()
+								.scaledToFill()
+								.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
+								.clipShape(Circle())
+						default:
+							ProgressView()
+								.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
+						}
+					}
+
 				}
 				.opacity(opacityValues[1])
 				ZStack{
 					Circle()
 						.frame(width: UIScreen.width/3-30, height: UIScreen.width/3-30)
 						.foregroundColor(Color.white)
-					Image("Pin")
-						.resizable()
-						.scaledToFill()
-						.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
-						.clipShape(Circle())
-//					CacheAsyncImage(url: URL(string: mockData.belongUsersProfileUrl[2] == "" ?
-//											 "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/mockUserData%2FAzhy.png?alt=media&token=a62e430a-0725-4be5-a7f2-b8197cdc0b27" :
-//												mockData.belongUsersProfileUrl[2])!) { phase in
-//						switch phase {
-//						case .success(let image):
-//							image
-//								.resizable()
-//								.scaledToFill()
-//								.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
-//								.clipShape(Circle())
-//						default:
-//							ProgressView()
-//								.frame(width: UIScreen.main.bounds.width, height: 390)
-//						}
-//					}
+					CacheAsyncImage(url: URL(string: users[2].profileImage == "" ? "https://firebasestorage.googleapis.com/v0/b/yeowoo-186cd.appspot.com/o/Album%2FmockImage.png?alt=media&token=c824dbe8-cd1c-459f-b27a-b756dcac4e84" : users[2].profileImage)!) { phase in
+						switch phase {
+						case .success(let image):
+							image
+								.resizable()
+								.scaledToFill()
+								.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
+								.clipShape(Circle())
+						default:
+							ProgressView()
+								.frame(width: UIScreen.width/3-36, height: UIScreen.width/3-36)
+						}
+					}
+
 				}
 				.opacity(opacityValues[2])
 				.offset(x: 70)
