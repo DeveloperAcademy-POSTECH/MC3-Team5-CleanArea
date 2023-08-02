@@ -84,7 +84,7 @@ struct InviteFriendView: View {
 				// 여행 생성
 				Task {
 //					try await viewModel.createTravel(newAlbum: newAlbum)
-					try await viewModel.inviteFriend(album: newAlbum)
+					try await viewModel.inviteFriend(album: newAlbum, inviteUsers: selectedFriends)
 					showAlert = true
 					
 					// 여기 알림 보내기

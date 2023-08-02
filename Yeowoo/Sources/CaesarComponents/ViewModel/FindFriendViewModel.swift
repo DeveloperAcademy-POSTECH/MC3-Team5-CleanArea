@@ -38,7 +38,7 @@ final class FindFriendViewModel: ObservableObject {
 		_ = try await FirebaseService.createTravel(album: newAlbum, notification: notification)
 	}
 	
-	func inviteFriend(album: Album) async throws -> Void {
+	func inviteFriend(album: Album, inviteUsers: [User]) async throws -> Void {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "yyyy.MM.dd"
 		let notification = Notification(albumId: album.id,
@@ -47,6 +47,6 @@ final class FindFriendViewModel: ObservableObject {
 										travelTitle: album.albumTitle,
 										userDocIds: album.users,
 										isParticipateChk: false)
-		_ = try await FirebaseService.inviteFriend(album: album, notification: notification)
+		_ = try await FirebaseService.inviteFriend(album: album, notification: notification, inviteUsers: inviteUsers)
 	}
 }
