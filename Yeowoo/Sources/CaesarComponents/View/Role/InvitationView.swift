@@ -41,9 +41,9 @@ struct InvitationView: View {
 //		MultiInvitationView(noti: noti)
 		
 		if noti.userDocIds.count < 3 {
-			TwoInvitationView(noti: noti, users: users)
+            TwoInvitationView(mainViewModel: mainViewModel, noti: noti, users: users)
 		} else {
-			MultiInvitationView(noti: noti, users: users)
+			MultiInvitationView(mainViewModel: mainViewModel, noti: noti, users: users)
 		}
 	}
 }

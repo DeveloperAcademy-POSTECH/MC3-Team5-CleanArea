@@ -146,7 +146,7 @@ struct MainView: View {
 												.frame(height: UIScreen.getHeight(24))
 										}
 									}
-                                    if (mainViewModel.albums.count == 1 && mainViewModel.albums[0].endDay == mainViewModel.today) ||
+                                    if (mainViewModel.albums.count == 1 && mainViewModel.albums[0].endDay <= mainViewModel.today) ||
                                         mainViewModel.albums.count > 1 {
                                         VStack {
                                             HStack {
