@@ -6,15 +6,12 @@
 //
 
 import Foundation
-import Combine
 import UIKit
 
 final class SettingViewModel: ObservableObject {
 	
 	@Published var idDuplicateCheckFlag: IdDuplicateState = .none
 	@Published var users: [User] = []
-	
-	private var cancellables = Set<AnyCancellable>()
 	
 	@MainActor
 	func idDuplicateCheck(id: String) async throws {
@@ -41,21 +38,4 @@ final class SettingViewModel: ObservableObject {
 													   id: id) == .success { }
 		}
 	}
-	
-//	@MainActor
-//	func fetchUser(userDocIds: [String]) async throws {
-//		try await FirebaseService.fetchUser(userDocIds: userDocIds)
-//		FirebaseService.fetchUser(userDocIds: userDocIds)
-//			.sink { completion in
-//				switch completion {
-//				case .failure(let error):
-//					print(error.localizedDescription)
-//				case .finished:
-//					return
-//				}
-//			} receiveValue: { user in
-//				self.users = user
-//			}
-//			.store(in: &cancellables)
-//	}
 }

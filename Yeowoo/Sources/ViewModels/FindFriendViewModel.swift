@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Combine
 
 enum SearchState {
 	case none
@@ -15,9 +14,7 @@ enum SearchState {
 }
 
 final class FindFriendViewModel: ObservableObject {
-		
-	private var cancellables = Set<AnyCancellable>()
-
+	
 	/// 검색한 유저 찾기
 	@MainActor
 	func searchUser(parmUserId: String) async throws -> User {
@@ -38,6 +35,7 @@ final class FindFriendViewModel: ObservableObject {
 		_ = try await FirebaseService.createTravel(album: newAlbum, notification: notification)
 	}
 	
+	/// 친구 초대
 	func inviteFriend(album: Album, inviteUsers: [User]) async throws -> Void {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "yyyy.MM.dd"
@@ -47,6 +45,7 @@ final class FindFriendViewModel: ObservableObject {
 										travelTitle: album.albumTitle,
 										userDocIds: album.users,
 										isParticipateChk: false)
-		_ = try await FirebaseService.inviteFriend(album: album, notification: notification, inviteUsers: inviteUsers)
+		_ = try await FirebaseService.inviteFriend(album: album, notification: notification,
+												   inviteUsers: inviteUsers)
 	}
 }

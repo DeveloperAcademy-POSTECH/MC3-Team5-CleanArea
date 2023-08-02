@@ -9,29 +9,27 @@ import SwiftUI
 import PhotosUI
 
 struct ProfileSettingView: View {
-	@StateObject var mainViewModel: MainViewModel
-	@EnvironmentObject var appState: AppState
 	
 	@Environment(\.dismiss) var dismiss
-	//    var myImage: String
-	var userInfo: User
+	
+	@EnvironmentObject var appState: AppState
+	
+	@StateObject var mainViewModel: MainViewModel
+	@ObservedObject var viewModel: SettingViewModel
 	
 	@State private var selectedImage: PhotosPickerItem?
 	@State private var nickName = ""
 	@State private var identity = ""
-	@State private var sameID:Bool? = nil
+	@State private var sameID: Bool? = nil
 	@State private var changedProfileImage = false
 	@State private var changedProfileImageData: Data?
 	
-	@ObservedObject var viewModel: SettingViewModel
+	var userInfo: User
 	
 	var body: some View {
 		VStack(alignment: .center){
-			
-			//selecting profile picture (사진 수정 버튼)
 			PhotosPicker(selection: $selectedImage) {
 				ZStack{
-					// 내사진
 					if changedProfileImageData == nil {
 						CacheAsyncImage(url: URL(string: userInfo.profileImage)!) { phase in
 							switch phase {
@@ -49,8 +47,8 @@ struct ProfileSettingView: View {
 							}
 						}
 					} else {
-						if let uiImage = UIImage(data: changedProfileImageData!) { // 선택된 이미지가 있는 경우
-							Image(uiImage: uiImage) // 선택된 이미지를 사용하여 이미지 표시
+						if let uiImage = UIImage(data: changedProfileImageData!) {
+							Image(uiImage: uiImage)
 								.resizable()
 								.scaledToFill()
 								.frame(width: 130, height: 130)
@@ -59,7 +57,6 @@ struct ProfileSettingView: View {
 								.padding(.horizontal, 10)
 						}
 					}
-					//카메라 모양
 					Circle()
 						.frame(width: 30, height: 30)
 						.foregroundColor(Color(red: 243 / 255, green: 243 / 255, blue: 243 / 255))
@@ -73,22 +70,18 @@ struct ProfileSettingView: View {
 			.onChange(of: selectedImage) { newVal in
 				Task {
 					if let data = try? await newVal?.loadTransferable(type: Data.self) {
-						//					try await viewModel.updateProfile(imageData: data, nickName: nickName, id: identity)
 						changedProfileImageData = data
 					}
 				}
 			}
 			
-			//닉네임 변경란
 			EditProfileRowView(Profile: "닉네임", placeholder: "닉네임을 써주세요", text: $nickName)
 			
-			//아이디 변경란
 			ZStack(alignment: .trailing) {
 				EditProfileRowView(Profile: "아이디", placeholder: "아이디를 써주세요", text: $identity)
 					.onChange(of: identity) { _ in
 						viewModel.textFieldEditing()
 					}
-				
 				Button{
 					Task {
 						try await viewModel.idDuplicateCheck(id: identity)
@@ -105,7 +98,6 @@ struct ProfileSettingView: View {
 				}
 				.padding(.trailing, 10)
 			}
-			
 			HStack {
 				Text(
 					viewModel.idDuplicateCheckFlag == .none ? "" :
@@ -127,23 +119,21 @@ struct ProfileSettingView: View {
 						try await viewModel.updateProfile(nickName: nickName, id: identity)
 						dismiss()
 					} else {
-//						Task {
-//							mainViewModel.finishedFetch = false
-//							try await mainViewModel.loadAlbum()
-//						}
 						if let data = try? await selectedImage?.loadTransferable(type: Data.self) {
-							try await viewModel.updateProfile(imageData: data, nickName: nickName, id: identity)
+							try await viewModel.updateProfile(imageData: data,
+															  nickName: nickName, id: identity)
 							viewModel.idDuplicateCheckFlag = .none
 						}
-                        mainViewModel.finishedFetch = false
-                        mainViewModel.openSetting.toggle()
-                        try await mainViewModel.loadAlbum()
+						mainViewModel.finishedFetch = false
+						mainViewModel.openSetting.toggle()
+						try await mainViewModel.loadAlbum()
 					}
 				}
 			} label: {
 				ZStack {
 					RoundedRectangle(cornerRadius: 10)
-						.foregroundColor(viewModel.idDuplicateCheckFlag == .pass && nickName.count >= 2 ? Color.mainColor : Color.mainColor.opacity(0.2))
+						.foregroundColor(viewModel.idDuplicateCheckFlag == .pass && nickName.count >= 2
+										 ? Color.mainColor : Color.mainColor.opacity(0.2))
 						.frame(height: UIScreen.getHeight(54))
 						.padding([.leading, .trailing], UIScreen.getWidth(20))
 					Text("저장하기")

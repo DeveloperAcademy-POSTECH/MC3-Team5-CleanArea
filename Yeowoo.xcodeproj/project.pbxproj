@@ -27,7 +27,6 @@
 		10CB96D82A64028C00C08DBC /* WriteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D72A64028C00C08DBC /* WriteTextView.swift */; };
 		10CB96DA2A6403D600C08DBC /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB96D92A6403D600C08DBC /* EditView.swift */; };
 		10CC160D2A64452300B27955 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CC160C2A64452300B27955 /* Buttons.swift */; };
-		10D7AAC92A70F643002F68CE /* NotiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D7AAC82A70F643002F68CE /* NotiView.swift */; };
 		10FD58CF2A7388A6000F60F2 /* InvitationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FD58CD2A7388A6000F60F2 /* InvitationViewModel.swift */; };
 		10FD58D02A7388A6000F60F2 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FD58CE2A7388A6000F60F2 /* SettingViewModel.swift */; };
 		10FD58D32A7388B9000F60F2 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FD58D12A7388B9000F60F2 /* Notification.swift */; };
@@ -95,7 +94,6 @@
 		D5A77DFA2A66AB47000D8F4E /* Travel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77DF92A66AB47000D8F4E /* Travel.swift */; };
 		D5A77E012A66AC6B000D8F4E /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E002A66AC6B000D8F4E /* SettingView.swift */; };
 		D5A77E032A66ACE7000D8F4E /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E022A66ACE7000D8F4E /* ProfileSettingView.swift */; };
-		D5A77E052A66ACFD000D8F4E /* DemoMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E042A66ACFD000D8F4E /* DemoMainView.swift */; };
 		D5A77E092A66AD1D000D8F4E /* RoleSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E082A66AD1D000D8F4E /* RoleSelectView.swift */; };
 		D5A77E0B2A66AD2D000D8F4E /* RoleChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E0A2A66AD2D000D8F4E /* RoleChangeView.swift */; };
 		D5A77E0D2A66AD40000D8F4E /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A77E0C2A66AD40000D8F4E /* NotificationView.swift */; };
@@ -149,11 +147,10 @@
 		10CB96D72A64028C00C08DBC /* WriteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTextView.swift; sourceTree = "<group>"; };
 		10CB96D92A6403D600C08DBC /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		10CC160C2A64452300B27955 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
-		10D7AAC82A70F643002F68CE /* NotiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiView.swift; sourceTree = "<group>"; };
-		10FD58CD2A7388A6000F60F2 /* InvitationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InvitationViewModel.swift; path = Yeowoo/CaesarComponents/ViewModel/InvitationViewModel.swift; sourceTree = SOURCE_ROOT; };
-		10FD58CE2A7388A6000F60F2 /* SettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingViewModel.swift; path = Yeowoo/CaesarComponents/ViewModel/SettingViewModel.swift; sourceTree = SOURCE_ROOT; };
-		10FD58D12A7388B9000F60F2 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Notification.swift; path = Yeowoo/CaesarComponents/View/Notification/Notification.swift; sourceTree = SOURCE_ROOT; };
-		10FD58D22A7388B9000F60F2 /* NotificationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationViewModel.swift; path = Yeowoo/CaesarComponents/View/Notification/NotificationViewModel.swift; sourceTree = SOURCE_ROOT; };
+		10FD58CD2A7388A6000F60F2 /* InvitationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InvitationViewModel.swift; path = Yeowoo/Sources/ViewModels/InvitationViewModel.swift; sourceTree = SOURCE_ROOT; };
+		10FD58CE2A7388A6000F60F2 /* SettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingViewModel.swift; path = Yeowoo/Sources/ViewModels/SettingViewModel.swift; sourceTree = SOURCE_ROOT; };
+		10FD58D12A7388B9000F60F2 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Notification.swift; path = Yeowoo/Sources/Models/Notification.swift; sourceTree = SOURCE_ROOT; };
+		10FD58D22A7388B9000F60F2 /* NotificationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationViewModel.swift; path = Yeowoo/Sources/ViewModels/NotificationViewModel.swift; sourceTree = SOURCE_ROOT; };
 		6509A5322A78F39500073EB2 /* InviteFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteFriendView.swift; sourceTree = "<group>"; };
 		65264BDB2A67C7BD009963E6 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		6556C3EC2A68FEFD00B4EEE1 /* MultiInvitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiInvitationView.swift; sourceTree = "<group>"; };
@@ -213,7 +210,6 @@
 		D5A77DF92A66AB47000D8F4E /* Travel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Travel.swift; sourceTree = "<group>"; };
 		D5A77E002A66AC6B000D8F4E /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		D5A77E022A66ACE7000D8F4E /* ProfileSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingView.swift; sourceTree = "<group>"; };
-		D5A77E042A66ACFD000D8F4E /* DemoMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoMainView.swift; sourceTree = "<group>"; };
 		D5A77E082A66AD1D000D8F4E /* RoleSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleSelectView.swift; sourceTree = "<group>"; };
 		D5A77E0A2A66AD2D000D8F4E /* RoleChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleChangeView.swift; sourceTree = "<group>"; };
 		D5A77E0C2A66AD40000D8F4E /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
@@ -375,9 +371,6 @@
 		6556C3FC2A6EB91500B4EEE1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				6556C3FD2A6EB92600B4EEE1 /* FindFriendViewModel.swift */,
-				10FD58CD2A7388A6000F60F2 /* InvitationViewModel.swift */,
-				10FD58CE2A7388A6000F60F2 /* SettingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -393,6 +386,46 @@
 				6556C4102A729C0200B4EEE1 /* Test2.swift */,
 			);
 			path = TestNoti;
+			sourceTree = "<group>";
+		};
+		65AEDEAB2A7A69C400234215 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				D5A77E002A66AC6B000D8F4E /* SettingView.swift */,
+				D5A77E022A66ACE7000D8F4E /* ProfileSettingView.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		65AEDEAC2A7A6CF700234215 /* Role */ = {
+			isa = PBXGroup;
+			children = (
+				6556C3EB2A68FEED00B4EEE1 /* InvitationChildView */,
+				D5A77E182A66B696000D8F4E /* InvitationView.swift */,
+				D5A77E082A66AD1D000D8F4E /* RoleSelectView.swift */,
+				D5A77E0A2A66AD2D000D8F4E /* RoleChangeView.swift */,
+			);
+			path = Role;
+			sourceTree = "<group>";
+		};
+		65AEDEAD2A7A6E6F00234215 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				D5A77E0E2A66AD86000D8F4E /* NoticardView.swift */,
+				D5A77E0C2A66AD40000D8F4E /* NotificationView.swift */,
+				D5A77E102A66AD97000D8F4E /* EmptyNotificationView.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		65AEDEAE2A7A717D00234215 /* NewAlbum */ = {
+			isa = PBXGroup;
+			children = (
+				D5A77E122A66ADA9000D8F4E /* NewAlbumView.swift */,
+				D5A77E142A66ADBD000D8F4E /* AlbumRoleSelectView.swift */,
+				D5A77E162A66ADCD000D8F4E /* FindFriendView.swift */,
+			);
+			path = NewAlbum;
 			sourceTree = "<group>";
 		};
 		65C0767A2A56F949003E6D92 = {
@@ -489,6 +522,7 @@
 		65C076B32A570A07003E6D92 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				10FD58D12A7388B9000F60F2 /* Notification.swift */,
 				65C0770E2A5BDACF003E6D92 /* User.swift */,
 				65C0774C2A612C92003E6D92 /* Album.swift */,
 			);
@@ -508,6 +542,10 @@
 		65C076B52A570A19003E6D92 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				10FD58D22A7388B9000F60F2 /* NotificationViewModel.swift */,
+				6556C3FD2A6EB92600B4EEE1 /* FindFriendViewModel.swift */,
+				10FD58CD2A7388A6000F60F2 /* InvitationViewModel.swift */,
+				10FD58CE2A7388A6000F60F2 /* SettingViewModel.swift */,
 				65C0774E2A612EF5003E6D92 /* AlbumViewModel.swift */,
 				1064751D2A6535070092FE5B /* MainViewModel */,
 				1049B7F92A63FA470021F674 /* CameraViewModel */,
@@ -519,6 +557,10 @@
 		65C076B62A570A23003E6D92 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				65AEDEAE2A7A717D00234215 /* NewAlbum */,
+				65AEDEAD2A7A6E6F00234215 /* Notification */,
+				65AEDEAC2A7A6CF700234215 /* Role */,
+				65AEDEAB2A7A69C400234215 /* Setting */,
 				10A363AA2A74FF4E00B55C34 /* Onboarding */,
 				6556C3F32A6A505D00B4EEE1 /* Auth */,
 				65C0773A2A611521003E6D92 /* Album */,
@@ -580,12 +622,6 @@
 		D575D8262A67EB470036BE7D /* NotiChildView */ = {
 			isa = PBXGroup;
 			children = (
-				D5A77E0E2A66AD86000D8F4E /* NoticardView.swift */,
-				D5A77E0C2A66AD40000D8F4E /* NotificationView.swift */,
-				D5A77E102A66AD97000D8F4E /* EmptyNotificationView.swift */,
-				10D7AAC82A70F643002F68CE /* NotiView.swift */,
-				10FD58D12A7388B9000F60F2 /* Notification.swift */,
-				10FD58D22A7388B9000F60F2 /* NotificationViewModel.swift */,
 			);
 			path = NotiChildView;
 			sourceTree = "<group>";
@@ -630,7 +666,6 @@
 		D5A77DDD2A66AA01000D8F4E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D5A77DFE2A66AC3E000D8F4E /* Root */,
 				D5A77DFF2A66AC50000D8F4E /* PersonalSetting */,
 				D5A77DFD2A66AC38000D8F4E /* Role */,
 				D5A77DFC2A66AC2F000D8F4E /* Notification */,
@@ -652,9 +687,6 @@
 		D5A77DFB2A66AC22000D8F4E /* NewAlbum */ = {
 			isa = PBXGroup;
 			children = (
-				D5A77E122A66ADA9000D8F4E /* NewAlbumView.swift */,
-				D5A77E142A66ADBD000D8F4E /* AlbumRoleSelectView.swift */,
-				D5A77E162A66ADCD000D8F4E /* FindFriendView.swift */,
 			);
 			path = NewAlbum;
 			sourceTree = "<group>";
@@ -670,27 +702,13 @@
 		D5A77DFD2A66AC38000D8F4E /* Role */ = {
 			isa = PBXGroup;
 			children = (
-				6556C3EB2A68FEED00B4EEE1 /* InvitationChildView */,
-				D5A77E182A66B696000D8F4E /* InvitationView.swift */,
-				D5A77E082A66AD1D000D8F4E /* RoleSelectView.swift */,
-				D5A77E0A2A66AD2D000D8F4E /* RoleChangeView.swift */,
 			);
 			path = Role;
-			sourceTree = "<group>";
-		};
-		D5A77DFE2A66AC3E000D8F4E /* Root */ = {
-			isa = PBXGroup;
-			children = (
-				D5A77E042A66ACFD000D8F4E /* DemoMainView.swift */,
-			);
-			path = Root;
 			sourceTree = "<group>";
 		};
 		D5A77DFF2A66AC50000D8F4E /* PersonalSetting */ = {
 			isa = PBXGroup;
 			children = (
-				D5A77E002A66AC6B000D8F4E /* SettingView.swift */,
-				D5A77E022A66ACE7000D8F4E /* ProfileSettingView.swift */,
 			);
 			path = PersonalSetting;
 			sourceTree = "<group>";
@@ -898,7 +916,6 @@
 				65C077472A611D29003E6D92 /* FirstFeedLayout.swift in Sources */,
 				10FD58D42A7388B9000F60F2 /* NotificationViewModel.swift in Sources */,
 				6556C3FE2A6EB92600B4EEE1 /* FindFriendViewModel.swift in Sources */,
-				10D7AAC92A70F643002F68CE /* NotiView.swift in Sources */,
 				10FD58D32A7388B9000F60F2 /* Notification.swift in Sources */,
 				65C077512A616874003E6D92 /* GalleryLayout.swift in Sources */,
 				65C0773E2A611763003E6D92 /* AlbumFeedView.swift in Sources */,
@@ -927,7 +944,6 @@
 				D5A77E172A66ADCD000D8F4E /* FindFriendView.swift in Sources */,
 				D5A77E0B2A66AD2D000D8F4E /* RoleChangeView.swift in Sources */,
 				6556C3F52A6A509E00B4EEE1 /* AuthViewModel.swift in Sources */,
-				D5A77E052A66ACFD000D8F4E /* DemoMainView.swift in Sources */,
 				D5A77DE92A66AA93000D8F4E /* BackToolBarModifier.swift in Sources */,
 				D5A77DEF2A66AAD4000D8F4E /* FindFriendContents.swift in Sources */,
 				D5A77E192A66B696000D8F4E /* InvitationView.swift in Sources */,

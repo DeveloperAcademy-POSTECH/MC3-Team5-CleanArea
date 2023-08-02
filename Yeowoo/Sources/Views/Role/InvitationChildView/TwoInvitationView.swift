@@ -104,7 +104,7 @@ struct TwoInvitationView: View {
 				}
 				NavigationLink{
 					//참여 로직
-                    RoleSelectView(noti: noti, mainViewModel: mainViewModel)
+                    RoleSelectView(notification: noti, mainViewModel: mainViewModel)
 						.navigationBarBackButtonHidden()
 					
 				} label: {

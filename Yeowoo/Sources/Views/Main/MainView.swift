@@ -13,10 +13,10 @@ final class AppState: ObservableObject {
 
 struct MainView: View {
 	@EnvironmentObject var appState: AppState
-	@ObservedObject var mainViewModel = MainViewModel()
-	@ObservedObject var albumViewModel = AlbumViewModel()
+	@ObservedObject private var mainViewModel = MainViewModel()
+	@ObservedObject private var albumViewModel = AlbumViewModel()
 	
-	@State var isViewActive = false
+	@State private var isViewActive = false
 	
 	var body: some View {
 		NavigationView {

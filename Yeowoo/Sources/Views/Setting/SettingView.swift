@@ -8,35 +8,28 @@
 import SwiftUI
 
 struct SettingView: View {
+	
+	@Environment(\.dismiss) var dismiss
+	
 	@EnvironmentObject var appState: AppState
 	
-	@ObservedObject var viewModel = SettingViewModel()
+	@ObservedObject private var viewModel = SettingViewModel()
 	@StateObject var mainViewModel: MainViewModel
 	
 	@State private var showLoginCoverView = false
-	
+	@State private var cameraToggle = true
+	@State private var withdrawalAccount = false
+	@State private var loggingOutSheet = false
 	
 	var userInfo: User
 	
-	@Environment(\.dismiss) var dismiss
-	//사진 촬영 알림 토글
-	@State var notiToggle = true
-	//회원탈퇴 alert
-	@State var deletingAccount = false
-	//로그아웃  action sheet
-	@State var loggingOutSheet = false
-	
 	var body: some View {
-		//VStack 뷰
 		VStack{
-			//프로필 뷰
 			VStack{
 				Text("프로필")
 					.modifier(SubTitleFont())
-				
 				NavigationLink{
-					//                        ProfileSettingView(selectedImage: $myImage)
-					ProfileSettingView(mainViewModel: mainViewModel, userInfo: userInfo, viewModel: self.viewModel)
+					ProfileSettingView(mainViewModel: mainViewModel, viewModel: self.viewModel, userInfo: userInfo)
 						.navigationBarBackButtonHidden()
 				}label: {
 					HStack{
@@ -79,7 +72,6 @@ struct SettingView: View {
 				}
 			}
 			
-			//알림 on/off
 			VStack{
 				Text("설정")
 					.modifier(SubTitleFont())
@@ -104,7 +96,7 @@ struct SettingView: View {
 						
 						Spacer()
 						
-						Toggle("", isOn: $notiToggle)
+						Toggle("", isOn: $cameraToggle)
 							.toggleStyle(SwitchToggleStyle(tint: Color.mainColor))
 							.padding(.trailing, 20)
 					}
@@ -114,11 +106,9 @@ struct SettingView: View {
 			
 			Spacer()
 			
-			//회원탈퇴/로그아웃
 			VStack(spacing: 0){
-				//회원탈퇴
 				Button{
-					deletingAccount = true
+					withdrawalAccount = true
 				} label: {
 					ZStack {
 						RoundedRectangle(cornerRadius: 10)
@@ -129,17 +119,17 @@ struct SettingView: View {
 							.foregroundColor(Color.warningRed)
 					}.padding(.top)
 				}
-				//탈퇴 alert
-				.alert(isPresented: $deletingAccount) {
+				.alert(isPresented: $withdrawalAccount) {
 					Alert(
 						title: Text("회원 탈퇴"),
 						message: Text("탈퇴시 사진 복구가 불가능합니다. 정말 탈퇴하시겠습니까?"),
 						primaryButton: .destructive(Text("탈퇴")
 							.foregroundColor(.warningRed),
 													action: {
-														//탈퇴코드
 														do {
-															try KeyChainManager.shared.delete(account: .documentId)
+															try KeyChainManager.shared.delete(
+																account: .documentId
+															)
 															UserDefaultsSetting.userDocId = ""
 															Task {
 																try await viewModel.withdrawalUser()
@@ -157,8 +147,6 @@ struct SettingView: View {
 								   destination: LoginCoverView().navigationBarBackButtonHidden(),
 								   isActive: $showLoginCoverView)
 				)
-				
-				//로그아웃
 				Button{
 					loggingOutSheet = true
 				} label: {
@@ -170,7 +158,6 @@ struct SettingView: View {
 							.font(.system(size: 18, weight: .bold, design: .default))
 					}.padding(.top)
 				}
-				//로그아웃 시트
 				.actionSheet(isPresented: $loggingOutSheet) {
 					ActionSheet(title: Text("로그아웃"),
 								message: Text("정말로 로그아웃하시겠습니까?"),

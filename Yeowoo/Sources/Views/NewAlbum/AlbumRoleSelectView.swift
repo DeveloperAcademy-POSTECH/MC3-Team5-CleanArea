@@ -9,12 +9,12 @@ import SwiftUI
 
 struct AlbumRoleSelectView: View {
 	
-    @StateObject var mainViewModel: MainViewModel
-	@State var isActive = false
-	
 	@Environment(\.dismiss) var dismiss
-	@State var selectingFox = false
-	//선택된 여우 번호
+	
+	@StateObject var mainViewModel: MainViewModel
+	
+	@State private var isActive = false
+	@State private var selectingFox = false
 	@State private var selectedIndex: Int? = nil
 	@State var newAlbum: Album
 	
@@ -31,7 +31,6 @@ struct AlbumRoleSelectView: View {
 					.foregroundColor(.mainColor)
 					.opacity(0.1)
 			}
-			
 			VStack(alignment: .leading){
 				Text("여행에서 맡고 싶은 역할을")
 				Text("선택해주세요")
@@ -43,7 +42,7 @@ struct AlbumRoleSelectView: View {
 			.padding(.top, 30)
 			
 			Spacer()
-			//FoxGrid 3x2
+			
 			LazyVGrid(columns: [
 				.init(.flexible(), spacing: 2),
 				.init(.flexible(), spacing: 2),
@@ -52,7 +51,6 @@ struct AlbumRoleSelectView: View {
 				ForEach(0..<6, id: \.self) { id in
 					FoxCardView(fox: foxs[id], isSelected: selectedIndex == id)
 						.onTapGesture {
-							//한번 더 누르면 해제
 							selectedIndex = selectedIndex == id ? nil : id
 						}
 				}
@@ -60,13 +58,10 @@ struct AlbumRoleSelectView: View {
 			
 			Spacer()
 			
-			// 버튼
 			if selectedIndex != nil {
 				NavigationLink {
-					//선택 완료(선택된 selectedIndex 넘기기)
-                    FindFriendView(mainViewModel: mainViewModel, newAlbum: self.newAlbum)
+					FindFriendView(mainViewModel: mainViewModel, newAlbum: self.newAlbum)
 						.navigationBarBackButtonHidden()
-					
 				} label: {
 					Rectangle()
 						.frame(width: UIScreen.main.bounds.width - 30, height: 54)

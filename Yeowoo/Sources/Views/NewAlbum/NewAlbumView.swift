@@ -10,10 +10,12 @@ import SwiftUI
 struct NewAlbumView: View {
 	
 	@Environment(\.dismiss) var dismiss
-    @StateObject var mainViewModel: MainViewModel
-	@State var newAlbum = Album()
-	@State var selectingFox = false
-	@State var albumName: String = ""
+	
+	@StateObject var mainViewModel: MainViewModel
+	
+	@State private var newAlbum = Album()
+	@State private var selectingFox = false
+	@State private var albumName: String = ""
 	@State private var selectedDate = Date()
 	
 	var body: some View {
@@ -71,7 +73,7 @@ struct NewAlbumView: View {
 			
 			if !albumName.isEmpty {
 				NavigationLink{
-                    AlbumRoleSelectView(mainViewModel: mainViewModel, newAlbum: self.newAlbum)
+					AlbumRoleSelectView(mainViewModel: mainViewModel, newAlbum: self.newAlbum)
 						.navigationBarBackButtonHidden()
 				} label: {
 					Rectangle()
