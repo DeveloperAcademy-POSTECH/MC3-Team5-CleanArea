@@ -40,7 +40,7 @@ struct SettingView: View {
 									.resizable()
 									.scaledToFill()
 									.frame(width: 64, height: 64)
-									.background(Color.mainColor)
+									.background(Color("B1"))
 									.clipShape(Circle())
 									.padding(.horizontal, 10 )
 							default:
@@ -97,7 +97,7 @@ struct SettingView: View {
 						Spacer()
 						
 						Toggle("", isOn: $cameraToggle)
-							.toggleStyle(SwitchToggleStyle(tint: Color.mainColor))
+							.toggleStyle(SwitchToggleStyle(tint: Color("B1")))
 							.padding(.trailing, 20)
 					}
 				}
@@ -116,7 +116,7 @@ struct SettingView: View {
 							.frame(width: 350, height: 54)
 						Text ("회원 탈퇴")
 							.font(.system(size: 18, weight: .bold, design: .default))
-							.foregroundColor(Color.warningRed)
+							.foregroundColor(Color("R1"))
 					}.padding(.top)
 				}
 				.alert(isPresented: $withdrawalAccount) {
@@ -124,7 +124,7 @@ struct SettingView: View {
 						title: Text("회원 탈퇴"),
 						message: Text("탈퇴시 사진 복구가 불가능합니다. 정말 탈퇴하시겠습니까?"),
 						primaryButton: .destructive(Text("탈퇴")
-							.foregroundColor(.warningRed),
+							.foregroundColor(Color("R1")),
 													action: {
 														do {
 															try KeyChainManager.shared.delete(
@@ -164,7 +164,6 @@ struct SettingView: View {
 								buttons: [
 									.destructive(Text("로그아웃")) {
 										do {
-											print("logout do")
 											try KeyChainManager.shared.delete(account: .documentId)
 											UserDefaultsSetting.userDocId = ""
 											showLoginCoverView = true

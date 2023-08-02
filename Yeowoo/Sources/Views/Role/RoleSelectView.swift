@@ -26,7 +26,7 @@ struct RoleSelectView: View {
 			Rectangle()
 				.frame(width: UIScreen.width - 50, height: 3)
 				.padding(.top, 15)
-				.foregroundColor(.mainColor)
+				.foregroundColor(Color("B1"))
 			
 			VStack(alignment: .leading){
 				Text("여행에서 맡고 싶은 역할을")
@@ -68,7 +68,7 @@ struct RoleSelectView: View {
 				} label: {
 					Rectangle()
 						.frame(width: UIScreen.main.bounds.width - 30, height: 54)
-						.foregroundColor(Color.mainColor)
+						.foregroundColor(Color("B1"))
 						.cornerRadius(10)
 						.overlay(Text("선택완료").font(.system(size: 18,
 														   weight: .bold,

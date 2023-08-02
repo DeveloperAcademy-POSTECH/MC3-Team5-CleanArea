@@ -76,7 +76,7 @@ struct SignUpView: View {
 				)
                 .font(.custom14regular())
 				.foregroundColor(Color(
-					viewModel.idDuplicateCheckFlag == .pass ? "mainColor" : "R1"
+					viewModel.idDuplicateCheckFlag == .pass ? "B1" : "R1"
 				))
 				Spacer()
                     .frame(height: UIScreen.getHeight(30))

@@ -29,11 +29,9 @@ struct FirebaseService {
 		let querySnapshot = try await query.getDocuments()
 		
 		if !querySnapshot.isEmpty {
-			print("아이디 중복")
 			// 아이디 중복됨
 			return .fail
 		} else {
-			print("아이디 중복 안됨")
 			// 아이디 중복 안됨
 			return .success
 		}

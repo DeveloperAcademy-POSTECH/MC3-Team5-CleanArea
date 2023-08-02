@@ -77,7 +77,6 @@ struct LoginCoverView: View {
                         .navigationBarBackButtonHidden()
                 })
                 .onReceive(self.appState.$moveToRootView) { moveToDashboard in
-                    print("logout sibal")
                     if moveToDashboard {
                         self.isViewActive = false
                         self.appState.moveToRootView = false
@@ -98,7 +97,6 @@ struct LoginCoverView: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .fill(Color("G6")))
                 }
-                //					.ignoresSafeArea(.keyboard)
                 Spacer()
             }
             .navigationBarBackButtonHidden()

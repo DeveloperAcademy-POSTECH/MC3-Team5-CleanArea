@@ -29,7 +29,7 @@ struct FindFriendView: View {
 			Rectangle()
 				.frame(width: UIScreen.width - 50, height: 3)
 				.padding(.top, 15)
-				.foregroundColor(.mainColor)
+				.foregroundColor(Color("B1"))
 			Text("친구 찾기")
 				.font(.system(size: 18, weight: .bold, design: .default))
 				.frame(maxWidth: .infinity, alignment: .leading)
@@ -84,7 +84,7 @@ struct FindFriendView: View {
 			} label: {
 				Rectangle()
 					.frame(width: UIScreen.main.bounds.width - 30, height: 54)
-					.foregroundColor(Color.mainColor)
+					.foregroundColor(Color("B1"))
 					.cornerRadius(10)
 					.overlay(Text("여행 시작하기").font(.system(size: 18,
 														  weight: .bold,
