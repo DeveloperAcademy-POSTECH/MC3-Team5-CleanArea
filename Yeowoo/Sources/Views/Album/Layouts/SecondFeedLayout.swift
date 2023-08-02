@@ -13,14 +13,18 @@ struct SecondFeedLayout: View {
 	private var user: [User]
 	private var entityIndex: Int
 	
-    @ObservedObject private var mainViewModel: MainViewModel
+	@ObservedObject private var mainViewModel: MainViewModel
 	@ObservedObject private var viewModel: AlbumViewModel
 	
 	@State private var detailIndex: Int = 0
 	@State private var isActive: Bool = false
 	
-    init(mainViewModel: MainViewModel, entityIndex: Int, entitys: [ImagesEntity], user: [User], viewModel: AlbumViewModel) {
-        self.mainViewModel = mainViewModel
+	init(mainViewModel: MainViewModel,
+		 entityIndex: Int,
+		 entitys: [ImagesEntity],
+		 user: [User],
+		 viewModel: AlbumViewModel) {
+		self.mainViewModel = mainViewModel
 		self.entityIndex = entityIndex
 		self.entitys = entitys
 		self.user = user
@@ -30,8 +34,8 @@ struct SecondFeedLayout: View {
 	var body: some View {
 		NavigationLink (
 			destination:
-                AlbumDetailView(mainViewModel: mainViewModel,
-                                entityIndex: entityIndex,
+				AlbumDetailView(mainViewModel: mainViewModel,
+								entityIndex: entityIndex,
 								entitys: entitys[detailIndex],
 								user: self.user.first(where: {$0.docId == entitys[detailIndex].uploadUser}) ?? User(),
 								tempLikeState: entitys[detailIndex].likeUsers.contains(UserDefaultsSetting.userDocId),

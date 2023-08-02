@@ -23,21 +23,21 @@ struct AlbumDetailView: View {
 	
 	@Environment(\.dismiss) var dismiss
 	
-	@State private var entitys: ImagesEntity
-	private var user: User
-	private var entityIndex: Int
-	
-    @ObservedObject private var mainViewModel: MainViewModel
+	@ObservedObject private var mainViewModel: MainViewModel
 	@ObservedObject private var viewModel: AlbumViewModel
 	
+	@State private var entitys: ImagesEntity
 	@State private var tempLikeState: Bool
 	@State private var tempLikeCount: Int
 	@State private var alertType: AlertType? = nil
 	@State private var showRemoveAlert = false
 	
-    init(mainViewModel: MainViewModel, entityIndex: Int, entitys: ImagesEntity, user: User,
+	private var user: User
+	private var entityIndex: Int
+	
+	init(mainViewModel: MainViewModel, entityIndex: Int, entitys: ImagesEntity, user: User,
 		 tempLikeState: Bool, tempLikeCount: Int, viewModel: AlbumViewModel) {
-        self.mainViewModel = mainViewModel
+		self.mainViewModel = mainViewModel
 		self.entityIndex = entityIndex
 		self._entitys = State(initialValue: entitys)
 		self.user = user
@@ -126,12 +126,10 @@ private extension AlbumDetailView {
 						message: Text("갤러리에 사진을 저장했어요"),
 						dismissButton: .default(Text("확인")) {
 							guard let imageURL = URL(string: entitys.url) else {
-								print("Invalid image URL")
 								return
 							}
 							URLSession.shared.dataTask(with: imageURL) { data, response, error in
 								if let error = error {
-									print("Error downloading image: \(error.localizedDescription)")
 									return
 								}
 								if let data = data, let image = UIImage(data: data) {
@@ -148,9 +146,9 @@ private extension AlbumDetailView {
 							Task {
 								try await viewModel.updateAlbumCoverImage(albumDocId: viewModel.albums.id,
 																		  url: entitys.url)
-                                mainViewModel.finishedFetch = false
-                                mainViewModel.openAlbum.toggle()
-                                try await mainViewModel.loadAlbum()
+								mainViewModel.finishedFetch = false
+								mainViewModel.openAlbum.toggle()
+								try await mainViewModel.loadAlbum()
 							}
 							dismiss()
 						},
@@ -161,7 +159,6 @@ private extension AlbumDetailView {
 						title: Text("사진 삭제"),
 						message: Text("사진을 삭제할까요?"),
 						primaryButton: .destructive(Text("삭제")) {
-							print("entitys.fileName \(entitys.fileName)")
 							dismiss()
 							if entitys.uploadUser == UserDefaultsSetting.userDocId {
 								Task {
