@@ -27,12 +27,11 @@ struct LoginView: View {
 	var body: some View {
 		
 		VStack{
-			
 			//아이디 입력창
 			TextField("아이디", text: $ID)
 				.padding()
-				.font(.system(size: 16))
-				.frame(width: 350, height: 46)
+                .font(.custom16regular())
+                .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(46))
 				.background(Color("G5"))
 				.cornerRadius(10)
 			
@@ -41,17 +40,19 @@ struct LoginView: View {
 				if isShownPassword{
 					SecureField("비밀번호", text: $password)
 						.padding()
-						.font(.system(size: 16))
-						.frame(width: 350, height: 46)
+                        .font(.custom16regular())
+                        .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(46))
 						.background(Color("G5"))
 						.cornerRadius(10)
-				} else { TextField("비밀번호", text: $password)
+				} else {
+                    TextField("비밀번호", text: $password)
 						.padding()
-						.font(.system(size: 16))
-						.frame(width: 350, height: 46)
+                        .font(.custom16regular())
+                        .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(46))
 						.background(Color("G5"))
 						.cornerRadius(10)
 				}
+                
 				//입력시 비밀번호 보이기 및 감추기
 				Button {
 					isShownPassword.toggle()
@@ -68,6 +69,7 @@ struct LoginView: View {
 			Button {
 				Task {
 					let chk = try await viewModel.signin(id: ID, pwd: password)
+                    
 					if chk {
 						showAlertFlag = true
 						showAlert = true
@@ -80,10 +82,10 @@ struct LoginView: View {
 				ZStack{
 					RoundedRectangle(cornerRadius: 10)
 						.fill(Color("B1"))
-						.frame(width: 350, height: 54)
+                        .frame(width: UIScreen.getWidth(350), height: UIScreen.getHeight(54))
+                    
 					Text ("로그인")
-						.font(.system(size: 18))
-						.fontWeight(.bold)
+                        .font(.custom18bold())
 						.foregroundColor(.white)
 				}
 			}
@@ -98,15 +100,19 @@ struct LoginView: View {
 						.flatMap { ($0 as?
 									UIWindowScene)?.windows ?? [] }
 						.first { $0.isKeyWindow }
+                    
 					let appState = AppState()
+                    
 					window?.rootViewController = UIHostingController(
 						rootView: MainView()
 							.environmentObject(appState)
 					)
+                    
 					window?.makeKeyAndVisible()
 				}))
 			} else {
-				return Alert(title: Text("로그인 실패"), message: Text("아이디 또는 비밀번호를 확인해주세요."),
+				return Alert(title: Text("로그인 실패"),
+                             message: Text("아이디 또는 비밀번호를 확인해주세요."),
 							 dismissButton: .default(Text("확인")))
 			}
 		}

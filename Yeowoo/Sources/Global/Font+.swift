@@ -12,6 +12,10 @@ extension Font {
     static func custom17semibold() -> Font {
         return Font.system(size: 17 * setFontSize(), weight: .semibold)
     }
+    
+    static func custom16regular() -> Font {
+        return Font.system(size: 16 * setFontSize(), weight: .regular)
+    }
 
     static func custom12bold() -> Font {
         return Font.system(size: 12 * setFontSize(), weight: .bold)
