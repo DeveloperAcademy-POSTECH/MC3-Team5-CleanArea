@@ -38,8 +38,6 @@ final class MainViewModel: ObservableObject {
                 }
             } receiveValue: { albums in
                 self.albums = albums
-                let tempNowDate = Double(Date().timeIntervalSince1970)
-
                 self.isEmpty()
                 self.getCurrentDateTime()
                 self.sortAlbum()

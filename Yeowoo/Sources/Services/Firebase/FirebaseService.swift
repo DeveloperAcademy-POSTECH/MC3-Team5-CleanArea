@@ -175,9 +175,6 @@ struct FirebaseService {
 									"nickname": nickname,
 									"id": id
 								])
-							} catch {
-								print(KeyChainError.itemNotFound)
-								return
 							}
 						}
 					}
@@ -241,7 +238,7 @@ struct FirebaseService {
 		var users: [User] = []
 		return try await withUnsafeThrowingContinuation { configuration in
 			db.collection("User").getDocuments { snapshot, error in
-				if let error {
+				if error != nil {
 					return
 				}
 				guard let snapshot else {
@@ -443,7 +440,7 @@ struct FirebaseService {
 								["comment" : comment,
 								 "fileName" : fileName,
 								 "url" : String(describing: URL),
-								 "likeUsers": [],
+								 "likeUsers" : [] as [String],
 								 "roleCheck": true,
 								 "updateTime": dateFormatter.string(from: Date()),
 								 "uploadUser": uploadUser] as [String : Any]
@@ -668,12 +665,12 @@ struct FirebaseService {
 	
 	/// 여행 생성
 	static func createTravel(album: Album, notification: Notification) async throws -> FirebaseState {
-		var albumData: [String: Any] = [
+		let albumData: [String: Any] = [
 			"title": album.albumTitle,
 			"coverImage": album.albumCoverImage,
 			"startDay": album.startDay,
 			"endDay": "",
-			"images": [],
+			"images": [] as [ImagesEntity],
 			"isClosed": false,
 			"users": [album.users.first],
 			"role": [album.role.first]
@@ -762,7 +759,7 @@ struct FirebaseService {
 					if var finishedAlbum = document.data()?["finishedAlbum"] as? [String] {
 						finishedAlbum.removeAll { $0 == albumDocId }
 						documentRef.updateData(["finishedAlbum": finishedAlbum]) { error in
-							if let error = error {
+							if error != nil {
 								configuration.resume(returning: .fail)
 							} else {
 								configuration.resume(returning: .success)

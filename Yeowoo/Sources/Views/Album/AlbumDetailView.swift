@@ -129,7 +129,7 @@ private extension AlbumDetailView {
 								return
 							}
 							URLSession.shared.dataTask(with: imageURL) { data, response, error in
-								if let error = error {
+								if error != nil {
 									return
 								}
 								if let data = data, let image = UIImage(data: data) {
