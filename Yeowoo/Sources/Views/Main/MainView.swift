@@ -146,7 +146,7 @@ struct MainView: View {
 												.frame(height: UIScreen.getHeight(24))
 										}
 									}
-                                    if (mainViewModel.albums.count == 1 && mainViewModel.albums[0].endDay <= mainViewModel.today) ||
+                                    if ((mainViewModel.albums.count == 1) && (mainViewModel.albums[0].endDay <= mainViewModel.today) && (mainViewModel.albums[0].endDay != "")) ||
                                         mainViewModel.albums.count > 1 {
                                         VStack {
                                             HStack {
@@ -203,19 +203,23 @@ struct MainView: View {
 									CameraButton(mainViewModel: mainViewModel)
 										.padding(.trailing, UIScreen.getWidth(20))
 								} else {
-									NavigationLink(destination: NewAlbumView(mainViewModel: mainViewModel).navigationBarBackButtonHidden()) {
-										ZStack {
-											Circle()
-												.aspectRatio(contentMode: .fit)
-												.frame(height: UIScreen.getHeight(64))
-												.foregroundColor(Color("B1"))
-											
-											Image(systemName: "plus")
-												.resizable()
-												.aspectRatio(contentMode: .fit)
-												.frame(height: UIScreen.getHeight(24))
-												.foregroundColor(.white)
-										}
+                                    NavigationLink(destination: NewAlbumView(mainViewModel: mainViewModel).navigationBarBackButtonHidden(), isActive: $mainViewModel.openMake) {
+                                        Button(action: {
+                                            mainViewModel.openMake.toggle()
+                                        }) {
+                                            ZStack {
+                                                Circle()
+                                                    .aspectRatio(contentMode: .fit)
+                                                    .frame(height: UIScreen.getHeight(64))
+                                                    .foregroundColor(Color("B1"))
+                                                
+                                                Image(systemName: "plus")
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fit)
+                                                    .frame(height: UIScreen.getHeight(24))
+                                                    .foregroundColor(.white)
+                                            }
+                                        }
 									}
 									.padding(.trailing, UIScreen.getWidth(20))
 								}

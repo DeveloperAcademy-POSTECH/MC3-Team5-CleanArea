@@ -15,7 +15,6 @@ final class MainViewModel: ObservableObject {
     @Published var albums: [Album] = []
     @Published var users: [User] = []
     @Published var traveling = 0
-    @Published var openAlarm = false
     @Published var hasAlarm = true
     @Published var hasAlbum = 0
     @Published var today: String = ""
@@ -23,8 +22,11 @@ final class MainViewModel: ObservableObject {
     @Published var finishedFetch: Bool = false
     @Published var currentDocId: String = ""
     @Published var fetchState: Bool = false
+    @Published var openAlarm = false
     @Published var openSetting = false
     @Published var openAlbum = false
+    @Published var openChange = false
+    @Published var openMake = false
     
     private var cancellables = Set<AnyCancellable>()
     

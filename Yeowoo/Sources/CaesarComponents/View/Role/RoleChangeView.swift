@@ -16,6 +16,7 @@ struct RoleChangeView: View {
     //선택된 여우 번호
     @State private var selectedIndex: Int? = nil
 	@ObservedObject var viewModel = AlbumViewModel()
+    @ObservedObject var mainViewModel: MainViewModel
 	
     var body: some View {
             VStack {
@@ -59,6 +60,9 @@ struct RoleChangeView: View {
 						
 						Task {
 							try await viewModel.changedMyRole(album: album, role: foxs[selectedIndex ?? 0].foxImage)
+                            mainViewModel.finishedFetch = false
+                            mainViewModel.openChange.toggle()
+                            try await mainViewModel.loadAlbum()
 						}
 						
                         } label: {

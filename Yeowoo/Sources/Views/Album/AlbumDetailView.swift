@@ -27,6 +27,7 @@ struct AlbumDetailView: View {
 	private var user: User
 	private var entityIndex: Int
 	
+    @ObservedObject private var mainViewModel: MainViewModel
 	@ObservedObject private var viewModel: AlbumViewModel
 	
 	@State private var tempLikeState: Bool
@@ -34,8 +35,9 @@ struct AlbumDetailView: View {
 	@State private var alertType: AlertType? = nil
 	@State private var showRemoveAlert = false
 	
-	init(entityIndex: Int, entitys: ImagesEntity, user: User,
+    init(mainViewModel: MainViewModel, entityIndex: Int, entitys: ImagesEntity, user: User,
 		 tempLikeState: Bool, tempLikeCount: Int, viewModel: AlbumViewModel) {
+        self.mainViewModel = mainViewModel
 		self.entityIndex = entityIndex
 		self._entitys = State(initialValue: entitys)
 		self.user = user
@@ -146,6 +148,9 @@ private extension AlbumDetailView {
 							Task {
 								try await viewModel.updateAlbumCoverImage(albumDocId: viewModel.albums.id,
 																		  url: entitys.url)
+                                mainViewModel.finishedFetch = false
+                                mainViewModel.openAlbum.toggle()
+                                try await mainViewModel.loadAlbum()
 							}
 							dismiss()
 						},
