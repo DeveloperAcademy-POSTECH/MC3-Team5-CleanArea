@@ -26,7 +26,7 @@ final class NotificationViewModel: ObservableObject {
 			} receiveValue: { noti in
 				self.notifications = noti
 				let groupedTravels = Dictionary(grouping: self.notifications, by: { $0.sendDate })
-				let sortedGroupedTravels = groupedTravels.sorted(by: { $0.key > $1.key })
+				_ = groupedTravels.sorted(by: { $0.key > $1.key })
 			}
 			.store(in: &cancellables)
 	}

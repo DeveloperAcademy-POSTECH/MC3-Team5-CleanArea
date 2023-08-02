@@ -9,8 +9,9 @@ import SwiftUI
 
 struct InviteFriendView: View {
 	
-	@StateObject var viewModel = FindFriendViewModel()
 	@Environment(\.dismiss) var dismiss
+	
+	@StateObject var viewModel = FindFriendViewModel()
 	
 	@State var findUser: User = User()
 	@State var friendID: String = ""
@@ -63,17 +64,12 @@ struct InviteFriendView: View {
 				ForEach(myFriend.indices, id: \.self) { index in
 					FindFriendContents(friendToggle: $friendToggles[index], user: myFriend[index])
 				}
-				
 				Spacer()
 			}
 			
 			Button{
 				selectedFriends = myFriend.indices.filter { friendToggles[$0] }.map { myFriend[$0] }
-				
-				print("@@@ \(newAlbum.users)")
-				
 				newAlbum.users.append(contentsOf: selectedFriends.map { $0.docId })
-				print("@@@ \(newAlbum.users)")
 				
 				if !newAlbum.users.isEmpty {
 					for _ in 0..<newAlbum.users.count - 1 {
@@ -81,30 +77,21 @@ struct InviteFriendView: View {
 					}
 				}
 				
-				// 여행 생성
 				Task {
-//					try await viewModel.createTravel(newAlbum: newAlbum)
 					try await viewModel.inviteFriend(album: newAlbum, inviteUsers: selectedFriends)
 					showAlert = true
-					
-					// 여기 알림 보내기
-					
-//					let tokens = ["cBQ7l9axn0q7gb3AYab9jf:APA91bGZ3xRKQVgGI5V084qArYZKXON8ypDx_jBqbpNXpQPxgCbJlM-MH3uEZ1eR5LBjyhB063ofEY0QBdpDIgm1k2NY8AcSCx1ZBnc24-xRKDxt0Qz_9GBaWD5H4dftIiBW5bCKU-Zw"]
-					
-//					sendPushNotification(to: tokens, title: "From \(UserDefaultsSetting.nickname)", body: "\(newAlbum.albumTitle)에 초대해요!")
-					
-					sendPushNotification(to: selectedFriends.map { $0.fcmToken }, title: "From \(UserDefaultsSetting.nickname)", body: "\(newAlbum.albumTitle)에 초대해요!")
-					
-//					sendPushNotification(to: [testToken], title: "From \(UserDefaultsSetting.nickname)", body: "\(newAlbum.albumTitle)에 초대해요!")
-					
-				
+					sendPushNotification(to: selectedFriends.map { $0.fcmToken },
+										 title: "From \(UserDefaultsSetting.nickname)",
+										 body: "\(newAlbum.albumTitle)에 초대해요!")
 				}
 			} label: {
 				Rectangle()
 					.frame(width: UIScreen.main.bounds.width - 30, height: 54)
 					.foregroundColor(Color.mainColor)
 					.cornerRadius(10)
-					.overlay(Text("초대하기").font(.system(size: 18, weight: .bold, design: .default)).foregroundColor(Color.white))
+					.overlay(Text("초대하기").font(.system(size: 18,
+													   weight: .bold,
+													   design: .default)).foregroundColor(Color.white))
 					.padding(.bottom, 20)
 			}
 			.alert(isPresented: $showAlert) {
@@ -120,4 +107,3 @@ struct InviteFriendView: View {
 		.modifier(BackToolBarModifier())
 	}
 }
-
