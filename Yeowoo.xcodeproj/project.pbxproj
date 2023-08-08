@@ -42,7 +42,6 @@
 		6556C4002A700E0600B4EEE1 /* CacheAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556C3FF2A700E0600B4EEE1 /* CacheAsyncImage.swift */; };
 		65AEDEB02A7A73D700234215 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AEDEAF2A7A73D700234215 /* Color+.swift */; };
 		65C076872A56F949003E6D92 /* YeowooApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076862A56F949003E6D92 /* YeowooApp.swift */; };
-		65C076892A56F949003E6D92 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076882A56F949003E6D92 /* ContentView.swift */; };
 		65C0768B2A56F94B003E6D92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C0768A2A56F94B003E6D92 /* Assets.xcassets */; };
 		65C0768E2A56F94B003E6D92 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C0768D2A56F94B003E6D92 /* Preview Assets.xcassets */; };
 		65C076982A56F94B003E6D92 /* YeowooTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076972A56F94B003E6D92 /* YeowooTests.swift */; };
@@ -152,7 +151,6 @@
 		65AEDEAF2A7A73D700234215 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		65C076832A56F949003E6D92 /* Yeowoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yeowoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C076862A56F949003E6D92 /* YeowooApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeowooApp.swift; sourceTree = "<group>"; };
-		65C076882A56F949003E6D92 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		65C0768A2A56F94B003E6D92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65C0768D2A56F94B003E6D92 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		65C076932A56F94B003E6D92 /* YeowooTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YeowooTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -456,7 +454,6 @@
 				65C076B42A570A11003E6D92 /* Services */,
 				65C076B52A570A19003E6D92 /* ViewModels */,
 				65C076B62A570A23003E6D92 /* Views */,
-				65C076882A56F949003E6D92 /* ContentView.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -775,7 +772,6 @@
 				10FD58D32A7388B9000F60F2 /* Notification.swift in Sources */,
 				65C077512A616874003E6D92 /* GalleryLayout.swift in Sources */,
 				65C0773E2A611763003E6D92 /* AlbumFeedView.swift in Sources */,
-				65C076892A56F949003E6D92 /* ContentView.swift in Sources */,
 				6556C3EF2A68FF0C00B4EEE1 /* TwoInvitationView.swift in Sources */,
 				65C077532A640CF9003E6D92 /* AlbumDetailView.swift in Sources */,
 				65264BDC2A67C7BD009963E6 /* String+.swift in Sources */,
