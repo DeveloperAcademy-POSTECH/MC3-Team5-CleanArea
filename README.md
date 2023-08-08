@@ -54,6 +54,7 @@
 
 <pre>
 <code>
+.
 ├── Yeowoo
 │   ├── Configuration
 │   │   └── AppDelegate.swift
@@ -120,7 +121,7 @@
 │   │       │   ├── LoginCoverView.swift
 │   │       │   ├── LoginView.swift
 │   │       │   └── SignUpView.swift
-│   │       ├── CameraViews
+│   │       ├── Camera
 │   │       │   ├── Buttons.swift
 │   │       │   ├── CameraButtonView.swift
 │   │       │   ├── Components
