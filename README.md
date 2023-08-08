@@ -1,10 +1,10 @@
 # MC3 - Yeowoo
+![KakaoTalk_Photo_2023-08-08-14-23-10](https://github.com/DeveloperAcademy-POSTECH/MC3-Team5-CleanArea/assets/50910456/e1f7b29a-76c5-47ea-a448-215427f0435f)
 
-// 그룹 사진
 
 ## About Yeowoo
 
-// 설명
+<b>여우는 여행 중 일어나는 다채로운 순간들의 한 부분을 담당해 빠짐 없이 사진으로 기록하여 서로 다른 시각에서 본 우리 여행의 모든 순간을 기억하는 공유앨범 서비스입니다.
 
 ## About CleanArea
 | [Azhy](https://github.com/ungchun) | Nova | [Pin](https://github.com/pingse) | [Jigu](https://github.com/Jisull) | [Caesar](https://github.com/4shimi) | Jamie |
@@ -24,8 +24,6 @@
 ## Skills
 * SwiftUI
 * Firebase
-  
-<br>
 
 ## Convention
 
@@ -50,7 +48,110 @@
 </details>
 <br>
 
-## 🐻‍❄️ Folder Architecture
+## Folder Architecture
 
-
-
+<pre>
+<code>
+Sources
+ ┣ Component
+ ┃ ┣ BackToolBarModifier.swift
+ ┃ ┣ CardViewModifier.swift
+ ┃ ┣ EditProfileRowView.swift
+ ┃ ┣ FindFriendContents.swift
+ ┃ ┣ FoxCardView.swift
+ ┃ ┣ GrayTitleMakingView.swift
+ ┃ ┗ NotiCardContentsView.swift
+ ┣ Global
+ ┃ ┣ CacheAsyncImage.swift
+ ┃ ┣ Color+.swift
+ ┃ ┣ Font+.swift
+ ┃ ┣ String+.swift
+ ┃ ┣ UINavigationController+.swift
+ ┃ ┣ UIScreen+.swift
+ ┃ ┗ View+.swift
+ ┣ Models
+ ┃ ┣ MainModel
+ ┃ ┃ ┗ MainModel.swift
+ ┃ ┣ Album.swift
+ ┃ ┣ Fox.swift
+ ┃ ┣ Notification.swift
+ ┃ ┗ User.swift
+ ┣ Services
+ ┃ ┣ Firebase
+ ┃ ┃ ┣ FirebaseError.swift
+ ┃ ┃ ┗ FirebaseService.swift
+ ┃ ┣ KeyChain
+ ┃ ┃ ┣ KeyChainAccount.swift
+ ┃ ┃ ┣ KeyChainError.swift
+ ┃ ┃ ┗ KeyChainManager.swift
+ ┃ ┗ UserDefaults
+ ┃ ┃ ┣ UserDefaultsSetting.swift
+ ┃ ┃ ┗ UserDefaultsWrapper.swift
+ ┣ ViewModels
+ ┃ ┣ AlbumViewModel.swift
+ ┃ ┣ AuthViewModel.swift
+ ┃ ┣ CameraViewModel.swift
+ ┃ ┣ FindFriendViewModel.swift
+ ┃ ┣ InvitationViewModel.swift
+ ┃ ┣ MainViewModel.swift
+ ┃ ┣ NotificationViewModel.swift
+ ┃ ┗ SettingViewModel.swift
+ ┣ Views
+ ┃ ┣ Album
+ ┃ ┃ ┣ Layouts
+ ┃ ┃ ┃ ┣ FirstFeedLayout.swift
+ ┃ ┃ ┃ ┣ GalleryLayout.swift
+ ┃ ┃ ┃ ┗ SecondFeedLayout.swift
+ ┃ ┃ ┣ AlbumDetailView.swift
+ ┃ ┃ ┣ AlbumFeedView.swift
+ ┃ ┃ ┗ InviteFriendView.swift
+ ┃ ┣ Auth
+ ┃ ┃ ┣ LoginCoverView.swift
+ ┃ ┃ ┣ LoginView.swift
+ ┃ ┃ ┗ SignUpView.swift
+ ┃ ┣ CameraViews
+ ┃ ┃ ┣ Components
+ ┃ ┃ ┃ ┣ FeatureButton.swift
+ ┃ ┃ ┃ ┗ RoleButton.swift
+ ┃ ┃ ┣ Buttons.swift
+ ┃ ┃ ┣ CameraButtonView.swift
+ ┃ ┃ ┣ EditView.swift
+ ┃ ┃ ┣ RoleView.swift
+ ┃ ┃ ┗ WriteTextView.swift
+ ┃ ┣ Main
+ ┃ ┃ ┣ Components
+ ┃ ┃ ┃ ┣ NewAlbumButton.swift
+ ┃ ┃ ┃ ┣ Person.swift
+ ┃ ┃ ┃ ┣ PlusPerson.swift
+ ┃ ┃ ┃ ┣ TapePicture.swift
+ ┃ ┃ ┃ ┗ TravelLabel.swift
+ ┃ ┃ ┣ Layouts
+ ┃ ┃ ┃ ┣ AlbumLayout.swift
+ ┃ ┃ ┃ ┣ BeforeTravelLayout.swift
+ ┃ ┃ ┃ ┣ DoneTravelLayout.swift
+ ┃ ┃ ┃ ┣ NoAlbumLayout.swift
+ ┃ ┃ ┃ ┗ RecommendLayout.swift
+ ┃ ┃ ┗ MainView.swift
+ ┃ ┣ NewAlbum
+ ┃ ┃ ┣ AlbumRoleSelectView.swift
+ ┃ ┃ ┣ FindFriendView.swift
+ ┃ ┃ ┗ NewAlbumView.swift
+ ┃ ┣ Notification
+ ┃ ┃ ┣ EmptyNotificationView.swift
+ ┃ ┃ ┣ NoticardView.swift
+ ┃ ┃ ┗ NotificationView.swift
+ ┃ ┣ Onboarding
+ ┃ ┃ ┗ OnboardingView.swift
+ ┃ ┣ Role
+ ┃ ┃ ┣ InvitationChildView
+ ┃ ┃ ┃ ┣ MultiInvitationView.swift
+ ┃ ┃ ┃ ┗ TwoInvitationView.swift
+ ┃ ┃ ┣ InvitationView.swift
+ ┃ ┃ ┣ RoleChangeView.swift
+ ┃ ┃ ┗ RoleSelectView.swift
+ ┃ ┗ Setting
+ ┃ ┃ ┣ ProfileSettingView.swift
+ ┃ ┃ ┗ SettingView.swift
+ ┗ ContentView.swift
+</code>
+</pre>
