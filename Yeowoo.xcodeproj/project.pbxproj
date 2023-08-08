@@ -249,7 +249,7 @@
 			path = Global;
 			sourceTree = "<group>";
 		};
-		1049B7F82A63FA240021F674 /* CameraViews */ = {
+		1049B7F82A63FA240021F674 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
 				10CB96D22A63FDD500C08DBC /* Components */,
@@ -258,7 +258,7 @@
 				10CB96D72A64028C00C08DBC /* WriteTextView.swift */,
 				10CC160C2A64452300B27955 /* Buttons.swift */,
 			);
-			path = CameraViews;
+			path = Camera;
 			sourceTree = "<group>";
 		};
 		105F5DD62A67C499002E34CD /* Layouts */ = {
@@ -505,7 +505,7 @@
 				6556C3F32A6A505D00B4EEE1 /* Auth */,
 				65C0773A2A611521003E6D92 /* Album */,
 				106475162A6529AE0092FE5B /* Main */,
-				1049B7F82A63FA240021F674 /* CameraViews */,
+				1049B7F82A63FA240021F674 /* Camera */,
 			);
 			path = Views;
 			sourceTree = "<group>";
