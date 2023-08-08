@@ -25,6 +25,8 @@
 * SwiftUI
 * Firebase
 
+<br>
+
 ## Convention
 
 <details>
@@ -52,106 +54,129 @@
 
 <pre>
 <code>
-Sources
- ┣ Component
- ┃ ┣ BackToolBarModifier.swift
- ┃ ┣ CardViewModifier.swift
- ┃ ┣ EditProfileRowView.swift
- ┃ ┣ FindFriendContents.swift
- ┃ ┣ FoxCardView.swift
- ┃ ┣ GrayTitleMakingView.swift
- ┃ ┗ NotiCardContentsView.swift
- ┣ Global
- ┃ ┣ CacheAsyncImage.swift
- ┃ ┣ Color+.swift
- ┃ ┣ Font+.swift
- ┃ ┣ String+.swift
- ┃ ┣ UINavigationController+.swift
- ┃ ┣ UIScreen+.swift
- ┃ ┗ View+.swift
- ┣ Models
- ┃ ┣ MainModel
- ┃ ┃ ┗ MainModel.swift
- ┃ ┣ Album.swift
- ┃ ┣ Fox.swift
- ┃ ┣ Notification.swift
- ┃ ┗ User.swift
- ┣ Services
- ┃ ┣ Firebase
- ┃ ┃ ┣ FirebaseError.swift
- ┃ ┃ ┗ FirebaseService.swift
- ┃ ┣ KeyChain
- ┃ ┃ ┣ KeyChainAccount.swift
- ┃ ┃ ┣ KeyChainError.swift
- ┃ ┃ ┗ KeyChainManager.swift
- ┃ ┗ UserDefaults
- ┃ ┃ ┣ UserDefaultsSetting.swift
- ┃ ┃ ┗ UserDefaultsWrapper.swift
- ┣ ViewModels
- ┃ ┣ AlbumViewModel.swift
- ┃ ┣ AuthViewModel.swift
- ┃ ┣ CameraViewModel.swift
- ┃ ┣ FindFriendViewModel.swift
- ┃ ┣ InvitationViewModel.swift
- ┃ ┣ MainViewModel.swift
- ┃ ┣ NotificationViewModel.swift
- ┃ ┗ SettingViewModel.swift
- ┣ Views
- ┃ ┣ Album
- ┃ ┃ ┣ Layouts
- ┃ ┃ ┃ ┣ FirstFeedLayout.swift
- ┃ ┃ ┃ ┣ GalleryLayout.swift
- ┃ ┃ ┃ ┗ SecondFeedLayout.swift
- ┃ ┃ ┣ AlbumDetailView.swift
- ┃ ┃ ┣ AlbumFeedView.swift
- ┃ ┃ ┗ InviteFriendView.swift
- ┃ ┣ Auth
- ┃ ┃ ┣ LoginCoverView.swift
- ┃ ┃ ┣ LoginView.swift
- ┃ ┃ ┗ SignUpView.swift
- ┃ ┣ CameraViews
- ┃ ┃ ┣ Components
- ┃ ┃ ┃ ┣ FeatureButton.swift
- ┃ ┃ ┃ ┗ RoleButton.swift
- ┃ ┃ ┣ Buttons.swift
- ┃ ┃ ┣ CameraButtonView.swift
- ┃ ┃ ┣ EditView.swift
- ┃ ┃ ┣ RoleView.swift
- ┃ ┃ ┗ WriteTextView.swift
- ┃ ┣ Main
- ┃ ┃ ┣ Components
- ┃ ┃ ┃ ┣ NewAlbumButton.swift
- ┃ ┃ ┃ ┣ Person.swift
- ┃ ┃ ┃ ┣ PlusPerson.swift
- ┃ ┃ ┃ ┣ TapePicture.swift
- ┃ ┃ ┃ ┗ TravelLabel.swift
- ┃ ┃ ┣ Layouts
- ┃ ┃ ┃ ┣ AlbumLayout.swift
- ┃ ┃ ┃ ┣ BeforeTravelLayout.swift
- ┃ ┃ ┃ ┣ DoneTravelLayout.swift
- ┃ ┃ ┃ ┣ NoAlbumLayout.swift
- ┃ ┃ ┃ ┗ RecommendLayout.swift
- ┃ ┃ ┗ MainView.swift
- ┃ ┣ NewAlbum
- ┃ ┃ ┣ AlbumRoleSelectView.swift
- ┃ ┃ ┣ FindFriendView.swift
- ┃ ┃ ┗ NewAlbumView.swift
- ┃ ┣ Notification
- ┃ ┃ ┣ EmptyNotificationView.swift
- ┃ ┃ ┣ NoticardView.swift
- ┃ ┃ ┗ NotificationView.swift
- ┃ ┣ Onboarding
- ┃ ┃ ┗ OnboardingView.swift
- ┃ ┣ Role
- ┃ ┃ ┣ InvitationChildView
- ┃ ┃ ┃ ┣ MultiInvitationView.swift
- ┃ ┃ ┃ ┗ TwoInvitationView.swift
- ┃ ┃ ┣ InvitationView.swift
- ┃ ┃ ┣ RoleChangeView.swift
- ┃ ┃ ┗ RoleSelectView.swift
- ┃ ┗ Setting
- ┃ ┃ ┣ ProfileSettingView.swift
- ┃ ┃ ┗ SettingView.swift
- ┗ ContentView.swift
+├── Yeowoo
+│   ├── Configuration
+│   │   └── AppDelegate.swift
+│   ├── Info.plist
+│   ├── Infos
+│   │   └── GoogleService-Info.plist
+│   ├── Preview Content
+│   │   └── Preview Assets.xcassets
+│   │       └── Contents.json
+│   ├── Sources
+│   │   ├── Component
+│   │   │   ├── BackToolBarModifier.swift
+│   │   │   ├── CardViewModifier.swift
+│   │   │   ├── EditProfileRowView.swift
+│   │   │   ├── FindFriendContents.swift
+│   │   │   ├── FoxCardView.swift
+│   │   │   ├── GrayTitleMakingView.swift
+│   │   │   └── NotiCardContentsView.swift
+│   │   ├── Global
+│   │   │   ├── CacheAsyncImage.swift
+│   │   │   ├── Color+.swift
+│   │   │   ├── Font+.swift
+│   │   │   ├── String+.swift
+│   │   │   ├── UINavigationController+.swift
+│   │   │   ├── UIScreen+.swift
+│   │   │   └── View+.swift
+│   │   ├── Models
+│   │   │   ├── Album.swift
+│   │   │   ├── Fox.swift
+│   │   │   ├── MainModel
+│   │   │   │   └── MainModel.swift
+│   │   │   ├── Notification.swift
+│   │   │   └── User.swift
+│   │   ├── Services
+│   │   │   ├── Firebase
+│   │   │   │   ├── FirebaseError.swift
+│   │   │   │   └── FirebaseService.swift
+│   │   │   ├── KeyChain
+│   │   │   │   ├── KeyChainAccount.swift
+│   │   │   │   ├── KeyChainError.swift
+│   │   │   │   └── KeyChainManager.swift
+│   │   │   └── UserDefaults
+│   │   │       ├── UserDefaultsSetting.swift
+│   │   │       └── UserDefaultsWrapper.swift
+│   │   ├── ViewModels
+│   │   │   ├── AlbumViewModel.swift
+│   │   │   ├── AuthViewModel.swift
+│   │   │   ├── CameraViewModel.swift
+│   │   │   ├── FindFriendViewModel.swift
+│   │   │   ├── InvitationViewModel.swift
+│   │   │   ├── MainViewModel.swift
+│   │   │   ├── NotificationViewModel.swift
+│   │   │   └── SettingViewModel.swift
+│   │   └── Views
+│   │       ├── Album
+│   │       │   ├── AlbumDetailView.swift
+│   │       │   ├── AlbumFeedView.swift
+│   │       │   ├── InviteFriendView.swift
+│   │       │   └── Layouts
+│   │       │       ├── FirstFeedLayout.swift
+│   │       │       ├── GalleryLayout.swift
+│   │       │       └── SecondFeedLayout.swift
+│   │       ├── Auth
+│   │       │   ├── LoginCoverView.swift
+│   │       │   ├── LoginView.swift
+│   │       │   └── SignUpView.swift
+│   │       ├── CameraViews
+│   │       │   ├── Buttons.swift
+│   │       │   ├── CameraButtonView.swift
+│   │       │   ├── Components
+│   │       │   │   ├── FeatureButton.swift
+│   │       │   │   └── RoleButton.swift
+│   │       │   ├── EditView.swift
+│   │       │   ├── RoleView.swift
+│   │       │   └── WriteTextView.swift
+│   │       ├── Main
+│   │       │   ├── Components
+│   │       │   │   ├── NewAlbumButton.swift
+│   │       │   │   ├── Person.swift
+│   │       │   │   ├── PlusPerson.swift
+│   │       │   │   ├── TapePicture.swift
+│   │       │   │   └── TravelLabel.swift
+│   │       │   ├── Layouts
+│   │       │   │   ├── AlbumLayout.swift
+│   │       │   │   ├── BeforeTravelLayout.swift
+│   │       │   │   ├── DoneTravelLayout.swift
+│   │       │   │   ├── NoAlbumLayout.swift
+│   │       │   │   └── RecommendLayout.swift
+│   │       │   └── MainView.swift
+│   │       ├── NewAlbum
+│   │       │   ├── AlbumRoleSelectView.swift
+│   │       │   ├── FindFriendView.swift
+│   │       │   └── NewAlbumView.swift
+│   │       ├── Notification
+│   │       │   ├── EmptyNotificationView.swift
+│   │       │   ├── NoticardView.swift
+│   │       │   └── NotificationView.swift
+│   │       ├── Onboarding
+│   │       │   └── OnboardingView.swift
+│   │       ├── Role
+│   │       │   ├── InvitationChildView
+│   │       │   │   ├── MultiInvitationView.swift
+│   │       │   │   └── TwoInvitationView.swift
+│   │       │   ├── InvitationView.swift
+│   │       │   ├── RoleChangeView.swift
+│   │       │   └── RoleSelectView.swift
+│   │       └── Setting
+│   │           ├── ProfileSettingView.swift
+│   │           └── SettingView.swift
+│   ├── Yeowoo.entitlements
+│   └── YeowooApp.swift
+├── Yeowoo.xcodeproj
+│   ├── project.pbxproj
+│   └── project.xcworkspace
+│       ├── contents.xcworkspacedata
+│       └── xcshareddata
+│           ├── IDEWorkspaceChecks.plist
+│           └── swiftpm
+│               └── Package.resolved
+├── YeowooTests
+│   └── YeowooTests.swift
+└── YeowooUITests
+    ├── YeowooUITests.swift
+    └── YeowooUITestsLaunchTests.swift
 </code>
 </pre>
